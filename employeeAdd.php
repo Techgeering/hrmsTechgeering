@@ -221,8 +221,8 @@
             } else {
                 echo "Error: " . $_FILES["image"]["error"];
             }
-            $sql = "INSERT INTO employee (full_name, dep_id, em_role, em_gender, 	em_phone, em_blood_group, em_code, des_id, 	em_birthday, em_email, em_wahtsapp, em_aadher, em_pan, em_joining_date, em_contact_end, em_image) 
-            VALUES ('$name', '$department', '$role', '$gender', '$contactNumber', '$bloodGroup', '$employeeId', '$designation', '$doj', '$personalEmail', '$whatsappNumber', '$aadharNumber', '$panNumber', '$JoiningDate', '$LeavingDate', '$upload_file')";
+            $sql = "INSERT INTO employee (full_name, dep_id, em_role, em_gender, 	em_phone, em_blood_group, em_code, des_id, 	em_birthday, em_email, em_wahtsapp, em_aadher, em_pan, em_joining_date, em_contact_end, em_image, em_password) 
+            VALUES ('$name', '$department', '$role', '$gender', '$contactNumber', '$bloodGroup', '$employeeId', '$designation', '$doj', '$personalEmail', '$whatsappNumber', '$aadharNumber', '$panNumber', '$JoiningDate', '$LeavingDate', '$upload_file', '$contactNumber')";
               // Prepare SQL insert statement
             //   $sql_insert = "INSERT INTO employees (name, designation, doj, contact_number, blood_group, pan_number, employee_id, department, personal_email, whatsapp_number, professional_email, aadhar_number, image_path, permanent_address, communication_address, other_id_number, id_type, bank_account_detail, status) 
             //   VALUES ('$name', '$designation', '$doj', '$contactNumber', '$bloodGroup', '$panNumber', '$employeeId', '$department', '$personalEmail', '$whatsappNumber', '$professionalEmail', '$aadharNumber', '$upload_file', '$permanentAddress', '$communicationAddress', '$otherIdNumber', '$idType', '$bankAccountDetail','1')";

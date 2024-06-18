@@ -225,7 +225,6 @@
                                 <h4 class="test-center">Present Address</h4>
                                 <p class="form-control form-control-line"><?php echo $row1["address1"]; ?></p>
                                 <p class="form-control form-control-line"><?php echo $row1["address2"]; ?></p>
-                                <!-- <p class="form-control form-control-line"><?php //echo $row1["city"]; ?></p> -->
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="form-control form-control-line"><?php echo $row1["city"]; ?></p>
@@ -245,7 +244,6 @@
                                 <h4 class="test-center">Present Address</h4>
                                 <p class="form-control form-control-line"><?php echo $row1["address1"]; ?></p>
                                 <p class="form-control form-control-line"><?php echo $row1["address2"]; ?></p>
-                                <!-- <p class="form-control form-control-line"><?php //echo $row1["city"]; ?></p> -->
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="form-control form-control-line"><?php echo $row1["city"]; ?></p>

@@ -23,9 +23,9 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Leave Application</h1>
+                        <h1 class="my-2">Earned Leave</h1>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i> Leave Application
+                            <i class="fa-solid fa-plus"></i> Earned Leave
                         </button>
                     </div>
                     <div class="card mb-4">
