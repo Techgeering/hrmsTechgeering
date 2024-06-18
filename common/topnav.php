@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3 text-center" href="index.html">
+        <a class="navbar-brand ps-3 text-center" href="index.php">
             <img src="assets/img/logo.png" class="img-fluid">
         </a>
         <!-- Sidebar Toggle-->

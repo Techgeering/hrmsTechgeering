@@ -51,7 +51,7 @@
                         <a class="nav-link" href="holiday.php">Holiday </a>
                         <a class="nav-link" href="leaveType.php">Leave Type</a>
                         <a class="nav-link" href="viewLeave.php"> Leave Application </a>
-                        <a class="nav-link" href="leaveApply.php"> Earned Leave </a>
+                        <a class="nav-link" href="leaveEarned.php"> Earned Leave </a>
                         <a class="nav-link" href="leaveType.php"> Report </a>
                     </nav>
                 </div>
