@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,7 +11,6 @@
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -36,7 +34,6 @@
                                 <thead>
                                     <tr>
                                         <th>Sl No</th>
-                                      
                                         <th>Designation</th>
                                         <th>Action</th>
                                     </tr>
@@ -44,7 +41,6 @@
                                 <tfoot>
                                     <tr>
                                         <th>Sl No</th>
-                                      
                                         <th>Designation</th>
                                         <th>Action</th>
                                     </tr>
@@ -59,7 +55,6 @@
                                     ?>
                                             <tr>
                                                 <th><?php echo $row["id"]; ?></th>
-                                              
                                                 <th><?php echo $row["des_name"]; ?></th>
                                                 <th>
                                                     <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
@@ -79,7 +74,6 @@
                     </div>
                 </div>
             </main>
-
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
@@ -103,37 +97,28 @@
                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
-
     <?php
     include "common/conn.php";
     if (isset($_POST['submit'])) {
         // Retrieve form data
         $DesignationName = $_POST["DesignationName"];
-
-
         $sql = "INSERT INTO designation (des_name)
         VALUES ('$DesignationName')";
-        
         if ($conn->query($sql) === TRUE) {
           echo "New record created successfully";
         } else {
           echo "Error: " . $sql . "<br>" . $conn->error;
         }
-        
         $conn->close();
     }
-   
     ?>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
 </body>
-
 </html>

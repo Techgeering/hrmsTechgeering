@@ -29,7 +29,7 @@
                         </button>
                     </div>
                     <div class="card mb-4">
-                        <div class="card-body">
+                        <div class="card-body m-2">
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
@@ -38,7 +38,6 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                              
                                 <tbody>
                                 <?php
                                     include "common/conn.php";

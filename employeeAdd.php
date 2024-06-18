@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,7 +11,6 @@
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -94,7 +92,6 @@
                                                 <option value="OB+">OB+</option>
                                             </select>
                                         </div>
-
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
@@ -137,7 +134,6 @@
                                             <input type="email" class="form-control" id="professionalEmail"
                                                 name="professionalEmail">
                                         </div>
-
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
@@ -171,7 +167,6 @@
                                             <input type="date" class="form-control" id="LeavingDate" name="LeavingDate">
                                         </div>
                                     </div>
-
                                     <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
                             </form>
                         </div>
@@ -188,7 +183,6 @@
         crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-
     <?php
         include "common/conn.php";
         if (isset($_POST['submit'])) {
@@ -208,13 +202,11 @@
             $JoiningDate = $_POST["JoiningDate"];
             $LeavingDate = $_POST["LeavingDate"];
             // $image = $_POST["image"];
-
             if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
                 $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
                 $temp = explode('.', $_FILES['image']['name']);
                 $extension = end($temp);
                 $upload_file = 'assets/uploads/employee/' . uniqid() . '.' . $extension;
-
                 // Check if file type is allowed
                 if (in_array($extension, $allowed_types)) {
                     // Move uploaded file to desired directory
@@ -229,15 +221,11 @@
             } else {
                 echo "Error: " . $_FILES["image"]["error"];
             }
-
             $sql = "INSERT INTO employee (full_name, dep_id, em_role, em_gender, 	em_phone, em_blood_group, em_code, des_id, 	em_birthday, em_email, em_wahtsapp, em_aadher, em_pan, em_joining_date, em_contact_end, em_image) 
             VALUES ('$name', '$department', '$role', '$gender', '$contactNumber', '$bloodGroup', '$employeeId', '$designation', '$doj', '$personalEmail', '$whatsappNumber', '$aadharNumber', '$panNumber', '$JoiningDate', '$LeavingDate', '$upload_file')";
-    
-
               // Prepare SQL insert statement
             //   $sql_insert = "INSERT INTO employees (name, designation, doj, contact_number, blood_group, pan_number, employee_id, department, personal_email, whatsapp_number, professional_email, aadhar_number, image_path, permanent_address, communication_address, other_id_number, id_type, bank_account_detail, status) 
             //   VALUES ('$name', '$designation', '$doj', '$contactNumber', '$bloodGroup', '$panNumber', '$employeeId', '$department', '$personalEmail', '$whatsappNumber', '$professionalEmail', '$aadharNumber', '$upload_file', '$permanentAddress', '$communicationAddress', '$otherIdNumber', '$idType', '$bankAccountDetail','1')";
-
               if (mysqli_query($conn, $sql)) {
                   echo "<script>alert('Sign up successful!');</script>";
               } else {
@@ -247,5 +235,4 @@
         $conn->close();
         ?>
 </body>
-
 </html>

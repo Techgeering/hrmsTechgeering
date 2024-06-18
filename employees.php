@@ -36,7 +36,6 @@
                                         <th>Sl No</th>
                                         <th>Employee Id</th>
                                         <th>Employee Name</th>
-                                        
                                         <th>Email</th>
                                         <th>Contact</th>
                                         <th>User Type</th>
@@ -59,7 +58,7 @@
                                                 <th><?php echo $row["em_phone"]; ?></th>
                                                 <th><?php echo $row["em_role"]; ?></th>
                                                 <th>
-                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    <a href="employeeDetail.php?em_id=<?php echo $row["id"]; ?>"> <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>                                                   
                                                     <i class="fa-solid fa-lock text-danger"></i>
                                                 </th>
                                             </tr>
