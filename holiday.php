@@ -23,9 +23,9 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Department</h1>
+                        <h1 class="my-2">Holidays</h1>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i> Department
+                            <i class="fa-solid fa-plus"></i> Holidays
                         </button>
                     </div>
                     <div class="card mb-4">
@@ -34,14 +34,18 @@
                                 <thead>
                                     <tr>
                                         <th>Sl No</th>
-                                        <th>Dept Name</th>
+                                        <th>Name</th>
+                                        <th>From Date</th>
+                                        <th>To Date</th>
+                                        <th>Days</th>
+                                        <th>Year</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM department";
+                                    $sql = "SELECT * FROM holiday";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         // output data of each row
@@ -49,7 +53,11 @@
                                     ?>
                                     <tr>
                                         <th><?php echo $row["id"]; ?></th>
-                                        <th><?php echo $row["dep_name"]; ?></th>
+                                        <th><?php echo $row["holiday_name"]; ?></th>
+                                        <th><?php echo $row["from_date"]; ?></th>
+                                        <th><?php echo $row["to_date"]; ?></th>
+                                        <th><?php echo $row["number_of_days"]; ?></th>
+                                        <th><?php echo $row["year"]; ?></th>
                                         <th>
                                             <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                             <i class="fa-solid fa-lock text-danger"></i>

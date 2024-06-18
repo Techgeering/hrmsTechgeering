@@ -23,9 +23,9 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Department</h1>
+                        <h1 class="my-2">Holidays</h1>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i> Department
+                            <i class="fa-solid fa-plus"></i> Holidays
                         </button>
                     </div>
                     <div class="card mb-4">
@@ -34,22 +34,26 @@
                                 <thead>
                                     <tr>
                                         <th>Sl No</th>
-                                        <th>Dept Name</th>
+                                        <th>Leave Type</th>
+                                        <th>Days</th>
+                                        <th>status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM department";
+                                    $sql = "SELECT * FROM  leave_types";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
                                     ?>
                                     <tr>
-                                        <th><?php echo $row["id"]; ?></th>
-                                        <th><?php echo $row["dep_name"]; ?></th>
+                                        <th><?php echo $row["type_id"]; ?></th>
+                                        <th><?php echo $row["name"]; ?></th>
+                                        <th><?php echo $row["leave_day"]; ?></th>
+                                        <th><?php echo $row["status"]; ?></th>
                                         <th>
                                             <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                             <i class="fa-solid fa-lock text-danger"></i>

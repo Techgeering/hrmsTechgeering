@@ -48,7 +48,7 @@
                 </a>
                 <div class="collapse" id="LeaveLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="">Holiday </a>
+                        <a class="nav-link" href="holiday.php">Holiday </a>
                         <a class="nav-link" href="leaveType.php">Leave Type</a>
                         <a class="nav-link" href="viewLeave.php"> Leave Application </a>
                         <a class="nav-link" href="leaveApply.php"> Earned Leave </a>
