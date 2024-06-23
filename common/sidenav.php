@@ -25,7 +25,7 @@
                 <div class="collapse" id="EmployeesLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="employees.php">Employees</a>
-                        <a class="nav-link" href="manageEmployee.php">Disciplinary </a>
+                        <a class="nav-link" href="Disciplinary.php">Disciplinary </a>
                         <a class="nav-link" href="">Inactive User </a>
                     </nav>
                 </div>
