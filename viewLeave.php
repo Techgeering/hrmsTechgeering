@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,9 +9,10 @@
     <meta name="author" content="" />
     <title>Tables - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -46,7 +48,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
+                                    <?php
                                     include "common/conn.php";
                                     $sql = "SELECT * FROM emp_leave";
                                     $result = $conn->query($sql);
@@ -96,8 +98,37 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="DepartmentName">Department Name</label>
-                            <input type="text" class="form-control" id="DepartmentName" name="DepartmentName">
+                            <label for="empId">Employee id</label>
+                            <input type="text" class="form-control" id="empId" name="empId">
+                        </div>
+                        <div class="form-group">
+                            <label for="Leavetype">Leave type</label>
+                            <select name="Leavetype" id="Leavetype" class="form-control">
+                                <option value="">Leave type</option>
+                                <?php
+                                                include "common/conn.php";
+                                                $result = mysqli_query($conn, "SELECT * FROM  leave_types");
+                                                while ($row = mysqli_fetch_array($result)) {
+                                                ?>
+                                <option value="<?php echo $row['type_id']; ?>">
+                                    <?php echo $row["name"]; ?>
+                                </option>
+                                <?php
+                                                }
+                                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="StartDate">Start Date</label>
+                            <input type="date" class="form-control" id="StartDate" name="StartDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="EndDate">End Date</label>
+                            <input type="date" class="form-control" id="EndDate" name="EndDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="Reason">Reason</label>
+                            <input type="text" class="form-control" id="Reason" name="Reason">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -112,25 +143,37 @@
         include "common/conn.php";
         if (isset($_POST['submit'])) {
             // Retrieve form data
-            $departmentName = $_POST["DepartmentName"];
-            // Prepare and bind SQL statement
-            $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
-            $stmt->bind_param("s", $departmentName);
-            // Execute SQL statement
-            if ($stmt->execute() === TRUE) {
+            $empId = $_POST["empId"];
+            $Leavetype = $_POST["Leavetype"];
+            $StartDate = $_POST["StartDate"];
+            $EndDate = $_POST["EndDate"];
+            $Reason = $_POST["Reason"];
+            $currentDate = date('d-m-Y');
+
+                        $date1 = new DateTime($StartDate);
+                        $date2 = new DateTime($EndDate);
+                        $interval = $date1->diff($date2);
+                        $days = $interval->days;
+                            
+            $sql1 = "INSERT INTO emp_leave (em_id, typeid, leave_type,start_date,end_date,leave_duration,apply_date,reason)
+            VALUES ('$empId', '$Leavetype','', '$StartDate','$EndDate','$days','$currentDate','$Reason')";
+
+            if ($conn->query($sql1) === TRUE) {
                 echo " <script>alert('success')</script>";
             } else {
-                echo " <script>alert('$stmt->error')</script>" ;
+                echo " <script>alert('error')</script>" ;
             }
             // Close connection
-            $stmt->close();
+            $conn->close();
         }
         $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
+    <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
+
 </html>

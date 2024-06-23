@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Tables - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
@@ -86,8 +86,12 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="DepartmentName">Department Name</label>
-                            <input type="text" class="form-control" id="DepartmentName" name="DepartmentName">
+                            <label for="leaveType">Leave Type</label>
+                            <input type="text" class="form-control" id="leaveType" name="leaveType">
+                        </div>
+                        <div class="form-group">
+                            <label for="days">Days</label>
+                            <input type="num" class="form-control" id="days" name="days">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -102,25 +106,26 @@
         include "common/conn.php";
         if (isset($_POST['submit'])) {
             // Retrieve form data
-            $departmentName = $_POST["DepartmentName"];
-            // Prepare and bind SQL statement
-            $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
-            $stmt->bind_param("s", $departmentName);
-            // Execute SQL statement
-            if ($stmt->execute() === TRUE) {
+            $leaveType = $_POST["leaveType"];
+            $days = $_POST["days"];
+
+            $sql = "INSERT INTO leave_types (name, leave_day, status)
+            VALUES ('$leaveType', '$days', '1')";
+
+            if ($conn->query($sql) === TRUE) {
                 echo " <script>alert('success')</script>";
             } else {
-                echo " <script>alert('$stmt->error')</script>" ;
+                echo " <script>alert('error')</script>" ;
             }
             // Close connection
-            $stmt->close();
+            $conn->close();
         }
         $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="js/scripts.js"></script>
+    <script src="assets/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+    <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
 </html>
