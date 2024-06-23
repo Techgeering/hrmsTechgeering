@@ -58,8 +58,10 @@
                                                 <th><?php echo $row["em_phone"]; ?></th>
                                                 <th><?php echo $row["em_role"]; ?></th>
                                                 <th>
-                                                    <a href="employeeDetail.php?em_id=<?php echo $row["id"]; ?>"> <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>                                                   
-                                                    <i class="fa-solid fa-lock text-danger"></i>
+                                                    <a href="employeeDetail.php?em_id=<?php echo $row["id"]; ?>"> <i class="fa-solid fa-eye  text-primary"></i></a>                                                   
+                                                    <i class="fa-solid fa-lock text-danger mx-2"></i>
+                                                    <!-- Disciplinary -->
+                                                    <i class="fa-solid fa-exclamation-circle"></i>
                                                 </th>
                                             </tr>
                                     <?php

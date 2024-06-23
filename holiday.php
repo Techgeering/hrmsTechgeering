@@ -135,10 +135,10 @@
             if ($conn->query($sql) === TRUE) {
                 echo " <script>alert('success')</script>";
             } else {
-                echo " <script>alert('$stmt->error')</script>" ;
+                echo " <script>alert('error')</script>" ;
             }
             // Close connection
-            $stmt->close();
+            $conn->close();
         }
         $conn->close();
     ?>

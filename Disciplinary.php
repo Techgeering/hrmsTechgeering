@@ -24,9 +24,6 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h1 class="my-2">Disciplinary</h1>
-                        <a href="#" type="button" class="btn btn-primary" >
-                            <i class="fa-solid fa-plus"></i>Disciplinary
-                        </a>
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
