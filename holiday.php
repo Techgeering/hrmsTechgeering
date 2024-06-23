@@ -90,8 +90,16 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="DepartmentName">Department Name</label>
-                            <input type="text" class="form-control" id="DepartmentName" name="DepartmentName">
+                            <label for="holiday">Holiday Name</label>
+                            <input type="text" class="form-control" id="holiday" name="holiday">
+                        </div>
+                        <div class="form-group">
+                            <label for="from_date">from_date</label>
+                            <input type="date" class="form-control" id="from_date" name="from_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="to_date">to_date</label>
+                            <input type="date" class="form-control" id="to_date" name="to_date">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -106,12 +114,25 @@
         include "common/conn.php";
         if (isset($_POST['submit'])) {
             // Retrieve form data
-            $departmentName = $_POST["DepartmentName"];
-            // Prepare and bind SQL statement
-            $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
-            $stmt->bind_param("s", $departmentName);
-            // Execute SQL statement
-            if ($stmt->execute() === TRUE) {
+            $holiday = $_POST["holiday"];
+            $from_date = $_POST["from_date"];
+            $to_date = $_POST["to_date"];
+            $year = date('Y');
+
+            // Create DateTime objects for the from and to dates
+            $date1 = new DateTime($from_date);
+            $date2 = new DateTime($to_date);
+
+            // Calculate the difference between two dates
+            $interval = $date1->diff($date2);
+
+            // Get the difference in days
+            $days = $interval->days;
+                            
+            $sql = "INSERT INTO holiday (holiday_name, from_date, to_date,number_of_days,year)
+            VALUES ('$holiday', '$from_date', '$to_date',' $days','$year')";
+
+            if ($conn->query($sql) === TRUE) {
                 echo " <script>alert('success')</script>";
             } else {
                 echo " <script>alert('$stmt->error')</script>" ;

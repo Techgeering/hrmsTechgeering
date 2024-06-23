@@ -26,7 +26,7 @@
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="employees.php">Employees</a>
                         <a class="nav-link" href="Disciplinary.php">Disciplinary </a>
-                        <a class="nav-link" href="">Inactive User </a>
+                        <a class="nav-link" href="inactiveuser.php">Inactive User </a>
                     </nav>
                 </div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Attendance" aria-expanded="false" aria-controls="collapseLayouts">

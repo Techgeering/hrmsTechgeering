@@ -23,10 +23,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Disciplinary</h1>
-                        <a href="#" type="button" class="btn btn-primary" >
-                            <i class="fa-solid fa-plus"></i>Disciplinary
-                        </a>
+                        <h1 class="my-2">Inactive User</h1>
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
@@ -36,33 +33,29 @@
                                         <th>Sl No</th>
                                         <th>Employee Id</th>
                                         <th>Employee Name</th>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th>Status</th>
+                                        <th>Email</th>
+                                        <th>Contact</th>
+                                        <th>User Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT d.em_id, d.action, d.title, d.description, e.full_name
-                                                FROM desciplinary d
-                                                JOIN employee e ON d.em_id = e.em_code;
-                                                ";
+                                    $sql = "SELECT * FROM employee  WHERE status='INACTIVE'";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
                                     ?>
                                             <tr>
-                                                <th><?php echo $row["em_id"]; ?></th>
-                                                <th><?php echo $row["em_id"]; ?></th>
+                                                <th><?php echo $row["id"]; ?></th>
+                                                <th><?php echo $row["em_code"]; ?></th>
                                                 <th><?php echo $row["full_name"] ?></th>
-                                                <th><?php echo $row["title"]; ?></th>
-                                                <th><?php echo $row["description"]; ?></th>                                                
-                                                <th><?php echo $row["action"]; ?></th>
+                                                <th><?php echo $row["em_email"]; ?></th>
+                                                <th><?php echo $row["em_phone"]; ?></th>
+                                                <th><?php echo $row["em_role"]; ?></th>
                                                 <th>
-                                                    <a href="employeeDetail.php?em_id=<?php echo $row["em_id"]; ?>"> <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>                                                   
-                                                    <i class="fa-solid fa-lock text-danger"></i>
+                                                    <a href="employeeDetail.php?em_id=<?php echo $row["id"]; ?>"> <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>                                                   
                                                 </th>
                                             </tr>
                                     <?php
