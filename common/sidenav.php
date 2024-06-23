@@ -36,9 +36,8 @@
                 </a>
                 <div class="collapse" id="Attendance" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="">Attendance List </a>
-                        <a class="nav-link" href="">Add Attendance  </a>
-                        <a class="nav-link" href="">Attendance Report  </a>
+                        <a class="nav-link" href="attendanceList.php">Attendance List </a>
+                        <a class="nav-link" href="attendanceReport.php">Attendance Report  </a>
                     </nav>
                 </div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#LeaveLayouts" aria-expanded="false" aria-controls="collapseLayouts">
