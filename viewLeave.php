@@ -141,6 +141,24 @@
     </div>
     <?php
         include "common/conn.php";
+        function calculateHours($date1, $date2) {
+            $totalHours = 0;
+        
+            $endDate = clone $date2;
+            // $endDate->modify('-1 day');
+        
+            while ($date1 < $endDate) {
+                $dayOfWeek = $date1->format('N'); 
+                if ($dayOfWeek == 6) {
+                    $totalHours += 5;
+                } elseif ($dayOfWeek == 7) { 
+                } else {
+                    $totalHours += 9;
+                }
+                $date1->modify('+1 day');
+            }
+            return $totalHours;
+        }
         if (isset($_POST['submit'])) {
             // Retrieve form data
             $empId = $_POST["empId"];
@@ -154,9 +172,10 @@
                         $date2 = new DateTime($EndDate);
                         $interval = $date1->diff($date2);
                         $days = $interval->days;
+                        $totalHours = calculateHours(clone $date1, $date2); 
                             
-            $sql1 = "INSERT INTO emp_leave (em_id, typeid, leave_type,start_date,end_date,leave_duration,apply_date,reason)
-            VALUES ('$empId', '$Leavetype','', '$StartDate','$EndDate','$days','$currentDate','$Reason')";
+            $sql1 = "INSERT INTO emp_leave (em_id, typeid, leave_type,start_date,end_date,leave_duration,duration_hour,apply_date,reason)
+            VALUES ('$empId', '$Leavetype','', '$StartDate','$EndDate','$days', '$totalHours','$currentDate','$Reason')";
 
             if ($conn->query($sql1) === TRUE) {
                 echo " <script>alert('success')</script>";

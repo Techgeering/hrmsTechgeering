@@ -602,8 +602,90 @@
                         </div>
                     </div>
                     <div id="Leave" class="tabcontent">
-                        <h3>Tokyo</h3>
-                        <p>Tokyo is the capital of Japan.</p>
+                    <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive ">
+                                    <table id="example1"
+                                        class="display nowrap table table-hover table-striped table-bordered"
+                                        cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl No.</th>
+                                                <th>Leave Type</th>
+                                                <th>Total Leave </th>
+                                                <th>Taken Leave</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php 
+        $sql4 = "SELECT * FROM leave_types";
+        $result4 = $conn->query($sql4);
+
+        if ($result4->num_rows > 0) {
+            $slNo = 1;
+            while($row4 = $result4->fetch_assoc()) {
+                // Calculate taken leave
+                $leaveType = $row4["name"];
+                $sqlTakenLeave = "SELECT COUNT(*) AS taken_leave FROM emp_leave WHERE leave_type = '$leaveType' AND em_id='$empId'";
+                $resultTakenLeave = $conn->query($sqlTakenLeave);
+                $takenLeave = 0;
+                if ($resultTakenLeave->num_rows > 0) {
+                    $rowTakenLeave = $resultTakenLeave->fetch_assoc();
+                    $takenLeave = $rowTakenLeave["taken_leave"];
+                }
+                ?>
+                <tr>
+                    <td><?php echo $slNo; ?></td>
+                    <td><?php echo $row4["name"]; ?></td>
+                    <td><?php echo $row4["leave_day"]; ?></td>
+                    <td><?php echo $takenLeave; ?></td>
+                </tr>
+                <?php
+                $slNo++;
+            }
+        } else {
+            echo "<tr><td colspan='4'>0 results</td></tr>";
+        }
+        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- <div class="card-body">
+                                <form class="row" action="Add_Experience" method="post" enctype="multipart/form-data"
+                                    novalidate="novalidate">
+                                    <div class="form-group col-md-6 m-t-5">
+                                        <label> Company Name</label>
+                                        <input type="text" name="company_name"
+                                            class="form-control form-control-line company_name"
+                                            placeholder="Company Name" minlength="2" required="">
+                                    </div>
+                                    <div class="form-group col-md-6 m-t-5">
+                                        <label>Position</label>
+                                        <input type="text" name="position_name"
+                                            class="form-control form-control-line position_name" placeholder="Position"
+                                            minlength="3" required="">
+                                    </div>
+                                    <div class="form-group col-md-6 m-t-5">
+                                        <label>Address</label>
+                                        <input type="text" name="address" class="form-control form-control-line duty"
+                                            placeholder="Address" minlength="7" required="">
+                                    </div>
+                                    <div class="form-group col-md-6 m-t-5">
+                                        <label>Working Duration</label>
+                                        <input type="text" name="work_duration"
+                                            class="form-control form-control-line working_period"
+                                            placeholder="Working Duration" required="">
+                                    </div>
+                                    <div class="form-actions col-md-12">
+                                        <input type="hidden" name="emid" value="Soy1332">
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>
+                                            Save</button>
+                                    </div>
+                                </form>
+                            </div> -->
+                        </div>
+                       
                     </div>
                     <div id="Social" class="tabcontent">
                         <h3>Tokyo</h3>

@@ -1,4 +1,4 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3 text-center" href="index.php">
             <img src="assets/img/logo.png" class="img-fluid">

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,6 +12,7 @@
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -39,11 +41,12 @@
                                         <th>To Date</th>
                                         <th>Days</th>
                                         <th>Year</th>
+                                        <th>Hour</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
+                                    <?php
                                     include "common/conn.php";
                                     $sql = "SELECT * FROM holiday";
                                     $result = $conn->query($sql);
@@ -58,6 +61,7 @@
                                         <th><?php echo $row["to_date"]; ?></th>
                                         <th><?php echo $row["number_of_days"]; ?></th>
                                         <th><?php echo $row["year"]; ?></th>
+                                        <th><?php echo $row["number_of_holiday_hour"]; ?></th>
                                         <th>
                                             <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                             <i class="fa-solid fa-lock text-danger"></i>
@@ -111,41 +115,59 @@
         </div>
     </div>
     <?php
-        include "common/conn.php";
-        if (isset($_POST['submit'])) {
-            // Retrieve form data
-            $holiday = $_POST["holiday"];
-            $from_date = $_POST["from_date"];
-            $to_date = $_POST["to_date"];
-            $year = date('Y');
+include "common/conn.php";
 
-            // Create DateTime objects for the from and to dates
-            $date1 = new DateTime($from_date);
-            $date2 = new DateTime($to_date);
+function calculateHours($date1, $date2) {
+    $totalHours = 0;
 
-            // Calculate the difference between two dates
-            $interval = $date1->diff($date2);
+    $endDate = clone $date2;
+    // $endDate->modify('-1 day');
 
-            // Get the difference in days
-            $days = $interval->days;
-                            
-            $sql = "INSERT INTO holiday (holiday_name, from_date, to_date,number_of_days,year)
-            VALUES ('$holiday', '$from_date', '$to_date',' $days','$year')";
-
-            if ($conn->query($sql) === TRUE) {
-                echo " <script>alert('success')</script>";
-            } else {
-                echo " <script>alert('error')</script>" ;
-            }
-            // Close connection
-            $conn->close();
+    while ($date1 < $endDate) {
+        $dayOfWeek = $date1->format('N'); 
+        if ($dayOfWeek == 6) {
+            $totalHours += 5;
+        } elseif ($dayOfWeek == 7) { 
+        } else {
+            $totalHours += 9;
         }
-        $conn->close();
-    ?>
+        $date1->modify('+1 day');
+    }
+    return $totalHours;
+}
+
+if (isset($_POST['submit'])) {
+    // Retrieve form data
+    $holiday = $_POST["holiday"];
+    $from_date = $_POST["from_date"];
+    $to_date = $_POST["to_date"];
+    $year = date('m-Y');
+
+    $date1 = new DateTime($from_date);
+    $date2 = new DateTime($to_date);
+    
+    $totalHours = calculateHours(clone $date1, $date2); 
+    $interval = $date1->diff($date2);
+    $days = $interval->days;
+    $sql = $conn->prepare("INSERT INTO holiday (holiday_name, from_date, to_date, number_of_days, year, number_of_holiday_hour) VALUES (?, ?, ?, ?, ?, ?)");
+    $sql->bind_param('sssssi', $holiday, $from_date, $to_date, $days, $year, $totalHours);
+
+    if ($sql->execute()) {
+        echo "<script>alert('success');</script>";
+    } else {
+        echo "<script>alert('error');</script>";
+    }
+    $sql->close();
+}
+$conn->close();
+?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
+
 </html>
