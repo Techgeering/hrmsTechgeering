@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,6 +12,7 @@
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -39,23 +41,40 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
+                                    <?php
                                     include "common/conn.php";
                                     $sql = "SELECT * FROM department";
                                     $result = $conn->query($sql);
+                                    $slno = 1;
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <th><?php echo $row["id"]; ?></th>
-                                        <th><?php echo $row["dep_name"]; ?></th>
-                                        <th>
-                                            <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                            <i class="fa-solid fa-lock text-danger"></i>
-                                        </th>
-                                    </tr>
-                                    <?php
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $slno; ?></td>
+                                                <td><?php echo $row["dep_name"]; ?></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-light"
+                                                        onclick="myfcn1(<?php echo $row['id']; ?>,'<?php echo $row['dep_name']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updateDept"><i
+                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
+                                                    <?php
+                                                    $status = $row['status'];
+                                                    $idm = $row['id'];
+
+                                                    if ($status == 1) {
+                                                        echo "<a href='active.php?status=$idm&tb=department&returnpage=departments.php' class='success'>
+                                                            <i class='fa-solid fa-unlock text-success'></i>
+                                                            </a>";
+                                                    } else {
+                                                        echo "<a href='inactive.php?status0=$idm&&tb=department&&returnpage=departments.php' class='danger'><i class='fa-solid fa-lock text-danger'></i></a>";
+                                                    }
+                                                    ?>
+                                                    <!-- <i class="fa-solid fa-lock text-danger"></i> -->
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "0 results";
@@ -63,6 +82,13 @@
                                     $conn->close();
                                     ?>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Sl No</th>
+                                        <th>Dept Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -95,28 +121,68 @@
         </div>
     </div>
     <?php
+    include "common/conn.php";
+    if (isset($_POST['submit'])) {
+        // Retrieve form data
+        $departmentName = $_POST["DepartmentName"];
+        // Prepare and bind SQL statement
+        $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
+        $stmt->bind_param("s", $departmentName);
+        // Execute SQL statement
+        if ($stmt->execute() === TRUE) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo " <script>alert('$stmt->error')</script>";
+        }
+        // Close connection
+        $stmt->close();
+    }
+    $conn->close();
+    ?>
+    <!-- update modal -->
+    <div class="modal fade" id="updateDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Department</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <div class="modal-body">
+                        <input type="hidden" name="id1" id="id1">
+                        <div class="form-group">
+                            <label for="DepartmentName">Department Name</label>
+                            <input type="text" class="form-control" id="DepartmentNamee" name="DepartmentNamee">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="updatedepartment">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <?php
+    if (isset($_POST['updatedepartment'])) {
         include "common/conn.php";
-        if (isset($_POST['submit'])) {
-            // Retrieve form data
-            $departmentName = $_POST["DepartmentName"];
-            // Prepare and bind SQL statement
-            $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
-            $stmt->bind_param("s", $departmentName);
-            // Execute SQL statement
-            if ($stmt->execute() === TRUE) {
-                echo " <script>alert('success')</script>";
-            } else {
-                echo " <script>alert('$stmt->error')</script>" ;
-            }
-            // Close connection
-            $stmt->close();
+        $departmentname = htmlspecialchars($_POST["DepartmentNamee"]);
+        $id = $_POST["id1"];
+        $sql1 = "UPDATE department SET dep_name='$departmentname' WHERE id='$id'";
+        if ($conn->query($sql1) === true) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo $conn->error;
         }
         $conn->close();
+    }
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
+
 </html>

@@ -65,7 +65,7 @@
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
+                                            ?>
                                             <tr>
                                                 <th>1</th>
                                                 <th><?php echo $row["comp_name"]; ?></th>
@@ -75,7 +75,7 @@
                                                 <th><?php echo $row["email"]; ?></th>
                                                 <th>adfds</th>
                                             </tr>
-                                    <?php
+                                            <?php
                                         }
                                     } else {
                                         echo "0 results";
@@ -113,9 +113,9 @@
                                 if ($result->num_rows > 0) {
                                     // output data of each row
                                     while ($row = $result->fetch_assoc()) {
-                                ?>
+                                        ?>
                                         <option value="<?php echo $row["id"]; ?>"><?php echo $row["comp_name"]; ?></option>
-                                <?php
+                                        <?php
                                     }
                                 } else {
                                     echo "0 results";
@@ -173,7 +173,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
 </body>
 

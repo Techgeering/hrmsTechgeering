@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,6 +12,7 @@
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -24,7 +26,7 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h1 class="my-2">Employee</h1>
-                        <a href="employeeAdd.php" type="button" class="btn btn-primary" >
+                        <a href="employeeAdd.php" type="button" class="btn btn-primary">
                             <i class="fa-solid fa-plus"></i> Employee
                         </a>
                     </div>
@@ -47,24 +49,27 @@
                                     include "common/conn.php";
                                     $sql = "SELECT * FROM employee WHERE status='ACTIVE'";
                                     $result = $conn->query($sql);
+                                    $slno = 1;
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
+                                            ?>
                                             <tr>
-                                                <th><?php echo $row["id"]; ?></th>
+                                                <td><?php echo $slno; ?></td>
                                                 <th><?php echo $row["em_code"]; ?></th>
                                                 <th><?php echo $row["full_name"] ?></th>
                                                 <th><?php echo $row["em_email"]; ?></th>
                                                 <th><?php echo $row["em_phone"]; ?></th>
                                                 <th><?php echo $row["em_role"]; ?></th>
                                                 <th>
-                                                    <a href="employeeDetail.php?em_id=<?php echo $row["id"]; ?>"> <i class="fa-solid fa-eye  text-primary"></i></a>                                                   
+                                                    <a href="employeeDetail.php?em_id=<?php echo $row["em_code"]; ?>"> <i
+                                                            class="fa-solid fa-eye  text-primary"></i></a>
                                                     <i class="fa-solid fa-lock text-danger mx-2"></i>
                                                     <!-- Disciplinary -->
                                                     <i class="fa-solid fa-exclamation-circle"></i>
                                                 </th>
                                             </tr>
-                                    <?php
+                                            <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "0 results";
@@ -83,7 +88,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,6 +12,7 @@
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -30,7 +32,8 @@
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+                            <form name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+                                enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-group">
@@ -45,11 +48,11 @@
                                                 include "common/conn.php";
                                                 $result = mysqli_query($conn, "SELECT * FROM department");
                                                 while ($row = mysqli_fetch_array($result)) {
-                                                ?>
-                                                <option value="<?php echo $row['id']; ?>">
-                                                    <?php echo $row["dep_name"]; ?>
-                                                </option>
-                                                <?php
+                                                    ?>
+                                                    <option value="<?php echo $row['id']; ?>">
+                                                        <?php echo $row["dep_name"]; ?>
+                                                    </option>
+                                                    <?php
                                                 }
                                                 ?>
                                             </select>
@@ -106,11 +109,11 @@
                                                 include "common/conn.php";
                                                 $result = mysqli_query($conn, "SELECT * FROM designation");
                                                 while ($row = mysqli_fetch_array($result)) {
-                                                ?>
-                                                <option value="<?php echo $row['id']; ?>">
-                                                    <?php echo $row["des_name"]; ?>
-                                                </option>
-                                                <?php
+                                                    ?>
+                                                    <option value="<?php echo $row['id']; ?>">
+                                                        <?php echo $row["des_name"]; ?>
+                                                    </option>
+                                                    <?php
                                                 }
                                                 ?>
                                             </select>
@@ -163,7 +166,8 @@
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
-                                            <label for="LeavingDate" >Leaving Date <small>(Privious Company)</small></label>
+                                            <label for="LeavingDate">Leaving Date <small>(Privious
+                                                    Company)</small></label>
                                             <input type="date" class="form-control" id="LeavingDate" name="LeavingDate">
                                         </div>
                                     </div>
@@ -183,56 +187,77 @@
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+
     <?php
-        include "common/conn.php";
-        if (isset($_POST['submit'])) {
-            $name = $_POST["name"];
-            $department = $_POST["department"];
-            $role = $_POST["role"];
-            $gender = $_POST["gender"];
-            $contactNumber = $_POST["contactNumber"];
-            $bloodGroup = $_POST["bloodGroup"];
-            $employeeId = $_POST["employeeId"];
-            $designation = $_POST["designation"];
-            $doj = $_POST["doj"];
-            $personalEmail = $_POST["personalEmail"];
-            $whatsappNumber = $_POST["whatsappNumber"];
-            $aadharNumber = $_POST["aadharNumber"];
-            $panNumber = $_POST["panNumber"];
-            $JoiningDate = $_POST["JoiningDate"];
-            $LeavingDate = $_POST["LeavingDate"];
-            // $image = $_POST["image"];
-            if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-                $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
-                $temp = explode('.', $_FILES['image']['name']);
-                $extension = end($temp);
-                $upload_file = 'assets/uploads/employee/' . uniqid() . '.' . $extension;
-                // Check if file type is allowed
-                if (in_array($extension, $allowed_types)) {
-                    // Move uploaded file to desired directory
-                    if (move_uploaded_file($_FILES["image"]["tmp_name"], $upload_file)) {
-                        echo "File uploaded successfully.";
-                    } else {
-                        echo "Error uploading file.";
-                    }
+    include "common/conn.php";
+    if (isset($_POST['submit'])) {
+        $name = $_POST["name"];
+        $department = $_POST["department"];
+        $role = $_POST["role"];
+        $gender = $_POST["gender"];
+        $contactNumber = $_POST["contactNumber"];
+        $bloodGroup = $_POST["bloodGroup"];
+        $employeeId = $_POST["employeeId"];
+        $designation = $_POST["designation"];
+        $doj = $_POST["doj"];
+        $personalEmail = $_POST["personalEmail"];
+        $whatsappNumber = $_POST["whatsappNumber"];
+        $aadharNumber = $_POST["aadharNumber"];
+        $panNumber = $_POST["panNumber"];
+        $JoiningDate = $_POST["JoiningDate"];
+        $LeavingDate = $_POST["LeavingDate"];
+        // $image = $_POST["image"];
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
+            $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
+            $temp = explode('.', $_FILES['image']['name']);
+            $extension = end($temp);
+            $upload_file = 'assets/uploads/employee/' . uniqid() . '.' . $extension;
+            // Check if file type is allowed
+            if (in_array($extension, $allowed_types)) {
+                // Move uploaded file to desired directory
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $upload_file)) {
+                    echo "File uploaded successfully.";
                 } else {
-                    echo "Invalid file type. Allowed types: jpg, jpeg, png, gif";
+                    echo "Error uploading file.";
                 }
             } else {
-                echo "Error: " . $_FILES["image"]["error"];
+                echo "Invalid file type. Allowed types: jpg, jpeg, png, gif";
             }
-            $sql = "INSERT INTO employee (full_name, dep_id, em_role, em_gender, 	em_phone, em_blood_group, em_code, des_id, 	em_birthday, em_email, em_wahtsapp, em_aadher, em_pan, em_joining_date, em_contact_end, em_image, em_password) 
+        } else {
+            echo "Error: " . $_FILES["image"]["error"];
+        }
+        $sql = "INSERT INTO employee (full_name, dep_id, em_role, em_gender, 	em_phone, em_blood_group, em_code, des_id, 	em_birthday, em_email, em_wahtsapp, em_aadher, em_pan, em_joining_date, em_contact_end, em_image, em_password) 
             VALUES ('$name', '$department', '$role', '$gender', '$contactNumber', '$bloodGroup', '$employeeId', '$designation', '$doj', '$personalEmail', '$whatsappNumber', '$aadharNumber', '$panNumber', '$JoiningDate', '$LeavingDate', '$upload_file', '$contactNumber')";
-              // Prepare SQL insert statement
-            //   $sql_insert = "INSERT INTO employees (name, designation, doj, contact_number, blood_group, pan_number, employee_id, department, personal_email, whatsapp_number, professional_email, aadhar_number, image_path, permanent_address, communication_address, other_id_number, id_type, bank_account_detail, status) 
-            //   VALUES ('$name', '$designation', '$doj', '$contactNumber', '$bloodGroup', '$panNumber', '$employeeId', '$department', '$personalEmail', '$whatsappNumber', '$professionalEmail', '$aadharNumber', '$upload_file', '$permanentAddress', '$communicationAddress', '$otherIdNumber', '$idType', '$bankAccountDetail','1')";
-              if (mysqli_query($conn, $sql)) {
-                  echo "<script>alert('Sign up successful!');</script>";
-              } else {
-                  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-              }
+
+
+        // Prepare SQL insert statement
+        //   $sql_insert = "INSERT INTO employees (name, designation, doj, contact_number, blood_group, pan_number, employee_id, department, personal_email, whatsapp_number, professional_email, aadhar_number, image_path, permanent_address, communication_address, other_id_number, id_type, bank_account_detail, status) 
+        //   VALUES ('$name', '$designation', '$doj', '$contactNumber', '$bloodGroup', '$panNumber', '$employeeId', '$department', '$personalEmail', '$whatsappNumber', '$professionalEmail', '$aadharNumber', '$upload_file', '$permanentAddress', '$communicationAddress', '$otherIdNumber', '$idType', '$bankAccountDetail','1')";
+    
+        if (mysqli_query($conn, $sql)) {
+            $sql1 = "INSERT INTO address (emp_id, type) VALUES ('$employeeId', 'Permanent')";
+            if (mysqli_query($conn, $sql1)) {
+                $sql2 = "INSERT INTO address (emp_id, type) VALUES ('$employeeId', 'Present')";
+                if (mysqli_query($conn, $sql2)) {
+                    $sql3 = "INSERT INTO bank_info (em_id) VALUES ('$employeeId')";
+                    if (mysqli_query($conn, $sql3)) {
+                        echo "<script>alert('Sign up successful!');</script>";
+                    } else {
+                        echo "Error: " . $sql3 . "<br>" . mysqli_error($conn);
+                    }
+                    echo "<script>alert('Sign up successful!');</script>";
+                } else {
+                    echo "Error: " . $sql2 . "<br>" . mysqli_error($conn);
+                }
+            } else {
+                echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
             }
-        $conn->close();
-        ?>
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+    }
+    $conn->close();
+    ?>
 </body>
+
 </html>
