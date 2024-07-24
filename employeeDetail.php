@@ -10,54 +10,54 @@
     <link href="assets/css/styles.css?v=<?php echo time(); ?>" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
-    /* Style the tab */
-    .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-    }
-
-    /* Style the buttons inside the tab */
-    .tab button {
-        background-color: inherit;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 10px 12px;
-        transition: 0.3s;
-        font-size: 15px;
-    }
-
-    /* Change background color of buttons on hover */
-    .tab button:hover {
-        background-color: #ddd;
-    }
-
-    /* Create an active/current tablink class */
-    .tab button.active {
-        background-color: #ccc;
-    }
-
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-        animation: fadeEffect 1s;
-    }
-
-    /* Go from zero to full opacity */
-    @keyframes fadeEffect {
-        from {
-            opacity: 0;
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
         }
 
-        to {
-            opacity: 1;
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 12px;
+            transition: 0.3s;
+            font-size: 15px;
         }
-    }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+            animation: fadeEffect 1s;
+        }
+
+        /* Go from zero to full opacity */
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -125,7 +125,6 @@
                                             id='em_code-<?php echo $row["id"]; ?>-em_code'
                                             style="display:none;"></input>
                                     </div>
-
                                     <div>
                                         <hr>
                                     </div>
@@ -286,9 +285,9 @@
                                             $resultaa = $conn->query($sqlaa);
                                             while ($rowa = $resultaa->fetch_assoc()) {
                                                 ?>
-                                            <option value="<?php echo $rowa['id']; ?>">
-                                                <?php echo $rowa['dep_name']; ?>
-                                            </option>
+                                                <option value="<?php echo $rowa['id']; ?>">
+                                                    <?php echo $rowa['dep_name']; ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -310,9 +309,9 @@
                                             $resultaaa = $conn->query($sqlaaa);
                                             while ($rowaa = $resultaaa->fetch_assoc()) {
                                                 ?>
-                                            <option value="<?php echo $rowaa['id']; ?>">
-                                                <?php echo $rowaa['des_name']; ?>
-                                            </option>
+                                                <option value="<?php echo $rowaa['id']; ?>">
+                                                    <?php echo $rowaa['des_name']; ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -565,14 +564,14 @@
                                     $result3 = $conn->query($sql3);
                                     if ($result3->num_rows > 0) {
                                         while ($row3 = $result3->fetch_assoc()) { ?>
-                                    <tr>
-                                        <td><?php echo $row3["id"]; ?></td>
-                                        <td><?php echo $row3["edu_type"]; ?></td>
-                                        <td><?php echo $row3["institute"]; ?></td>
-                                        <td><?php echo $row3["result"]; ?></td>
-                                        <td><?php echo $row3["year"]; ?></td>
-                                    </tr>
-                                    <?php
+                                            <tr>
+                                                <td><?php echo $row3["id"]; ?></td>
+                                                <td><?php echo $row3["edu_type"]; ?></td>
+                                                <td><?php echo $row3["institute"]; ?></td>
+                                                <td><?php echo $row3["result"]; ?></td>
+                                                <td><?php echo $row3["year"]; ?></td>
+                                            </tr>
+                                            <?php
                                         }
                                     } else {
                                         echo "0 results";
@@ -655,14 +654,14 @@
                                                 // output data of each row
                                                 while ($row4 = $result4->fetch_assoc()) { ?>
 
-                                            <tr>
-                                                <td><?php echo $row4["id"]; ?></td>
-                                                <td><?php echo $row4["exp_company"]; ?></td>
-                                                <td><?php echo $row4["exp_com_position"]; ?></td>
-                                                <td><?php echo $row4["exp_workduration"]; ?></td>
-                                                <td><?php echo $row4["exp_com_address"]; ?></td>
-                                            </tr>
-                                            <?php
+                                                    <tr>
+                                                        <td><?php echo $row4["id"]; ?></td>
+                                                        <td><?php echo $row4["exp_company"]; ?></td>
+                                                        <td><?php echo $row4["exp_com_position"]; ?></td>
+                                                        <td><?php echo $row4["exp_workduration"]; ?></td>
+                                                        <td><?php echo $row4["exp_com_address"]; ?></td>
+                                                    </tr>
+                                                    <?php
                                                 }
                                             } else {
                                                 echo "0 results";
@@ -841,12 +840,12 @@
                                             if ($result6->num_rows > 0) {
                                                 // output data of each row
                                                 while ($row6 = $result6->fetch_assoc()) { ?>
-                                            <tr>
-                                                <td><?php echo $slno; ?></td>
-                                                <td><?php echo $row6["file_title"]; ?></td>
-                                                <td><?php echo $row6["file_url"]; ?></td>
-                                            </tr>
-                                            <?php
+                                                    <tr>
+                                                        <td><?php echo $slno; ?></td>
+                                                        <td><?php echo $row6["file_title"]; ?></td>
+                                                        <td><?php echo $row6["file_url"]; ?></td>
+                                                    </tr>
+                                                    <?php
                                                 }
                                             } else {
                                                 echo "0 results";
@@ -1055,13 +1054,13 @@
                                                         $takenLeave = $rowTakenLeave["taken_leave"];
                                                     }
                                                     ?>
-                                            <tr>
-                                                <td><?php echo $slNo; ?></td>
-                                                <td><?php echo $row4["name"]; ?></td>
-                                                <td><?php echo $row4["leave_day"]; ?></td>
-                                                <td><?php echo $takenLeave; ?></td>
-                                            </tr>
-                                            <?php
+                                                    <tr>
+                                                        <td><?php echo $slNo; ?></td>
+                                                        <td><?php echo $row4["name"]; ?></td>
+                                                        <td><?php echo $row4["leave_day"]; ?></td>
+                                                        <td><?php echo $takenLeave; ?></td>
+                                                    </tr>
+                                                    <?php
                                                     $slNo++;
                                                 }
                                             } else {
@@ -1129,86 +1128,86 @@
     <script src="assets/js/datatables-simple-demo.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    function openDilog(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+        function openDilog(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-    document.getElementById("defaultOpen").click();
+        document.getElementById("defaultOpen").click();
     </script>
     <script>
-    $(document).ready(function() {
-        $(document).on('click', '.edit', function() {
-            var txtEdit = $(this).next('.txtedit');
-            var editText = $(this);
+        $(document).ready(function () {
+            $(document).on('click', '.edit', function () {
+                var txtEdit = $(this).next('.txtedit');
+                var editText = $(this);
 
-            txtEdit.show().focus();
-            editText.hide();
+                txtEdit.show().focus();
+                editText.hide();
 
-            txtEdit.focusout(function() {
-                var field_name = txtEdit.attr('id').split("-")[0];
-                var edit_id = txtEdit.attr('id').split("-")[1];
-                var table_name = txtEdit.attr('id').split("-")[2];
-                var value = txtEdit.val();
+                txtEdit.focusout(function () {
+                    var field_name = txtEdit.attr('id').split("-")[0];
+                    var edit_id = txtEdit.attr('id').split("-")[1];
+                    var table_name = txtEdit.attr('id').split("-")[2];
+                    var value = txtEdit.val();
 
-                console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
-                    "Value:", value);
+                    console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
+                        "Value:", value);
 
-                if (value !== null && value.trim() !== '') {
-                    var pattern = txtEdit.attr('pattern');
-                    if (pattern) {
-                        var regex = new RegExp(pattern);
-                        if (!regex.test(value)) {
-                            alert('Invalid pattern. Please enter a valid value.');
-                            return;
+                    if (value !== null && value.trim() !== '') {
+                        var pattern = txtEdit.attr('pattern');
+                        if (pattern) {
+                            var regex = new RegExp(pattern);
+                            if (!regex.test(value)) {
+                                alert('Invalid pattern. Please enter a valid value.');
+                                return;
+                            }
                         }
                     }
-                }
-                editText.show();
-                editText.text(value);
-                txtEdit.hide();
-                $.ajax({
-                    url: 'insert.php',
-                    type: 'post',
-                    data: {
-                        field: field_name,
-                        value: value,
-                        id: edit_id,
-                        tbnm: table_name
-                    },
-                    success: function(response) {
-                        console.log("AJAX response:", response);
-                        if (response == 1) {
-                            console.log('Save Successfully');
-                        } else {
-                            console.log('Not Saved');
+                    editText.show();
+                    editText.text(value);
+                    txtEdit.hide();
+                    $.ajax({
+                        url: 'insert.php',
+                        type: 'post',
+                        data: {
+                            field: field_name,
+                            value: value,
+                            id: edit_id,
+                            tbnm: table_name
+                        },
+                        success: function (response) {
+                            console.log("AJAX response:", response);
+                            if (response == 1) {
+                                console.log('Save Successfully');
+                            } else {
+                                console.log('Not Saved');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error:", status, error);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX error:", status, error);
-                    }
+                    });
                 });
             });
         });
-    });
     </script>
     <!-- for input show and hide -->
     <script>
-    function showInput(inputId) {
-        document.getElementById(inputId).style.display = 'inline';
-    }
+        function showInput(inputId) {
+            document.getElementById(inputId).style.display = 'inline';
+        }
 
-    function hideInput(inputId) {
-        document.getElementById(inputId).style.display = 'none';
-    }
+        function hideInput(inputId) {
+            document.getElementById(inputId).style.display = 'none';
+        }
     </script>
 </body>
 

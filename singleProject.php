@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Tables - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="assets/css/styles.css?v=<?php echo time();?>" rel="stylesheet" />
+    <link href="assets/css/styles.css?v=<?php echo time(); ?>" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
     /* Style the tab */
@@ -70,15 +70,13 @@
         <?php include 'common/sidenav.php' ?>
 
         <?php
-             include 'common/conn.php';
-            $proId= $_GET["id"];
-
-            $sql = "SELECT * FROM project WHERE id =$proId";
-            $result = $conn->query($sql);
-            $row = $result->fetch_assoc();
+        include 'common/conn.php';
+        // $proId = 2;
+        $proId = $_GET["id"];
+        $sql = "SELECT * FROM project WHERE id =$proId";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
         ?>
-
-
         <!-- end Side Navbar -->
         <div id="layoutSidenav_content">
             <main>
@@ -86,11 +84,12 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="my-2">Project Details</h3>
                         <a href="projects.php" type="button" class="btn btn-primary">
-                            <i class="fa-solid fa-plus"></i> project Details
+                            View All Projects
                         </a>
                     </div>
                     <div class="tab profile">
-                        <button class="tablinks" onclick="openDialog(event, 'ProjectView')" id="defaultOpen">Project View</button>
+                        <button class="tablinks" onclick="openDialog(event, 'ProjectView')" id="defaultOpen">Project
+                            View</button>
                         <button class="tablinks" onclick="openDialog(event, 'ProjectTasks')"> Project Tasks </button>
                         <button class="tablinks" onclick="openDialog(event, 'OfficeTasks')"> Office Tasks </button>
                         <button class="tablinks" onclick="openDialog(event, 'projectsFiles')"> Projects Files </button>
@@ -119,34 +118,66 @@
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <form class="row" action="Update" method="post" enctype="multipart/form-data"
-                                    novalidate="novalidate">
-                                    <div class="form-group col-md-12 m-t-10">
-                                        <label>Project Title </label>
-                                        <p class="form-control form-control-line"><?php echo $row["pro_name"]; ?>
-                                        </p>
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-10">
-                                        <label>Project Start Date </label>
-                                        <p class="form-control form-control-line"><?php echo $row["pro_start_date"]; ?></p>
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-10">
-                                        <label>Project End Date</label>
-                                        <p class="form-control form-control-line"><?php echo $row["pro_end_date"]; ?></p>
-                                    </div>
+                                <!-- <form class="row" action="Update" method="post" enctype="multipart/form-data"
+                                    novalidate="novalidate"> -->
+                                <div class="form-group col-md-12 m-t-10">
+                                    <label>Project Title </label>
+                                    <p class="form-control form-control-line edit"><?php echo $row["pro_name"]; ?>
+                                    </p>
+                                    <input type="text" class='txtedit' value='<?php echo $row["pro_name"]; ?>'
+                                        id='pro_name-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                </div>
+                                <div class="form-group col-md-6 m-t-10">
+                                    <label>Project Start Date </label>
+                                    <p class="form-control form-control-line edit"><?php echo $row["pro_start_date"]; ?>
+                                    </p>
+                                    <input type="date" class='txtedit' value='<?php echo $row["pro_start_date"]; ?>'
+                                        id='pro_start_date-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                </div>
+                                <div class="form-group col-md-6 m-t-10">
+                                    <label>Project End Date</label>
+                                    <p class="form-control form-control-line edit"><?php echo $row["pro_end_date"]; ?>
+                                    </p>
+                                    <input type="date" class='txtedit' value='<?php echo $row["pro_end_date"]; ?>'
+                                        id='pro_end_date-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                </div>
+                                <div class="form-group col-md-12 m-t-10">
                                     <div class="form-group col-md-12 m-t-10">
                                         <label>Project Summary </label>
-                                        <p class="form-control form-control-line"><?php echo $row["pro_summary"]; ?></p>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo $row["pro_summary"]; ?>
+                                        </p>
+                                        <textarea class='txtedit' id='pro_summary-<?php echo $row["id"]; ?>-project'
+                                            style="display:none;"><?php echo $row["pro_summary"]; ?></textarea>
                                     </div>
-                                    <div class="form-group col-md-12 m-t-10">
-                                        <label>Details </label>
-                                        <p class="form-control form-control-line"><?php echo $row["pro_description"]; ?></p>
-                                    </div>
-                                    <div class="form-group col-md-12 m-t-10">
-                                        <label>Status</label>
-                                        <p class="form-control form-control-line"><?php echo $row["pro_status"]; ?></p>
-                                    </div>
-                                </form>
+
+                                </div>
+                                <div class="form-group col-md-12 m-t-10">
+                                    <label>Details </label>
+                                    <p class="form-control form-control-line edit">
+                                        <?php echo $row["pro_description"]; ?>
+                                    </p>
+                                    <textarea class='txtedit' id='pro_description-<?php echo $row["id"]; ?>-project'
+                                        style="display:none;"><?php echo $row["pro_description"]; ?></textarea>
+                                </div>
+                                <div class="form-group col-md-12 m-t-10">
+                                    <label>Status</label>
+                                    <p class="form-control form-control-line edit"
+                                        onclick="showDropdown('pro_status-<?php echo $row['id']; ?>-project')">
+                                        <?php echo $row["pro_status"]; ?>
+                                    </p>
+                                    <select class='txtedit' id='pro_status-<?php echo $row["id"]; ?>-project'
+                                        style="display:none;">
+                                        <option value="upcoming" <?php if ($row["pro_status"] == "upcoming")
+                                            echo 'selected="selected"'; ?>>upcoming
+                                        </option>
+                                        <option value="complete" <?php if ($row["pro_status"] == "complete")
+                                            echo 'selected="selected"'; ?>>complete</option>
+                                        <option value="running" <?php if ($row["pro_status"] == "running")
+                                            echo 'selected="selected"'; ?>>running</option>
+                                    </select>
+                                </div>
+                                <!-- </form> -->
                             </div>
                         </div>
                     </div>
@@ -173,8 +204,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            include "common/conn.php";                                         
-                                            $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, 
+                                        include "common/conn.php";
+                                        $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, 
                                                         GROUP_CONCAT(at.assign_user SEPARATOR ', ') AS assign_users
                                                         FROM  pro_task pt
                                                         JOIN  assign_task at
@@ -182,10 +213,10 @@
                                                         WHERE pt.pro_id = $proId AND pt.task_type = 'Field'
                                                         GROUP BY 
                                                         pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
-                                            $result1 = $conn->query($sql1);
-                                            if ($result1->num_rows > 0) {
-                                                while ($row1 = $result1->fetch_assoc()) {
-                                            ?>
+                                        $result1 = $conn->query($sql1);
+                                        if ($result1->num_rows > 0) {
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                ?>
                                         <tr>
                                             <td><?php echo $row1["pro_id"]; ?></td>
                                             <td><?php echo $row1["task_title"]; ?></td>
@@ -199,15 +230,15 @@
                                                 <a href="editProject.php?id=<?php echo $row1['id']; ?>">
                                                     <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                 </a>
-                                               </td>
+                                            </td>
                                         </tr>
                                         <?php
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='6'>0 results</td></tr>";
                                             }
-                                            $conn->close();
-                                            ?>
+                                        } else {
+                                            echo "<tr><td colspan='6'>0 results</td></tr>";
+                                        }
+                                        $conn->close();
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -215,28 +246,28 @@
                     </div>
                     <div id="OfficeTasks" class="tabcontent">
                         <div class="card p-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="">OfficeTasks</h6>
-                            <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                data-bs-target="#addDept">
-                                <i class="fa-solid fa-plus"></i>Add OfficeTasks
-                            </button>
-                        </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="">OfficeTasks</h6>
+                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                    data-bs-target="#addDept">
+                                    <i class="fa-solid fa-plus"></i>Add OfficeTasks
+                                </button>
+                            </div>
                             <table class="table table-bordered">
                                 <thead>
-                                        <tr>
-                                            <th>Sl</th>
-                                            <th>Project Title</th>
-                                            <th>Start date</th>
-                                            <th>End Date</th>
-                                            <th>Assigned Users</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            include "common/conn.php";                                         
-                                            $sql2 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, 
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th>Project Title</th>
+                                        <th>Start date</th>
+                                        <th>End Date</th>
+                                        <th>Assigned Users</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include "common/conn.php";
+                                    $sql2 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, 
                                                         GROUP_CONCAT(at.assign_user SEPARATOR ', ') AS assign_users
                                                         FROM  pro_task pt
                                                         JOIN  assign_task at
@@ -244,46 +275,47 @@
                                                         WHERE pt.pro_id = $proId AND pt.task_type = 'Office'
                                                         GROUP BY 
                                                         pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
-                                            $result2 = $conn->query($sql2);
-                                            if ($result2->num_rows > 0) {
-                                                while ($row2 = $result2->fetch_assoc()) {
+                                    $result2 = $conn->query($sql2);
+                                    if ($result2->num_rows > 0) {
+                                        while ($row2 = $result2->fetch_assoc()) {
                                             ?>
-                                        <tr>
-                                            <td><?php echo $row2["pro_id"]; ?></td>
-                                            <td><?php echo $row2["task_title"]; ?></td>
-                                            <td><?php echo $row2["start_date"]; ?></td>
-                                            <td><?php echo $row2["end_date"]; ?></td>
-                                            <td><?php echo $row2["assign_users"]; ?></td>
-                                            <td>
-                                                <a href="projectDetails.php?id=<?php echo $row2['id']; ?>">
-                                                    <i class="fa-solid fa-eye text-success"></i>
-                                                </a>
-                                                <a href="editProject.php?id=<?php echo $row2['id']; ?>">
-                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                </a>
-                                               </td>
-                                        </tr>
-                                        <?php
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='6'>0 results</td></tr>";
-                                            }
-                                            $conn->close();
-                                            ?>
-                                    </tbody>
+                                    <tr>
+                                        <td><?php echo $row2["pro_id"]; ?></td>
+                                        <td><?php echo $row2["task_title"]; ?></td>
+                                        <td><?php echo $row2["start_date"]; ?></td>
+                                        <td><?php echo $row2["end_date"]; ?></td>
+                                        <td><?php echo $row2["assign_users"]; ?></td>
+                                        <td>
+                                            <a href="projectDetails.php?id=<?php echo $row2['id']; ?>">
+                                                <i class="fa-solid fa-eye text-success"></i>
+                                            </a>
+                                            <a href="editProject.php?id=<?php echo $row2['id']; ?>">
+                                                <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>0 results</td></tr>";
+                                    }
+                                    $conn->close();
+                                    ?>
+
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
                     <div id="projectsFiles" class="tabcontent">
                         <div class="card p-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="">Projects Tasks</h6>
-                            <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                data-bs-target="#addDept">
-                                <i class="fa-solid fa-plus"></i>Add Tasks
-                            </button>
-                        </div>
-
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="">Projects Tasks</h6>
+                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                    data-bs-target="#addfiles">
+                                    <i class="fa-solid fa-plus"></i>Add Tasks
+                                </button>
+                            </div>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -296,11 +328,11 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                            include "common/conn.php";                                         
-                                            $sql3 = "SELECT * FROM project_file WHERE pro_id='$proId'";
-                                            $result3 = $conn->query($sql3);
-                                            if ($result3->num_rows > 0) {
-                                                while ($row3 = $result3->fetch_assoc()) {
+                                    include "common/conn.php";
+                                    $sql3 = "SELECT * FROM project_file WHERE pro_id='$proId'";
+                                    $result3 = $conn->query($sql3);
+                                    if ($result3->num_rows > 0) {
+                                        while ($row3 = $result3->fetch_assoc()) {
                                             ?>
                                     <tr>
                                         <td><?php echo $row3["id"]; ?></td>
@@ -317,44 +349,41 @@
                                         </td>
                                     </tr>
                                     <?php
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='6'>0 results</td></tr>";
-                                            }
-                                            $conn->close();
-                                            ?>
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>0 results</td></tr>";
+                                    }
+                                    $conn->close();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div id="notes" class="tabcontent">
                         <div class="card p-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="">Projects Tasks</h6>
-                            <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                data-bs-target="#addDept">
-                                <i class="fa-solid fa-plus"></i>Add Tasks
-                            </button>
-                        </div>
-
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="">Projects Tasks</h6>
+                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                    data-bs-target="#addnotes">
+                                    <i class="fa-solid fa-plus"></i>Add Tasks
+                                </button>
+                            </div>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Sl</th>
                                         <th>Project Title</th>
-                                        <th>Start date</th>
-                                        <th>End Date</th>
                                         <th>Assigned Users</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                            include "common/conn.php";                                         
-                                            $sql4 = "SELECT * FROM pro_notes WHERE pro_id='$proId'";
-                                            $result4 = $conn->query($sql4);
-                                            if ($result4->num_rows > 0) {
-                                                while ($row4 = $result4->fetch_assoc()) {
+                                    include "common/conn.php";
+                                    $sql4 = "SELECT * FROM pro_notes WHERE pro_id='$proId'";
+                                    $result4 = $conn->query($sql4);
+                                    if ($result4->num_rows > 0) {
+                                        while ($row4 = $result4->fetch_assoc()) {
                                             ?>
                                     <tr>
                                         <td><?php echo $row4["id"]; ?></td>
@@ -372,25 +401,25 @@
                                         </td>
                                     </tr>
                                     <?php
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='6'>0 results</td></tr>";
-                                            }
-                                            $conn->close();
-                                            ?>
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>0 results</td></tr>";
+                                    }
+                                    $conn->close();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div id="Expenses" class="tabcontent">
                         <div class="card p-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="">Projects Tasks</h6>
-                            <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                data-bs-target="#addDept">
-                                <i class="fa-solid fa-plus"></i>Add Tasks
-                            </button>
-                        </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="">Projects Tasks</h6>
+                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                    data-bs-target="#addDept">
+                                    <i class="fa-solid fa-plus"></i>Add Tasks
+                                </button>
+                            </div>
 
                             <table class="table table-bordered">
                                 <thead>
@@ -405,11 +434,11 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                            include "common/conn.php";                                         
-                                            $sql5 = "SELECT * FROM pro_expenses WHERE pro_id	='$proId'";
-                                            $result5 = $conn->query($sql5);
-                                            if ($result5->num_rows > 0) {
-                                                while ($row5 = $result5->fetch_assoc()) {
+                                    include "common/conn.php";
+                                    $sql5 = "SELECT * FROM pro_expenses WHERE pro_id='$proId'";
+                                    $result5 = $conn->query($sql5);
+                                    if ($result5->num_rows > 0) {
+                                        while ($row5 = $result5->fetch_assoc()) {
                                             ?>
                                     <tr>
                                         <td><?php echo $row5["id"]; ?></td>
@@ -427,12 +456,12 @@
                                         </td>
                                     </tr>
                                     <?php
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='6'>0 results</td></tr>";
-                                            }
-                                            $conn->close();
-                                            ?>
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>0 results</td></tr>";
+                                    }
+                                    $conn->close();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -442,12 +471,376 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
+
+
+
+    <!-- notes modal -->
+    <div class="modal fade" id="addnotes" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Files</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" id="notes_file_form">
+                    <input type="hidden" class="form-control" name="project_name" value="<?php echo $proId; ?>">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="filename" class="form-label">File Details</label>
+                                    <input type="text" class="form-control" id="filenamenotes" name="filenamenotes"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="assigned_users" class="form-label">Assigned Users</label>
+                                    <select class="form-control" name="assignedusernotes" id="assignedusernotes">
+                                        <option value="" disabled selected>Select a user</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sqlnotes = "SELECT * FROM employee";
+                                        $resultnotes = $conn->query($sqlnotes);
+                                        while ($rownotes = $resultnotes->fetch_assoc()) {
+                                            ?>
+                                        <option value="<?php echo $rownotes['full_name']; ?>">
+                                            <?php echo $rownotes['full_name']; ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="add_notes">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- project files modal -->
+    <div class="modal fade" id="addfiles" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Files</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" id="files_form" enctype="multipart/form-data">
+                    <input type="hidden" class="form-control" name="project_name" value="<?php echo $proId; ?>">
+                    <!-- <form name="form1" method="post" action="<?php //echo $_SERVER['PHP_SELF']; ?>"
+                                    enctype="multipart/form-data"> -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="filename" class="form-label">File Details</label>
+                                    <input type="text" class="form-control" id="filename" name="file_name" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="pdf" class="form-label">Upload Document</label>
+                                    <input type="file" class="form-control" accept=".pdf,.docx,.doc" id="pdf1"
+                                        name="pdf1">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="assigned_users" class="form-label">Assigned
+                                        Users</label>
+                                    <select class="form-control" name="assigned_users" id="assigned_users">
+                                        <option value="" disabled selected>Select a user</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql5 = "SELECT * FROM employee ";
+                                        $result5 = $conn->query($sql5);
+                                        while ($row5 = $result5->fetch_assoc()) {
+                                            ?>
+                                        <option value="<?php echo $row5['full_name']; ?>">
+                                            <?php echo $row5['full_name']; ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="add_file">Submit</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- task modal -->
+    <div class="modal fade" id="addDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Tasks</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+                    enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <label for="ProjectTitle" class="form-label">Project Name</label>
+                                    <select class="form-control" name="project_name" id="project_name">
+                                        <option value="" disabled selected>Select a user</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql7 = "SELECT * FROM project ";
+                                        $result7 = $conn->query($sql7);
+                                        while ($row7 = $result7->fetch_assoc()) {
+                                            ?>
+                                        <option value="<?php echo $row7['id']; ?>">
+                                            <?php echo $row7['pro_name']; ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <label for="ProjectTitle" class="form-label">Task Title</label>
+                                    <input type="text" class="form-control" id="Project_Titlee" name="Project_Title"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="start_Datee" name="start_Date" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="ProjectEndDate" class="form-label">End Date</label>
+                                    <input type="date" class="form-control" name="Project_EndDate" id="Project_EndDatee"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="assigned_users" class="form-label">Assigned Users</label>
+                                    <select class="form-control" name="assigned_users" id="assigned_users">
+                                        <option value="" disabled selected>Select a user</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql5 = "SELECT * FROM employee ";
+                                        $result5 = $conn->query($sql5);
+                                        while ($row5 = $result5->fetch_assoc()) {
+                                            ?>
+                                        <option value="<?php echo $row5['full_name']; ?>">
+                                            <?php echo $row5['full_name']; ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="assigned_users" class="form-label">Collaborators</label>
+                                    <select class="form-control" name="assigned_users" id="assigned_users">
+                                        <option value="" disabled selected>Select a user</option>
+                                        <option value="user1">User 1</option>
+                                        <option value="user2">User 2</option>
+                                        <option value="user3">User 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h6>Type</h6>
+                                <label class="radio-container">Office
+                                    <input type="radio" name="office" value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <h6>Status</h6>
+                                <label class="radio-container">Complete
+                                    <input type="radio" name="complete" value="complete">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="radio-container">Running
+                                    <input type="radio" name="running" value="running">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="radio-container">Cancel
+                                    <input type="radio" name="cancel" value="cancel">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="mb-2">
+                                <label for="ProjectDescription" class="form-label">Project Description</label>
+                                <textarea class="form-control" id="ProjectDescription" name="ProjectDescription"
+                                    rows="4" required></textarea>
+                            </div>
+                        </div>
+                        <input type="hidden" name="task_typee" value="protask">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="project_task">Submit</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body bg-success text-white">
+                Form Submit Successfully!
+            </div>
+        </div>
+    </div>
+    <?php
+    include "common/conn.php";
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['project_task'])) {
+        // Retrieve form data
+        $project_name = $_POST['project_name'];
+        $projecttitle = $_POST['Project_Title'];
+        $startdate = $_POST['start_Date'];
+        $enddate = $_POST['Project_EndDate'];
+        $assigned_users = $_POST['assigned_users'];
+        $office = $_POST['office'];
+        $complete = $_POST['complete'];
+        $running = $_POST['running'];
+        $cancel = $_POST['cancel'];
+        $ProjectDescription = $_POST['ProjectDescription'];
+
+        $status = '';
+        if (!empty($_POST['complete'])) {
+            $status = $_POST['complete'];
+        } elseif (!empty($_POST['running'])) {
+            $status = $_POST['running'];
+        } elseif (!empty($_POST['cancel'])) {
+            $status = $_POST['cancel'];
+        }
+
+        if ($office == 1) {
+            $sqltask = "INSERT INTO pro_task (pro_id, task_title, start_date, end_date, description, task_type,status)VALUES ('$project_name','$projecttitle', '$startdate', '$enddate','$ProjectDescription','Office','$status')";
+        } else {
+            $sqltask = "INSERT INTO pro_task (pro_id, task_title, start_date, end_date, description, task_type,status)VALUES ('$project_name','$projecttitle', '$startdate', '$enddate','$ProjectDescription','Field','$status')";
+        }
+
+        if (mysqli_query($conn, $sqltask)) {
+            // $last_id = $conn->insert_id;
+            // $sqltask1 = "INSERT INTO pro_task (task_title, start_date, end_date, description, task_type,status)VALUES ('$projecttitle', '$startdate', '$enddate','$ProjectDescription','Field','$status')";
+            // if (mysqli_query($conn, $sqltask1)) {
+            //     echo " <script>alert('success')</script>";
+            // } else {
+            //     echo "ERROR: Could not able to execute $sqltask1. " . mysqli_error($conn);
+            // }
+        } else {
+            echo "ERROR: Could not able to execute $sqltask. " . mysqli_error($conn);
+        }
+        // Close connection
+        mysqli_close($conn);
+    }
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#notes_file_form').submit(function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: 'notes_file.php',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Handle successful submission
+                    console.log(response);
+                    // Reset the form
+                    $('#notes_file_form')[0].reset();
+                    $('#addnotes').modal('hide');
+                    // Show an alert message
+                    var toastEl = document.getElementById('liveToast');
+                    var toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // Optionally, show an error alert
+                    alert('Error submitting the form. Please try again later.');
+                }
+            });
+        });
+    });
+    </script>
+    <!-- for project view -->
+    <script>
+    $(document).ready(function() {
+        $(document).on('click', '.edit', function() {
+            var txtEdit = $(this).next('.txtedit');
+            var editText = $(this);
+
+            txtEdit.show().focus();
+            editText.hide();
+
+            txtEdit.focusout(function() {
+                var field_name = txtEdit.attr('id').split("-")[0];
+                var edit_id = txtEdit.attr('id').split("-")[1];
+                var table_name = txtEdit.attr('id').split("-")[2];
+                var value = txtEdit.val();
+
+                console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
+                    "Value:", value);
+
+                if (value !== null && value.trim() !== '') {
+                    var pattern = txtEdit.attr('pattern');
+                    if (pattern) {
+                        var regex = new RegExp(pattern);
+                        if (!regex.test(value)) {
+                            alert('Invalid pattern. Please enter a valid value.');
+                            return;
+                        }
+                    }
+                }
+                editText.show();
+                editText.text(value);
+                txtEdit.hide();
+                $.ajax({
+                    url: 'insert.php',
+                    type: 'post',
+                    data: {
+                        field: field_name,
+                        value: value,
+                        id: edit_id,
+                        tbnm: table_name
+                    },
+                    success: function(response) {
+                        console.log("AJAX response:", response);
+                        if (response == 1) {
+                            console.log('Save Successfully');
+                        } else {
+                            console.log('Not Saved');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX error:", status, error);
+                    }
+                });
+            });
+        });
+    });
+    </script>
     <script>
     function openDialog(evt, tabName) {
         var i, tabcontent, tablinks;
@@ -462,9 +855,50 @@
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
-
     // Get the element with id="defaultOpen" and click on it to display the default tab
     document.getElementById("defaultOpen").click();
+    </script>
+    <script>
+    function showInput(inputId) {
+        document.getElementById(inputId).style.display = 'inline';
+    }
+
+    function hideInput(inputId) {
+        document.getElementById(inputId).style.display = 'none';
+    }
+    </script>
+    <!-- for project files -->
+    <script>
+    $(document).ready(function() {
+        $('#files_form').submit(function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: 'project_file.php',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Handle successful submission
+                    console.log(response);
+                    // Reset the form
+                    $('#files_form')[0].reset();
+                    $('#addfiles').modal('hide');
+                    // Show an alert message
+                    var toastEl = document.getElementById('liveToast');
+                    var toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // Optionally, show an error alert
+                    alert('Error submitting the form. Please try again later.');
+                }
+            });
+        });
+    });
     </script>
 </body>
 
