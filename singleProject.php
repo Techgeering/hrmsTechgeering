@@ -95,6 +95,7 @@
                         <button class="tablinks" onclick="openDialog(event, 'projectsFiles')"> Projects Files </button>
                         <button class="tablinks" onclick="openDialog(event, 'notes')"> Notes </button>
                         <button class="tablinks" onclick="openDialog(event, 'Expenses')"> Expenses </button>
+                        <button class="tablinks" onclick="openDialog(event, 'Users')"> Users </button>
                     </div>
                     <div id="ProjectView" class="tabcontent">
                         <div class="row">
@@ -193,12 +194,12 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Sl</th>
-                                        <th>Project Title</th>
-                                        <th>Start date</th>
-                                        <th>End Date</th>
-                                        <th>Assigned Users</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Sl</th>
+                                        <th class="text-center">Project Title</th>
+                                        <th class="text-center">Start date</th>
+                                        <th class="text-center">End Date</th>
+                                        <th class="text-center">Assigned Users</th>
+                                        <!-- <th class="text-center">Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -213,23 +214,63 @@
                                                         GROUP BY 
                                                         pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
                                     $result1 = $conn->query($sql1);
+                                    $slno = 1;
                                     if ($result1->num_rows > 0) {
                                         while ($row1 = $result1->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $row1["pro_id"]; ?></td>
-                                                <td><?php echo $row1["task_title"]; ?></td>
-                                                <td><?php echo $row1["start_date"]; ?></td>
-                                                <td><?php echo $row1["end_date"]; ?></td>
-                                                <td><?php echo $row1["assign_users"]; ?></td>
-                                                <td>
+                                                <td class="text-center"><?php echo $row1["pro_id"]; ?></td>
+                                                <!-- <td class="text-center"><?php echo $row1["task_title"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row1['task_title']; ?></p>
+                                                    <input type="text" class='txtedit'
+                                                        value='<?php echo $row1["task_title"]; ?>'
+                                                        id='task_title-<?php echo $row1["id"]; ?>-pro_task'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <!-- <td class="text-center"><?php echo $row1["start_date"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row1['start_date']; ?></p>
+                                                    <input type="date" class='txtedit'
+                                                        value='<?php echo $row1["start_date"]; ?>'
+                                                        id='start_date-<?php echo $row1["id"]; ?>-pro_task'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <!-- <td class="text-center"><?php echo $row1["end_date"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row1['end_date']; ?></p>
+                                                    <input type="date" class='txtedit' value='<?php echo $row1["end_date"]; ?>'
+                                                        id='end_date-<?php echo $row1["id"]; ?>-pro_task'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <!-- <td class="text-center"><?php echo $row1["assign_users"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row1['assign_users']; ?></p>
+                                                    <select class='txtedit' value='<?php echo $row1['assign_user']; ?>'
+                                                        id='assign_user-<?php echo $row1["id"]; ?>-assign_task'
+                                                        style="display: none;">
+                                                        <?php
+                                                        include "common/conn.php";
+                                                        $sqlproject = "SELECT * FROM employee";
+                                                        $resultproject = $conn->query($sqlproject);
+                                                        while ($rowproject = $resultproject->fetch_assoc()) { ?>
+                                                            <option value="<?php echo $rowproject['full_name']; ?>">
+                                                                <?php echo $rowproject['full_name']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <!-- <td class="text-center">
                                                     <a href="projectDetails.php?id=<?php echo $row1['id']; ?>">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
                                                     <a href="editProject.php?id=<?php echo $row1['id']; ?>">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </a>
-                                                </td>
+                                                </td> -->
                                             </tr>
                                             <?php
                                         }
@@ -254,12 +295,12 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Sl</th>
-                                        <th>Project Title</th>
-                                        <th>Start date</th>
-                                        <th>End Date</th>
-                                        <th>Assigned Users</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Sl</th>
+                                        <th class="text-center">Project Title</th>
+                                        <th class="text-center">Start date</th>
+                                        <th class="text-center">End Date</th>
+                                        <th class="text-center">Assigned Users</th>
+                                        <!-- <th class="text-center">Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -278,21 +319,61 @@
                                         while ($row2 = $result2->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $row2["pro_id"]; ?></td>
-                                                <td><?php echo $row2["task_title"]; ?></td>
-                                                <td><?php echo $row2["start_date"]; ?></td>
-                                                <td><?php echo $row2["end_date"]; ?></td>
-                                                <td><?php echo $row2["assign_users"]; ?></td>
-                                                <td>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <!-- <td class="text-center"><?php echo $row2["task_title"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row2['task_title']; ?></p>
+                                                    <input type="text" class='txtedit'
+                                                        value='<?php echo $row2["task_title"]; ?>'
+                                                        id='task_title-<?php echo $row2["id"]; ?>-pro_task'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <!-- <td class="text-center"><?php echo $row2["start_date"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row2['start_date']; ?></p>
+                                                    <input type="date" class='txtedit'
+                                                        value='<?php echo $row2["start_date"]; ?>'
+                                                        id='start_date-<?php echo $row2["id"]; ?>-pro_task'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <!-- <td class="text-center"><?php echo $row2["end_date"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row2['end_date']; ?></p>
+                                                    <input type="date" class='txtedit' value='<?php echo $row2["end_date"]; ?>'
+                                                        id='end_date-<?php echo $row2["id"]; ?>-pro_task'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <!-- <td class="text-center"><?php echo $row2["assign_users"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row2['assign_users']; ?></p>
+                                                    <select class='txtedit' value='<?php echo $row2['assign_user']; ?>'
+                                                        id='assign_user-<?php echo $row2["id"]; ?>-assign_task'
+                                                        style="display: none;">
+                                                        <?php
+                                                        include "common/conn.php";
+                                                        $sqloffice = "SELECT * FROM employee";
+                                                        $resultoffice = $conn->query($sqloffice);
+                                                        while ($rowoffice = $resultoffice->fetch_assoc()) { ?>
+                                                            <option value="<?php echo $rowoffice['full_name']; ?>">
+                                                                <?php echo $rowoffice['full_name']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <!-- <td class="text-center">
                                                     <a href="projectDetails.php?id=<?php echo $row2['id']; ?>">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
                                                     <a href="editProject.php?id=<?php echo $row2['id']; ?>">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </a>
-                                                </td>
+                                                </td> -->
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "<tr><td colspan='6'>0 results</td></tr>";
@@ -315,11 +396,11 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Sl</th>
-                                        <th>File Details</th>
-                                        <th>File Url</th>
-                                        <th>Assigned Users</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Sl</th>
+                                        <th class="text-center">File Details</th>
+                                        <th class="text-center">Upload Document</th>
+                                        <th class="text-center">Assigned Users</th>
+                                        <!-- <th class="text-center">Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -327,24 +408,70 @@
                                     include "common/conn.php";
                                     $sql3 = "SELECT * FROM project_file WHERE pro_id='$proId'";
                                     $result3 = $conn->query($sql3);
+                                    $slno = 1;
                                     if ($result3->num_rows > 0) {
                                         while ($row3 = $result3->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $row3["id"]; ?></td>
-                                                <td><?php echo $row3["file_details"]; ?></td>
-                                                <td><?php echo $row3["file_url"]; ?></td>
-                                                <td><?php echo $row3["assigned_to"]; ?></td>
-                                                <td>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <!-- <td class="text-center"><?php echo $row3["file_details"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row3['file_details']; ?></p>
+                                                    <input type="text" class='txtedit'
+                                                        value='<?php echo $row3["file_details"]; ?>'
+                                                        id='file_details-<?php echo $row3["id"]; ?>-project_file'
+                                                        name="pdf_file" style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <!-- <td class="text-center"><?php echo $row3["file_url"]; ?></td> -->
+                                                <!-- <td class="text-center">
+                                                    <a href="uploads/<?php echo $row3["file_url"]; ?>" target="_blank">
+                                                        <i class="fas fa-file-pdf" style="font-size: 20px; color: red;"></i>
+                                                    </a>
+                                                </td> -->
+                                                <td class="text-center">
+                                                    <a href="uploads/<?php echo $row3["file_url"]; ?>" target="_blank">
+                                                        <i class="fas fa-file-pdf" style="font-size: 20px; color: red;"></i>
+                                                    </a>
+                                                    <i class="fas fa-edit"
+                                                        style="font-size: 20px; color: blue; cursor: pointer;"
+                                                        onclick="showFileInput(<?php echo $row3['id']; ?>)"></i>
+                                                    <input type="file" id="fileInput-<?php echo $row3['id']; ?>"
+                                                        style="display: none;"
+                                                        onchange="uploadFile(<?php echo $row3['id']; ?>)">
+                                                </td>
+                                                <!-- <td class="text-center"><?php echo $row3["assigned_to"]; ?></td> -->
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row3['assigned_to']; ?></p>
+                                                    <select class='txtedit' value='<?php echo $row3['assigned_to']; ?>'
+                                                        id='assigned_to-<?php echo $row3["id"]; ?>-project_file'
+                                                        style="display: none;">
+                                                        <?php
+                                                        include "common/conn.php";
+                                                        $sqlnotes = "SELECT * FROM employee";
+                                                        $resultnotes = $conn->query($sqlnotes);
+                                                        while ($rownotes = $resultnotes->fetch_assoc()) { ?>
+                                                            <option value="<?php echo $rownotes['full_name']; ?>">
+                                                                <?php echo $rownotes['full_name']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <!-- <td class="text-center">
                                                     <a href="projectDetails.php?id=<?php echo $row3['id']; ?>">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
                                                     <a href="editProject.php?id=<?php echo $row3['id']; ?>">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </a>
-                                                </td>
+                                                    <button type="button" class="btn btn-light"
+                                                        onclick="myfcn4(<?php echo $row3['id']; ?>,'<?php echo $row3['file_details']; ?>','<?php echo $row3['file_url']; ?>','<?php echo $row3['assigned_to']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updatefiles"><i
+                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
+                                                </td> -->
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "<tr><td colspan='6'>0 results</td></tr>";
@@ -367,11 +494,11 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Sl</th>
-                                        <th>Project Title</th>
-                                        <th>Assigned Users</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Sl</th>
+                                        <th class="text-center">Project Details</th>
+                                        <th class="text-center">Assigned Users</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -379,25 +506,55 @@
                                     include "common/conn.php";
                                     $sql4 = "SELECT * FROM pro_notes WHERE pro_id='$proId'";
                                     $result4 = $conn->query($sql4);
+                                    $slno = 1;
                                     if ($result4->num_rows > 0) {
                                         while ($row4 = $result4->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $row4["id"]; ?></td>
-                                                <td><?php echo $row4["details"]; ?></td>
-                                                <td><?php echo $row4["assign_to"]; ?></td>
-                                                <td><?php echo $row4["pro_status"]; ?></td>
-                                                <td>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row4['details']; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $row4["details"]; ?>'
+                                                        id='details-<?php echo $row4["id"]; ?>-pro_notes'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row4['assign_to']; ?></p>
+                                                    <select class='txtedit' value='<?php echo $row4['assign_to']; ?>'
+                                                        id='assign_to-<?php echo $row4["id"]; ?>-pro_notes'
+                                                        style="display: none;">
+                                                        <?php
+                                                        include "common/conn.php";
+                                                        $sqlnotes = "SELECT * FROM employee";
+                                                        $resultnotes = $conn->query($sqlnotes);
+                                                        while ($rownotes = $resultnotes->fetch_assoc()) { ?>
+                                                            <option value="<?php echo $rownotes['full_name']; ?>">
+                                                                <?php echo $rownotes['full_name']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row4['pro_status']; ?></p>
+                                                    <input type="text" class='txtedit'
+                                                        value='<?php echo $row4["pro_status"]; ?>'
+                                                        id='pro_status-<?php echo $row4["id"]; ?>-pro_notes'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <td class="text-center">
                                                     <a href="projectDetails.php?id=<?php echo $row4['id']; ?>">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
-                                                    <a href="editProject.php?id=<?php echo $row4['id']; ?>">
+                                                    <!-- <a href="editProject.php?id=<?php echo $row4['id']; ?>">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                    </a>
+                                                    </a> -->
                                                     <!-- <a href="deleteProject.php?id=<?php //echo $row['id']; ?>"><i class="fa-solid fa-trash text-danger"></i></a> -->
                                                 </td>
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "<tr><td colspan='6'>0 results</td></tr>";
@@ -414,19 +571,19 @@
                                 <h6 class="">Projects Tasks</h6>
                                 <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
                                     data-bs-target="#addExpences">
-                                    <i class="fa-solid fa-plus"></i>Add Expences
+                                    <i class="fa-solid fa-plus"></i>Add Expenses
                                 </button>
                             </div>
 
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Sl</th>
-                                        <th>Details</th>
-                                        <th>Assigned users</th>
-                                        <th>Date</th>
-                                        <th>Amount</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Sl</th>
+                                        <th class="text-center">Details</th>
+                                        <th class="text-center">Assigned users</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Amount</th>
+                                        <!-- <th class="text-center">Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -434,25 +591,135 @@
                                     include "common/conn.php";
                                     $sql5 = "SELECT * FROM pro_expenses WHERE pro_id='$proId'";
                                     $result5 = $conn->query($sql5);
+                                    $slno = 1;
                                     if ($result5->num_rows > 0) {
                                         while ($row5 = $result5->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $row5["id"]; ?></td>
-                                                <td><?php echo $row5["details"]; ?></td>
-                                                <td><?php echo $row5["assign_to"]; ?></td>
-                                                <td><?php echo $row5["date"]; ?></td>
-                                                <td><?php echo $row5["amount"]; ?></td>
-                                                <td>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row5['details']; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
+                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row5['assign_to']; ?></p>
+                                                    <select class='txtedit' value='<?php echo $row5['assign_to']; ?>'
+                                                        id='assign_to-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                        style="display: none;">
+                                                        <?php
+                                                        include "common/conn.php";
+                                                        $sql2ee = "SELECT * FROM employee";
+                                                        $resultee = $conn->query($sql2ee);
+                                                        while ($rowee = $resultee->fetch_assoc()) { ?>
+                                                            <option value="<?php echo $rowee['full_name']; ?>">
+                                                                <?php echo $rowee['full_name']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row5['date']; ?></p>
+                                                    <input type="date" class='txtedit' value='<?php echo $row5["date"]; ?>'
+                                                        id='date-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row5['amount']; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $row5["amount"]; ?>'
+                                                        id='amount-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <!-- <td class="text-center">
                                                     <a href="projectDetails.php?id=<?php echo $row5['id']; ?>">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
                                                     <a href="editProject.php?id=<?php echo $row5['id']; ?>">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </a>
+                                                </td> -->
+                                            </tr>
+                                            <?php
+                                            $slno++;
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>0 results</td></tr>";
+                                    }
+                                    $conn->close();
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="Users" class="tabcontent">
+                        <div class="card p-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="">Projects Tasks</h6>
+                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                    data-bs-target="#addUsers">
+                                    <i class="fa-solid fa-plus"></i>Add Users
+                                </button>
+                            </div>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Sl</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Designation</th>
+                                        <th class="text-center">Mobile Number</th>
+                                        <th class="text-center">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include "common/conn.php";
+                                    $sql8 = "SELECT * FROM representative WHERE pro_id='$proId'";
+                                    $result8 = $conn->query($sql8);
+                                    $slno = 1;
+                                    if ($result8->num_rows > 0) {
+                                        while ($row8 = $result8->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row8['user_name']; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $row8["user_name"]; ?>'
+                                                        id='user_name-<?php echo $row8["id"]; ?>-representative'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row8['user_designation']; ?></p>
+                                                    <input type="text" class='txtedit'
+                                                        value='<?php echo $row8["user_designation"]; ?>'
+                                                        id='user_designation-<?php echo $row8["id"]; ?>-representative'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row8['user_mobile_number']; ?></p>
+                                                    <input type="text" class='txtedit'
+                                                        value='<?php echo $row8["user_mobile_number"]; ?>'
+                                                        id='user_mobile_number-<?php echo $row8["id"]; ?>-representative'
+                                                        style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row8['user_email']; ?></p>
+                                                    <input type="text" class='txtedit'
+                                                        value='<?php echo $row8["user_email"]; ?>'
+                                                        id='user_email-<?php echo $row8["id"]; ?>-representative'
+                                                        style="display: none;">
+                                                    </input>
                                                 </td>
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "<tr><td colspan='6'>0 results</td></tr>";
@@ -570,7 +837,7 @@
         </div>
     </div>
 
-    <!-- project files modal -->
+    <!-- project file insert modal -->
     <div class="modal fade" id="addfiles" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -624,6 +891,59 @@
             </div>
         </div>
     </div>
+    <!-- project file update modal -->
+    <!-- <div class="modal fade" id="updatefiles" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Files</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+                    <input type="hidden" class="form-control" name="project_name1" value="<?php echo $proId; ?>">
+                    <div class="modal-body">
+                        <input type="hidden" name="id4" id="id4">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="filename" class="form-label">File Details</label>
+                                    <input type="text" class="form-control" id="filename1" name="file_name1" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="pdf" class="form-label">Upload Document</label>
+                                    <input type="file" class="form-control" accept=".pdf,.docx,.doc" id="pdf11"
+                                        name="pdf11">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="assigned_users" class="form-label">Assigned Users</label>
+                                    <select class="form-control" name="assigned_users1" id="assigned_users1">
+                                        <option value="" disabled selected>Select a user</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql5 = "SELECT * FROM employee";
+                                        $result5 = $conn->query($sql5);
+                                        while ($row5 = $result5->fetch_assoc()) {
+                                            echo '<option value="' . $row5['full_name'] . '">' . $row5['full_name'] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="update_file">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+
 
     <!-- notes modal -->
     <div class="modal fade" id="addnotes" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
@@ -721,6 +1041,58 @@
                                 <div class="mb-2">
                                     <label for="ProjectTitle" class="form-label">Amount</label>
                                     <input type="text" class="form-control" id="Amount" name="Amount" required>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="task_type" value="protask">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="project_task">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- user modal -->
+    <div class="modal fade" id="addUsers" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Users</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form name="form1" id="form_user" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="hidden" class="form-control" value="<?php echo $proId; ?>" id="project_name"
+                                name="project_name" required>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="ProjectTitle" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="representative_namee"
+                                        name="representative_name" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="ProjectTitle" class="form-label">Designation</label>
+                                    <input type="text" class="form-control" id="representative_designationn"
+                                        name="representative_designation" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="startDate" class="form-label">Mobile Number</label>
+                                    <input type="text" class="form-control" id="mobile_numberr" name="mobile_numberr1"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="ProjectTitle" class="form-label">Email</label>
+                                    <input type="text" class="form-control" id="email_id" name="emaill_id" required>
                                 </div>
                             </div>
                         </div>
@@ -961,6 +1333,69 @@
                 });
             });
         });
+    </script>
+    <!-- for user -->
+    <script>
+        $(document).ready(function () {
+            $('#form_user').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: 'project_representative.php',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                        $('#form_user')[0].reset();
+                        $('#addExpences').modal('hide');
+                        var toastEl = document.getElementById('liveToast');
+                        var toast = new bootstrap.Toast(toastEl);
+                        toast.show();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert('Error submitting the form. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- for input show and hide -->
+    <script>
+        function showInput(inputId) {
+            document.getElementById(inputId).style.display = 'inline';
+        }
+
+        function hideInput(inputId) {
+            document.getElementById(inputId).style.display = 'none';
+        }
+    </script>
+    <script>
+        function showFileInput(id) {
+            document.getElementById('fileInput-' + id).style.display = 'block';
+        }
+        function uploadFile(id) {
+            var fileInput = document.getElementById('fileInput-' + id);
+            var file = fileInput.files[0];
+            if (file) {
+                var formData = new FormData();
+                formData.append('file', file);
+                formData.append('id', id);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'pdf_upload.php', true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        alert('File uploaded successfully.');
+                        location.reload();
+                    } else {
+                        alert('An error occurred while uploading the file.');
+                    }
+                };
+                xhr.send(formData);
+            }
+        }
     </script>
 </body>
 
