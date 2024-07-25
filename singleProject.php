@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 row">
                                 <!-- <form class="row" action="Update" method="post" enctype="multipart/form-data"
                                     novalidate="novalidate"> -->
                                 <div class="form-group col-md-12 m-t-10">
@@ -521,20 +521,24 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <p class="edit"><?php echo $row4['assign_to']; ?></p>
-                                                    <select class='txtedit' value='<?php echo $row4['assign_to']; ?>'
-                                                        id='assign_to-<?php echo $row4["id"]; ?>-pro_notes'
+                                                    <select class='txtedit' id='assign_to-<?php echo $row4["id"]; ?>-pro_notes'
                                                         style="display: none;">
                                                         <?php
                                                         include "common/conn.php";
                                                         $sqlnotes = "SELECT * FROM employee";
                                                         $resultnotes = $conn->query($sqlnotes);
-                                                        while ($rownotes = $resultnotes->fetch_assoc()) { ?>
-                                                            <option value="<?php echo $rownotes['full_name']; ?>">
+                                                        while ($rownotes = $resultnotes->fetch_assoc()) {
+                                                            $selected = ($rownotes['full_name'] == $row4['assign_to']) ? 'selected' : '';
+                                                            ?>
+                                                            <option value="<?php echo $rownotes['full_name']; ?>" <?php echo $selected; ?>>
                                                                 <?php echo $rownotes['full_name']; ?>
                                                             </option>
-                                                        <?php } ?>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                     </select>
                                                 </td>
+
                                                 <td class="text-center">
                                                     <p class="edit"><?php echo $row4['pro_status']; ?></p>
                                                     <input type="text" class='txtedit'
@@ -606,20 +610,26 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <p class="edit"><?php echo $row5['assign_to']; ?></p>
-                                                    <select class='txtedit' value='<?php echo $row5['assign_to']; ?>'
+                                                    <select class='txtedit'
                                                         id='assign_to-<?php echo $row5["id"]; ?>-pro_expenses'
                                                         style="display: none;">
                                                         <?php
                                                         include "common/conn.php";
                                                         $sql2ee = "SELECT * FROM employee";
                                                         $resultee = $conn->query($sql2ee);
-                                                        while ($rowee = $resultee->fetch_assoc()) { ?>
-                                                            <option value="<?php echo $rowee['full_name']; ?>">
+                                                        while ($rowee = $resultee->fetch_assoc()) {
+                                                            // Check if this option should be selected
+                                                            $selected = ($rowee['full_name'] == $row5['assign_to']) ? 'selected' : '';
+                                                            ?>
+                                                            <option value="<?php echo $rowee['full_name']; ?>" <?php echo $selected; ?>>
                                                                 <?php echo $rowee['full_name']; ?>
                                                             </option>
-                                                        <?php } ?>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                     </select>
                                                 </td>
+
                                                 <td class="text-center">
                                                     <p class="edit"><?php echo $row5['date']; ?></p>
                                                     <input type="date" class='txtedit' value='<?php echo $row5["date"]; ?>'
@@ -790,11 +800,11 @@
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="assigned_users1" class="form-label">Collaborators</label>
-                                    <select class="form-control" name="assigned_users1" id="assigned_users1">
-                                        <option value="" disabled selected>Select a user</option>
+                                    <select class="form-control" name="assigned_users1[]" id="assigned_users1" multiple>
+                                        <option value="" disabled>Select users</option>
                                         <?php
                                         include "common/conn.php";
-                                        $sql5 = "SELECT * FROM employee ";
+                                        $sql5 = "SELECT * FROM employee";
                                         $result5 = $conn->query($sql5);
                                         while ($row5 = $result5->fetch_assoc()) {
                                             ?>
@@ -805,6 +815,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-6">
                                 <h6>Type</h6>
                                 <label class="radio-container">Office
@@ -1237,6 +1248,7 @@
             });
         });
     </script>
+
 
     <!-- for project files -->
     <script>
