@@ -47,6 +47,15 @@
             border-top: none;
             animation: fadeEffect 1s;
         }
+/* color of value */
+.negative-amount {
+    color: red;
+}
+
+.positive-amount {
+    color: green;
+}
+
 
         /* Go from zero to full opacity */
         @keyframes fadeEffect {
@@ -578,7 +587,6 @@
                                     <i class="fa-solid fa-plus"></i>Add Expenses
                                 </button>
                             </div>
-
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -587,6 +595,7 @@
                                         <th class="text-center">Assigned users</th>
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Amount</th>
+                                        <th class="text-center">Balance</th>
                                         <!-- <th class="text-center">Action</th> -->
                                     </tr>
                                 </thead>
@@ -629,7 +638,6 @@
                                                         ?>
                                                     </select>
                                                 </td>
-
                                                 <td class="text-center">
                                                     <p class="edit"><?php echo $row5['date']; ?></p>
                                                     <input type="date" class='txtedit' value='<?php echo $row5["date"]; ?>'
@@ -638,10 +646,20 @@
                                                     </input>
                                                 </td>
                                                 <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['amount']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["amount"]; ?>'
+                                                    <?php
+                                                        $amount = $row5['amount'];
+                                                        $amountClass = $amount < 0 ? 'negative-amount' : 'positive-amount';
+                                                        ?>
+                                                    <p class="edit <?php echo $amountClass; ?>"><?php echo $amount; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $amount; ?>'
                                                         id='amount-<?php echo $row5["id"]; ?>-pro_expenses'
                                                         style="display: none;">
+                                                    </input>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="edit"><?php echo $row5['balance']; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $row5["balance"]; ?>'
+                                                        id='amount-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
                                                     </input>
                                                 </td>
                                                 <!-- <td class="text-center">
@@ -674,7 +692,6 @@
                                     <i class="fa-solid fa-plus"></i>Add Users
                                 </button>
                             </div>
-
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -1005,7 +1022,7 @@
     </div>
 
     <!-- Expences modal -->
-    <div class="modal fade" id="addExpences" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="addExpences" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1064,7 +1081,99 @@
                 </form>
             </div>
         </div>
+    </div> -->
+
+ <div class="modal fade" id="addExpences" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addDeptLabel">Add Expenses</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form name="form1" id="form2" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" class="form-control" value="<?php echo $proId; ?>" id="project_name" name="project_name" required>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label class="form-label">Transaction Type</label>
+                                <div>
+                                    <input type="radio" id="deposit" name="transaction_type" value="deposit" required>
+                                    <label for="deposit">Deposit</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="withdrawal" name="transaction_type" value="withdrawal" required>
+                                    <label for="withdrawal">Withdrawal</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-2">
+                                <label for="ProjectTitle" class="form-label">Expenses Details</label>
+                                <input type="text" class="form-control" id="Project_Details" name="Project_Details" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2" id="assigned_users_field" style="display:none;">
+                                <label for="assigned_users" class="form-label">Assigned Users</label>
+                                <select class="form-control" name="assigned_users" id="assigned_users">
+                                    <option value="" disabled selected>Select a user</option>
+                                    <?php
+                                    include "common/conn.php";
+                                    $sql5 = "SELECT * FROM employee";
+                                    $result5 = $conn->query($sql5);
+                                    while ($row5 = $result5->fetch_assoc()) {
+                                        ?>
+                                        <option value="<?php echo $row5['full_name']; ?>"><?php echo $row5['full_name']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6" id="gst_type_field" style="display:none;">
+                            <div class="mb-2">
+                                <label class="form-label">GST Type</label>
+                                <div>
+                                    <input type="radio" id="include_gst" value="include" required>
+                                    <label for="include_gst">Excluding GST</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="exclude_gst" value="exclude" required>
+                                    <label for="exclude_gst">Including GST</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2" id="gst_field" style="display:none;">
+                                <label for="gst" class="form-label">GST %</label>
+                                <input type="text" class="form-control" id="gst" name="gst">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label for="startDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="Date" name="Date" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label for="Amount" class="form-label">Amount</label>
+                                <input type="text" class="form-control" id="Amount" name="Amount" required>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="task_type" value="protask">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="project_task">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
+
+
+
 
     <!-- user modal -->
     <div class="modal fade" id="addUsers" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
@@ -1409,6 +1518,80 @@
             }
         }
     </script>
-</body>
+    <!-- for withdrawal amount -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const depositRadio = document.getElementById('deposit');
+        const withdrawalRadio = document.getElementById('withdrawal');
+        const includeGstRadio = document.getElementById('include_gst');
+        const excludeGstRadio = document.getElementById('exclude_gst');
+        const gstField = document.getElementById('gst_field');
+        const gstTypeField = document.getElementById('gst_type_field');
+        const assignedUsersField = document.getElementById('assigned_users_field');
+        const amountInput = document.getElementById('Amount');
+        const gstInput = document.getElementById('gst');
 
+        function toggleFields() {
+            if (depositRadio.checked) {
+                gstTypeField.style.display = 'block';
+                gstField.style.display = 'block';
+                assignedUsersField.style.display = 'none';
+                const amount = parseFloat(amountInput.value);
+                if (!isNaN(amount)) {
+                    amountInput.value = Math.abs(amount); // Ensure positive value
+                }
+            } else if (withdrawalRadio.checked) {
+                gstTypeField.style.display = 'none';
+                gstField.style.display = 'none';
+                assignedUsersField.style.display = 'block';
+                const amount = parseFloat(amountInput.value);
+                if (!isNaN(amount)) {
+                    amountInput.value = -Math.abs(amount); // Ensure negative value
+                }
+            }
+        }
+
+        depositRadio.addEventListener('change', toggleFields);
+        withdrawalRadio.addEventListener('change', toggleFields);
+
+        // Ensure fields are properly toggled on page load
+        toggleFields();
+
+        function calculateGST() {
+            const amount = parseFloat(amountInput.value);
+            const gstPercent = parseFloat(gstInput.value);
+            if (!isNaN(amount) && !isNaN(gstPercent)) {
+                let gstAmount;
+                let finalAmount;
+
+                if (includeGstRadio.checked) {
+                    gstAmount = (amount * gstPercent) / 100;
+                    finalAmount = amount + gstAmount;
+                } else if (excludeGstRadio.checked) {
+                    gstAmount = amount - (amount * (100 / (100 + gstPercent)));
+                    finalAmount = amount - gstAmount;
+                }
+
+                if (!isNaN(finalAmount)) {
+                    amountInput.value = finalAmount.toFixed(2);
+                }
+            }
+        }
+
+        includeGstRadio.addEventListener('change', calculateGST);
+        excludeGstRadio.addEventListener('change', calculateGST);
+
+        document.getElementById('form2').addEventListener('submit', function (e) {
+            if (depositRadio.checked) {
+                calculateGST();
+            } else if (withdrawalRadio.checked) {
+                const amount = parseFloat(amountInput.value);
+                if (!isNaN(amount)) {
+                    amountInput.value = -Math.abs(amount); // Ensure negative value
+                }
+            }
+        });
+    });
+</script>
+</body>
 </html>
