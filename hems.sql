@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2024 at 08:28 AM
+-- Generation Time: Aug 02, 2024 at 09:32 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `hems`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account`
+--
+
+CREATE TABLE `account` (
+  `id` int(11) NOT NULL,
+  `particulars` varchar(50) NOT NULL,
+  `tex_type` enum('GST','NONGST') NOT NULL,
+  `gst` varchar(20) NOT NULL,
+  `deposite` varchar(20) NOT NULL,
+  `withdraw` varchar(20) NOT NULL,
+  `balance` varchar(20) NOT NULL,
+  `balance_T` varchar(20) NOT NULL,
+  `balance_WT` varchar(20) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`id`, `particulars`, `tex_type`, `gst`, `deposite`, `withdraw`, `balance`, `balance_T`, `balance_WT`, `date`) VALUES
+(1, 'uyfdg', 'NONGST', '', '100', '', '100', '', '100', '2024-08-18'),
+(2, 'zsxcvb', 'NONGST', '', '', '50', '50', '', '50', '2024-08-17'),
+(3, 'sdfcg', 'GST', '12', '100', '', '150', '100', '', '2024-08-18'),
+(4, 'xscvb', 'GST', '12', '100', '', '250', '200', '', '2024-08-18'),
+(5, 'sxcv', 'NONGST', '', '100', '', '350', '', '100', '2024-08-16');
 
 -- --------------------------------------------------------
 
@@ -178,9 +208,32 @@ CREATE TABLE `assign_task` (
 --
 
 INSERT INTO `assign_task` (`id`, `task_id`, `project_id`, `assign_user`, `user_type`) VALUES
-(1, 1, 1, 'Moo1402', 'Team Head'),
-(2, 1, 1, 'Doe1753', 'Collaborators'),
-(3, 2, 1, 'Doe1753', 'Collaborators');
+(1, 1, 2, 'Thom', 'Team Head'),
+(2, 1, 2, 'Doe1753', 'Collaborators'),
+(8, 10, 2, 'Monalisa Das', 'Team Head'),
+(9, 10, 2, 'user3', 'Collaborators'),
+(10, 11, 2, 'aaMichael', 'Team Head'),
+(11, 11, 2, 'Thom', 'Collaborators'),
+(12, 12, 2, 'Thom', 'Team Head'),
+(13, 12, 2, 'user2', 'Collaborators'),
+(14, 13, 2, 'Colin', 'Team Head'),
+(15, 13, 2, 'user2', 'Collaborators'),
+(16, 14, 2, 'Emily', 'Team Head'),
+(17, 14, 2, 'ASUTOSH DAS', 'Collaborators'),
+(18, 15, 6, 'Emily', 'Team Head'),
+(19, 15, 6, 'Stephany', 'Collaborators'),
+(20, 16, 1, 'Emily', 'Team Head'),
+(21, 16, 1, 'Emily', 'Collaborators'),
+(22, 17, 1, 'Chris', 'Team Head'),
+(23, 17, 1, 'Monalisa Das', 'Collaborators'),
+(24, 18, 2, 'Monalisa Das', 'Team Head'),
+(25, 18, 2, 'Monalisa Das', 'Collaborators'),
+(26, 19, 2, 'Emily', 'Team Head'),
+(27, 19, 2, 'gghh', 'Collaborators'),
+(28, 20, 2, 'John', 'Team Head'),
+(29, 20, 2, 'Thom', 'Collaborators'),
+(30, 21, 2, 'nnnnn', 'Team Head'),
+(31, 21, 2, 'Thom,fffff,John', 'Collaborators');
 
 -- --------------------------------------------------------
 
@@ -950,7 +1003,7 @@ INSERT INTO `project` (`id`, `pro_name`, `pro_start_date`, `pro_end_date`, `pro_
 (1, 'Project X23', 'Jan 4, 2022', 'Feb 2, 2022', ' This is just a demo project! This is just a demo project! This is just a demo project! This is just a demo project!', 'This is just a demo project!', 'upcoming', NULL),
 (2, 'Multi User Chat System', 'Jan 1, 2022', 'April 14, 2022', ' You are required to develop a system that supports multi-user chatting with the help of top level technologies.', 'Development of Multi-User Chatting System', 'running', NULL),
 (3, 'Image Enhancement Software', 'Dec 10, 2021', 'Mar 20, 2022', 'You are required to develop of computer based software where end users can receive quality results on image enhancement. This particular project requires large number of technologies with proper use and its features.', 'Development of Image Enhancement Software', 'running', NULL),
-(4, 'Customer support service operation', 'Dec 25, 2021', 'Feb 16, 2022', 'You are required to develop a customer support service based operation using DotNet (.Net)', 'Develop a customer support service operation', 'running', NULL),
+(4, 'aaaaaCustomer support service operation', '2024-07-18', '2024-07-26', 'sfcvfgdvgYou are required to develop a customer support service based operation using DotNet (.Net)', 'fvggvfgfrDevelop a customer support service operation', 'complete', NULL),
 (5, 'Real Estate Site', 'Dec 29, 2021', 'Mar 21, 2022', ' You are required to develop a real estate website using React, Nodejs.', 'Develop a real-estate website', 'running', NULL),
 (6, 'Graphics Illustration', 'Jan 2, 2022', 'Jan 10, 2022', 'You are required to make a graphic illustration for XYZ company. ', 'Make a graphic illustration for ....', 'running', NULL);
 
@@ -968,6 +1021,31 @@ CREATE TABLE `project_file` (
   `assigned_to` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `project_file`
+--
+
+INSERT INTO `project_file` (`id`, `pro_id`, `file_details`, `file_url`, `assigned_to`) VALUES
+(1, 66, 'dfasd', 'fffff', '2'),
+(2, 66, 'asaassa', 'fffff', '1'),
+(3, 1, 'fvfdgvf', '66a24b99db7a7.pdf', 'Thom'),
+(4, 0, 'ertfdtrdgt', '66a0d178e5bf5.pdf', 'John'),
+(5, 0, 'rdgf', '66a0d1b792a71.pdf', 'Chris'),
+(6, 2, 'sdfg', '66a0d29db0bb3.pdf', 'Thom'),
+(7, 2, 'sadasd', '66a0d38d43e19.pdf', 'fffff'),
+(8, 2, 'sadsf', '66a0d49fea6af.pdf', 'John'),
+(9, 2, 'sfdasdf', '66a0d4c305680.pdf', 'Thom'),
+(10, 2, 'cdsadfd', '66a0d4f4e061a.pdf', 'John'),
+(11, 2, 'mnbvc', '', 'Thom'),
+(12, 2, 'lkjhgf', '66a0e944d9e62.pdf', 'fffff'),
+(13, 2, 'xdvfcb', '66a0ecd69b8d0.pdf', 'Thom'),
+(14, 4, 'sdfsfcdsf', '66a0f1a243cd2.pdf', 'aaMichael'),
+(15, 4, 'redfhgfrh', '66a1016f362fa.pdf', 'Monalisa Das'),
+(16, 4, 'sssss', '66a10188d231e.pdf', 'Emily'),
+(17, 2, 'aaaa', '66a12b29030f3.pdf', 'fffff'),
+(18, 6, 'regtgt', '66a1cf39a7ac7.pdf', 'aaMichael'),
+(19, 3, 'dddddddddfdgfghff', '66a216e6e6bb7.pdf', 'aaMichael');
+
 -- --------------------------------------------------------
 
 --
@@ -979,9 +1057,21 @@ CREATE TABLE `pro_expenses` (
   `pro_id` int(14) NOT NULL,
   `assign_to` varchar(64) DEFAULT NULL,
   `details` varchar(512) DEFAULT NULL,
+  `gst` varchar(20) NOT NULL,
   `amount` varchar(256) DEFAULT NULL,
+  `balance` varchar(20) NOT NULL,
   `date` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `pro_expenses`
+--
+
+INSERT INTO `pro_expenses` (`id`, `pro_id`, `assign_to`, `details`, `gst`, `amount`, `balance`, `date`) VALUES
+(1, 1, '', 'fdgbhgh', '18%', '1180.00', '1180.00', '2024-07-26'),
+(2, 1, '', 'sfrgfrgf', '18%', '1180.00', '2360', '2024-07-28'),
+(3, 1, '', 'sdfghn', '18%', '847.46', '3207.46', '2024-07-30'),
+(4, 1, 'Colin', 'szxcsczsz', '', '-500', '2707.46', '2024-07-28');
 
 -- --------------------------------------------------------
 
@@ -996,6 +1086,18 @@ CREATE TABLE `pro_notes` (
   `details` varchar(1024) DEFAULT NULL,
   `pro_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `pro_notes`
+--
+
+INSERT INTO `pro_notes` (`id`, `assign_to`, `pro_id`, `details`, `pro_status`) VALUES
+(1, 'aaMichael', 2, 'sfdsg', 1),
+(2, 'fffff', 2, 'jkkjjj', 1),
+(3, 'fffff', 2, 'aaa', 1),
+(4, 'Chris', 3, 'vvvvvsdcsfvdfvdddd', 1),
+(5, 'Stephany', 3, 'dvvdvd', 1),
+(6, 'Emily', 1, 'cfbvcfbfcb', 1);
 
 -- --------------------------------------------------------
 
@@ -1025,8 +1127,19 @@ CREATE TABLE `pro_task` (
 --
 
 INSERT INTO `pro_task` (`id`, `pro_id`, `task_title`, `start_date`, `end_date`, `image`, `description`, `task_type`, `status`, `location`, `return_date`, `total_days`, `create_date`, `approve_status`) VALUES
-(1, 1, 'Demo Task Title for Testing', '2022-01-03', '2022-01-31', NULL, 'This is demo details for testing. This is demo details for testing', 'Office', 'running', NULL, NULL, NULL, '2022-01-03', ''),
-(2, 1, 'profile design', '12-07-24', '20-07-24', NULL, 'profile design', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve');
+(1, 2, 'aaaaDemo Task Title for Testing', '2022-01-05', '2022-01-27', NULL, 'This is demo details for testing. This is demo details for testing', 'Office', 'running', NULL, NULL, NULL, '2022-01-03', ''),
+(10, 2, 'qqq', '2024-07-24', '2024-07-24', NULL, 'sdfhd', 'Office', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
+(11, 2, 'hnvhgvniiiii', '2024-07-27', '2024-07-27', NULL, 'jkhgfx', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
+(12, 2, 'hhhhh', '2024-07-24', '2024-07-24', NULL, 'zxcv', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
+(13, 2, 'fff', '2024-07-24', '2024-07-24', NULL, 'ASdf', 'Office', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
+(14, 2, 'cccccc', '2024-07-24', '2024-07-24', NULL, 'AXSzdcv', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
+(15, 6, 'dvgdfgfdgf', '2024-07-21', '2024-07-27', NULL, 'gfhn', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
+(16, 1, 'dfvfdfd', '2024-07-28', '2024-07-30', NULL, 'dfgfgfhfd', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
+(17, 1, 'dfvdgbfd', '2024-07-27', '2024-07-28', NULL, 'fhfthghfgh', 'Office', '', NULL, NULL, NULL, NULL, 'Not Approve'),
+(18, 2, 'tttt', '2024-07-25', '2024-07-25', NULL, 'etwetw', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
+(19, 2, 'aaaaa', '2024-07-25', '2024-07-25', NULL, 'mhngbfc', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
+(20, 2, 'ssssss', '2024-07-25', '2024-07-25', NULL, 'sfdgh', 'Office', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
+(21, 2, 'aaaaa', '2024-07-25', '2024-07-25', NULL, 'jkhg', 'Office', 'complete', NULL, NULL, NULL, NULL, 'Not Approve');
 
 -- --------------------------------------------------------
 
@@ -1039,6 +1152,29 @@ CREATE TABLE `pro_task_assets` (
   `pro_task_id` int(11) NOT NULL,
   `assign_id` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `representative`
+--
+
+CREATE TABLE `representative` (
+  `id` int(11) NOT NULL,
+  `pro_id` int(14) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `user_designation` varchar(20) NOT NULL,
+  `user_mobile_number` varchar(20) NOT NULL,
+  `user_email` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `representative`
+--
+
+INSERT INTO `representative` (`id`, `pro_id`, `user_name`, `user_designation`, `user_mobile_number`, `user_email`) VALUES
+(2, 3, 'cffff', 'dddddfdgvhbn', '52424524754547', 'dfghjmk@gmail.com'),
+(3, 1, 'ascsdfdf', 'dgbdfgbd', '5328242546486', 'fdgfd@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -1129,9 +1265,36 @@ INSERT INTO `to-do_list` (`id`, `user_id`, `to_dodata`, `date`, `value`) VALUES
 (4, 'Soy1332', 'Assign Task to Dev.', '2022-01-02 08:28:04pm', '0'),
 (5, 'Soy1332', 'Attend Zoom Meetings', '2022-01-03 03:10:07pm', '1');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `designation` varchar(10) NOT NULL,
+  `status` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `designation`, `status`) VALUES
+(1, 'admin', 'admin', 'superadmin', 0);
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `addition`
@@ -1356,6 +1519,12 @@ ALTER TABLE `pro_task_assets`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `representative`
+--
+ALTER TABLE `representative`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `salary_type`
 --
 ALTER TABLE `salary_type`
@@ -1380,8 +1549,20 @@ ALTER TABLE `to-do_list`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `addition`
@@ -1417,7 +1598,7 @@ ALTER TABLE `assign_leave`
 -- AUTO_INCREMENT for table `assign_task`
 --
 ALTER TABLE `assign_task`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `attadence_report`
@@ -1579,31 +1760,37 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT for table `project_file`
 --
 ALTER TABLE `project_file`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `pro_expenses`
 --
 ALTER TABLE `pro_expenses`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pro_notes`
 --
 ALTER TABLE `pro_notes`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pro_task`
 --
 ALTER TABLE `pro_task`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pro_task_assets`
 --
 ALTER TABLE `pro_task_assets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `representative`
+--
+ALTER TABLE `representative`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `salary_type`
@@ -1628,6 +1815,12 @@ ALTER TABLE `social_media`
 --
 ALTER TABLE `to-do_list`
   MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
