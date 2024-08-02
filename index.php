@@ -1,3 +1,12 @@
+<?php
+session_start();
+include "common/conn.php";
+$userid = $_SESSION['username'];
+if ($userid === NULL) {
+    header("location:login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +54,8 @@
                                                 <h5 class="font-weight-light pb-2 mb-1 border-bottom">$62,0076.00</h5>
                                                 <p class="tx-12 text-muted">48% target reached</p>
                                                 <div class="card-icon-wrapper">
-                                                    <i class="material-icons"><i class="fa fa-list-alt text-white fs-2" aria-hidden="true"></i></i>
+                                                    <i class="material-icons"><i class="fa fa-list-alt text-white fs-2"
+                                                            aria-hidden="true"></i></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -58,7 +68,8 @@
                                                 <h5 class="font-weight-light pb-2 mb-1 border-bottom">$1,958,104.00</h5>
                                                 <p class="tx-12 text-muted">55% target reached</p>
                                                 <div class="card-icon-wrapper">
-                                                <i class="material-icons"><i class="fa fa-usd text-white fs-2" aria-hidden="true"></i></i>
+                                                    <i class="material-icons"><i class="fa fa-usd text-white fs-2"
+                                                            aria-hidden="true"></i></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -71,7 +82,9 @@
                                                 <h5 class="font-weight-light pb-2 mb-1 border-bottom">$234,769.00</h5>
                                                 <p class="tx-12 text-muted">87% target reached</p>
                                                 <div class="card-icon-wrapper">
-                                                <i class="material-icons"><i class="fa fa-line-chart text-white fs-2" aria-hidden="true"></i></i>
+                                                    <i class="material-icons"><i
+                                                            class="fa fa-line-chart text-white fs-2"
+                                                            aria-hidden="true"></i></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,7 +97,8 @@
                                                 <h5 class="font-weight-light pb-2 mb-1 border-bottom">$1,200.00</h5>
                                                 <p class="tx-12 text-muted">87% target reached</p>
                                                 <div class="card-icon-wrapper">
-                                                <i class="material-icons"><i class="fa fa-briefcase text-white fs-2" aria-hidden="true"></i></i>
+                                                    <i class="material-icons"><i class="fa fa-briefcase text-white fs-2"
+                                                            aria-hidden="true"></i></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,8 +108,10 @@
                                             <div class="d-flex justify-content-between">
                                                 <h4 class="card-title mb-0">Revenue by location</h4>
                                                 <div>
-                                                    <i class="material-icons refresh-icon"><i class="fa fa-refresh" aria-hidden="true"></i></i>
-                                                    <i class="material-icons options-icon ml-2"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></i>
+                                                    <i class="material-icons refresh-icon"><i class="fa fa-refresh"
+                                                            aria-hidden="true"></i></i>
+                                                    <i class="material-icons options-icon ml-2"><i
+                                                            class="fa fa-ellipsis-v" aria-hidden="true"></i></i>
                                                 </div>
                                             </div>
                                             <div class="d-block d-sm-flex justify-content-between align-items-center">
@@ -105,7 +121,8 @@
                                                     <button
                                                         class="mdc-button mdc-menu-button mdc-button--raised button-box-shadow tx-12 text-dark bg-white font-weight-light">
                                                         Last 7 days
-                                                        <i class="material-icons ms-3"><i class="fa fa-caret-down" aria-hidden="true"></i></i>
+                                                        <i class="material-icons ms-3"><i class="fa fa-caret-down"
+                                                                aria-hidden="true"></i></i>
                                                     </button>
                                                     <div class="mdc-menu mdc-menu-surface" tabindex="-1">
                                                         <ul class="mdc-list" role="menu" aria-hidden="true"
@@ -187,7 +204,8 @@
                                         <div class="mdc-card bg-success text-white">
                                             <div class="d-flex justify-content-between">
                                                 <h3 class="font-weight-normal">Impressions</h3>
-                                                <i class="material-icons options-icon text-white"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></i>
+                                                <i class="material-icons options-icon text-white"><i
+                                                        class="fa fa-ellipsis-v" aria-hidden="true"></i></i>
                                             </div>
                                             <div class="mdc-layout-grid__inner align-items-center">
                                                 <div
@@ -209,7 +227,8 @@
                                         <div class="mdc-card bg-info text-white">
                                             <div class="d-flex justify-content-between">
                                                 <h3 class="font-weight-normal">Traffic</h3>
-                                                <i class="material-icons options-icon text-white"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></i>
+                                                <i class="material-icons options-icon text-white"><i
+                                                        class="fa fa-ellipsis-v" aria-hidden="true"></i></i>
                                             </div>
                                             <div class="mdc-layout-grid__inner align-items-center">
                                                 <div
@@ -233,7 +252,8 @@
                                                 <div class="d-flex justtify-content-between align-items-center">
                                                     <p class="d-none d-sm-block text-muted tx-12 mb-0 mr-2">Goal reached
                                                     </p>
-                                                    <i class="material-icons options-icon"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></i>
+                                                    <i class="material-icons options-icon"><i class="fa fa-ellipsis-v"
+                                                            aria-hidden="true"></i></i>
                                                 </div>
                                             </div>
                                             <div class="d-block d-sm-flex justify-content-between align-items-center">

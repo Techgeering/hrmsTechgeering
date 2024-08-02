@@ -1094,16 +1094,40 @@
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" class="form-control" value="<?php echo $proId; ?>" id="project_name" name="project_name" required>
-                        <div class="col-6">
+                        
+                        <div class="col-4">
+                            <div class="mb-2">
+                                <label for="startDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="Date" name="Date" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
                             <div class="mb-2">
                                 <label class="form-label">Transaction Type</label>
-                                <div>
-                                    <input type="radio" id="deposit" name="transaction_type" value="deposit" required>
-                                    <label for="deposit">Deposit</label>
+                                <div class="d-flex">
+                                    <div class="me-2">
+                                        <input type="radio" id="deposit" name="transaction_type" value="deposit" required>
+                                        <label for="deposit">Deposit</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="withdrawal" name="transaction_type" value="withdrawal" required>
+                                        <label for="withdrawal">Withdrawal</label>
+                                    </div>
                                 </div>
-                                <div>
-                                    <input type="radio" id="withdrawal" name="transaction_type" value="withdrawal" required>
-                                    <label for="withdrawal">Withdrawal</label>
+                            </div>
+                        </div>
+                        <div class="col-4" id="gst_type_field" style="display:none;">
+                            <div class="mb-2">
+                                <label class="form-label">GST Type</label>
+                                <div class="d-flex">
+                                    <div class="me-1">
+                                        <input type="radio" id="include_gst" value="include" required>
+                                        <label for="include_gst">Excluding GST</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="exclude_gst" value="exclude" required>
+                                        <label for="exclude_gst">Including GST</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1128,30 +1152,9 @@
                                     <?php } ?>
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-6" id="gst_type_field" style="display:none;">
-                            <div class="mb-2">
-                                <label class="form-label">GST Type</label>
-                                <div>
-                                    <input type="radio" id="include_gst" value="include" required>
-                                    <label for="include_gst">Excluding GST</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="exclude_gst" value="exclude" required>
-                                    <label for="exclude_gst">Including GST</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
                             <div class="mb-2" id="gst_field" style="display:none;">
                                 <label for="gst" class="form-label">GST %</label>
                                 <input type="text" class="form-control" id="gst" name="gst">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-2">
-                                <label for="startDate" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="Date" name="Date" required>
                             </div>
                         </div>
                         <div class="col-6">
@@ -1518,7 +1521,7 @@
             }
         }
     </script>
-    <!-- for withdrawal amount -->
+    <!-- for withdrawal amount of expences -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
         const depositRadio = document.getElementById('deposit');
@@ -1550,7 +1553,6 @@
                 }
             }
         }
-
         depositRadio.addEventListener('change', toggleFields);
         withdrawalRadio.addEventListener('change', toggleFields);
 

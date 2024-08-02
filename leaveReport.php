@@ -25,7 +25,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Department</h1>
+                        <h2 class="my-2">Department</h2>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i> Department
                         </button>
@@ -42,37 +42,37 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                                    include 'common/conn.php';
-        $sql4 = "SELECT * FROM leave_types";
-        $result4 = $conn->query($sql4);
-
-        if ($result4->num_rows > 0) {
-            $slNo = 1;
-            while($row4 = $result4->fetch_assoc()) {
-                // Calculate taken leave
-                $leaveType = $row4["name"];
-                $sqlTakenLeave = "SELECT COUNT(*) AS taken_leave FROM emp_leave WHERE leave_type = '$leaveType' AND em_id='123456'";
-                $resultTakenLeave = $conn->query($sqlTakenLeave);
-                $takenLeave = 0;
-                if ($resultTakenLeave->num_rows > 0) {
-                    $rowTakenLeave = $resultTakenLeave->fetch_assoc();
-                    $takenLeave = $rowTakenLeave["taken_leave"];
-                }
-                ?>
-                                    <tr>
-                                        <td><?php echo $slNo; ?></td>
-                                        <td><?php echo $row4["name"]; ?></td>
-                                        <td><?php echo $row4["leave_day"]; ?></td>
-                                        <td><?php echo $takenLeave; ?></td>
-                                    </tr>
                                     <?php
-                $slNo++;
-            }
-        } else {
-            echo "<tr><td colspan='4'>0 results</td></tr>";
-        }
-        ?>
+                                    include 'common/conn.php';
+                                    $sql4 = "SELECT * FROM leave_types";
+                                    $result4 = $conn->query($sql4);
+
+                                    if ($result4->num_rows > 0) {
+                                        $slNo = 1;
+                                        while ($row4 = $result4->fetch_assoc()) {
+                                            // Calculate taken leave
+                                            $leaveType = $row4["name"];
+                                            $sqlTakenLeave = "SELECT COUNT(*) AS taken_leave FROM emp_leave WHERE leave_type = '$leaveType' AND em_id='123456'";
+                                            $resultTakenLeave = $conn->query($sqlTakenLeave);
+                                            $takenLeave = 0;
+                                            if ($resultTakenLeave->num_rows > 0) {
+                                                $rowTakenLeave = $resultTakenLeave->fetch_assoc();
+                                                $takenLeave = $rowTakenLeave["taken_leave"];
+                                            }
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $slNo; ?></td>
+                                                <td><?php echo $row4["name"]; ?></td>
+                                                <td><?php echo $row4["leave_day"]; ?></td>
+                                                <td><?php echo $takenLeave; ?></td>
+                                            </tr>
+                                            <?php
+                                            $slNo++;
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='4'>0 results</td></tr>";
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -106,23 +106,23 @@
         </div>
     </div>
     <?php
-        include "common/conn.php";
-        if (isset($_POST['submit'])) {
-            // Retrieve form data
-            $departmentName = $_POST["DepartmentName"];
-            // Prepare and bind SQL statement
-            $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
-            $stmt->bind_param("s", $departmentName);
-            // Execute SQL statement
-            if ($stmt->execute() === TRUE) {
-                echo " <script>alert('success')</script>";
-            } else {
-                echo " <script>alert('$stmt->error')</script>" ;
-            }
-            // Close connection
-            $stmt->close();
+    include "common/conn.php";
+    if (isset($_POST['submit'])) {
+        // Retrieve form data
+        $departmentName = $_POST["DepartmentName"];
+        // Prepare and bind SQL statement
+        $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
+        $stmt->bind_param("s", $departmentName);
+        // Execute SQL statement
+        if ($stmt->execute() === TRUE) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo " <script>alert('$stmt->error')</script>";
         }
-        $conn->close();
+        // Close connection
+        $stmt->close();
+    }
+    $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

@@ -25,7 +25,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Leave Application</h1>
+                        <h2 class="my-2">Leave Application</h2>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i> Leave Application
                         </button>
@@ -55,23 +55,23 @@
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <th><?php echo $row["id"]; ?></th>
-                                        <th><?php echo $row["apply_date"]; ?></th>
-                                        <th><?php echo $row["em_id"]; ?></th>
-                                        <th><?php echo $row["leave_type"]; ?></th>
-                                        <th><?php echo $row["start_date"]; ?></th>
-                                        <th><?php echo $row["end_date"]; ?></th>
-                                        <th><?php echo $row["leave_duration"]; ?></th>
-                                        <th><?php echo $row["reason"]; ?></th>
-                                        <th><?php echo $row["leave_status"]; ?></th>
-                                        <th>
-                                            <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                            <i class="fa-solid fa-lock text-danger"></i>
-                                        </th>
-                                    </tr>
-                                    <?php
+                                            ?>
+                                            <tr>
+                                                <th><?php echo $row["id"]; ?></th>
+                                                <th><?php echo $row["apply_date"]; ?></th>
+                                                <th><?php echo $row["em_id"]; ?></th>
+                                                <th><?php echo $row["leave_type"]; ?></th>
+                                                <th><?php echo $row["start_date"]; ?></th>
+                                                <th><?php echo $row["end_date"]; ?></th>
+                                                <th><?php echo $row["leave_duration"]; ?></th>
+                                                <th><?php echo $row["reason"]; ?></th>
+                                                <th><?php echo $row["leave_status"]; ?></th>
+                                                <th>
+                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    <i class="fa-solid fa-lock text-danger"></i>
+                                                </th>
+                                            </tr>
+                                            <?php
                                         }
                                     } else {
                                         echo "0 results";
@@ -106,16 +106,16 @@
                             <select name="Leavetype" id="Leavetype" class="form-control">
                                 <option value="">Leave type</option>
                                 <?php
-                                                include "common/conn.php";
-                                                $result = mysqli_query($conn, "SELECT * FROM  leave_types");
-                                                while ($row = mysqli_fetch_array($result)) {
-                                                ?>
-                                <option value="<?php echo $row['type_id']; ?>">
-                                    <?php echo $row["name"]; ?>
-                                </option>
-                                <?php
-                                                }
-                                                ?>
+                                include "common/conn.php";
+                                $result = mysqli_query($conn, "SELECT * FROM  leave_types");
+                                while ($row = mysqli_fetch_array($result)) {
+                                    ?>
+                                    <option value="<?php echo $row['type_id']; ?>">
+                                        <?php echo $row["name"]; ?>
+                                    </option>
+                                    <?php
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -140,52 +140,53 @@
         </div>
     </div>
     <?php
-        include "common/conn.php";
-        function calculateHours($date1, $date2) {
-            $totalHours = 0;
-        
-            $endDate = clone $date2;
-            // $endDate->modify('-1 day');
-        
-            while ($date1 < $endDate) {
-                $dayOfWeek = $date1->format('N'); 
-                if ($dayOfWeek == 6) {
-                    $totalHours += 5;
-                } elseif ($dayOfWeek == 7) { 
-                } else {
-                    $totalHours += 9;
-                }
-                $date1->modify('+1 day');
-            }
-            return $totalHours;
-        }
-        if (isset($_POST['submit'])) {
-            // Retrieve form data
-            $empId = $_POST["empId"];
-            $Leavetype = $_POST["Leavetype"];
-            $StartDate = $_POST["StartDate"];
-            $EndDate = $_POST["EndDate"];
-            $Reason = $_POST["Reason"];
-            $currentDate = date('d-m-Y');
+    include "common/conn.php";
+    function calculateHours($date1, $date2)
+    {
+        $totalHours = 0;
 
-                        $date1 = new DateTime($StartDate);
-                        $date2 = new DateTime($EndDate);
-                        $interval = $date1->diff($date2);
-                        $days = $interval->days;
-                        $totalHours = calculateHours(clone $date1, $date2); 
-                            
-            $sql1 = "INSERT INTO emp_leave (em_id, typeid, leave_type,start_date,end_date,leave_duration,duration_hour,apply_date,reason)
+        $endDate = clone $date2;
+        // $endDate->modify('-1 day');
+    
+        while ($date1 < $endDate) {
+            $dayOfWeek = $date1->format('N');
+            if ($dayOfWeek == 6) {
+                $totalHours += 5;
+            } elseif ($dayOfWeek == 7) {
+            } else {
+                $totalHours += 9;
+            }
+            $date1->modify('+1 day');
+        }
+        return $totalHours;
+    }
+    if (isset($_POST['submit'])) {
+        // Retrieve form data
+        $empId = $_POST["empId"];
+        $Leavetype = $_POST["Leavetype"];
+        $StartDate = $_POST["StartDate"];
+        $EndDate = $_POST["EndDate"];
+        $Reason = $_POST["Reason"];
+        $currentDate = date('d-m-Y');
+
+        $date1 = new DateTime($StartDate);
+        $date2 = new DateTime($EndDate);
+        $interval = $date1->diff($date2);
+        $days = $interval->days;
+        $totalHours = calculateHours(clone $date1, $date2);
+
+        $sql1 = "INSERT INTO emp_leave (em_id, typeid, leave_type,start_date,end_date,leave_duration,duration_hour,apply_date,reason)
             VALUES ('$empId', '$Leavetype','', '$StartDate','$EndDate','$days', '$totalHours','$currentDate','$Reason')";
 
-            if ($conn->query($sql1) === TRUE) {
-                echo " <script>alert('success')</script>";
-            } else {
-                echo " <script>alert('error')</script>" ;
-            }
-            // Close connection
-            $conn->close();
+        if ($conn->query($sql1) === TRUE) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo " <script>alert('error')</script>";
         }
+        // Close connection
         $conn->close();
+    }
+    $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

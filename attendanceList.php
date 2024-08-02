@@ -25,7 +25,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Attadence List</h1>
+                        <h2 class="my-2">Attadence List</h2>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i> Attadence List
                         </button>
@@ -52,20 +52,20 @@
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <th><?php echo $row["emp_id"]; ?></th>
-                                        <th><?php echo $row["emp_id"]; ?></th>
-                                        <th><?php echo $row["atten_date"]; ?></th>
-                                        <th><?php echo $row["signin_time"]; ?></th>
-                                        <th><?php echo $row["signout_time"]; ?></th>
-                                        <th><?php echo $row["working_hour"]; ?></th>
-                                        <th>
-                                            <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                            <i class="fa-solid fa-lock text-danger"></i>
-                                        </th>
-                                    </tr>
-                                    <?php
+                                            ?>
+                                            <tr>
+                                                <th><?php echo $row["emp_id"]; ?></th>
+                                                <th><?php echo $row["emp_id"]; ?></th>
+                                                <th><?php echo $row["atten_date"]; ?></th>
+                                                <th><?php echo $row["signin_time"]; ?></th>
+                                                <th><?php echo $row["signout_time"]; ?></th>
+                                                <th><?php echo $row["working_hour"]; ?></th>
+                                                <th>
+                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    <i class="fa-solid fa-lock text-danger"></i>
+                                                </th>
+                                            </tr>
+                                            <?php
                                         }
                                     } else {
                                         echo "0 results";
@@ -110,101 +110,101 @@
         </div>
     </div>
     <?php
-if (isset($_POST['submit'])) {
-    include "common/conn.php";
+    if (isset($_POST['submit'])) {
+        include "common/conn.php";
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Check if file was uploaded without errors
-        if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
-            $file_tmp_path = $_FILES['file']['tmp_name'];
-            $file_name = $_FILES['file']['name'];
-            $file_size = $_FILES['file']['size'];
-            $file_type = $_FILES['file']['type'];
-            
-            // Check file extension
-            $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
-            $allowed_ext = array('csv');
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Check if file was uploaded without errors
+            if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+                $file_tmp_path = $_FILES['file']['tmp_name'];
+                $file_name = $_FILES['file']['name'];
+                $file_size = $_FILES['file']['size'];
+                $file_type = $_FILES['file']['type'];
+
+                // Check file extension
+                $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+                $allowed_ext = array('csv');
+
+                if (in_array($file_ext, $allowed_ext)) {
+                    // Open the file for reading
+                    if (($handle = fopen($file_tmp_path, 'r')) !== false) {
+                        // Skip the first line if it contains column headers
+                        fgetcsv($handle);
+
+                        // Prepare the SQL statement for inserting new records
+                        $insert_stmt = $conn->prepare("INSERT INTO attendance (emp_id, atten_date, signin_time, signout_time, working_hour) VALUES (?, ?, ?, ?, ?)");
+                        $insert_stmt->bind_param("sssss", $emp_id, $atten_date, $signin_time, $signout_time, $working_hours);
+
+                        // Prepare the SQL statement for checking existing records
+                        $check_stmt = $conn->prepare("SELECT COUNT(*) FROM attendance WHERE emp_id = ? AND atten_date = ?");
+                        $check_stmt->bind_param("ss", $emp_id, $atten_date);
+
+                        // Process CSV data
+                        while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+                            // Map CSV data to database columns
+                            $emp_id = $data[0];
+                            $atten_date = $data[1];
+                            $signin_time = $data[2];
+                            $signout_time = $data[3];
+
+                            // Convert signin and signout times to DateTime objects
+                            $signinDateTime = new DateTime($signin_time);
+                            $signoutDateTime = new DateTime($signout_time);
+
+                            // Calculate the working hours
+                            $interval = $signinDateTime->diff($signoutDateTime);
+                            $working_hours = $interval->h + ($interval->i / 60);
+
+                            // Check if the date is Saturday
+                            $attenDateTime = new DateTime($atten_date);
+                            $dayOfWeek = $attenDateTime->format('N'); // 1 (for Monday) through 7 (for Sunday)
     
-            if (in_array($file_ext, $allowed_ext)) {
-                // Open the file for reading
-                if (($handle = fopen($file_tmp_path, 'r')) !== false) {
-                    // Skip the first line if it contains column headers
-                    fgetcsv($handle);
-    
-                    // Prepare the SQL statement for inserting new records
-                    $insert_stmt = $conn->prepare("INSERT INTO attendance (emp_id, atten_date, signin_time, signout_time, working_hour) VALUES (?, ?, ?, ?, ?)");
-                    $insert_stmt->bind_param("sssss", $emp_id, $atten_date, $signin_time, $signout_time, $working_hours);
-                    
-                    // Prepare the SQL statement for checking existing records
-                    $check_stmt = $conn->prepare("SELECT COUNT(*) FROM attendance WHERE emp_id = ? AND atten_date = ?");
-                    $check_stmt->bind_param("ss", $emp_id, $atten_date);
-    
-                    // Process CSV data
-                    while (($data = fgetcsv($handle, 1000, ',')) !== false) {
-                        // Map CSV data to database columns
-                        $emp_id = $data[0];
-                        $atten_date = $data[1];
-                        $signin_time = $data[2];
-                        $signout_time = $data[3];
-                        
-                        // Convert signin and signout times to DateTime objects
-                        $signinDateTime = new DateTime($signin_time);
-                        $signoutDateTime = new DateTime($signout_time);
-                        
-                        // Calculate the working hours
-                        $interval = $signinDateTime->diff($signoutDateTime);
-                        $working_hours = $interval->h + ($interval->i / 60);
-                        
-                       // Check if the date is Saturday
-                       $attenDateTime = new DateTime($atten_date);
-                       $dayOfWeek = $attenDateTime->format('N'); // 1 (for Monday) through 7 (for Sunday)
-                       
-                       // Check if working hours exceed the maximum allowed
-                       if ($dayOfWeek == 6) { // Saturday
-                           if ($working_hours > 5) {
-                               $working_hours = 5;
-                           }
-                       } else {
-                           if ($working_hours > 9) {
-                               $working_hours = 9;
-                           }
-                       }
-    
-                        // Check if the record already exists
-                        $check_stmt->execute();
-                        $check_stmt->store_result();
-                        $check_stmt->bind_result($count);
-                        $check_stmt->fetch();
-    
-                        if ($count == 0) {
-                            // Execute the prepared statement to insert the new record
-                            $insert_stmt->execute();
+                            // Check if working hours exceed the maximum allowed
+                            if ($dayOfWeek == 6) { // Saturday
+                                if ($working_hours > 5) {
+                                    $working_hours = 5;
+                                }
+                            } else {
+                                if ($working_hours > 9) {
+                                    $working_hours = 9;
+                                }
+                            }
+
+                            // Check if the record already exists
+                            $check_stmt->execute();
+                            $check_stmt->store_result();
+                            $check_stmt->bind_result($count);
+                            $check_stmt->fetch();
+
+                            if ($count == 0) {
+                                // Execute the prepared statement to insert the new record
+                                $insert_stmt->execute();
+                            }
                         }
+
+                        // Close the file and the statements
+                        fclose($handle);
+                        $insert_stmt->close();
+                        $check_stmt->close();
+
+                        echo "Data successfully imported to the database.";
+                    } else {
+                        echo 'Error opening the file.';
                     }
-    
-                    // Close the file and the statements
-                    fclose($handle);
-                    $insert_stmt->close();
-                    $check_stmt->close();
-    
-                    echo "Data successfully imported to the database.";
                 } else {
-                    echo 'Error opening the file.';
+                    echo 'Error: Invalid file type. Only CSV files are allowed.';
                 }
             } else {
-                echo 'Error: Invalid file type. Only CSV files are allowed.';
+                echo 'Error: ' . $_FILES['file']['error'];
             }
         } else {
-            echo 'Error: ' . $_FILES['file']['error'];
+            echo 'Invalid request method.';
         }
-    } else {
-        echo 'Invalid request method.';
+
+        // Close the database connection
+        $conn->close();
     }
-    
-    // Close the database connection
-    $conn->close();
-}
-?>
+    ?>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">

@@ -25,7 +25,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Holidays</h1>
+                        <h2 class="my-2">Holidays</h2>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i> Holidays
                         </button>
@@ -53,21 +53,21 @@
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <th><?php echo $row["id"]; ?></th>
-                                        <th><?php echo $row["holiday_name"]; ?></th>
-                                        <th><?php echo $row["from_date"]; ?></th>
-                                        <th><?php echo $row["to_date"]; ?></th>
-                                        <th><?php echo $row["number_of_days"]; ?></th>
-                                        <th><?php echo $row["year"]; ?></th>
-                                        <th><?php echo $row["number_of_holiday_hour"]; ?></th>
-                                        <th>
-                                            <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                            <i class="fa-solid fa-lock text-danger"></i>
-                                        </th>
-                                    </tr>
-                                    <?php
+                                            ?>
+                                            <tr>
+                                                <th><?php echo $row["id"]; ?></th>
+                                                <th><?php echo $row["holiday_name"]; ?></th>
+                                                <th><?php echo $row["from_date"]; ?></th>
+                                                <th><?php echo $row["to_date"]; ?></th>
+                                                <th><?php echo $row["number_of_days"]; ?></th>
+                                                <th><?php echo $row["year"]; ?></th>
+                                                <th><?php echo $row["number_of_holiday_hour"]; ?></th>
+                                                <th>
+                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    <i class="fa-solid fa-lock text-danger"></i>
+                                                </th>
+                                            </tr>
+                                            <?php
                                         }
                                     } else {
                                         echo "0 results";
@@ -115,52 +115,53 @@
         </div>
     </div>
     <?php
-include "common/conn.php";
+    include "common/conn.php";
 
-function calculateHours($date1, $date2) {
-    $totalHours = 0;
+    function calculateHours($date1, $date2)
+    {
+        $totalHours = 0;
 
-    $endDate = clone $date2;
-    // $endDate->modify('-1 day');
-
-    while ($date1 < $endDate) {
-        $dayOfWeek = $date1->format('N'); 
-        if ($dayOfWeek == 6) {
-            $totalHours += 5;
-        } elseif ($dayOfWeek == 7) { 
-        } else {
-            $totalHours += 9;
-        }
-        $date1->modify('+1 day');
-    }
-    return $totalHours;
-}
-
-if (isset($_POST['submit'])) {
-    // Retrieve form data
-    $holiday = $_POST["holiday"];
-    $from_date = $_POST["from_date"];
-    $to_date = $_POST["to_date"];
-    $year = date('m-Y');
-
-    $date1 = new DateTime($from_date);
-    $date2 = new DateTime($to_date);
+        $endDate = clone $date2;
+        // $endDate->modify('-1 day');
     
-    $totalHours = calculateHours(clone $date1, $date2); 
-    $interval = $date1->diff($date2);
-    $days = $interval->days;
-    $sql = $conn->prepare("INSERT INTO holiday (holiday_name, from_date, to_date, number_of_days, year, number_of_holiday_hour) VALUES (?, ?, ?, ?, ?, ?)");
-    $sql->bind_param('sssssi', $holiday, $from_date, $to_date, $days, $year, $totalHours);
-
-    if ($sql->execute()) {
-        echo "<script>alert('success');</script>";
-    } else {
-        echo "<script>alert('error');</script>";
+        while ($date1 < $endDate) {
+            $dayOfWeek = $date1->format('N');
+            if ($dayOfWeek == 6) {
+                $totalHours += 5;
+            } elseif ($dayOfWeek == 7) {
+            } else {
+                $totalHours += 9;
+            }
+            $date1->modify('+1 day');
+        }
+        return $totalHours;
     }
-    $sql->close();
-}
-$conn->close();
-?>
+
+    if (isset($_POST['submit'])) {
+        // Retrieve form data
+        $holiday = $_POST["holiday"];
+        $from_date = $_POST["from_date"];
+        $to_date = $_POST["to_date"];
+        $year = date('m-Y');
+
+        $date1 = new DateTime($from_date);
+        $date2 = new DateTime($to_date);
+
+        $totalHours = calculateHours(clone $date1, $date2);
+        $interval = $date1->diff($date2);
+        $days = $interval->days;
+        $sql = $conn->prepare("INSERT INTO holiday (holiday_name, from_date, to_date, number_of_days, year, number_of_holiday_hour) VALUES (?, ?, ?, ?, ?, ?)");
+        $sql->bind_param('sssssi', $holiday, $from_date, $to_date, $days, $year, $totalHours);
+
+        if ($sql->execute()) {
+            echo "<script>alert('success');</script>";
+        } else {
+            echo "<script>alert('error');</script>";
+        }
+        $sql->close();
+    }
+    $conn->close();
+    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

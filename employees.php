@@ -25,7 +25,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Employee</h1>
+                        <h2 class="my-2">Employee</h2>
                         <a href="employeeAdd.php" type="button" class="btn btn-primary">
                             <i class="fa-solid fa-plus"></i> Employee
                         </a>

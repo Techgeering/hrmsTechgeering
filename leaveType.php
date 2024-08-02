@@ -25,7 +25,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Leave Type</h1>
+                        <h2 class="my-2">Leave Type</h2>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i> Leave Type
                         </button>
@@ -50,18 +50,18 @@
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <th><?php echo $row["type_id"]; ?></th>
-                                        <th><?php echo $row["name"]; ?></th>
-                                        <th><?php echo $row["leave_day"]; ?></th>
-                                        <th><?php echo $row["status"]; ?></th>
-                                        <th>
-                                            <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                            <i class="fa-solid fa-lock text-danger"></i>
-                                        </th>
-                                    </tr>
-                                    <?php
+                                            ?>
+                                            <tr>
+                                                <th><?php echo $row["type_id"]; ?></th>
+                                                <th><?php echo $row["name"]; ?></th>
+                                                <th><?php echo $row["leave_day"]; ?></th>
+                                                <th><?php echo $row["status"]; ?></th>
+                                                <th>
+                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    <i class="fa-solid fa-lock text-danger"></i>
+                                                </th>
+                                            </tr>
+                                            <?php
                                         }
                                     } else {
                                         echo "0 results";
@@ -105,24 +105,24 @@
         </div>
     </div>
     <?php
-        include "common/conn.php";
-        if (isset($_POST['submit'])) {
-            // Retrieve form data
-            $leaveType = $_POST["leaveType"];
-            $days = $_POST["days"];
+    include "common/conn.php";
+    if (isset($_POST['submit'])) {
+        // Retrieve form data
+        $leaveType = $_POST["leaveType"];
+        $days = $_POST["days"];
 
-            $sql = "INSERT INTO leave_types (name, leave_day, status)
+        $sql = "INSERT INTO leave_types (name, leave_day, status)
             VALUES ('$leaveType', '$days', '1')";
 
-            if ($conn->query($sql) === TRUE) {
-                echo " <script>alert('success')</script>";
-            } else {
-                echo " <script>alert('error')</script>" ;
-            }
-            // Close connection
-            $conn->close();
+        if ($conn->query($sql) === TRUE) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo " <script>alert('error')</script>";
         }
+        // Close connection
         $conn->close();
+    }
+    $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

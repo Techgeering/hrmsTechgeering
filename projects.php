@@ -25,7 +25,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">All Projects</h1>
+                        <h2 class="my-2">All Projects</h2>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i> Project
                         </button>
@@ -45,34 +45,34 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        include "common/conn.php"; // Make sure this file exists and contains database connection code
-                                        
-                                        $sql = "SELECT * FROM project";
-                                        $result = $conn->query($sql);
+                                    include "common/conn.php"; // Make sure this file exists and contains database connection code
+                                    
+                                    $sql = "SELECT * FROM project";
+                                    $result = $conn->query($sql);
 
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $row["id"]; ?></td>
-                                        <td><?php echo $row["pro_name"]; ?></td>
-                                        <td><?php echo $row["pro_status"]; ?></td>
-                                        <td><?php echo $row["pro_start_date"]; ?></td>
-                                        <td><?php echo $row["pro_end_date"]; ?></td>
-                                        <td>
-                                            <a href="singleProject.php?id=<?php echo $row['id']; ?>"><i
-                                                    class="fa-solid fa-eye text-success"></i></a>
-                                            <a href="editProject.php?id=<?php echo $row['id']; ?>"><i
-                                                    class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>
-                                            <!-- <a href="deleteProject.php?id=<?php echo $row['id']; ?>"><i class="fa-solid fa-trash text-danger"></i></a> -->
-                                        </td>
-                                    </tr>
-                                    <?php
-                                            }
-                                        } else {
-                                            echo "<tr><td colspan='6'>0 results</td></tr>";
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $row["id"]; ?></td>
+                                                <td><?php echo $row["pro_name"]; ?></td>
+                                                <td><?php echo $row["pro_status"]; ?></td>
+                                                <td><?php echo $row["pro_start_date"]; ?></td>
+                                                <td><?php echo $row["pro_end_date"]; ?></td>
+                                                <td>
+                                                    <a href="singleProject.php?id=<?php echo $row['id']; ?>"><i
+                                                            class="fa-solid fa-eye text-success"></i></a>
+                                                    <a href="editProject.php?id=<?php echo $row['id']; ?>"><i
+                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>
+                                                    <!-- <a href="deleteProject.php?id=<?php echo $row['id']; ?>"><i class="fa-solid fa-trash text-danger"></i></a> -->
+                                                </td>
+                                            </tr>
+                                            <?php
                                         }
-                                        $conn->close();
+                                    } else {
+                                        echo "<tr><td colspan='6'>0 results</td></tr>";
+                                    }
+                                    $conn->close();
                                     ?>
                                 </tbody>
                             </table>
@@ -108,7 +108,7 @@
                                         required>
 
                                 </div>
-                               
+
                                 <div class="mb-2">
                                     <label for="startDate" class="form-label">Start Date</label>
                                     <input type="date" class="form-control" id="startDate" name="startDate" required>
@@ -150,44 +150,44 @@
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
     <?php
-        include "common/conn.php";
+    include "common/conn.php";
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-            // Include the connection file
-        
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+        // Include the connection file
+    
 
-            // Retrieve form data
-            $projectName = $_POST['ProjectName'];
-            $domainName = $_POST['domainName'];
-            $companyName = $_POST['companyName'];
-            $startDate = $_POST['startDate'];
-            $deadlineDate = $_POST['DeadlineDate'];
+        // Retrieve form data
+        $projectName = $_POST['ProjectName'];
+        $domainName = $_POST['domainName'];
+        $companyName = $_POST['companyName'];
+        $startDate = $_POST['startDate'];
+        $deadlineDate = $_POST['DeadlineDate'];
 
-            // File handling
-            $proposalFileName = $_FILES['proposal']['name'];
-            $proposalTempName = $_FILES['proposal']['tmp_name'];
-            $mouFileName = $_FILES['mou']['name'];
-            $mouTempName = $_FILES['mou']['tmp_name'];
+        // File handling
+        $proposalFileName = $_FILES['proposal']['name'];
+        $proposalTempName = $_FILES['proposal']['tmp_name'];
+        $mouFileName = $_FILES['mou']['name'];
+        $mouTempName = $_FILES['mou']['tmp_name'];
 
-            // Move uploaded files to a directory
-            $proposalDestination = "uploads/proposal/" . $proposalFileName;
-            $mouDestination = "uploads/mou/" . $mouFileName;
-            move_uploaded_file($proposalTempName, $proposalDestination);
-            move_uploaded_file($mouTempName, $mouDestination);
+        // Move uploaded files to a directory
+        $proposalDestination = "uploads/proposal/" . $proposalFileName;
+        $mouDestination = "uploads/mou/" . $mouFileName;
+        move_uploaded_file($proposalTempName, $proposalDestination);
+        move_uploaded_file($mouTempName, $mouDestination);
 
-            // Insert data into database
-            $sql = "INSERT INTO projects (project_name, domain_name, company_id, start_date, end_date, Proposal, Mou) 
+        // Insert data into database
+        $sql = "INSERT INTO projects (project_name, domain_name, company_id, start_date, end_date, Proposal, Mou) 
                 VALUES ('$projectName', '$domainName', '$companyName', '$startDate', '$deadlineDate', '$proposalDestination', '$mouDestination')";
 
-            if (mysqli_query($conn, $sql)) {
-                echo " <script>alert('success')</script>";
-            } else {
-                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-            }
-
-            // Close connection
-            mysqli_close($conn);
+        if (mysqli_query($conn, $sql)) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
+
+        // Close connection
+        mysqli_close($conn);
+    }
     ?>
 </body>
 

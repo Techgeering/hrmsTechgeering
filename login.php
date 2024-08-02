@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Login - Techgeering</title>
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -26,18 +26,21 @@
                                 <div class="card-body">
                                     <!-- <form method="post" action="insert.php"> -->
                                     <form method="post" action="<?php //echo $_SERVER['PHP_SELF']; 
-                                                                ?>">
+                                    ?>">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" name="email" type="text" placeholder="User Id" />
+                                            <input class="form-control" id="inputEmail" name="email" type="text"
+                                                placeholder="User Id" />
                                             <label for="inputEmail">User Id</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Password" />
+                                            <input class="form-control" name="password" id="inputPassword"
+                                                type="password" placeholder="Password" />
                                             <label for="inputPassword">Password</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <div class="small">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                                                <input class="form-check-input" id="inputRememberPassword"
+                                                    type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Remember
                                                     Password</label>
                                             </div>
@@ -55,41 +58,29 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
-
     <?php
     if (isset($_POST['login'])) {
-
         include "common/conn.php";
         $username = $_POST["email"];
         $userpassword = $_POST["password"];
-
-        $sql = "SELECT * FROM users WHERE email=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            if ($row['status'] == '0') {
-                echo "<script>alert('Contact higher authority');</script>";
-            } elseif ($row['password'] == $userpassword) {
-                echo "<script>alert('Success');</script>";
-                echo "Type: " . $row['type'];
-            } else {
-                echo "<script>alert('Wrong password');</script>";
-            }
+        $sql = "SELECT * FROM users WHERE username='$username' and password='$userpassword'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        if ($row > 0) {
+            $desigantion = $row['designation'];
+            echo "<script>alert('$desigantion');</script>";
+            session_start();
+            $_SESSION["username"] = "$username";
+            header("location:index.php");
+            echo "found";
         } else {
-            echo "<script>alert('User name wrong !');</script>";
+            echo "not found";
         }
-        $stmt->close();
     }
     ?>
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="js/scripts.js"></script>
+    <script src="assets/js/scripts.js"></script>
 </body>
 
 </html>

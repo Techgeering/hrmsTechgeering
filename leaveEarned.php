@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,6 +12,7 @@
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -23,7 +25,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="my-2">Earned Leave</h1>
+                        <h2 class="my-2">Earned Leave</h2>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i> Earned Leave
                         </button>
@@ -41,25 +43,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
+                                    <?php
                                     include "common/conn.php";
                                     $sql = "SELECT * FROM earned_leave";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <th><?php echo $row["id"]; ?></th>
-                                        <th><?php echo $row["em_id"]; ?></th>
-                                        <th><?php echo $row["hour"]; ?></th>
-                                        <th><?php echo $row["status"]; ?></th>
-                                        <th>
-                                            <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                            <i class="fa-solid fa-lock text-danger"></i>
-                                        </th>
-                                    </tr>
-                                    <?php
+                                            ?>
+                                            <tr>
+                                                <th><?php echo $row["id"]; ?></th>
+                                                <th><?php echo $row["em_id"]; ?></th>
+                                                <th><?php echo $row["hour"]; ?></th>
+                                                <th><?php echo $row["status"]; ?></th>
+                                                <th>
+                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    <i class="fa-solid fa-lock text-danger"></i>
+                                                </th>
+                                            </tr>
+                                            <?php
                                         }
                                     } else {
                                         echo "0 results";
@@ -99,28 +101,30 @@
         </div>
     </div>
     <?php
-        include "common/conn.php";
-        if (isset($_POST['submit'])) {
-            // Retrieve form data
-            $departmentName = $_POST["DepartmentName"];
-            // Prepare and bind SQL statement
-            $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
-            $stmt->bind_param("s", $departmentName);
-            // Execute SQL statement
-            if ($stmt->execute() === TRUE) {
-                echo " <script>alert('success')</script>";
-            } else {
-                echo " <script>alert('$stmt->error')</script>" ;
-            }
-            // Close connection
-            $stmt->close();
+    include "common/conn.php";
+    if (isset($_POST['submit'])) {
+        // Retrieve form data
+        $departmentName = $_POST["DepartmentName"];
+        // Prepare and bind SQL statement
+        $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
+        $stmt->bind_param("s", $departmentName);
+        // Execute SQL statement
+        if ($stmt->execute() === TRUE) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo " <script>alert('$stmt->error')</script>";
         }
-        $conn->close();
+        // Close connection
+        $stmt->close();
+    }
+    $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
+
 </html>
