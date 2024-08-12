@@ -41,6 +41,5 @@ if ($conn->query($sqltask) === true) {
     error_log("Error in SQL task: " . $conn->error);
     echo $conn->error;
 }
-
 $conn->close();
 ?>

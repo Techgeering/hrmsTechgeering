@@ -84,7 +84,7 @@
                         <a class="nav-link" href="projects.php">All Projects</a>
                         <a class="nav-link" href="company.php">Company</a>
                         <a class="nav-link" href="companyPersons.php">Company Persons</a>
-                        <a class="nav-link" href="projects.php"> Task List </a>
+                        <a class="nav-link" href="tasklist.php"> Task List </a>
                         <a class="nav-link" href="company.php"> Field Visit</a>
                     </nav>
                 </div>

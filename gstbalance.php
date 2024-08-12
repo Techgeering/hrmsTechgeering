@@ -169,7 +169,6 @@
     include "common/conn.php";
 
     if (isset($_POST['submit'])) {
-        // Retrieve form data
         $particulars = $_POST["particular"];
         $taxtype = $_POST["taxtype"];
         $gst = $_POST["gst"];
@@ -178,35 +177,40 @@
         $balance = $_POST["balance_T"];
         $date = $_POST["date"];
 
-        // Initialize the current balance
-        $current_balance = $balance;
-        $current_balance_T = $balance;
-
+        $current_balance_T;
+        $current_balance;
         // Fetch the latest balance from the database
-        $balance_query = "SELECT balance,balance_T FROM account ORDER BY id DESC LIMIT 1";
+        $balance_query = "SELECT balance_T FROM account WHERE balance_T!='' ORDER BY id DESC LIMIT 1";
         $balance_result = $conn->query($balance_query);
         if ($balance_result->num_rows > 0) {
             $row = $balance_result->fetch_assoc();
-            $current_balance = $row["balance"];
             $current_balance_T = $row["balance_T"];
+        } else {
+            $current_balance_T = 0;
         }
 
-        // Calculate the new balance
+        $balance_query1 = "SELECT balance FROM account ORDER BY id DESC LIMIT 1";
+        $balance_result1 = $conn->query($balance_query1);
+        if ($balance_result1->num_rows > 0) {
+            $row1 = $balance_result1->fetch_assoc();
+            $current_balance = $row1["balance"];
+        } else {
+            $current_balance = 0;
+        }
+
         if (!empty($deposit)) {
             $current_balance = (float) $current_balance + (float) $deposit;
             $current_balance_T = (float) $current_balance_T + (float) $deposit;
-            // $current_balance += (float)$deposit;
         } elseif (!empty($withdraw)) {
             $current_balance = (float) $current_balance - (float) $withdraw;
             $current_balance_T = (float) $current_balance_T - (float) $withdraw;
-            // $current_balance -= (float)$withdraw;
         }
 
         // Insert the new transaction along with the updated balance
         $sql = "INSERT INTO account (particulars, tex_type, gst, deposite, withdraw, balance, balance_T, date) 
             VALUES ('$particulars', 'GST', '$gst', '$deposit', '$withdraw', '$current_balance', '$current_balance_T', '$date')";
         if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
+            echo '<script>alert("New record created successfully")</script>';
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
