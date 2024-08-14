@@ -25,9 +25,9 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="my-2">Balance Sheet(NON)</h3>
+                        <h3 class="my-2">Balance Sheet(W-Tax)</h3>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i>NON-GST Balance
+                            <i class="fa-solid fa-plus"></i>WT Balance
                         </button>
                     </div>
                     <div class="card mb-4">
@@ -47,7 +47,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM account WHERE tex_type = 'NONGST'";
+                                    $sql = "SELECT * FROM account WHERE tex_type = 'NONGST' ORDER BY date DESC";
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     if ($result->num_rows > 0) {

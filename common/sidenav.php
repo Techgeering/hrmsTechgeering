@@ -96,9 +96,9 @@
                 </a>
                 <div class="collapse" id="account" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="gstbalance.php">Balance Sheet</a>
-                        <a class="nav-link" href="non_gstbalance.php">Balance Sheet (NON)</a>
-                        <a class="nav-link" href="allbalance.php">All</a>
+                        <a class="nav-link" href="tbalance.php">Balance Sheet(Tax)</a>
+                        <a class="nav-link" href="wtbalance.php">Balance Sheet(W-Tax)</a>
+                        <a class="nav-link" href="allbalance.php">Balance Sheet</a>
                     </nav>
                 </div>
 

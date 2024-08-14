@@ -396,7 +396,7 @@
                     <div id="projectsFiles" class="tabcontent">
                         <div class="card p-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Projects Tasks</h6>
+                                <h6 class="">Projects Files</h6>
                                 <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
                                     data-bs-target="#addfiles">
                                     <i class="fa-solid fa-plus"></i>Add Files
@@ -494,7 +494,7 @@
                     <div id="notes" class="tabcontent">
                         <div class="card p-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Projects Tasks</h6>
+                                <h6 class="">Projects Notes</h6>
                                 <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
                                     data-bs-target="#addnotes">
                                     <i class="fa-solid fa-plus"></i>Add Notes
@@ -581,16 +581,27 @@
                     <div id="Expenses" class="tabcontent">
                         <div class="card p-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Projects Tasks</h6>
+                                    <?php
+                                    include "common/conn.php";
+                                    $sql_c = " SELECT SUM(deposite) AS total,SUM(withdraw) AS totall FROM account WHERE pro_id='$proId'";
+                                    $result_c = $conn->query($sql_c);
+                                    if ($result_c->num_rows > 0) {
+                                        $row_c = $result_c->fetch_assoc();
+                                        $depositetotal = $row_c['total'];
+                                        $withdrawtotal = $row_c['totall'];
+                                        $balance = $depositetotal - $withdrawtotal;
+                                    }
+                                    ?>
+                                <h6 class="">Projects Expenses:-<?php echo $balance; ?></h6>
                                 <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
                                     data-bs-target="#addExpences">
                                     <i class="fa-solid fa-plus"></i>Add Expenses
                                 </button>
+                               
                             </div>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Sl</th>
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Assigned users</th>
                                         <th class="text-center">Details</th>
@@ -609,7 +620,6 @@
                                         while ($row5 = $result5->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <td class="text-center"><?php echo $slno; ?></td>
                                                 <td class="text-center">
                                                     <p class="edit"><?php echo $row5['date']; ?></p>
                                                     <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
@@ -664,7 +674,6 @@
                                                 </td>
                                             </tr>
                                             <?php
-                                            $slno++;
                                         }
                                     } else {
                                         echo "<tr><td colspan='6'>0 results</td></tr>";
@@ -678,7 +687,7 @@
                     <div id="Users" class="tabcontent">
                         <div class="card p-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Projects Tasks</h6>
+                                <h6 class="">Users</h6>
                                 <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
                                     data-bs-target="#addUsers">
                                     <i class="fa-solid fa-plus"></i>Add Users

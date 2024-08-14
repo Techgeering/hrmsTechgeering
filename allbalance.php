@@ -27,7 +27,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="my-2">All Balance</h3>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i>GST Balance
+                            <i class="fa-solid fa-plus"></i>All Balance
                         </button>
                     </div>
                     <div class="card mb-4">
