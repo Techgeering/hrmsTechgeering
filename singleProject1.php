@@ -591,18 +591,17 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">Sl</th>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Assigned users</th>
                                         <th class="text-center">Details</th>
-                                        <th class="text-center">Tax Type</th>
-                                        <th class="text-center">Deposite</th>
-                                        <th class="text-center">Withdraw</th>
+                                        <th class="text-center">Assigned users</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Balance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql5 = "SELECT * FROM account WHERE pro_id='$proId' ORDER BY date DESC";
+                                    $sql5 = "SELECT * FROM pro_expenses WHERE pro_id='$proId'";
                                     $result5 = $conn->query($sql5);
                                     $slno = 1;
                                     if ($result5->num_rows > 0) {
@@ -611,12 +610,13 @@
                                             <tr>
                                                 <td class="text-center"><?php echo $slno; ?></td>
                                                 <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['date']; ?></p>
+                                                    <p class="edit"><?php echo $row5['details']; ?></p>
                                                     <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
+                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                        style="display: none;">
                                                     </input>
                                                 </td>
-                                                 <td class="text-center">
+                                                <td class="text-center">
                                                     <p class="edit"><?php echo $row5['assign_to']; ?></p>
                                                     <select class='txtedit'
                                                         id='assign_to-<?php echo $row5["id"]; ?>-pro_expenses'
@@ -638,30 +638,37 @@
                                                     </select>
                                                 </td>
                                                 <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['particulars']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                    <p class="edit"><?php echo $row5['date']; ?></p>
+                                                    <input type="date" class='txtedit' value='<?php echo $row5["date"]; ?>'
+                                                        id='date-<?php echo $row5["id"]; ?>-pro_expenses'
                                                         style="display: none;">
                                                     </input>
                                                 </td>
                                                 <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['tex_type']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
+                                                    <?php
+                                                        $amount = $row5['amount'];
+                                                        $amountClass = $amount < 0 ? 'negative-amount' : 'positive-amount';
+                                                        ?>
+                                                    <p class="edit <?php echo $amountClass; ?>"><?php echo $amount; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $amount; ?>'
+                                                        id='amount-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                        style="display: none;">
                                                     </input>
                                                 </td>
                                                 <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['deposite']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
+                                                    <p class="edit"><?php echo $row5['balance']; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $row5["balance"]; ?>'
+                                                        id='amount-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
                                                     </input>
                                                 </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['withdraw']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
-                                                    </input>
-                                                </td>
+                                                <!-- <td class="text-center">
+                                                    <a href="projectDetails.php?id=<?php echo $row5['id']; ?>">
+                                                        <i class="fa-solid fa-eye text-success"></i>
+                                                    </a>
+                                                    <a href="editProject.php?id=<?php echo $row5['id']; ?>">
+                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    </a>
+                                                </td> -->
                                             </tr>
                                             <?php
                                             $slno++;
@@ -1014,6 +1021,67 @@
     </div>
 
     <!-- Expences modal -->
+    <!-- <div class="modal fade" id="addExpences" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Expences</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form name="form1" id="form2" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="hidden" class="form-control" value="<?php echo $proId; ?>" id="project_name"
+                                name="project_name" required>
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <label for="ProjectTitle" class="form-label">Expences Details</label>
+                                    <input type="text" class="form-control" id="Project_Details" name="Project_Details"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="assigned_users" class="form-label">Assigned Users</label>
+                                    <select class="form-control" name="assigned_users" id="assigned_users">
+                                        <option value="" disabled selected>Select a user</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql5 = "SELECT * FROM employee ";
+                                        $result5 = $conn->query($sql5);
+                                        while ($row5 = $result5->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?php echo $row5['full_name']; ?>">
+                                                <?php echo $row5['full_name']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="startDate" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="Date" name="Date" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="ProjectTitle" class="form-label">Amount</label>
+                                    <input type="text" class="form-control" id="Amount" name="Amount" required>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="task_type" value="protask">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="project_task">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+
  <div class="modal fade" id="addExpences" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -1052,12 +1120,12 @@
                                 <label class="form-label">GST Type</label>
                                 <div class="d-flex">
                                     <div class="me-1">
-                                        <input type="radio" name="taxtype" id="include_gst" value="NONGST" required>
-                                        <label for="include_gst">NON-GST</label>
+                                        <input type="radio" id="include_gst" value="include" required>
+                                        <label for="include_gst">Excluding GST</label>
                                     </div>
                                     <div>
-                                        <input type="radio" name="taxtype" id="exclude_gst" value="GST" required>
-                                        <label for="exclude_gst">GST</label>
+                                        <input type="radio" id="exclude_gst" value="exclude" required>
+                                        <label for="exclude_gst">Including GST</label>
                                     </div>
                                 </div>
                             </div>
@@ -1089,15 +1157,9 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="mb-2" id="deposite1" style="display:none;">
-                                <label for="Amount" class="form-label">deposite</label>
-                                <input type="text" class="form-control" name="deposite1">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-2" id="withdrawl1" style="display:none;">
-                                <label for="Amount" class="form-label">withdrawl</label>
-                                <input type="text" class="form-control" name="withdrawl1">
+                            <div class="mb-2">
+                                <label for="Amount" class="form-label">Amount</label>
+                                <input type="text" class="form-control" id="Amount" name="Amount" required>
                             </div>
                         </div>
                     </div>
@@ -1467,26 +1529,20 @@
         const assignedUsersField = document.getElementById('assigned_users_field');
         const amountInput = document.getElementById('Amount');
         const gstInput = document.getElementById('gst');
-        const depositeInput = document.getElementById('deposite1');
-        const withdrawlInput = document.getElementById('withdrawl1');
 
         function toggleFields() {
             if (depositRadio.checked) {
                 gstTypeField.style.display = 'block';
                 gstField.style.display = 'block';
                 assignedUsersField.style.display = 'none';
-                depositeInput.style.display = 'block';
-                withdrawlInput.style.display = 'none';
                 const amount = parseFloat(amountInput.value);
                 if (!isNaN(amount)) {
                     amountInput.value = Math.abs(amount); // Ensure positive value
                 }
             } else if (withdrawalRadio.checked) {
-                gstTypeField.style.display = 'block';
-                gstField.style.display = 'block';
+                gstTypeField.style.display = 'none';
+                gstField.style.display = 'none';
                 assignedUsersField.style.display = 'block';
-                depositeInput.style.display = 'none';
-                withdrawlInput.style.display = 'block';
                 const amount = parseFloat(amountInput.value);
                 if (!isNaN(amount)) {
                     amountInput.value = -Math.abs(amount); // Ensure negative value

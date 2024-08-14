@@ -4,35 +4,79 @@ include "common/conn.php";
 // Fetch form data
 $project_name = $_POST['project_name'];
 $Project_Details = $_POST['Project_Details'];
+$taxtype = $_POST["taxtype"];
 $gst = $_POST['gst'];
 $assigned_users = $_POST['assigned_users'];
 $Date = $_POST['Date'];
 $Amount = $_POST['Amount'];
+$deposit = $_POST["deposite1"];
+$withdraw = $_POST["withdrawl1"];
 
 
-// Fetch the last balance
-$sql2 = "SELECT balance FROM pro_expenses ORDER BY id DESC LIMIT 1";
-$result2 = $conn->query($sql2);
+$current_balance_T;
+$current_balance;
+$current_balance_WT;
 
-if ($result2->num_rows > 0) {
-    $row2 = $result2->fetch_assoc();
-    $balance = $row2['balance'];
-    $updatedbalance = $Amount + $balance;
+$balance_query = "SELECT balance_T FROM account WHERE balance_T!='' ORDER BY id DESC LIMIT 1";
+$balance_result = $conn->query($balance_query);
+if ($balance_result->num_rows > 0) {
+    $row = $balance_result->fetch_assoc();
+    $current_balance_T = $row["balance_T"];
 } else {
-    $updatedbalance = $Amount;
+    $current_balance_T = 0;
+}
+$balance_query1 = "SELECT balance FROM account ORDER BY id DESC LIMIT 1";
+$balance_result1 = $conn->query($balance_query1);
+if ($balance_result1->num_rows > 0) {
+    $row1 = $balance_result1->fetch_assoc();
+    $current_balance = $row1["balance"];
+} else {
+    $current_balance = 0;
+}
+$balance_query2 = "SELECT balance_WT FROM account WHERE balance_WT!='' ORDER BY id DESC LIMIT 1";
+$balance_result2 = $conn->query($balance_query2);
+if ($balance_result2->num_rows > 0) {
+    $row2 = $balance_result2->fetch_assoc();
+    $current_balance_WT = $row2["balance_WT"];
+} else {
+    $current_balance_WT = 0;
 }
 
-// Insert the new record
-$sqltask = "INSERT INTO pro_expenses (pro_id, details, gst, assign_to, date, amount, balance) 
-            VALUES ('$project_name', '$Project_Details', '$gst', '$assigned_users', '$Date', '$Amount', '$updatedbalance')";
-
-if ($conn->query($sqltask) === TRUE) {
-    echo "success";
+if ($taxtype == 'GST') {
+    if (!empty($deposit)) {
+        $current_balance = (float) $current_balance + (float) $deposit;
+        $current_balance_T = (float) $current_balance_T + (float) $deposit;
+        $current_balance_WT = (float) $current_balance_WT;
+    } elseif (!empty($withdraw)) {
+        $current_balance = (float) $current_balance - (float) $withdraw;
+        $current_balance_T = (float) $current_balance_T - (float) $withdraw;
+        $current_balance_WT = (float) $current_balance_WT;
+    }
 } else {
-    error_log("Error in SQL task: " . $conn->error);
-    echo $conn->error;
+    if (!empty($deposit)) {
+        $current_balance = (float) $current_balance + (float) $deposit;
+        $current_balance_T = (float) $current_balance_T;
+        $current_balance_WT = (float) $current_balance_WT + (float) $deposit;
+    } elseif (!empty($withdraw)) {
+        $current_balance = (float) $current_balance - (float) $withdraw;
+        $current_balance_T = (float) $current_balance_T;
+        $current_balance_WT = (float) $current_balance_WT - (float) $withdraw;
+    }
 }
 
-// Close connection
+if ($taxtype == 'GST') {
+    $sql = "INSERT INTO account (pro_id, assign_to, particulars, tex_type, gst, deposite, withdraw, balance, balance_T, balance_WT, date) 
+            VALUES ('$project_name','$assigned_users','$Project_Details', 'GST', '$gst', '$deposit', '$withdraw', '$current_balance', '$current_balance_T', '', '$Date')";
+} else {
+    $sql = "INSERT INTO account (pro_id, assign_to, particulars, tex_type, deposite, withdraw, balance, balance_T, balance_WT, date) 
+            VALUES ('$project_name','$assigned_users','$Project_Details', 'NONGST', '$deposit', '$withdraw', '$current_balance', '', '$current_balance_WT', '$Date')";
+}
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
 $conn->close();
+
 ?>

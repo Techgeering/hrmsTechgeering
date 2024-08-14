@@ -36,6 +36,8 @@
                                 <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th>Project Name</th>
+                                        <th>Assign To</th>
                                         <th>Particulars</th>
                                         <th>Deposite</th>
                                         <th>Withdraw</th>
@@ -53,6 +55,14 @@
                                             ?>
                                             <tr>
                                                 <td><?php echo $row["date"]; ?></td>
+                                                <?php
+                                                $pro_id = $row["pro_id"];
+                                                $sql1 = "SELECT * FROM project WHERE id = $pro_id";
+                                                $result1 = $conn->query($sql1);
+                                                $row1 = $result1->fetch_assoc();
+                                                ?>
+                                                <td><?php echo $row1["pro_name"]; ?></td>
+                                                <td><?php echo $row["assign_to"]; ?></td>
                                                 <td><?php echo $row["particulars"]; ?></td>
                                                 <td><?php echo $row["deposite"]; ?></td>
                                                 <td><?php echo $row["withdraw"]; ?></td>
@@ -67,15 +77,6 @@
                                     $conn->close();
                                     ?>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Particulars</th>
-                                        <th>Deposite</th>
-                                        <th>Withdraw</th>
-                                        <th>Balance</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -95,41 +96,43 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
-                            <!-- <div class="row">
-                                <div class="col-12">
-                                    <label for="DesignationName">Particulars</label>
-                                    <input type="text" class="form-control" id="DesignationName" name="particular">
-                                </div>
-                                <div class="col-6">
-                                    <label for="assigned_users" class="form-label">Tax Type</label>
-                                    <select class="form-control" name="taxtype" id="assigned_users">
-                                        <option value="" disabled selected>Select a Type</option>
-                                        <option value="gst">GST</option>
-                                        <option value="non_gst">Non-GST</option>
-                                    </select>
-                                </div>
-                                <div class="col-6">
-                                    <label for="DesignationName">GST</label>
-                                    <input type="text" class="form-control" id="DesignationName" name="gst">
-                                </div>
-                                <div class="col-6">
-                                    <label for="DesignationName">Deposite</label>
-                                    <input type="text" class="form-control" id="DesignationName" name="ddeposite">
-                                </div>
-                                <div class="col-6">
-                                    <label for="DesignationName">Withdraw</label>
-                                    <input type="text" class="form-control" id="DesignationName" name="withdraw">
-                                </div>
-                                <div class="col-6">
-                                    <label for="DesignationName">Balance</label>
-                                    <input type="text" class="form-control" id="DesignationName" name="balance">
-                                </div>
-                                <div class="col-6">
-                                    <label for="DesignationName">Date</label>
-                                    <input type="date" class="form-control" id="DesignationName" name="date">
-                                </div>
-                            </div> -->
                             <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="Project_Name" class="form-label">Project Name</label>
+                                        <select class="form-select" name="Project_Name" id="Project_Name">
+                                            <option value="" disabled selected>Select a project</option>
+                                            <?php
+                                            include "common/conn.php";
+                                            $sql_pro = "SELECT * FROM project ";
+                                            $result_pro = $conn->query($sql_pro);
+                                            while ($row_pro = $result_pro->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row_pro['id']; ?>">
+                                                    <?php echo $row_pro['pro_name']; ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="assigned_users" class="form-label">Assigned Users</label>
+                                        <select class="form-control" name="assigned_users" id="assigned_users">
+                                            <option value="" disabled selected>Select a user</option>
+                                            <?php
+                                            include "common/conn.php";
+                                            $sql5 = "SELECT * FROM employee ";
+                                            $result5 = $conn->query($sql5);
+                                            while ($row5 = $result5->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row5['full_name']; ?>">
+                                                    <?php echo $row5['full_name']; ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <label for="particulars">Particulars</label>
                                     <input type="text" class="form-control" id="particulars" name="particular">
@@ -150,10 +153,6 @@
                                     <label for="withdraw">Withdraw</label>
                                     <input type="text" class="form-control" id="withdraw" name="withdraw">
                                 </div>
-                                <!-- <div class="col-6">
-                                    <label for="balance">Balance</label>
-                                    <input type="text" class="form-control" id="balance" name="balance">
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -169,6 +168,8 @@
     include "common/conn.php";
 
     if (isset($_POST['submit'])) {
+        $Project_Name = $_POST["Project_Name"];
+        $assigned_users = $_POST["assigned_users"];
         $particulars = $_POST["particular"];
         $taxtype = $_POST["taxtype"];
         $gst = $_POST["gst"];
@@ -207,8 +208,8 @@
         }
 
         // Insert the new transaction along with the updated balance
-        $sql = "INSERT INTO account (particulars, tex_type, gst, deposite, withdraw, balance, balance_T, date) 
-            VALUES ('$particulars', 'GST', '$gst', '$deposit', '$withdraw', '$current_balance', '$current_balance_T', '$date')";
+        $sql = "INSERT INTO account (pro_id, assign_to, particulars, tex_type, gst, deposite, withdraw, balance, balance_T, date) 
+            VALUES ('$Project_Name',' $assigned_users','$particulars', 'GST', '$gst', '$deposit', '$withdraw', '$current_balance', '$current_balance_T', '$date')";
         if ($conn->query($sql) === TRUE) {
             echo '<script>alert("New record created successfully")</script>';
         } else {

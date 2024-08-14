@@ -26,7 +26,6 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h1 class="my-2">Accounts</h1>
-
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
@@ -67,12 +66,14 @@
                                         <th>adfsdasf</th>
                                         <th>sdafdsf</th>
                                         <th>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#addDept">
                                                 <i class="fa-solid fa-plus"></i>
                                             </button>
                                         </th>
                                         <th>
-                                            <a href="projectDetails.php"><i class="fa-solid fa-eye text-success"></i></a>
+                                            <a href="projectDetails.php"><i
+                                                    class="fa-solid fa-eye text-success"></i></a>
                                             <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                             <i class="fa-solid fa-trash text-danger"></i>
                                         </th>
@@ -86,8 +87,8 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
-        <!-- Modal -->
-        <div class="modal fade" id="addDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+    <!-- Modal -->
+    <div class="modal fade" id="addDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,7 +106,7 @@
                             <label for="Amount">Amount</label>
                             <input type="text" class="form-control" id="Amount">
                         </div>
-                        
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
