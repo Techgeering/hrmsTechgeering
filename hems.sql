@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2024 at 09:32 AM
+-- Generation Time: Aug 15, 2024 at 03:24 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,6 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `account` (
   `id` int(11) NOT NULL,
+  `pro_id` int(11) NOT NULL,
+  `assign_to` varchar(100) NOT NULL,
   `particulars` varchar(50) NOT NULL,
   `tex_type` enum('GST','NONGST') NOT NULL,
   `gst` varchar(20) NOT NULL,
@@ -37,19 +39,21 @@ CREATE TABLE `account` (
   `balance` varchar(20) NOT NULL,
   `balance_T` varchar(20) NOT NULL,
   `balance_WT` varchar(20) NOT NULL,
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`id`, `particulars`, `tex_type`, `gst`, `deposite`, `withdraw`, `balance`, `balance_T`, `balance_WT`, `date`) VALUES
-(1, 'uyfdg', 'NONGST', '', '100', '', '100', '', '100', '2024-08-18'),
-(2, 'zsxcvb', 'NONGST', '', '', '50', '50', '', '50', '2024-08-17'),
-(3, 'sdfcg', 'GST', '12', '100', '', '150', '100', '', '2024-08-18'),
-(4, 'xscvb', 'GST', '12', '100', '', '250', '200', '', '2024-08-18'),
-(5, 'sxcv', 'NONGST', '', '100', '', '350', '', '100', '2024-08-16');
+INSERT INTO `account` (`id`, `pro_id`, `assign_to`, `particulars`, `tex_type`, `gst`, `deposite`, `withdraw`, `balance`, `balance_T`, `balance_WT`, `date`, `time`) VALUES
+(1, 1, ' Colin', 'sdfds', 'GST', '12', '100', '', '550', '550', '', '2024-08-15', '00:00:00'),
+(2, 1, ' Colin', 'asdsadw', 'GST', '12', '100', '', '450', '450', '', '2024-08-14', '00:00:00'),
+(3, 1, ' Monalisa Das', 'sdcds', 'GST', '12', '100', '', '350', '350', '', '2024-08-13', '00:00:00'),
+(4, 1, ' Emily', 'adsfgfd', 'GST', '12', '50', '', '350', '350', '', '2024-08-05', '00:00:00'),
+(5, 1, ' Christine', 'sdcsd', 'GST', '12', '100', '', '550', '550', '', '2024-08-14', '00:00:00'),
+(6, 1, ' Thom', 'ege', 'GST', '12', '100', '', '550', '550', '', '2024-08-13', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -233,7 +237,33 @@ INSERT INTO `assign_task` (`id`, `task_id`, `project_id`, `assign_user`, `user_t
 (28, 20, 2, 'John', 'Team Head'),
 (29, 20, 2, 'Thom', 'Collaborators'),
 (30, 21, 2, 'nnnnn', 'Team Head'),
-(31, 21, 2, 'Thom,fffff,John', 'Collaborators');
+(31, 21, 2, 'Thom,fffff,John', 'Collaborators'),
+(32, 22, 0, 'aaMichael', 'Team Head'),
+(33, 22, 0, 'Thom', 'Collaborators'),
+(34, 23, 1, 'Stephany', 'Team Head'),
+(35, 23, 1, 'Thom,fffff', 'Collaborators'),
+(36, 24, 1, 'Monalisa Das', 'Team Head'),
+(37, 24, 1, 'nnnnn', 'Collaborators'),
+(38, 25, 1, 'nnnnn', 'Team Head'),
+(39, 25, 1, 'Thom', 'Collaborators'),
+(40, 26, 1, 'Colin', 'Team Head'),
+(41, 26, 1, 'fffff', 'Collaborators'),
+(42, 27, 1, 'Liam', 'Team Head'),
+(43, 27, 1, 'Thom', 'Collaborators'),
+(44, 28, 1, 'ASUTOSH DAS', 'Team Head'),
+(45, 28, 1, 'fffff', 'Collaborators'),
+(46, 29, 1, 'Colin', 'Team Head'),
+(47, 29, 1, 'John', 'Collaborators'),
+(48, 30, 1, 'Emily', 'Team Head'),
+(49, 30, 1, 'gghh', 'Collaborators'),
+(50, 31, 1, 'aaaaa', 'Team Head'),
+(51, 31, 1, 'Thom', 'Collaborators'),
+(52, 32, 1, 'Monalisa Das', 'Team Head'),
+(53, 32, 1, 'Thom', 'Collaborators'),
+(54, 33, 1, 'Emily', 'Team Head'),
+(55, 33, 1, 'Thom', 'Collaborators'),
+(56, 34, 3, 'Colin', 'Team Head'),
+(57, 34, 3, 'Thom', 'Collaborators');
 
 -- --------------------------------------------------------
 
@@ -1069,9 +1099,11 @@ CREATE TABLE `pro_expenses` (
 
 INSERT INTO `pro_expenses` (`id`, `pro_id`, `assign_to`, `details`, `gst`, `amount`, `balance`, `date`) VALUES
 (1, 1, '', 'fdgbhgh', '18%', '1180.00', '1180.00', '2024-07-26'),
-(2, 1, '', 'sfrgfrgf', '18%', '1180.00', '2360', '2024-07-28'),
-(3, 1, '', 'sdfghn', '18%', '847.46', '3207.46', '2024-07-30'),
-(4, 1, 'Colin', 'szxcsczsz', '', '-500', '2707.46', '2024-07-28');
+(2, 1, 'aaMichael', 'sfrgfrgf', '18%', '1180.00', '2360', '2024-07-28'),
+(3, 1, '', 'NON GST', '18%', '847.46', '3207.46', '2024-07-30'),
+(4, 1, 'Colin', 'szxcsczsz', '', '-500', '2707.46', '2024-07-28'),
+(5, 2, '', '<br /><b>Warning</b>:  Undefined array key \"details\" in <b>C:xampphtdocshrmsTechgeeringsingleProject.php</b> on line <b>671</b><br />', '12', '1358.56', '4066.02', '2024-08-04'),
+(6, 2, 'aaaaa', 'sdfvdg', '', '-1420', '2646.02', '2024-08-25');
 
 -- --------------------------------------------------------
 
@@ -1139,7 +1171,19 @@ INSERT INTO `pro_task` (`id`, `pro_id`, `task_title`, `start_date`, `end_date`, 
 (18, 2, 'tttt', '2024-07-25', '2024-07-25', NULL, 'etwetw', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
 (19, 2, 'aaaaa', '2024-07-25', '2024-07-25', NULL, 'mhngbfc', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
 (20, 2, 'ssssss', '2024-07-25', '2024-07-25', NULL, 'sfdgh', 'Office', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
-(21, 2, 'aaaaa', '2024-07-25', '2024-07-25', NULL, 'jkhg', 'Office', 'complete', NULL, NULL, NULL, NULL, 'Not Approve');
+(21, 2, 'aaaaa', '2024-07-25', '2024-07-25', NULL, 'jkhg', 'Office', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
+(23, 1, '', '', '', NULL, 'rgrdrdgrthhtr', 'Office', 'running', NULL, NULL, NULL, '2024-08-04', 'Not Approve'),
+(24, 1, '', '', '', NULL, 'fgbfb', 'Field', 'complete', NULL, NULL, NULL, '2024-08-01', 'Not Approve'),
+(25, 1, ' sdssssss', '', '', NULL, 'gfnhgfhg', 'Field', 'complete', NULL, NULL, NULL, '2024-08-24', 'Not Approve'),
+(26, 1, ' hhhhh', '2024-08-02', '2024-08-02', NULL, 'gvftbtftr', 'Office', 'complete', NULL, NULL, NULL, '2024-08-02', 'Not Approve'),
+(27, 1, ' dddd', '2024-08-09', '2024-08-09', NULL, 'gfhbgfhft', 'Field', 'complete', NULL, NULL, NULL, '2024-08-09', 'Not Approve'),
+(28, 1, ' rrrrrrr', '2024-08-03', '2024-08-03', NULL, 'fffffffff', 'Field', 'running', NULL, NULL, NULL, '2024-08-03', 'Not Approve'),
+(29, 1, ' wwww', '2024-08-04', '2024-08-04', NULL, 'fdvfb', 'Office', 'running', NULL, NULL, NULL, '2024-08-04', 'Not Approve'),
+(30, 1, ' yyyy', '2024-08-07', '2024-08-09', NULL, 'rfgrvgrgtgtr', 'Field', 'running', NULL, NULL, NULL, '2024-08-07', 'Not Approve'),
+(31, 1, ' asasas', '2024-08-16', '2024-08-03', NULL, 'fvfvfvfv', 'Office', 'complete', NULL, NULL, NULL, '2024-08-31', 'Not Approve'),
+(32, 1, ' swswsw', '2024-08-15', '2024-08-24', NULL, 'fcdrfcdc', 'Field', 'complete', NULL, NULL, NULL, '2024-08-16', 'Not Approve'),
+(33, 1, ' lllll', '2024-08-17', '2024-08-11', NULL, 'hghgbhj', 'Office', 'running', NULL, NULL, NULL, '2024-08-11', 'Not Approve'),
+(34, 3, ' dfdfd', '2024-08-05', '2024-08-08', NULL, 'fgbgfhbgf', 'Office', 'complete', NULL, NULL, NULL, '2024-08-04', 'Not Approve');
 
 -- --------------------------------------------------------
 
@@ -1562,7 +1606,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `addition`
@@ -1598,7 +1642,7 @@ ALTER TABLE `assign_leave`
 -- AUTO_INCREMENT for table `assign_task`
 --
 ALTER TABLE `assign_task`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `attadence_report`
@@ -1766,7 +1810,7 @@ ALTER TABLE `project_file`
 -- AUTO_INCREMENT for table `pro_expenses`
 --
 ALTER TABLE `pro_expenses`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pro_notes`
@@ -1778,7 +1822,7 @@ ALTER TABLE `pro_notes`
 -- AUTO_INCREMENT for table `pro_task`
 --
 ALTER TABLE `pro_task`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `pro_task_assets`

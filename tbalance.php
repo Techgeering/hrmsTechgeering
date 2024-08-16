@@ -47,7 +47,11 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM account WHERE tex_type = 'GST' ORDER BY date DESC";
+                                    $sql = "SELECT * FROM 
+                                    account AS a
+                                    INNER JOIN project AS p
+                                    ON a.pro_id = p.id 
+                                    WHERE tex_type = 'GST' ORDER BY date_time DESC";
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     if ($result->num_rows > 0) {
@@ -55,13 +59,8 @@
                                             ?>
                                             <tr>
                                                 <td><?php echo $row["date"]; ?></td>
-                                                <?php
-                                                $pro_id = $row["pro_id"];
-                                                $sql1 = "SELECT * FROM project WHERE id = $pro_id";
-                                                $result1 = $conn->query($sql1);
-                                                $row1 = $result1->fetch_assoc();
-                                                ?>
-                                                <td><?php echo $row1["pro_name"]; ?></td>
+
+                                                <td><?php echo $row["pro_name"]; ?></td>
                                                 <td><?php echo $row["assign_to"]; ?></td>
                                                 <td><?php echo $row["particulars"]; ?></td>
                                                 <td><?php echo $row["deposite"]; ?></td>
@@ -166,7 +165,6 @@
     </div>
     <?php
     include "common/conn.php";
-
     if (isset($_POST['submit'])) {
         $Project_Name = $_POST["Project_Name"];
         $assigned_users = $_POST["assigned_users"];
@@ -176,12 +174,19 @@
         $deposit = $_POST["ddeposite"];
         $withdraw = $_POST["withdraw"];
         $balance = $_POST["balance_T"];
-        $date = $_POST["date"];
+        $date = $_POST["date"]; // Example: 2024-08-11
+    
+        $datetimes = new DateTime("now", new DateTimeZone('Asia/Kolkata'));
+        $time = $datetimes->format('H:i:s');
+
+        // Combine the provided date with the current time
+        $datetime = $date . " " . $time;
 
         $current_balance_T;
         $current_balance;
         // Fetch the latest balance from the database
-        $balance_query = "SELECT balance_T FROM account WHERE balance_T!='' ORDER BY id DESC LIMIT 1";
+        // $balance_query = "SELECT balance_T FROM account WHERE balance_T!='' ORDER BY id DESC LIMIT 1";
+        $balance_query = "SELECT balance_T FROM account WHERE balance_T IS NOT NULL AND date_time < '$datetime' ORDER BY date_time DESC LIMIT 1";
         $balance_result = $conn->query($balance_query);
         if ($balance_result->num_rows > 0) {
             $row = $balance_result->fetch_assoc();
@@ -190,7 +195,8 @@
             $current_balance_T = 0;
         }
 
-        $balance_query1 = "SELECT balance FROM account ORDER BY id DESC LIMIT 1";
+        $balance_query1 = "SELECT balance FROM account WHERE balance_T IS NOT NULL AND date_time < '$datetime' ORDER BY date_time DESC LIMIT 1";
+        // $balance_query1 = "SELECT balance FROM account ORDER BY id DESC LIMIT 1";
         $balance_result1 = $conn->query($balance_query1);
         if ($balance_result1->num_rows > 0) {
             $row1 = $balance_result1->fetch_assoc();
@@ -208,10 +214,40 @@
         }
 
         // Insert the new transaction along with the updated balance
-        $sql = "INSERT INTO account (pro_id, assign_to, particulars, tex_type, gst, deposite, withdraw, balance, balance_T, date) 
-            VALUES ('$Project_Name',' $assigned_users','$particulars', 'GST', '$gst', '$deposit', '$withdraw', '$current_balance', '$current_balance_T', '$date')";
+        $sql = "INSERT INTO account (pro_id, assign_to, particulars, tex_type, gst, deposite, withdraw, balance, balance_T, date, date_time) 
+            VALUES ('$Project_Name',' $assigned_users','$particulars', 'GST', '$gst', '$deposit', '$withdraw', '$current_balance', '$current_balance_T', '$date', '$datetime')";
         if ($conn->query($sql) === TRUE) {
-            echo '<script>alert("New record created successfully")</script>';
+
+            if (!empty($deposit)) {
+                $sql15 = "SELECT * FROM account WHERE balance_T IS NOT NULL AND date_time > '$datetime'";
+                $result15 = $conn->query($sql15);
+                while ($row15 = $result15->fetch_assoc()) {
+                    $balancetid = $row15["id"];
+
+                    $sql16 = "UPDATE account SET balance_T = balance_T + $deposit , balance = balance + $deposit WHERE id = '$balancetid'";
+                    if ($conn->query($sql16) === TRUE) {
+                        echo '<script>alert("Data Updated successfully")</script>';
+                    } else {
+                        echo '<script>alert("Error")</script>';
+                    }
+                }
+            } elseif (!empty($withdraw)) {
+                $sqlw15 = "SELECT * FROM account WHERE balance_T IS NOT NULL AND date_time > '$datetime'";
+                $resultw15 = $conn->query($sqlw15);
+                while ($roww15 = $resultw15->fetch_assoc()) {
+                    $balancetwid = $roww15["id"];
+
+                    $sqlw16 = "UPDATE account SET balance_T = balance_T - $withdraw , balance = balance - $withdraw WHERE id = '$balancetwid'";
+                    if ($conn->query($sqlw16) === TRUE) {
+                        echo '<script>alert("Data Updated successfully")</script>';
+
+                    } else {
+                        echo '<script>alert("Error while updating")</script>';
+                    }
+                }
+            } else {
+                echo '<script>alert("New record created successfully")</script>';
+            }
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
