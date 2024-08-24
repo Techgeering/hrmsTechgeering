@@ -59,12 +59,6 @@
                                             ?>
                                             <tr>
                                                 <td><?php echo $row["date"]; ?></td>
-                                                <?php
-                                                $pro_id = $row["pro_id"];
-                                                $sql1 = "SELECT * FROM project WHERE id = $pro_id";
-                                                $result1 = $conn->query($sql1);
-                                                $row1 = $result1->fetch_assoc();
-                                                ?>
                                                 <td><?php echo $row["pro_name"]; ?></td>
                                                 <td><?php echo $row["assign_to"]; ?></td>
                                                 <td><?php echo $row["particulars"]; ?></td>

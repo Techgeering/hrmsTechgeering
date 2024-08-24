@@ -99,6 +99,8 @@
                         <a class="nav-link" href="tbalance.php">Balance Sheet(Tax)</a>
                         <a class="nav-link" href="wtbalance.php">Balance Sheet(W-Tax)</a>
                         <a class="nav-link" href="allbalance.php">Balance Sheet</a>
+                        <a class="nav-link" href="expenditure.php">Expenditure</a>
+                        <a class="nav-link" href="expenditure_calculator.php">Expenditure Calculator</a>
                     </nav>
                 </div>
 
