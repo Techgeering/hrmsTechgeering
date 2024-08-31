@@ -70,12 +70,12 @@ session_start(); {
                                                 <th><?php echo $row["end_date"]; ?></th>
                                                 <th><?php echo $row["leave_duration"]; ?></th>
                                                 <th><?php echo $row["reason"]; ?></th>
-                                                <!-- <th><?php echo $row["leave_status"]; ?></th> -->
+                                                <th><?php echo $row["leave_status"]; ?></th>
                                                 <?php if ($em_role == '1') { ?>
-                                                    <th>
+                                                    <!-- <th>
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                         <i class="fa-solid fa-lock text-danger"></i>
-                                                    </th>
+                                                    </th> -->
                                                 <?php } ?>
                                             </tr>
                                             <?php
