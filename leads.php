@@ -73,7 +73,7 @@ session_start(); {
                                                 <td><?php echo $row["city"]; ?></td>
                                                 <td><?php echo $row["interested_in"]; ?></td>
                                                 <td><?php echo $row["lastfollowupdate"]; ?></td>
-                                                <td><?php echo $row["nextfollowupdate"]; ?></td>                                                
+                                                <td><?php echo $row["nextfollowupdate"]; ?></td>
                                                 <td><?php echo $row["status"]; ?></td>
                                                 <td>
                                                     <a href="leadview.php?id=<?php echo $row['id']; ?>"><i
@@ -105,47 +105,73 @@ session_start(); {
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Project Details</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Leads</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
                     enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="mb-2">
-                                    <label for="ProjectTitle" class="form-label">Project Title</label>
-                                    <input type="text" class="form-control" id="ProjectTitle" name="ProjectTitle"
-                                        required>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="ProjectEndDate" class="form-label">Project End Date</label>
-                                    <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate"
-                                        required>
-
-                                </div>
-
-                                <div class="mb-2">
-                                    <label for="startDate" class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" name="startDate" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="Summary" class="form-label">Summary</label>
-                                    <input type="text" class="form-control" id="Summary" name="Summary" required>
+                                    <label for="leadname" class="form-label">Lead Name</label>
+                                    <input type="text" class="form-control" id="leadname" name="leadname" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="mb-2">
-                                    <label for="Details" class="form-label">Details</label>
-                                    <textarea class="form-control" id="Details" name="Details" rows="7"></textarea>
+                                    <label for="companyname" class="form-label">Company Name</label>
+                                    <input type="text" class="form-control" id="companyname" name="companyname"
+                                        required>
                                 </div>
+                            </div>
+                            <div class="col-4">
                                 <div class="mb-2">
-                                    <label for="Status" class="form-label">Status</label>
-                                    <select class="form-control" id="Status" name="Status">
-                                        <option value="upcoming">Upcoming</option>
-                                        <option value="complete">Complete</option>
-                                        <option value="running">Running</option>
-                                    </select>
+                                    <label for="phoneno" class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneno" name="phoneno" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="email" class="form-label">Email Id</label>
+                                    <input type="text" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="state" class="form-label">State</label>
+                                    <input type="text" class="form-control" id="state" name="state" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="country" class="form-label">Country</label>
+                                    <input type="text" class="form-control" id="country" name="country" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="source" class="form-label">Source</label>
+                                    <input type="text" class="form-control" id="source" name="source" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="intersted" class="form-label">Intersted</label>
+                                    <input type="text" class="form-control" id="intersted" name="interested" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="bussinesstype" class="form-label">Bussiness Type</label>
+                                    <input type="text" class="form-control" id="bussinesstype" name="bussinesstype"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +184,7 @@ session_start(); {
             </div>
         </div>
     </div>
-
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>
@@ -167,42 +193,25 @@ session_start(); {
     <script src="assets/js/datatables-simple-demo.js"></script>
     <?php
     include "common/conn.php";
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-        // Include the connection file
-    
-
-        // Retrieve form data
-        $projectName = $_POST['ProjectName'];
-        $domainName = $_POST['domainName'];
-        $companyName = $_POST['companyName'];
-        $startDate = $_POST['startDate'];
-        $deadlineDate = $_POST['DeadlineDate'];
-
-        // File handling
-        $proposalFileName = $_FILES['proposal']['name'];
-        $proposalTempName = $_FILES['proposal']['tmp_name'];
-        $mouFileName = $_FILES['mou']['name'];
-        $mouTempName = $_FILES['mou']['tmp_name'];
-
-        // Move uploaded files to a directory
-        $proposalDestination = "uploads/proposal/" . $proposalFileName;
-        $mouDestination = "uploads/mou/" . $mouFileName;
-        move_uploaded_file($proposalTempName, $proposalDestination);
-        move_uploaded_file($mouTempName, $mouDestination);
-
-        // Insert data into database
-        $sql = "INSERT INTO projects (project_name, domain_name, company_id, start_date, end_date, Proposal, Mou) 
-                VALUES ('$projectName', '$domainName', '$companyName', '$startDate', '$deadlineDate', '$proposalDestination', '$mouDestination')";
-
-        if (mysqli_query($conn, $sql)) {
-            echo " <script>alert('success')</script>";
+    if (isset($_POST['submit'])) {
+        $leadname = $_POST["leadname"];
+        $companyname = $_POST["companyname"];
+        $phoneno = $_POST["phoneno"];
+        $email = $_POST["email"];
+        $city = $_POST["city"];
+        $state = $_POST["state"];
+        $country = $_POST["country"];
+        $source = $_POST["source"];
+        $interested = $_POST["interested"];
+        $bussinesstype = $_POST["bussinesstype"];
+        $sql = "INSERT INTO leads (lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status)
+        VALUES ('$leadname', '$companyname', '$phoneno', ' $email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1')";
+        if ($conn->query($sql) === TRUE) {
+            echo "New record created successfully";
         } else {
-            echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
-
-        // Close connection
-        mysqli_close($conn);
+        $conn->close();
     }
     ?>
 </body>

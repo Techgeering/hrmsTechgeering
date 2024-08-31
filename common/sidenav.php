@@ -18,7 +18,7 @@
                     <div class="collapse" id="Organization" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="departments.php">Departments</a>
-                            <a class="nav-link" href="em_role.php">em_role</a>
+                            <a class="nav-link" href="designation.php">Designation</a>
                         </nav>
                     </div>
                 <?php } ?>
@@ -143,7 +143,6 @@
                         </nav>
                     </div>
                 <?php } ?>
-
                 <a class="nav-link" href="leads.php">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
                     Leads

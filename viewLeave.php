@@ -48,7 +48,13 @@ session_start(); {
                                         <th>End Date</th>
                                         <th>Days</th>
                                         <th>Reason</th>
-                                        <th>Status</th>
+                                        <?php if ($em_role == '4') { ?>
+                                            <th>View</th>
+                                        <?php } ?>
+                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                            <th>Status</th>
+                                        <?php } ?>
+
                                         <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
@@ -65,12 +71,78 @@ session_start(); {
                                                 <th><?php echo $row["id"]; ?></th>
                                                 <th><?php echo $row["apply_date"]; ?></th>
                                                 <th><?php echo $row["em_id"]; ?></th>
-                                                <th><?php echo $row["leave_type"]; ?></th>
+                                                <th>
+                                                    <?php
+                                                    $typeid = $row["typeid"];
+                                                    $sql2 = "SELECT * FROM leave_types WHERE type_id = $typeid";
+                                                    $result2 = $conn->query($sql2);
+                                                    $row2 = $result2->fetch_assoc();
+                                                    echo htmlspecialchars($row2["name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </th>
                                                 <th><?php echo $row["start_date"]; ?></th>
                                                 <th><?php echo $row["end_date"]; ?></th>
                                                 <th><?php echo $row["leave_duration"]; ?></th>
                                                 <th><?php echo $row["reason"]; ?></th>
-                                                <th><?php echo $row["leave_status"]; ?></th>
+                                                <?php if ($em_role == '4') { ?>
+                                                    <th>
+                                                        <?php
+                                                        $status = $row["leave_status"];
+                                                        if ($status == '1') {
+                                                            echo "Approved";
+                                                        } elseif ($status == '2') {
+                                                            echo "Not Approved";
+                                                        } elseif ($status == '3') {
+                                                            echo "Cancel";
+                                                        } else {
+                                                            echo "Pending";
+                                                        }
+                                                        ?>
+                                                    </th>
+                                                <?php } ?>
+                                                <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                                    <th>
+                                                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-success dropdown-toggle" type="button"
+                                                                    id="dropdownMenuButton_<?php echo $row['id']; ?>"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <?php
+                                                                    $leave_status = $row['leave_status'];
+                                                                    echo ($leave_status == 0) ? "Pending" :
+                                                                        (($leave_status == 1) ? "Approved" :
+                                                                            (($leave_status == 2) ? "Not Approved" : "Cancel"));
+                                                                    ?>
+                                                                </button>
+                                                                <ul class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
+                                                                    <li>
+                                                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                                                            <button class="dropdown-item" type="submit"
+                                                                                name="status_update" value="1">Approved</button>
+                                                                        <?php } ?>
+                                                                    </li>
+                                                                    <li>
+                                                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                                                            <button class="dropdown-item" type="submit"
+                                                                                name="status_update" value="2">Not Approved</button>
+                                                                        <?php } ?>
+                                                                    </li>
+                                                                    <li>
+                                                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                                                            <button class="dropdown-item" type="submit"
+                                                                                name="status_update" value="3">Cancel</button>
+                                                                        <?php } ?>
+                                                                    </li>
+                                                                </ul>
+                                                                <input type="hidden" name="idd" value="<?php echo $row['id']; ?>">
+                                                            </div>
+                                                        </form>
+                                                    </th>
+                                                <?php } ?>
+                                                <!-- <th>
+                                                    <?php echo $row["leave_status"]; ?>
+                                                </th> -->
                                                 <?php if ($em_role == '1') { ?>
                                                     <!-- <th>
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
@@ -181,19 +253,36 @@ session_start(); {
         $interval = $date1->diff($date2);
         $days = $interval->days;
         $totalHours = calculateHours(clone $date1, $date2);
-
-        $sql1 = "INSERT INTO emp_leave (em_id, typeid, leave_type,start_date,end_date,leave_duration,duration_hour,apply_date,reason)
-            VALUES ('$empId', '$Leavetype','', '$StartDate','$EndDate','$days', '$totalHours','$currentDate','$Reason')";
-
+        $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason,  leave_status)
+            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '1')";
         if ($conn->query($sql1) === TRUE) {
             echo " <script>alert('success')</script>";
         } else {
             echo " <script>alert('error')</script>";
         }
-        // Close connection
         $conn->close();
     }
     $conn->close();
+    ?>
+    <?php
+    include "common/conn.php";
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_update']) && isset($_POST['idd'])) {
+        $status = $_POST['status_update'];
+        $id = $_POST['idd'];
+        $sql10 = "UPDATE emp_leave SET leave_status='$status' WHERE id='$id'";
+        if ($conn->query($sql10) === true) {
+            echo " <script>alert('success')</script>";
+            $currentDate = date('d/m/Y');
+            $sql11 = "INSERT INTO leave_apply_approve (leaveapp_id, approved_by, datetime)
+            VALUES ('$id', '$em_role', '$currentDate')";
+            if ($conn->query($sql11) === TRUE) {
+                // echo " <script>alert('success')</script>";
+            } else {
+                echo $conn->error;
+            }
+            $conn->close();
+        }
+    }
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
@@ -201,6 +290,7 @@ session_start(); {
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+
 </body>
 
 </html>
