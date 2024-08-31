@@ -144,10 +144,10 @@
                     </div>
                 <?php } ?>
 
-                <!-- <a class="nav-link" href="accounts.php">
+                <a class="nav-link" href="leads.php">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
-                    Accounts
-                </a> -->
+                    Leads
+                </a>
                 <!-- <a class="nav-link" href="tasks.php">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
                     Tasks
