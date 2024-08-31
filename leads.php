@@ -46,7 +46,6 @@ session_start(); {
                                         <th>Lead Name</th>
                                         <th>Company Name</th>
                                         <th>Phone</th>
-                                        <!-- <th>Email</th> -->
                                         <th>city</th>
                                         <th>Intersted for</th>
                                         <th>Last Followup Date</th>
@@ -204,8 +203,11 @@ session_start(); {
         $source = $_POST["source"];
         $interested = $_POST["interested"];
         $bussinesstype = $_POST["bussinesstype"];
-        $sql = "INSERT INTO leads (lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status)
-        VALUES ('$leadname', '$companyname', '$phoneno', ' $email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1')";
+        $currentDateTime = date('Y-m-d H:i:s');
+
+        $sql = "INSERT INTO leads (lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status, lead_date)
+        VALUES ('$leadname', '$companyname', '$phoneno', '$email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1', '$currentDateTime')";
+        
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
         } else {
@@ -213,7 +215,8 @@ session_start(); {
         }
         $conn->close();
     }
-    ?>
+?>
+
 </body>
 
 </html>
