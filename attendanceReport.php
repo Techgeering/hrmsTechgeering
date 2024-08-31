@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,9 +31,11 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="my-2">Attendance Report</h2>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i> Attendance Report
-                        </button>
+                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
+                                <i class="fa-solid fa-plus"></i> Attendance Report
+                            </button>
+                        <?php } ?>
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">

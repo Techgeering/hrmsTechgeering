@@ -1,3 +1,9 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,9 +32,11 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="my-2">Employee</h2>
-                        <a href="employeeAdd.php" type="button" class="btn btn-primary">
-                            <i class="fa-solid fa-plus"></i> Employee
-                        </a>
+                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                            <a href="employeeAdd.php" type="button" class="btn btn-primary">
+                                <i class="fa-solid fa-plus"></i> Employee
+                            </a>
+                        <?php } ?>
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
@@ -41,7 +49,9 @@
                                         <th>Email</th>
                                         <th>Contact</th>
                                         <th>User Type</th>
-                                        <th>Action</th>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <th>Action</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,13 +70,15 @@
                                                 <th><?php echo $row["em_email"]; ?></th>
                                                 <th><?php echo $row["em_phone"]; ?></th>
                                                 <th><?php echo $row["em_role"]; ?></th>
-                                                <th>
-                                                    <a href="employeeDetail.php?em_id=<?php echo $row["em_code"]; ?>"> <i
-                                                            class="fa-solid fa-eye  text-primary"></i></a>
-                                                    <i class="fa-solid fa-lock text-danger mx-2"></i>
-                                                    <!-- Disciplinary -->
-                                                    <i class="fa-solid fa-exclamation-circle"></i>
-                                                </th>
+                                                <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                                    <th>
+                                                        <a href="employeeDetail.php?em_id=<?php echo $row["em_code"]; ?>"> <i
+                                                                class="fa-solid fa-eye  text-primary"></i></a>
+                                                        <!-- <i class="fa-solid fa-lock text-danger mx-2"></i> -->
+                                                        <!-- Disciplinary -->
+                                                        <!-- <i class="fa-solid fa-exclamation-circle"></i> -->
+                                                    </th>
+                                                <?php } ?>
                                             </tr>
                                             <?php
                                             $slno++;

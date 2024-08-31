@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +30,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="my-2">Inactive User</h2>
+                        <h2 class="my-2">Ex-Employees</h2>
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">

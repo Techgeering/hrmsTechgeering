@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,9 +31,11 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="my-2">Leave Type</h2>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i> Leave Type
-                        </button>
+                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
+                                <i class="fa-solid fa-plus"></i> Leave Type
+                            </button>
+                        <?php } ?>
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
@@ -39,7 +46,9 @@
                                         <th>Leave Type</th>
                                         <th>Days</th>
                                         <th>status</th>
-                                        <th>Action</th>
+                                        <?php if ($em_role == '1') { ?>
+                                            <th>Action</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,10 +65,12 @@
                                                 <th><?php echo $row["name"]; ?></th>
                                                 <th><?php echo $row["leave_day"]; ?></th>
                                                 <th><?php echo $row["status"]; ?></th>
-                                                <th>
-                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                    <i class="fa-solid fa-lock text-danger"></i>
-                                                </th>
+                                                <?php if ($em_role == '1') { ?>
+                                                    <th>
+                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                        <i class="fa-solid fa-lock text-danger"></i>
+                                                    </th>
+                                                <?php } ?>
                                             </tr>
                                             <?php
                                         }

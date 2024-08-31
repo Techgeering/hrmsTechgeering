@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +49,7 @@
                                         <th>Days</th>
                                         <th>Reason</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,10 +71,12 @@
                                                 <th><?php echo $row["leave_duration"]; ?></th>
                                                 <th><?php echo $row["reason"]; ?></th>
                                                 <th><?php echo $row["leave_status"]; ?></th>
-                                                <th>
-                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                    <i class="fa-solid fa-lock text-danger"></i>
-                                                </th>
+                                                <?php if ($em_role == '1') { ?>
+                                                    <th>
+                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                        <i class="fa-solid fa-lock text-danger"></i>
+                                                    </th>
+                                                <?php } ?>
                                             </tr>
                                             <?php
                                         }

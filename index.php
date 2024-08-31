@@ -2,11 +2,11 @@
 session_start();
 include "common/conn.php";
 $userid = $_SESSION['username'];
+$em_role = $_SESSION["em_role"];
 if ($userid === NULL) {
     header("location:login.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,9 +31,11 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="my-2">All Projects</h2>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i> Project
-                        </button>
+                        <?php if ($em_role == '1') { ?>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
+                                <i class="fa-solid fa-plus"></i> Project
+                            </button>
+                        <?php } ?>
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
@@ -62,8 +69,8 @@
                                                 <td>
                                                     <a href="singleProject.php?id=<?php echo $row['id']; ?>"><i
                                                             class="fa-solid fa-eye text-success"></i></a>
-                                                    <a href="editProject.php?id=<?php echo $row['id']; ?>"><i
-                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>
+                                                    <!-- <a href="editProject.php?id=<?php echo $row['id']; ?>"><i -->
+                                                    <!-- class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a> -->
                                                     <!-- <a href="deleteProject.php?id=<?php echo $row['id']; ?>"><i class="fa-solid fa-trash text-danger"></i></a> -->
                                                 </td>
                                             </tr>

@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -102,13 +107,21 @@
                         <button class="tablinks" onclick="openDialog(event, 'ProjectTasks')"> Project Tasks </button>
                         <button class="tablinks" onclick="openDialog(event, 'OfficeTasks')"> Office Tasks </button>
                         <button class="tablinks" onclick="openDialog(event, 'projectsFiles')"> Projects Files </button>
+                        <?php if ($em_role == '1' || $em_role == '4') { ?>
                         <button class="tablinks" onclick="openDialog(event, 'notes')"> Notes </button>
+                        <?php } ?>
+                        <?php if ($em_role == '1') { ?>
                         <button class="tablinks" onclick="openDialog(event, 'Expenses')"> Expenses </button>
+                        <?php } ?>
+                        <?php if ($em_role == '1') { ?>
                         <button class="tablinks" onclick="openDialog(event, 'Users')"> Users </button>
+                        <?php } ?>
                     </div>
                     <div id="ProjectView" class="tabcontent">
                         <div class="row">
+                            <?php if ($em_role == '1') { ?>
                             <div class="col-md-4">
+                                
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <img src="assets/uploads/employee/6614b390d974e.jpg" class="img-circle"
@@ -126,8 +139,13 @@
                                         <h6>ffff</h6>
                                     </div>
                                 </div>
+                                
                             </div>
-                            <div class="col-md-8 row">
+                            
+                            <div class="col-md-8"></div>
+                                <?php }else{ ?>
+                                    <div class="col-md-12">
+                                <?php } ?>
                                 <!-- <form class="row" action="Update" method="post" enctype="multipart/form-data"
                                     novalidate="novalidate"> -->
                                 <div class="form-group col-md-12 m-t-10">

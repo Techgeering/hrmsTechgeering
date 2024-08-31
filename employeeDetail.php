@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,7 +111,9 @@
                         <button class="tablinks" onclick="openDilog(event, 'Document')">Document</button>
                         <button class="tablinks" onclick="openDilog(event, 'Salary')">Salary</button>
                         <button class="tablinks" onclick="openDilog(event, 'Leave')">Leave</button>
-                        <button class="tablinks" onclick="openDilog(event, 'Social')">Social Media</button>
+                        <?php if ($em_role == '1') { ?>
+                            <button class="tablinks" onclick="openDilog(event, 'Social')">Social Media</button>
+                        <?php } ?>
                         <button class="tablinks" onclick="openDilog(event, 'Password')"> Change Password</button>
                     </div>
                     <div id="PersonalInfo" class="tabcontent">

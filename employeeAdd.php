@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,9 +66,10 @@
                                             <label for="doj">Role</label>
                                             <select name="role" id="role" class="form-control">
                                                 <option value="">Select Role</option>
-                                                <option value="ADMIN">Admin</option>
-                                                <option value="Employee">Employee</option>
-                                                <option value="Super Admin">Super Admin</option>
+                                                <option value="1">Admin</option>
+                                                <option value="2">Manager</option>
+                                                <option value="3">Hr</option>
+                                                <option value="4">Employee</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -101,23 +107,23 @@
                                             <label for="employeeId">Employee Id</label>
                                             <input type="text" class="form-control" id="employeeId" name="employeeId">
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="designation">Designation</label>
                                             <select name="designation" id="designation" class="form-control">
                                                 <option value="">Select Desination</option>
                                                 <?php
-                                                include "common/conn.php";
-                                                $result = mysqli_query($conn, "SELECT * FROM designation");
-                                                while ($row = mysqli_fetch_array($result)) {
-                                                    ?>
-                                                    <option value="<?php echo $row['id']; ?>">
-                                                        <?php echo $row["des_name"]; ?>
-                                                    </option>
+                                                // include "common/conn.php";
+                                                // $result = mysqli_query($conn, "SELECT * FROM designation");
+                                                // while ($row = mysqli_fetch_array($result)) {
+                                                //     ?>
+                                                //     <option value="<?php echo $row['id']; ?>">
+                                                //         <?php echo $row["des_name"]; ?>
+                                                //     </option>
                                                     <?php
-                                                }
-                                                ?>
+                                                    // }
+                                                    ?>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="doj">DOJ</label>
                                             <input type="date" class="form-control" id="doj" name="doj">

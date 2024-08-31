@@ -1,3 +1,8 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +43,9 @@
                                         <th>Title</th>
                                         <th>Description</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <?php if ($em_role == '1') { ?>
+                                            <th>Action</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,11 +66,13 @@
                                                 <th><?php echo $row["title"]; ?></th>
                                                 <th><?php echo $row["description"]; ?></th>
                                                 <th><?php echo $row["action"]; ?></th>
-                                                <th>
-                                                    <a href="employeeDetail.php?em_id=<?php echo $row["em_id"]; ?>"> <i
-                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>
-                                                    <i class="fa-solid fa-lock text-danger"></i>
-                                                </th>
+                                                <?php if ($em_role == '1') { ?>
+                                                    <th>
+                                                        <a href="employeeDetail.php?em_id=<?php echo $row["em_id"]; ?>"> <i
+                                                                class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>
+                                                        <i class="fa-solid fa-lock text-danger"></i>
+                                                    </th>
+                                                <?php } ?>
                                             </tr>
                                             <?php
                                         }

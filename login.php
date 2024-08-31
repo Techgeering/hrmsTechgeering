@@ -62,20 +62,29 @@
     if (isset($_POST['login'])) {
         include "common/conn.php";
         $username = $_POST["email"];
-        $userpassword = $_POST["password"];
-        $sql = "SELECT * FROM users WHERE username='$username' and password='$userpassword'";
+        $password = $_POST["password"];
+        $sql = "SELECT * FROM employee WHERE em_email = '$username'";
         $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
-        if ($row > 0) {
-            $desigantion = $row['designation'];
-            echo "<script>alert('$desigantion');</script>";
-            session_start();
-            $_SESSION["username"] = "$username";
-            header("location:index.php");
-            echo "found";
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $hashedPassword = $row['em_password'];
+            if (password_verify($password, $hashedPassword)) {
+                $user_id = $row['id'];
+                $em_role = $row['em_role'];
+                // Store the user ID in the session
+                session_start();
+                $_SESSION["username"] = "$user_id";
+                $_SESSION["em_role"] = "$em_role";
+                // Redirect the user to index.php after successful sign-in
+                echo "<script>window.location.href='index.php';</script>";
+            } else {
+                echo "Invalid password. Please try again.";
+            }
         } else {
-            echo "not found";
+            echo "User not found. Please register if you don't have an account.";
         }
+        $conn->close();
+
     }
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
