@@ -272,7 +272,7 @@ session_start(); {
         $sql10 = "UPDATE emp_leave SET leave_status='$status' WHERE id='$id'";
         if ($conn->query($sql10) === true) {
             echo " <script>alert('success')</script>";
-            $currentDate = date('d/m/Y');
+            $currentDate = date('Y-m-d H:i:s');
             $sql11 = "INSERT INTO leave_apply_approve (leaveapp_id, approved_by, datetime)
             VALUES ('$id', '$em_role', '$currentDate')";
             if ($conn->query($sql11) === TRUE) {
