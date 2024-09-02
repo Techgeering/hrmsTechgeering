@@ -77,6 +77,7 @@ session_start(); {
         <?php
         include 'common/conn.php';
         $empId = isset($_GET['em_id']) ? $_GET['em_id'] : NULL;
+        $empId = base64_decode($empId);
         $sql = "SELECT * FROM employee WHERE em_code='$empId'";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
@@ -370,7 +371,7 @@ session_start(); {
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="Address" class="tabcontent">
+                    <div id="Address" class="tabcontent">
                         <div class="row m-2">
                             <div class="col-6 card p-2">
                                 <h4 class="test-center">Present Address</h4>
@@ -439,8 +440,8 @@ session_start(); {
                                 </div>
                             </div>
                         </div>
-                    </div> -->
-                    <div id="Address" class="tabcontent">
+                    </div>
+                    <!-- <div id="Address" class="tabcontent">
                         <div class="row m-2">
                             <div class="col-6 card p-2">
                                 <h4 class="test-center">Present Address</h4>
@@ -551,7 +552,7 @@ session_start(); {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div id="Education" class="tabcontent p-2">
                         <div class="card p-2 m-2">
@@ -1053,7 +1054,7 @@ session_start(); {
                                                 while ($row4 = $result4->fetch_assoc()) {
                                                     // Calculate taken leave
                                                     $leaveType = $row4["name"];
-                                                    $sqlTakenLeave = "SELECT COUNT(*) AS taken_leave FROM emp_leave WHERE leave_type = '$leaveType' AND em_id='$empId'";
+                                                    $sqlTakenLeave = "SELECT COUNT(*) AS taken_leave FROM emp_leave WHERE typeid = '$leaveType' AND em_id='$empId'";
                                                     $resultTakenLeave = $conn->query($sqlTakenLeave);
                                                     $takenLeave = 0;
                                                     if ($resultTakenLeave->num_rows > 0) {

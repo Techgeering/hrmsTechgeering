@@ -6,6 +6,7 @@ include "common/conn.php";
 
 // Ensure leadId is retrieved from either POST or GET based on the context
 $leadId = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : null);
+$leadId = base64_decode($leadId);
 
 if ($leadId) {
     // Use prepared statements to prevent SQL injection
@@ -46,9 +47,9 @@ if ($leadId) {
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="my-2">Single Lead View</h2>
                         <?php if ($em_role == '1') { ?>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i> Add Follow-Up
-                        </button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
+                                <i class="fa-solid fa-plus"></i> Add Follow-Up
+                            </button>
                         <?php } ?>
                     </div>
                     <div class="row">
@@ -59,61 +60,77 @@ if ($leadId) {
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Lead Name</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["lead_name"]); ?></p>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["lead_name"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Company Name</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["companyname"]); ?></p>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["companyname"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Phone</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["phone_no"]); ?></p>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["phone_no"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Email</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["email_id"]); ?></p>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["email_id"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">City</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["city"]); ?></p>
+                                                <p class="form-control"><?php echo htmlspecialchars($row1["city"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">State</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["state"]); ?></p>
+                                                <p class="form-control"><?php echo htmlspecialchars($row1["state"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Interested In</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["interested_in"]); ?></p>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["interested_in"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Status</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["status"]); ?></p>
+                                                <p class="form-control"><?php echo htmlspecialchars($row1["status"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Source</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["source"]); ?></p>
+                                                <p class="form-control"><?php echo htmlspecialchars($row1["source"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Business Type</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["business_type"]); ?></p>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["business_type"]); ?>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -143,16 +160,16 @@ if ($leadId) {
                                             if ($result2->num_rows > 0) {
                                                 while ($row2 = $result2->fetch_assoc()) {
                                                     ?>
-                                            <tr>
-                                                <td><?php echo htmlspecialchars($row2["start_date"]); ?></td>
-                                                <td><?php echo htmlspecialchars($row2["message"]); ?> </td>
-                                                <td><?php echo htmlspecialchars($row2["next_date"]); ?></td>
-                                            </tr>
-                                            <?php }
+                                                    <tr>
+                                                        <td><?php echo htmlspecialchars($row2["start_date"]); ?></td>
+                                                        <td><?php echo htmlspecialchars($row2["message"]); ?> </td>
+                                                        <td><?php echo htmlspecialchars($row2["next_date"]); ?></td>
+                                                    </tr>
+                                                <?php }
                                             } else { ?>
-                                            <tr>
-                                                <td colspan="3">No follow-up records found.</td>
-                                            </tr>
+                                                <tr>
+                                                    <td colspan="3">No follow-up records found.</td>
+                                                </tr>
                                             <?php } ?>
                                         </tbody>
                                     </table>
@@ -180,7 +197,8 @@ if ($leadId) {
                             <div class="col-12">
                                 <div class="mb-2">
                                     <label for="nextdate" class="form-label">Next Date and Time</label>
-                                    <input type="datetime-local" class="form-control" id="nextdate" name="nextdate" required>
+                                    <input type="datetime-local" class="form-control" id="nextdate" name="nextdate"
+                                        required>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -199,32 +217,36 @@ if ($leadId) {
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
     <script src="assets/js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
 <?php
-
 include "common/conn.php";
-    if (isset($_POST['submit'])) {
-        $startdate = date('Y-m-d H:i:s');
-        $nextdate = date('Y-m-d H:i:s', strtotime($_POST["nextdate"]));
-        $message = $_POST["message"];
-        $leadId = $_POST["id"];
+if (isset($_POST['submit'])) {
+    $startdate = date('Y-m-d H:i:s');
+    $nextdate = date('Y-m-d H:i:s', strtotime($_POST["nextdate"]));
+    $message = $_POST["message"];
+    $leadId = $_POST["id"];
 
-        $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
+    $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
         VALUES ('$leadId', '$startdate', '$nextdate', '$message')";
 
-        if ($conn->query($sql) === TRUE) {
-            header("Location: leadview.php?id=".$leadId);
-            // echo "success";
-            // exit();
+    if ($conn->query($sql) === TRUE) {
+        include "common/conn.php";
+        // header("Location: leadview.php?id=" . $leadId);
+        $sql10 = "UPDATE leads SET lastfollowupdate='$startdate' , nextfollowupdate='$nextdate' WHERE id='$leadId'";
+        if ($conn->query($sql10) === TRUE) {
+            echo "<script>window.location.href='leadview.php?id=$leadId';</script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-        $conn->close();
     }
-    ?>
+    $conn->close();
+}
+?>
 
 </html>

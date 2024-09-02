@@ -87,6 +87,7 @@ session_start(); {
         include 'common/conn.php';
         // $proId = 2;
         $proId = $_GET["id"];
+        $proId = base64_decode($proId);
         $sql = "SELECT * FROM project WHERE id =$proId";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();

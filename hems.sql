@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2024 at 03:24 PM
+-- Generation Time: Sep 02, 2024 at 12:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,20 +40,15 @@ CREATE TABLE `account` (
   `balance_T` varchar(20) NOT NULL,
   `balance_WT` varchar(20) NOT NULL,
   `date` date NOT NULL,
-  `time` time NOT NULL
+  `date_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`id`, `pro_id`, `assign_to`, `particulars`, `tex_type`, `gst`, `deposite`, `withdraw`, `balance`, `balance_T`, `balance_WT`, `date`, `time`) VALUES
-(1, 1, ' Colin', 'sdfds', 'GST', '12', '100', '', '550', '550', '', '2024-08-15', '00:00:00'),
-(2, 1, ' Colin', 'asdsadw', 'GST', '12', '100', '', '450', '450', '', '2024-08-14', '00:00:00'),
-(3, 1, ' Monalisa Das', 'sdcds', 'GST', '12', '100', '', '350', '350', '', '2024-08-13', '00:00:00'),
-(4, 1, ' Emily', 'adsfgfd', 'GST', '12', '50', '', '350', '350', '', '2024-08-05', '00:00:00'),
-(5, 1, ' Christine', 'sdcsd', 'GST', '12', '100', '', '550', '550', '', '2024-08-14', '00:00:00'),
-(6, 1, ' Thom', 'ege', 'GST', '12', '100', '', '550', '550', '', '2024-08-13', '00:00:00');
+INSERT INTO `account` (`id`, `pro_id`, `assign_to`, `particulars`, `tex_type`, `gst`, `deposite`, `withdraw`, `balance`, `balance_T`, `balance_WT`, `date`, `date_time`) VALUES
+(1, 0, '', 'extra expences', 'GST', '12', '100', '', '100', '100', '', '2024-08-16', '2024-08-16 19:12:29');
 
 -- --------------------------------------------------------
 
@@ -110,13 +105,15 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`id`, `emp_id`, `address1`, `address2`, `city`, `state`, `country`, `pincode`, `type`) VALUES
 (1, '123456', 'aassaaadvdfsgfdgs', 'aafsdfgs', 'aaaMuscle Shoals', 'aafgdfg', 'aaUS', 'aa123456', 'Permanent'),
-(2, '123456', 'sdfgds', 'sdfgfd', 'Muscle Shoals', 'sfdgfdsg', 'US', '123456', 'Present'),
+(2, '99', 'sdfgds', 'sdfgfd', 'Muscle Shoals', 'sfdgfdsg', 'US', '123456', 'Present'),
 (5, '4445', 'dcdfvd', 'ddcv', NULL, '', NULL, NULL, 'Permanent'),
 (6, '4445', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
 (7, '5845', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
 (8, '5845', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
 (9, '52122', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(10, '52122', NULL, NULL, NULL, '', NULL, NULL, 'Present');
+(10, '52122', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
+(11, '', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
+(12, '', NULL, NULL, NULL, '', NULL, NULL, 'Present');
 
 -- --------------------------------------------------------
 
@@ -372,7 +369,8 @@ INSERT INTO `bank_info` (`id`, `em_id`, `holder_name`, `bank_name`, `branch_name
 (8, 'Moo1634', 'Christine Moore', 'RTY Bank', 'ERT Branch', 'CA850000245800', 'Savings'),
 (9, 'Joh1474', 'Michael K Johnson', 'Aexr Bank', 'ERT Branch', 'CA800000256147', 'Salary Account'),
 (10, 'Den1745', 'Emily V Denn', 'Demo Bank', 'XZY Branch', 'CA777000001055', 'Savings'),
-(11, '52122', 'ghtghgh', NULL, NULL, NULL, NULL);
+(11, '52122', 'ghtghgh', NULL, NULL, NULL, NULL),
+(12, '', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -472,29 +470,10 @@ CREATE TABLE `designation` (
 --
 
 INSERT INTO `designation` (`id`, `des_name`, `status`) VALUES
-(1, 'xcd', '1'),
-(2, 'cvcgd', '1'),
-(3, 'dfdfd', '1'),
-(4, 'Vice Chairman', '1'),
-(6, 'Chief Executive Officer (CEO)', '1'),
-(7, 'Chief Finance & Admin Officer', '1'),
-(8, 'Sr. Finance & Admin Officer - I', '1'),
-(9, 'Jr. Finance & Admin Officer', '1'),
-(10, 'Senior Research Associate-1', '1'),
-(11, 'Research Associate-1', '1'),
-(12, 'Junior Research Associate', '1'),
-(13, 'Research Assistant', '1'),
-(14, 'Sr. Office Assistant', '1'),
-(15, 'Office Assistant', '1'),
-(16, 'IT Analyst', '1'),
-(17, 'Cook', '1'),
-(18, 'Software Engineer', '1'),
-(19, 'System Analyst', '1'),
-(20, 'Programmer Analyst', '1'),
-(21, 'Sr Software Engineer', '1'),
-(22, 'Technical Specialist', '1'),
-(23, 'Trainee Engineer', '1'),
-(24, 'Intern', '1');
+(1, 'Admin', '1'),
+(2, 'Manager', '1'),
+(3, 'Hr', '1'),
+(4, 'Employee', '1');
 
 -- --------------------------------------------------------
 
@@ -557,7 +536,7 @@ CREATE TABLE `employee` (
   `full_name` varchar(128) DEFAULT NULL,
   `em_email` varchar(64) DEFAULT NULL,
   `em_password` varchar(512) NOT NULL,
-  `em_role` enum('ADMIN','EMPLOYEE','SUPER ADMIN') NOT NULL DEFAULT 'EMPLOYEE',
+  `em_role` int(10) NOT NULL,
   `status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
   `em_gender` enum('Male','Female') NOT NULL DEFAULT 'Male',
   `em_phone` varchar(64) DEFAULT NULL,
@@ -576,21 +555,21 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `em_code`, `des_id`, `dep_id`, `full_name`, `em_email`, `em_password`, `em_role`, `status`, `em_gender`, `em_phone`, `em_wahtsapp`, `em_birthday`, `em_blood_group`, `em_joining_date`, `em_contact_end`, `em_image`, `em_aadher`, `em_pan`) VALUES
-(10, '99', 0, 0, 'Thom', 'thoma@mail.com', '25c2c9afdd83b8d34234aa2881cc341C09689aaa', 'SUPER ADMIN', 'ACTIVE', 'Female', '7856587870', '3121141214', '1998-02-22', 'B+', '2018-01-25', '2018-01-17', 'userav-min.png', '13215456655645242', 0),
-(36, '123456', 10, 7, 'fffff', 'ssadmin@mail.com', 'cd5ea73cd58f827fa78eef7197b8ee606c99b2e6', 'SUPER ADMIN', 'ACTIVE', 'Female', 'ss999999900', '42429999999999', '1950-12-13', 'A+', '2010-02-15', '2007-02-22', 'user.png', '55201253568955555', 1),
-(37, '123444', 12, 2, 'John', 'employee@mail.com', 'cd5ea73cd58f827fa78eef7197b8ee606c99b2e6', 'EMPLOYEE', 'ACTIVE', 'Male', '1111110010', '', '1995-10-30', 'O+', '2019-02-15', '2019-02-22', 'Doe1753.jpg', '01253568955555', 0),
-(38, '6969', 13, 5, 'Liam', 'liam@mail.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'EMPLOYEE', 'ACTIVE', 'Male', '7124589965', '', '1994-03-23', 'A-', '2021-05-04', '2023-05-17', 'Moo1402.png', '1234567890', 0),
-(39, '1058', 9, 4, 'Stephany', 'stephany@mail.com', '7672fb4033bc7bc14e2e26e5e0679e3c2a1bd514', 'EMPLOYEE', 'ACTIVE', 'Female', '7850001111', '8769534214', '1992-12-24', 'A+', '2021-04-14', '2024-07-10', 'Rob1472.png', '7000105000', 5415245),
-(40, '8877', 13, 5, 'Chris', 'chris@mail.com', '260a678229cde1991cd1ac0d6adb4980c76c5e7f', 'EMPLOYEE', 'INACTIVE', 'Male', '7852140000', '', '1993-01-02', 'AB+', '2021-10-01', '', 'Tho1044.png', '0102580010', 0),
-(41, '3008', 3, 1, 'Colin', 'colin@mail.com', '7b4286b09972e2859b718440aa68a2a6eeb869dd', 'EMPLOYEE', 'ACTIVE', 'Male', '7400001450', '2514823056', '1990-12-12', 'A-', '2021-10-10', '2024-07-24', 'Smi1266.png', '0147000000', 0),
-(42, '6661', 26, 10, 'Christine', 'christine@mail.com', '37219392e904e98b6dca4f729f1d29c642d40e19', 'ADMIN', 'INACTIVE', 'Male', '1010140000', '', '1991-04-05', 'AB+', '2021-10-10', '', 'Moo1634.png', '147850000144', 0),
-(43, '8829', 22, 7, 'aaMichael', 'michael@mail.com', 'd492ed1b1fdfbc9ca9db7c10c7df38d2b488fb14', 'EMPLOYEE', 'ACTIVE', 'Male', '7801450000', '', '1986-02-23', 'B-', '2021-02-02', '', 'Joh1474.png', '600254000014', 0),
-(44, '6600', 20, 7, 'Emily', 'emily@mail.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'EMPLOYEE', 'INACTIVE', 'Female', '7410144470', '', '1996-03-03', 'AB+', '2021-10-10', '', 'Den1745.png', '880024520000', 0),
-(45, 'aaaaa', 15, 2, 'aaaaa', 'aaa@aaa.ccc', '', 'ADMIN', 'INACTIVE', '', '9999999999', '9999999999', '2004-06-17', 'O-', '2024-06-16', '', '', '999999999999', 0),
-(47, 'aaaaa', 15, 10, 'ASUTOSH DAS', 'asutoshdas49@gmail.com', '', 'ADMIN', 'ACTIVE', '', '07978015671', '9999999999', '1997-06-06', 'B+', '2024-06-18', '', 'assets/uploads/employee/66719837db887.avif', '999999999999', 0),
-(48, '4445', 1, 1, 'Monalisa Das', 'gjfvghfv@gmail.com', '52472552745', 'EMPLOYEE', 'ACTIVE', 'Female', '52472552745', '54752475744574547', '2024-07-11', 'O+', '2024-07-26', '2024-07-27', 'assets/uploads/employee/669e83e4af6f1.jpg', '45824264754', 2147483647),
-(49, '5845', 4, 3, 'nnnnn', 'jkjk@gmail.com', '5264546454', 'ADMIN', 'ACTIVE', 'Female', '5264546454', '5121244154', '2024-07-18', 'A-', '2024-07-26', '2024-07-25', 'assets/uploads/employee/669e8c36b6dbc.jpg', '5415454545', 2147483647),
-(50, '52122', 4, 3, 'gghh', 'bnbn@gmail.com', '254854215', 'EMPLOYEE', 'ACTIVE', '', '254854215', '21548754214', '2024-07-11', 'O+', '2024-07-25', '2024-07-30', '', '56895656565', 2147483647);
+(10, '99', 4, 7, 'Thom', 'thoma@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 3, 'ACTIVE', 'Female', '7856587870', '3121141214', '1998-02-22', 'B+', '2018-01-25', '2018-01-17', 'userav-min.png', '13215456655645242', 0),
+(36, '123456', 10, 7, 'fffff', 'ssadmin@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 3, 'ACTIVE', 'Female', 'ss999999900', '42429999999999', '1950-12-13', 'A+', '2010-02-15', '2007-02-22', 'user.png', '55201253568955555', 1),
+(37, '123444', 12, 2, 'John', 'employee@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '1111110010', '', '1995-10-30', 'O+', '2019-02-15', '2019-02-22', 'Doe1753.jpg', '01253568955555', 0),
+(38, '6969', 13, 4, 'Liam', 'liam@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '7124589965', '', '1994-03-23', 'A-', '2021-05-04', '2023-05-17', 'Moo1402.png', '1234567890', 0),
+(39, '1058', 9, 4, 'Stephany', 'stephany@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Female', '7850001111', '8769534214', '1992-12-24', 'A+', '2021-04-14', '2024-07-10', 'Rob1472.png', '7000105000', 5415245),
+(40, '8877', 13, 4, 'Chris', 'chris@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'INACTIVE', 'Male', '7852140000', '', '1993-01-02', 'AB+', '2021-10-01', '', 'Tho1044.png', '0102580010', 0),
+(41, '3008', 3, 1, 'Colin', 'colin@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '7400001450', '2514823056', '1990-12-12', 'A-', '2021-10-10', '2024-07-24', 'Smi1266.png', '0147000000', 0),
+(42, '6661', 26, 10, 'Christine', 'christine@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'INACTIVE', 'Male', '1010140000', '', '1991-04-05', 'AB+', '2021-10-10', '', 'Moo1634.png', '147850000144', 0),
+(43, '8829', 22, 7, 'aaMichael', 'michael@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '7801450000', '', '1986-02-23', 'B-', '2021-02-02', '', 'Joh1474.png', '600254000014', 0),
+(44, '6600', 20, 7, 'Emily', 'emily@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'INACTIVE', 'Female', '7410144470', '', '1996-03-03', 'AB+', '2021-10-10', '', 'Den1745.png', '880024520000', 0),
+(45, 'aaaaa', 15, 2, 'aaaaa', 'aaa@aaa.ccc', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'INACTIVE', '', '9999999999', '9999999999', '2004-06-17', 'O-', '2024-06-16', '', '', '999999999999', 0),
+(47, 'aaaaa', 15, 10, 'ASUTOSH DAS', 'asutoshdas49@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'ACTIVE', '', '07978015671', '9999999999', '1997-06-06', 'B+', '2024-06-18', '', 'assets/uploads/employee/66719837db887.avif', '999999999999', 0),
+(48, '4445', 1, 1, 'Monalisa Das', 'gjfvghfv@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 4, 'ACTIVE', 'Female', '52472552745', '54752475744574547', '2024-07-11', 'O+', '2024-07-26', '2024-07-27', 'assets/uploads/employee/669e83e4af6f1.jpg', '45824264754', 2147483647),
+(49, '5845', 4, 3, 'nnnnn', 'jkjk@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'ACTIVE', 'Female', '5264546454', '5121244154', '2024-07-18', 'A-', '2024-07-26', '2024-07-25', 'assets/uploads/employee/669e8c36b6dbc.jpg', '5415454545', 2147483647),
+(50, '52122', 4, 3, 'gghh', 'bnbn@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', '', '254854215', '21548754214', '2024-07-11', 'O+', '2024-07-25', '2024-07-30', '', '56895656565', 2147483647);
 
 -- --------------------------------------------------------
 
@@ -661,29 +640,22 @@ CREATE TABLE `emp_leave` (
   `id` int(11) NOT NULL,
   `em_id` varchar(64) DEFAULT NULL,
   `typeid` int(14) NOT NULL,
-  `leave_type` varchar(64) DEFAULT NULL,
   `start_date` varchar(64) DEFAULT NULL,
   `end_date` varchar(64) DEFAULT NULL,
   `leave_duration` varchar(128) DEFAULT NULL,
   `duration_hour` int(11) NOT NULL,
   `apply_date` varchar(64) DEFAULT NULL,
   `reason` varchar(1024) DEFAULT NULL,
-  `leave_status` enum('Approve','Not Approve','Rejected') NOT NULL DEFAULT 'Not Approve'
+  `leave_status` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `emp_leave`
 --
 
-INSERT INTO `emp_leave` (`id`, `em_id`, `typeid`, `leave_type`, `start_date`, `end_date`, `leave_duration`, `duration_hour`, `apply_date`, `reason`, `leave_status`) VALUES
-(1, '123456', 2, 'Casual Leave', '24-06-2024', '', '8', 0, '2021-06-23', 'a bit of a headache and cough', 'Approve'),
-(2, 'Tho1044', 2, 'Sick Leave', '12-06-2024', '2022-01-09', '56', 0, '2022-01-02', 'Common Cold with Headache', 'Approve'),
-(3, 'Joh1474', 1, 'Casual Leave', '2022-01-03', '', '8', 0, '2022-01-03', 'This is just a demo reason for testing!', 'Rejected'),
-(4, 'Joh1474', 1, 'Maternity Leave', '2022-01-03', '', '2', 0, '2022-01-03', 'Demo Test Demo Test Demo', 'Not Approve'),
-(5, '123456', 1, 'Sick Leave', '2022-01-04', '', '8', 0, '2022-01-03', 'demo demo demo demo demo demo', 'Approve'),
-(6, '123456', 1, 'Casual Leave', '2024-06-26', '2024-06-27', '1', 0, '', 'dsasdfdsaf', 'Not Approve'),
-(7, '123456', 2, '', '2024-07-04', '2024-07-05', '1', 0, '04-07-2024', 'fiver', 'Not Approve'),
-(8, '123456', 3, '', '2024-07-05', '2024-07-06', '1', 8, '04-07-2024', 'fiver', 'Not Approve');
+INSERT INTO `emp_leave` (`id`, `em_id`, `typeid`, `start_date`, `end_date`, `leave_duration`, `duration_hour`, `apply_date`, `reason`, `leave_status`) VALUES
+(1, '99', 1, '2024-09-22', '2024-09-26', '4', 27, '02-09-2024', 'hbbhjj', 0),
+(2, '99', 2, '2024-09-13', '2024-09-21', '8', 59, '02-09-2024', 'gbhgfhbf', 1);
 
 -- --------------------------------------------------------
 
@@ -742,6 +714,77 @@ CREATE TABLE `emp_training` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `expenditure`
+--
+
+CREATE TABLE `expenditure` (
+  `id` int(11) NOT NULL,
+  `expenditure_name` varchar(50) NOT NULL,
+  `fixed_cost` varchar(20) NOT NULL,
+  `duration` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expenditure`
+--
+
+INSERT INTO `expenditure` (`id`, `expenditure_name`, `fixed_cost`, `duration`) VALUES
+(1, 'Salary', '8000', ' 1month'),
+(2, 'Roomrent', '10000', ' 1month'),
+(3, 'Waterbill', '', ' '),
+(4, 'Festivals', '', ' ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expenditure_calculator`
+--
+
+CREATE TABLE `expenditure_calculator` (
+  `id` int(11) NOT NULL,
+  `year` varchar(20) NOT NULL,
+  `month` varchar(20) NOT NULL,
+  `name` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expenditure_calculator`
+--
+
+INSERT INTO `expenditure_calculator` (`id`, `year`, `month`, `name`) VALUES
+(1, '2007', 'June', 'Salary=8000,Roomrent=10000,Waterbill=4445,Festivals=2424'),
+(2, '2024', 'July', 'Salary=8000,Roomrent=10000,Waterbill=6222,Festivals=5216'),
+(3, '', '', 'Salary=8000,Roomrent=10000,Waterbill=500,Festivals=5000'),
+(4, '', '', '8000,10000,400,5500'),
+(5, '', '', '19000'),
+(6, '2000', 'April', '20000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expenditure_list`
+--
+
+CREATE TABLE `expenditure_list` (
+  `id` int(11) NOT NULL,
+  `expencal_id` int(11) NOT NULL,
+  `expenname_id` int(11) NOT NULL,
+  `expen_price` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expenditure_list`
+--
+
+INSERT INTO `expenditure_list` (`id`, `expencal_id`, `expenname_id`, `expen_price`) VALUES
+(1, 6, 1, '8000'),
+(2, 6, 2, '10000'),
+(3, 6, 3, '1000'),
+(4, 6, 4, '1000');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `field_visit`
 --
 
@@ -794,6 +837,94 @@ INSERT INTO `holiday` (`id`, `holiday_name`, `from_date`, `to_date`, `number_of_
 (14, 'test2', '2024-07-05', '2024-07-09', '4', '07-2024', 21),
 (15, 'cdcd', '2024-07-19', '2024-07-27', '8', '07-2024', 59),
 (16, 'fvfg', '2024-07-20', '2024-07-28', '8', '07-2024', 55);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leads`
+--
+
+CREATE TABLE `leads` (
+  `id` int(11) NOT NULL,
+  `lead_name` varchar(150) DEFAULT NULL,
+  `companyname` varchar(150) DEFAULT NULL,
+  `phone_no` varchar(20) NOT NULL,
+  `email_id` varchar(100) NOT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `country` varchar(50) NOT NULL,
+  `source` varchar(100) DEFAULT NULL,
+  `status` int(3) DEFAULT NULL,
+  `interested_in` varchar(50) DEFAULT NULL,
+  `business_type` varchar(50) DEFAULT NULL,
+  `lead_date` datetime DEFAULT NULL,
+  `lastfollowupdate` datetime DEFAULT NULL,
+  `nextfollowupdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leads`
+--
+
+INSERT INTO `leads` (`id`, `lead_name`, `companyname`, `phone_no`, `email_id`, `city`, `state`, `country`, `source`, `status`, `interested_in`, `business_type`, `lead_date`, `lastfollowupdate`, `nextfollowupdate`) VALUES
+(1, 'rsdfrdf', 'dfefvfe', '9944512368', 'monalisadas1964@gmail.com', 'fdgvfgbf', 'Nagalandd', 'gfbfhf', 'ghgfh', 1, 'gfbh', 'ghbgfh', '2024-09-02 12:19:52', '2024-09-02 12:39:02', '2024-09-05 16:08:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lead_follow`
+--
+
+CREATE TABLE `lead_follow` (
+  `id` int(11) NOT NULL,
+  `lead_id` int(11) NOT NULL,
+  `start_date` datetime NOT NULL,
+  `next_date` datetime DEFAULT NULL,
+  `message` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lead_follow`
+--
+
+INSERT INTO `lead_follow` (`id`, `lead_id`, `start_date`, `next_date`, `message`) VALUES
+(1, 1, '2024-09-02 12:23:01', '2024-09-02 15:55:00', 'bvfhnbm'),
+(2, 1, '2024-09-02 12:25:43', '2024-09-02 15:57:00', 'dad'),
+(3, 1, '2024-09-02 12:29:10', '2024-09-06 15:01:00', 'dsad'),
+(4, 1, '2024-09-02 12:31:11', '2024-09-02 16:04:00', 'asds'),
+(5, 1, '2024-09-02 12:32:43', '2024-09-02 16:06:00', 'dszf'),
+(6, 1, '2024-09-02 12:37:32', '2024-09-02 16:06:00', 'sad'),
+(7, 1, '2024-09-02 12:39:02', '2024-09-05 16:08:00', 'hvnjh');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leave_apply_approve`
+--
+
+CREATE TABLE `leave_apply_approve` (
+  `id` int(11) NOT NULL,
+  `leaveapp_id` int(20) NOT NULL,
+  `approved_by` int(10) NOT NULL,
+  `datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leave_apply_approve`
+--
+
+INSERT INTO `leave_apply_approve` (`id`, `leaveapp_id`, `approved_by`, `datetime`) VALUES
+(1, 1, 1, '0000-00-00 00:00:00'),
+(2, 3, 1, '0000-00-00 00:00:00'),
+(3, 1, 2, '0000-00-00 00:00:00'),
+(4, 3, 1, '2024-09-01 20:33:21'),
+(5, 3, 1, '2024-09-01 20:33:27'),
+(6, 3, 1, '2024-09-01 20:33:43'),
+(7, 2, 1, '2024-09-01 20:49:54'),
+(8, 1, 1, '2024-09-01 20:57:39'),
+(9, 1, 1, '2024-09-02 08:37:05'),
+(10, 1, 1, '2024-09-02 08:37:14'),
+(11, 2, 1, '2024-09-02 11:32:16');
 
 -- --------------------------------------------------------
 
@@ -1319,7 +1450,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `designation` varchar(10) NOT NULL,
+  `designation` int(10) NOT NULL,
   `status` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1328,7 +1459,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `designation`, `status`) VALUES
-(1, 'admin', 'admin', 'superadmin', 0);
+(1, 'admin', 'admin', 1, 1),
+(2, 'manager', 'manager', 2, 1),
+(3, 'hr', 'hr', 3, 1),
+(4, 'employee', 'employee', 4, 1);
 
 --
 -- Indexes for dumped tables
@@ -1473,6 +1607,24 @@ ALTER TABLE `emp_salary`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `expenditure`
+--
+ALTER TABLE `expenditure`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expenditure_calculator`
+--
+ALTER TABLE `expenditure_calculator`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expenditure_list`
+--
+ALTER TABLE `expenditure_list`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `field_visit`
 --
 ALTER TABLE `field_visit`
@@ -1482,6 +1634,24 @@ ALTER TABLE `field_visit`
 -- Indexes for table `holiday`
 --
 ALTER TABLE `holiday`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `leads`
+--
+ALTER TABLE `leads`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lead_follow`
+--
+ALTER TABLE `lead_follow`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `leave_apply_approve`
+--
+ALTER TABLE `leave_apply_approve`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1606,7 +1776,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `addition`
@@ -1618,7 +1788,7 @@ ALTER TABLE `addition`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `assets`
@@ -1660,7 +1830,7 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `bank_info`
 --
 ALTER TABLE `bank_info`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `deduction`
@@ -1684,7 +1854,7 @@ ALTER TABLE `desciplinary`
 -- AUTO_INCREMENT for table `designation`
 --
 ALTER TABLE `designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `earned_leave`
@@ -1702,7 +1872,7 @@ ALTER TABLE `education`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `employee_file`
@@ -1726,7 +1896,7 @@ ALTER TABLE `emp_experience`
 -- AUTO_INCREMENT for table `emp_leave`
 --
 ALTER TABLE `emp_leave`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `emp_penalty`
@@ -1741,6 +1911,24 @@ ALTER TABLE `emp_salary`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `expenditure`
+--
+ALTER TABLE `expenditure`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `expenditure_calculator`
+--
+ALTER TABLE `expenditure_calculator`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `expenditure_list`
+--
+ALTER TABLE `expenditure_list`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `field_visit`
 --
 ALTER TABLE `field_visit`
@@ -1751,6 +1939,24 @@ ALTER TABLE `field_visit`
 --
 ALTER TABLE `holiday`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `leads`
+--
+ALTER TABLE `leads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `lead_follow`
+--
+ALTER TABLE `lead_follow`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `leave_apply_approve`
+--
+ALTER TABLE `leave_apply_approve`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `leave_types`
@@ -1864,7 +2070,7 @@ ALTER TABLE `to-do_list`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

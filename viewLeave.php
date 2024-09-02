@@ -104,37 +104,58 @@ session_start(); {
                                                     <th>
                                                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                                             <div class="btn-group">
-                                                                <button class="btn btn-success dropdown-toggle" type="button"
-                                                                    id="dropdownMenuButton_<?php echo $row['id']; ?>"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <?php
-                                                                    $leave_status = $row['leave_status'];
-                                                                    echo ($leave_status == 0) ? "Pending" :
-                                                                        (($leave_status == 1) ? "Approved" :
-                                                                            (($leave_status == 2) ? "Not Approved" : "Cancel"));
-                                                                    ?>
-                                                                </button>
-                                                                <ul class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
-                                                                    <li>
-                                                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
-                                                                            <button class="dropdown-item" type="submit"
-                                                                                name="status_update" value="1">Approved</button>
-                                                                        <?php } ?>
-                                                                    </li>
-                                                                    <li>
-                                                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
-                                                                            <button class="dropdown-item" type="submit"
-                                                                                name="status_update" value="2">Not Approved</button>
-                                                                        <?php } ?>
-                                                                    </li>
-                                                                    <li>
-                                                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
-                                                                            <button class="dropdown-item" type="submit"
-                                                                                name="status_update" value="3">Cancel</button>
-                                                                        <?php } ?>
-                                                                    </li>
-                                                                </ul>
+                                                                <?php
+                                                                $leave_status = $row['leave_status']; ?>
+                                                                <?php if ($leave_status == '0' || $leave_status == '1' || $leave_status == '2') { ?>
+                                                                    <button class="btn btn-success dropdown-toggle" type="button"
+                                                                        id="dropdownMenuButton_<?php echo $row['id']; ?>"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <?php
+                                                                        $leave_status = $row['leave_status'];
+                                                                        echo ($leave_status == 0) ? "Pending" :
+                                                                            (($leave_status == 1) ? "Approved" :
+                                                                                (($leave_status == 2) ? "Not Approved" : "Cancel"));
+                                                                        ?>
+                                                                    </button>
+                                                                <?php } ?>
+                                                                <?php if ($leave_status == '3') { ?>
+                                                                    <button class="btn btn-danger" type="button">Cancelled</button>
+                                                                <?php } ?>
+                                                                <?php if ($leave_status == '0') { ?>
+                                                                    <ul class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
+                                                                        <li>
+                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                                                                <button class="dropdown-item" type="submit"
+                                                                                    name="status_update" value="1">Approved</button>
+                                                                            <?php } ?>
+                                                                        </li>
+                                                                        <li>
+                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                                                                <button class="dropdown-item" type="submit"
+                                                                                    name="status_update" value="2">Not Approved</button>
+                                                                            <?php } ?>
+                                                                        </li>
+                                                                        <li>
+                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                                                                <button class="dropdown-item" type="submit"
+                                                                                    name="status_update" value="3">Cancel</button>
+                                                                            <?php } ?>
+                                                                        </li>
+                                                                    </ul>
+                                                                <?php } ?>
+                                                                <?php if ($leave_status == '1' || $leave_status == '2') { ?>
+                                                                    <ul class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
+                                                                        <li>
+                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                                                                <button class="dropdown-item" type="submit"
+                                                                                    name="status_update" value="3">Cancel</button>
+                                                                            <?php } ?>
+                                                                        </li>
+                                                                    </ul>
+                                                                <?php } ?>
+
                                                                 <input type="hidden" name="idd" value="<?php echo $row['id']; ?>">
                                                             </div>
                                                         </form>
@@ -254,7 +275,7 @@ session_start(); {
         $days = $interval->days;
         $totalHours = calculateHours(clone $date1, $date2);
         $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason,  leave_status)
-            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '1')";
+            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0')";
         if ($conn->query($sql1) === TRUE) {
             echo " <script>alert('success')</script>";
         } else {

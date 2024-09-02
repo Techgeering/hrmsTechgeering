@@ -53,12 +53,11 @@ session_start(); {
                                 <tbody>
                                     <?php
                                     include "common/conn.php"; // Make sure this file exists and contains database connection code
-                                    
                                     $sql = "SELECT * FROM project";
                                     $result = $conn->query($sql);
-
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
+                                            $encoded_id = base64_encode($row['id']);
                                             ?>
                                             <tr>
                                                 <td><?php echo $row["id"]; ?></td>
@@ -67,11 +66,8 @@ session_start(); {
                                                 <td><?php echo $row["pro_start_date"]; ?></td>
                                                 <td><?php echo $row["pro_end_date"]; ?></td>
                                                 <td>
-                                                    <a href="singleProject.php?id=<?php echo $row['id']; ?>"><i
+                                                    <a href="singleProject.php?id=<?php echo $encoded_id; ?>"><i
                                                             class="fa-solid fa-eye text-success"></i></a>
-                                                    <!-- <a href="editProject.php?id=<?php echo $row['id']; ?>"><i -->
-                                                    <!-- class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a> -->
-                                                    <!-- <a href="deleteProject.php?id=<?php echo $row['id']; ?>"><i class="fa-solid fa-trash text-danger"></i></a> -->
                                                 </td>
                                             </tr>
                                             <?php

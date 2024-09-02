@@ -62,6 +62,7 @@ session_start(); {
                                     $slno = 1;
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
+                                            $encoded_id = base64_encode($row['em_code']);
                                             ?>
                                             <tr>
                                                 <td><?php echo $slno; ?></td>
@@ -72,7 +73,7 @@ session_start(); {
                                                 <th><?php echo $row["em_role"]; ?></th>
                                                 <?php if ($em_role == '1' || $em_role == '3') { ?>
                                                     <th>
-                                                        <a href="employeeDetail.php?em_id=<?php echo $row["em_code"]; ?>"> <i
+                                                        <a href="employeeDetail.php?em_id=<?php echo $encoded_id; ?>"> <i
                                                                 class="fa-solid fa-eye  text-primary"></i></a>
                                                         <!-- <i class="fa-solid fa-lock text-danger mx-2"></i> -->
                                                         <!-- Disciplinary -->

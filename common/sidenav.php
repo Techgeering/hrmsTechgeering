@@ -143,10 +143,12 @@
                         </nav>
                     </div>
                 <?php } ?>
-                <a class="nav-link" href="leads.php">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
-                    Leads
-                </a>
+                <?php if ($em_role == '1') { ?>
+                    <a class="nav-link" href="leads.php">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
+                        Leads
+                    </a>
+                <?php } ?>
                 <!-- <a class="nav-link" href="tasks.php">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
                     Tasks

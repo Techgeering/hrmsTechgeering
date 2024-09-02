@@ -57,12 +57,11 @@ session_start(); {
                                 <tbody>
                                     <?php
                                     include "common/conn.php"; // Make sure this file exists and contains database connection code
-                                    
                                     $sql = "SELECT * FROM leads";
                                     $result = $conn->query($sql);
-
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
+                                            $encoded_id = base64_encode($row['id']);
                                             ?>
                                             <tr>
                                                 <td><?php echo $row["id"]; ?></td>
@@ -75,7 +74,7 @@ session_start(); {
                                                 <td><?php echo $row["nextfollowupdate"]; ?></td>
                                                 <td><?php echo $row["status"]; ?></td>
                                                 <td>
-                                                    <a href="leadview.php?id=<?php echo $row['id']; ?>"><i
+                                                    <a href="leadview.php?id=<?php echo $encoded_id; ?>"><i
                                                             class="fa-solid fa-eye text-success"></i></a>
                                                     <!-- <a href="editProject.php?id=<?php //echo $row['id']; ?>"><i -->
                                                     <!-- class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a> -->
@@ -91,7 +90,6 @@ session_start(); {
                                     ?>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -207,7 +205,7 @@ session_start(); {
 
         $sql = "INSERT INTO leads (lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status, lead_date)
         VALUES ('$leadname', '$companyname', '$phoneno', '$email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1', '$currentDateTime')";
-        
+
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
         } else {
@@ -215,7 +213,7 @@ session_start(); {
         }
         $conn->close();
     }
-?>
+    ?>
 
 </body>
 

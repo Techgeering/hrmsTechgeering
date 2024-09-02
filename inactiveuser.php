@@ -53,6 +53,7 @@ session_start(); {
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
+                                            $encoded_id = base64_encode($row['id']);
                                             ?>
                                             <tr>
                                                 <th><?php echo $row["id"]; ?></th>
@@ -62,7 +63,7 @@ session_start(); {
                                                 <th><?php echo $row["em_phone"]; ?></th>
                                                 <th><?php echo $row["em_role"]; ?></th>
                                                 <th>
-                                                    <a href="employeeDetail.php?em_id=<?php echo $row["id"]; ?>"> <i
+                                                    <a href="employeeDetail.php?em_id=<?php echo $encoded_id; ?>"> <i
                                                             class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>
                                                 </th>
                                             </tr>
