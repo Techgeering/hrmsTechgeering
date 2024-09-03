@@ -43,11 +43,13 @@ session_start(); {
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name">
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label for="department">Department</label>
-                                            <select name="department" id="department" class="form-control">
+                                            <select name="department" id="department" class="form-control" required>
                                                 <option value="">Select Department</option>
                                                 <?php
                                                 include "common/conn.php";
@@ -63,32 +65,41 @@ session_start(); {
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="doj">Role</label>
-                                            <select name="role" id="role" class="form-control">
-                                                <option value="">Select Role</option>
-                                                <option value="1">Admin</option>
-                                                <option value="2">Manager</option>
-                                                <option value="3">Hr</option>
-                                                <option value="4">Employee</option>
+                                            <label for="department">Designation</label>
+                                            <select name="desig" id="desig" class="form-control" required>
+                                                <option value="">Select Designation</option>
+                                                <?php
+                                                include "common/conn.php";
+                                                $result = mysqli_query($conn, "SELECT * FROM designation");
+                                                while ($row = mysqli_fetch_array($result)) {
+                                                    ?>
+                                                    <option value="<?php echo $row['id']; ?>">
+                                                        <?php echo $row["des_name"]; ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="doj">Gender</label>
-                                            <select name="gender" id="gender" class="form-control">
+                                            <select name="gender" id="gender" class="form-control" required>
                                                 <option value="">Select Gender</option>
-                                                <option value="ADMIN">Male</option>
-                                                <option value="Employee">Female</option>
-                                                <option value="Super Admin">Other</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="contactNumber">Contact Number</label>
                                             <input type="text" class="form-control" id="contactNumber"
-                                                name="contactNumber">
+                                                name="contactNumber"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label for="bloodGroup">Blood Group</label>
-                                            <select name="bloodGroup" id="bloodGroup" class="form-control">
+                                            <select name="bloodGroup" id="bloodGroup" class="form-control" required>
                                                 <option value="">Select Blood Group</option>
                                                 <option value="O+">O+</option>
                                                 <option value="O-">O-</option>
@@ -105,76 +116,75 @@ session_start(); {
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="employeeId">Employee Id</label>
-                                            <input type="text" class="form-control" id="employeeId" name="employeeId">
+                                            <input type="text" class="form-control" id="employeeId" name="employeeId"
+                                                oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');" required>
                                         </div>
-                                        <!-- <div class="form-group">
-                                            <label for="designation">Designation</label>
-                                            <select name="designation" id="designation" class="form-control">
-                                                <option value="">Select Desination</option>
-                                                <?php
-                                                // include "common/conn.php";
-                                                // $result = mysqli_query($conn, "SELECT * FROM designation");
-                                                // while ($row = mysqli_fetch_array($result)) {
-                                                //     ?>
-                                                //     <option value="<?php echo $row['id']; ?>">
-                                                //         <?php echo $row["des_name"]; ?>
-                                                //     </option>
-                                                    <?php
-                                                    // }
-                                                    ?>
+                                        <div class="form-group">
+                                            <label for="department">Role</label>
+                                            <select name="role" id="role" class="form-control" required>
+                                                <option value="">Select Role</option>
+                                                <option value="1">Admin</option>
+                                                <option value="2">Manager</option>
+                                                <option value="3">Hr</option>
+                                                <option value="4">Employee</option>
                                             </select>
-                                        </div> -->
+                                        </div>
                                         <div class="form-group">
                                             <label for="doj">DOJ</label>
-                                            <input type="date" class="form-control" id="doj" name="doj">
+                                            <input type="date" class="form-control" id="doj" name="doj" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="personalEmail">Email (Personal)</label>
                                             <input type="email" class="form-control" id="personalEmail"
-                                                name="personalEmail">
+                                                name="personalEmail" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="whatsappNumber">WhatsApp Number</label>
                                             <input type="text" class="form-control" id="whatsappNumber"
-                                                name="whatsappNumber">
+                                                name="whatsappNumber"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label for="professionalEmail">Email (Professional)</label>
                                             <input type="email" class="form-control" id="professionalEmail"
-                                                name="professionalEmail">
+                                                name="professionalEmail" required>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="image">Image</label>
                                             <input type="file" class="form-control" id="image" name="image">
-                                            <img src="user.jpg" alt="" class="img-fluid mt-2">
+                                            <img src="user.jpg" alt="" class="img-fluid mt-2" required>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="aadharNumber">Aadhar Number</label>
                                             <input type="text" class="form-control" id="aadharNumber"
-                                                name="aadharNumber">
+                                                name="aadharNumber" required>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="panNumber">PAN Number</label>
-                                            <input type="text" class="form-control" id="panNumber" name="panNumber">
+                                            <input type="text" class="form-control" id="panNumber" name="panNumber"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="JoiningDate">Joining Date</label>
-                                            <input type="date" class="form-control" id="JoiningDate" name="JoiningDate">
+                                            <input type="date" class="form-control" id="JoiningDate" name="JoiningDate"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="LeavingDate">Leaving Date <small>(Privious
                                                     Company)</small></label>
-                                            <input type="date" class="form-control" id="LeavingDate" name="LeavingDate">
+                                            <input type="date" class="form-control" id="LeavingDate" name="LeavingDate"
+                                                required>
                                         </div>
                                     </div>
                                     <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
@@ -193,25 +203,30 @@ session_start(); {
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-
     <?php
     include "common/conn.php";
     if (isset($_POST['submit'])) {
         $name = $_POST["name"];
         $department = $_POST["department"];
-        $role = $_POST["role"];
+        $desig = $_POST["desig"];
         $gender = $_POST["gender"];
         $contactNumber = $_POST["contactNumber"];
         $bloodGroup = $_POST["bloodGroup"];
         $employeeId = $_POST["employeeId"];
-        $designation = $_POST["designation"];
+        $role = $_POST["role"];
         $doj = $_POST["doj"];
         $personalEmail = $_POST["personalEmail"];
         $whatsappNumber = $_POST["whatsappNumber"];
+        $professionalEmail = $_POST["professionalEmail"];
         $aadharNumber = $_POST["aadharNumber"];
         $panNumber = $_POST["panNumber"];
         $JoiningDate = $_POST["JoiningDate"];
         $LeavingDate = $_POST["LeavingDate"];
+        $password = $_POST["contactNumber"];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Now you can store $hashedPassword in the database
+    
         // $image = $_POST["image"];
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
             $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
@@ -232,8 +247,8 @@ session_start(); {
         } else {
             echo "Error: " . $_FILES["image"]["error"];
         }
-        $sql = "INSERT INTO employee (full_name, dep_id, em_role, em_gender, 	em_phone, em_blood_group, em_code, des_id, 	em_birthday, em_email, em_wahtsapp, em_aadher, em_pan, em_joining_date, em_contact_end, em_image, em_password) 
-            VALUES ('$name', '$department', '$role', '$gender', '$contactNumber', '$bloodGroup', '$employeeId', '$designation', '$doj', '$personalEmail', '$whatsappNumber', '$aadharNumber', '$panNumber', '$JoiningDate', '$LeavingDate', '$upload_file', '$contactNumber')";
+        $sql = "INSERT INTO employee (des_id, dep_id, full_name, em_email, prof_email, em_password, em_code, em_role, em_gender, em_phone, em_wahtsapp, em_birthday, em_blood_group, em_joining_date, em_contact_end, em_aadher, em_pan, em_image) 
+            VALUES ('$desig', '$department', '$name', '$personalEmail', '$professionalEmail', '$hashedPassword', '$employeeId', '$role', '$gender', '$contactNumber', '$whatsappNumber', '$doj', '$bloodGroup', '$JoiningDate', '$LeavingDate', '$aadharNumber', '$panNumber', '$upload_file')";
 
 
         // Prepare SQL insert statement
@@ -247,7 +262,7 @@ session_start(); {
                 if (mysqli_query($conn, $sql2)) {
                     $sql3 = "INSERT INTO bank_info (em_id) VALUES ('$employeeId')";
                     if (mysqli_query($conn, $sql3)) {
-                        echo "<script>alert('Sign up successful!');</script>";
+                        echo "<script>window.location.href='employees.php';</script>";
                     } else {
                         echo "Error: " . $sql3 . "<br>" . mysqli_error($conn);
                     }

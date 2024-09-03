@@ -45,7 +45,7 @@ session_start(); {
                                         <th>Sl No</th>
                                         <th>Leave Type</th>
                                         <th>Days</th>
-                                        <th>status</th>
+                                        <!-- <th>status</th> -->
                                         <?php if ($em_role == '1') { ?>
                                             <th>Action</th>
                                         <?php } ?>
@@ -64,10 +64,14 @@ session_start(); {
                                                 <th><?php echo $row["type_id"]; ?></th>
                                                 <th><?php echo $row["name"]; ?></th>
                                                 <th><?php echo $row["leave_day"]; ?></th>
-                                                <th><?php echo $row["status"]; ?></th>
+                                                <!-- <th><?php //echo $row["status"]; ?></th> -->
                                                 <?php if ($em_role == '1') { ?>
                                                     <th>
-                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+
+                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
+                                                            onclick="myfcn5(<?php echo $row['type_id']; ?>,'<?php echo $row['name']; ?>','<?php echo $row['leave_day']; ?>')"
+                                                            data-bs-toggle="modal" data-bs-target="#updateleavetype"></i>
+                                                        <!-- <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i> -->
                                                         <i class="fa-solid fa-lock text-danger"></i>
                                                     </th>
                                                 <?php } ?>
@@ -100,11 +104,11 @@ session_start(); {
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="leaveType">Leave Type</label>
-                            <input type="text" class="form-control" id="leaveType" name="leaveType">
+                            <input type="text" class="form-control" name="leaveType">
                         </div>
                         <div class="form-group">
                             <label for="days">Days</label>
-                            <input type="num" class="form-control" id="days" name="days">
+                            <input type="num" class="form-control" name="days">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -135,9 +139,52 @@ session_start(); {
     }
     $conn->close();
     ?>
+    <!-- update modal -->
+    <div class="modal fade" id="updateleavetype" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Department</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <div class="modal-body">
+                        <input type="hidden" name="id5" id="id5">
+                        <div class="form-group">
+                            <label for="leaveType">Leave Type</label>
+                            <input type="text" class="form-control" id="leaveTypee" name="leaveType">
+                        </div>
+                        <div class="form-group">
+                            <label for="days">Days</label>
+                            <input type="num" class="form-control" id="dayss" name="days">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="updatedepartment">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <?php
+    if (isset($_POST['updatedepartment'])) {
+        include "common/conn.php";
+        $id = $_POST["id5"];
+        $leaveTypee = $_POST["leaveType"];
+        $dayss = $_POST["days"];
+        $sql1 = "UPDATE leave_types SET name='$leaveTypee', leave_day='$dayss' WHERE type_id='$id'";
+        if ($conn->query($sql1) === true) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo $conn->error;
+        }
+        $conn->close();
+    }
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>

@@ -65,10 +65,13 @@ function myfcn3(idx, degreetitle, result, institute, passingyear) {
     document.getElementById("passingyear").value = passingyear;
 }
 
-/* for project files */
-// function myfcn4(idx, filename1, pdf11, assigned_users1) {
-//     document.getElementById("id4").value = idx;
-//     document.getElementById("filename1").value = filename1;
-//     document.getElementById("pdf11").value = pdf11;
-//     document.getElementById("assigned_users1").value = assigned_users1;
-// }
+/* for leaveTypee id get */
+function myfcn5(idx, leaveTypee, dayss) {
+    document.getElementById("id5").value = idx;
+    document.getElementById("leaveTypee").value = leaveTypee;
+    document.getElementById("dayss").value = dayss;
+}
+
+
+
+

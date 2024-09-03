@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2024 at 12:41 PM
+-- Generation Time: Sep 03, 2024 at 03:33 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -113,7 +113,17 @@ INSERT INTO `address` (`id`, `emp_id`, `address1`, `address2`, `city`, `state`, 
 (9, '52122', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
 (10, '52122', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
 (11, '', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(12, '', NULL, NULL, NULL, '', NULL, NULL, 'Present');
+(12, '', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
+(13, '', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
+(14, '', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
+(15, '10', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
+(16, '10', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
+(17, '414', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
+(18, '414', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
+(19, '20', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
+(20, '20', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
+(21, '14', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
+(22, '14', NULL, NULL, NULL, '', NULL, NULL, 'Present');
 
 -- --------------------------------------------------------
 
@@ -285,7 +295,8 @@ CREATE TABLE `attadence_report` (
 
 INSERT INTO `attadence_report` (`id`, `month`, `emp_id`, `working_hour`, `present_hour`, `holiday_hour`, `leave_hour`, `payable_hour`) VALUES
 (1, '', 123456, 205, 205, 66, 17, 288),
-(2, '06-2024', 123456, 205, 205, 66, 17, 288);
+(2, '06-2024', 123456, 205, 205, 66, 17, 288),
+(3, '01-2023', 123456, 218, 205, 0, 0, 205);
 
 -- --------------------------------------------------------
 
@@ -351,26 +362,19 @@ CREATE TABLE `bank_info` (
   `bank_name` varchar(256) DEFAULT NULL,
   `branch_name` varchar(256) DEFAULT NULL,
   `account_number` varchar(256) DEFAULT NULL,
-  `account_type` varchar(256) DEFAULT NULL
+  `account_type` varchar(256) DEFAULT NULL,
+  `ifsc_code` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `bank_info`
 --
 
-INSERT INTO `bank_info` (`id`, `em_id`, `holder_name`, `bank_name`, `branch_name`, `account_number`, `account_type`) VALUES
-(1, '123456', 'dddJohn W Greenwood', 'fvfXYZ Bank', 'gbbzxczcxBleck St', '6565CA0025869690', 'dfdccdvdvSaving'),
-(2, 'Doe1753', 'Will Williams', 'ABYZ Bank', 'Axis Branch', 'CA6960000142', 'Current'),
-(3, 'Soy1332', 'Thomas Anderson', 'United Bank', 'ABC Branch', 'CA100005696920', 'Salary Account'),
-(4, 'Rob1472', 'Stephany Robs Jr', 'United Bank', 'ABC Branch', 'CA140000000255', 'Savings'),
-(5, 'Tho1044', 'Chris Thompson', 'YTR Bank', 'XY Branch', 'CA7025000026', 'Savings'),
-(6, 'Moo1402', 'Liam Moore', 'IOP Bank', 'AER Branch', 'CA690000250000', 'Salary Account'),
-(7, 'Smi1266', 'Colin Smith', 'IO Bank', 'CVB Branch', 'CA001450006980', 'Salary Account'),
-(8, 'Moo1634', 'Christine Moore', 'RTY Bank', 'ERT Branch', 'CA850000245800', 'Savings'),
-(9, 'Joh1474', 'Michael K Johnson', 'Aexr Bank', 'ERT Branch', 'CA800000256147', 'Salary Account'),
-(10, 'Den1745', 'Emily V Denn', 'Demo Bank', 'XZY Branch', 'CA777000001055', 'Savings'),
-(11, '52122', 'ghtghgh', NULL, NULL, NULL, NULL),
-(12, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `bank_info` (`id`, `em_id`, `holder_name`, `bank_name`, `branch_name`, `account_number`, `account_type`, `ifsc_code`) VALUES
+(1, '10', NULL, NULL, NULL, NULL, NULL, 0),
+(2, '414', NULL, NULL, NULL, NULL, NULL, 0),
+(3, '20', NULL, NULL, NULL, NULL, NULL, 0),
+(4, '14', NULL, NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -473,7 +477,7 @@ INSERT INTO `designation` (`id`, `des_name`, `status`) VALUES
 (1, 'Admin', '1'),
 (2, 'Manager', '1'),
 (3, 'Hr', '1'),
-(4, 'Employee', '1');
+(4, 'Employee', '0');
 
 -- --------------------------------------------------------
 
@@ -509,6 +513,7 @@ CREATE TABLE `education` (
   `emp_id` varchar(128) DEFAULT NULL,
   `edu_type` varchar(256) DEFAULT NULL,
   `institute` varchar(256) DEFAULT NULL,
+  `university` varchar(100) NOT NULL,
   `result` varchar(64) DEFAULT NULL,
   `year` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -517,10 +522,8 @@ CREATE TABLE `education` (
 -- Dumping data for table `education`
 --
 
-INSERT INTO `education` (`id`, `emp_id`, `edu_type`, `institute`, `result`, `year`) VALUES
-(1, '123456', 'mmm', 'rrr', 'hhgg', 'yfuf'),
-(4, '6661', 'scsc', 'cxsc', 'dsfcd', 'df'),
-(5, '6661', 'hdvbdj', 'fdjkcf', 'vnfjv', 'vdjvn');
+INSERT INTO `education` (`id`, `emp_id`, `edu_type`, `institute`, `university`, `result`, `year`) VALUES
+(1, '99', 'ckdcdcnj', 'Vvfcd', 'njdfnv', '54%', '2023');
 
 -- --------------------------------------------------------
 
@@ -555,7 +558,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `em_code`, `des_id`, `dep_id`, `full_name`, `em_email`, `em_password`, `em_role`, `status`, `em_gender`, `em_phone`, `em_wahtsapp`, `em_birthday`, `em_blood_group`, `em_joining_date`, `em_contact_end`, `em_image`, `em_aadher`, `em_pan`) VALUES
-(10, '99', 4, 7, 'Thom', 'thoma@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 3, 'ACTIVE', 'Female', '7856587870', '3121141214', '1998-02-22', 'B+', '2018-01-25', '2018-01-17', 'userav-min.png', '13215456655645242', 0),
+(10, '99', 3, 1, 'Thom', 'thoma@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 3, 'ACTIVE', 'Female', '7856587870', '3121141214', '1998-02-22', 'A+', '2018-01-25', '2018-01-17', 'userav-min.png', '13215456655645242', 0),
 (36, '123456', 10, 7, 'fffff', 'ssadmin@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 3, 'ACTIVE', 'Female', 'ss999999900', '42429999999999', '1950-12-13', 'A+', '2010-02-15', '2007-02-22', 'user.png', '55201253568955555', 1),
 (37, '123444', 12, 2, 'John', 'employee@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '1111110010', '', '1995-10-30', 'O+', '2019-02-15', '2019-02-22', 'Doe1753.jpg', '01253568955555', 0),
 (38, '6969', 13, 4, 'Liam', 'liam@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '7124589965', '', '1994-03-23', 'A-', '2021-05-04', '2023-05-17', 'Moo1402.png', '1234567890', 0),
@@ -569,7 +572,12 @@ INSERT INTO `employee` (`id`, `em_code`, `des_id`, `dep_id`, `full_name`, `em_em
 (47, 'aaaaa', 15, 10, 'ASUTOSH DAS', 'asutoshdas49@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'ACTIVE', '', '07978015671', '9999999999', '1997-06-06', 'B+', '2024-06-18', '', 'assets/uploads/employee/66719837db887.avif', '999999999999', 0),
 (48, '4445', 1, 1, 'Monalisa Das', 'gjfvghfv@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 4, 'ACTIVE', 'Female', '52472552745', '54752475744574547', '2024-07-11', 'O+', '2024-07-26', '2024-07-27', 'assets/uploads/employee/669e83e4af6f1.jpg', '45824264754', 2147483647),
 (49, '5845', 4, 3, 'nnnnn', 'jkjk@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'ACTIVE', 'Female', '5264546454', '5121244154', '2024-07-18', 'A-', '2024-07-26', '2024-07-25', 'assets/uploads/employee/669e8c36b6dbc.jpg', '5415454545', 2147483647),
-(50, '52122', 4, 3, 'gghh', 'bnbn@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', '', '254854215', '21548754214', '2024-07-11', 'O+', '2024-07-25', '2024-07-30', '', '56895656565', 2147483647);
+(50, '52122', 4, 3, 'gghh', 'bnbn@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', '', '254854215', '21548754214', '2024-07-11', 'O+', '2024-07-25', '2024-07-30', '', '56895656565', 2147483647),
+(52, '', 0, 0, '', '', '', 0, 'ACTIVE', '', '', '', '', '', '', '', '', '', 0),
+(53, '10', 0, 3, 'Monalisa', 'mona@123gmail.com', '258475255625', 1, 'ACTIVE', '', '258475255625', '54455212521', '2024-09-13', 'A+', '2024-09-21', '2024-09-24', 'assets/uploads/employee/66d6fc07ec1e1.jpg', '524752452475', 2147483647),
+(54, '414', 0, 8, 'fgfg', 'dfgg@123gmail.com', '74575757', 1, 'ACTIVE', '', '74575757', '574574577', '2024-09-12', 'B+', '2024-09-20', '2024-09-12', '', '5475745', 524757445),
+(55, '', 2, 10, 'Mona', 'mona@123gmail.com', '9987456230', 0, 'ACTIVE', '', 'O-', '9987456230', '2024-09-18', '', '2024-09-05', '2024-09-19', '', '554865426662', 548544554),
+(56, '', 1, 10, 'roja', 'vfd@12gmail.com', '9874563210', 0, 'ACTIVE', '', 'O+', '9874563210', '2024-09-12', '', '2024-09-20', '2024-09-27', '', '5424725454', 757474574);
 
 -- --------------------------------------------------------
 
@@ -628,7 +636,8 @@ CREATE TABLE `emp_experience` (
 
 INSERT INTO `emp_experience` (`id`, `emp_id`, `exp_company`, `exp_com_position`, `exp_com_address`, `exp_workduration`) VALUES
 (1, '123456', 'fvbfvb', 'cvvc', 'dvvd', 'fff'),
-(3, '6661', 'gdgg', 'dfvdf', 'dfdfg', '1hr');
+(3, '6661', 'gdgg', 'dfvdf', 'dfdfg', '1hr'),
+(5, '99', 'dfgfd7457', 'Vfdgvg', 'dvgcf', '41');
 
 -- --------------------------------------------------------
 
@@ -757,7 +766,8 @@ INSERT INTO `expenditure_calculator` (`id`, `year`, `month`, `name`) VALUES
 (3, '', '', 'Salary=8000,Roomrent=10000,Waterbill=500,Festivals=5000'),
 (4, '', '', '8000,10000,400,5500'),
 (5, '', '', '19000'),
-(6, '2000', 'April', '20000');
+(6, '2000', 'April', '20000'),
+(7, '', '', '=,=,=,=');
 
 -- --------------------------------------------------------
 
@@ -823,20 +833,11 @@ CREATE TABLE `holiday` (
 --
 
 INSERT INTO `holiday` (`id`, `holiday_name`, `from_date`, `to_date`, `number_of_days`, `year`, `number_of_holiday_hour`) VALUES
-(1, 'New Year\'s Eve', '2021-12-30', '2022-01-31', '32', '12-2021', 0),
-(3, 'New Year\'s Day', '2022-01-01', '2022-01-02', '1', '01-2022', 0),
-(5, 'Christmas', '2021-12-23', '2021-12-25', '2', '12-2021', 0),
-(6, 'Thanksgiving', '2021-11-23', '2021-11-26', '3', '11-2021', 0),
-(7, 'Halloween', '2021-10-31', '2021-10-31', '0', '10-2021', 0),
-(8, 'Saint Patrick\'s Day', '2021-03-17', '2021-03-17', '0', '03-2021', 0),
-(9, 'august', '2024-06-26', '2024-06-27', ' 1', '2024', 0),
-(10, 'going', '2024-06-28', '2024-07-03', '5', '06-2024', 37),
-(11, 'going33', '2024-07-05', '2024-07-10', '5', '06-2024', 0),
-(12, 'going333', '2024-05-31', '2024-06-05', '5', '06-2024', 29),
-(13, 'test', '2024-07-05', '2024-07-06', '1', '07-2024', 8),
-(14, 'test2', '2024-07-05', '2024-07-09', '4', '07-2024', 21),
-(15, 'cdcd', '2024-07-19', '2024-07-27', '8', '07-2024', 59),
-(16, 'fvfg', '2024-07-20', '2024-07-28', '8', '07-2024', 55);
+(1, 'New Year\'s Day', '2024-09-01', '2024-09-02', '1', '09-2024', 0),
+(2, ' Christmas', '2024-09-23', '2024-09-25', '2', '09-2024', 18),
+(3, 'Thanksgiving', '2024-09-12', '2024-09-21', '9', '09-2024', 68),
+(4, 'Hallowee', '2024-09-11', ' ', '10', '09-2024', 77),
+(5, ' Saint Patrick\'s Day', '2024-09-05', '2024-09-13', '8', '09-2024', 59);
 
 -- --------------------------------------------------------
 
@@ -935,26 +936,25 @@ INSERT INTO `leave_apply_approve` (`id`, `leaveapp_id`, `approved_by`, `datetime
 CREATE TABLE `leave_types` (
   `type_id` int(14) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `leave_day` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1
+  `leave_day` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `leave_types`
 --
 
-INSERT INTO `leave_types` (`type_id`, `name`, `leave_day`, `status`) VALUES
-(1, 'Casual Leave', '21', 1),
-(2, 'Sick Leave', '15', 1),
-(3, 'Maternity Leave', '90', 1),
-(4, 'Paternal Leave', '7', 1),
-(5, 'Earned leave', '', 1),
-(7, 'Public Holiday', '', 1),
-(8, 'Optional Leave', '', 1),
-(9, 'Leave without Pay', '', 1),
-(10, 'dsadfds', '4', 1),
-(11, 'xdc', '11', 1),
-(12, 'cvvcv', '5', 1);
+INSERT INTO `leave_types` (`type_id`, `name`, `leave_day`) VALUES
+(1, 'Casual Leave', '21'),
+(2, 'Sick Leave', '15'),
+(3, 'Maternity Leave', '90'),
+(4, 'Paternal Leave', '7'),
+(5, 'Earned leave', '3'),
+(7, 'Public Holiday', '5'),
+(8, 'Optional Leave', '8'),
+(9, 'Leave without Pay', '2'),
+(10, 'dsadfds', '4'),
+(11, 'xdc', '11'),
+(12, 'cvvcvss', '10');
 
 -- --------------------------------------------------------
 
@@ -1788,7 +1788,7 @@ ALTER TABLE `addition`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `assets`
@@ -1818,7 +1818,7 @@ ALTER TABLE `assign_task`
 -- AUTO_INCREMENT for table `attadence_report`
 --
 ALTER TABLE `attadence_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `attendance`
@@ -1830,7 +1830,7 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `bank_info`
 --
 ALTER TABLE `bank_info`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `deduction`
@@ -1866,13 +1866,13 @@ ALTER TABLE `earned_leave`
 -- AUTO_INCREMENT for table `education`
 --
 ALTER TABLE `education`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `employee_file`
@@ -1890,7 +1890,7 @@ ALTER TABLE `emp_assets`
 -- AUTO_INCREMENT for table `emp_experience`
 --
 ALTER TABLE `emp_experience`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `emp_leave`
@@ -1920,7 +1920,7 @@ ALTER TABLE `expenditure`
 -- AUTO_INCREMENT for table `expenditure_calculator`
 --
 ALTER TABLE `expenditure_calculator`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `expenditure_list`
@@ -1938,7 +1938,7 @@ ALTER TABLE `field_visit`
 -- AUTO_INCREMENT for table `holiday`
 --
 ALTER TABLE `holiday`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `leads`

@@ -73,8 +73,10 @@ session_start(); {
                                                 <th><?php echo $row["number_of_holiday_hour"]; ?></th>
                                                 <?php if ($em_role == '1' || $em_role == '3') { ?>
                                                     <th>
-                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                        <i class="fa-solid fa-lock text-danger"></i>
+                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
+                                                            onclick="myfcn4(<?php echo $row['id']; ?>,'<?php echo $row['holiday_name']; ?>','<?php echo $row['from_date']; ?>','<?php echo $row['to_date']; ?>')"
+                                                            data-bs-toggle="modal" data-bs-target="#updateholiday"></i>
+                                                        <!-- <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i> -->
                                                     </th>
                                                 <?php } ?>
                                             </tr>
@@ -94,7 +96,7 @@ session_start(); {
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Insert Modal -->
     <div class="modal fade" id="addDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -127,14 +129,11 @@ session_start(); {
     </div>
     <?php
     include "common/conn.php";
-
     function calculateHours($date1, $date2)
     {
         $totalHours = 0;
-
         $endDate = clone $date2;
         // $endDate->modify('-1 day');
-    
         while ($date1 < $endDate) {
             $dayOfWeek = $date1->format('N');
             if ($dayOfWeek == 6) {
@@ -173,10 +172,65 @@ session_start(); {
     }
     $conn->close();
     ?>
-
+    <!-- Update modal -->
+    <div class="modal fade" id="updateholiday" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Department</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <div class="modal-body">
+                        <input type="text" name="id4" id="id4">
+                        <div class="form-group">
+                            <label for="DepartmentName">Holiday Name</label>
+                            <input type="text" class="form-control" id="holiday1" name="holiday">
+                        </div>
+                        <div class="form-group">
+                            <label for="from_date">from_date</label>
+                            <input type="date" class="form-control" id="from_date1" name="from_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="to_date">to_date</label>
+                            <input type="date" class="form-control" id="to_date1" name="to_date">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="updateholiday">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <?php
+    if (isset($_POST['updateholiday'])) {
+        include "common/conn.php";
+        $id = $_POST["id4"];
+        $holiday = $_POST["holiday"];
+        $from_date = $_POST["from_date"];
+        $to_date = $_POST["to_date"];
+        $sql1 = "UPDATE holiday SET holiday_name='$holiday', from_date='$from_date', to_date=' $to_date' WHERE id='$id'";
+        if ($conn->query($sql1) === true) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo $conn->error;
+        }
+        $conn->close();
+    }
+    ?>
+    <script>
+        function myfcn4(idx, holiday, form_date, to_date) {
+            document.getElementById("id4").value = idx;
+            document.getElementById("holiday1").value = holiday;
+            document.getElementById("from_date1").value = form_date;
+            document.getElementById("to_date1").value = to_date;
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>

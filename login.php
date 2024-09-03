@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="card-body">
                                     <!-- <form method="post" action="insert.php"> -->
-                                    <form method="post" action="<?php //echo $_SERVER['PHP_SELF']; 
+                                    <form method="post" action="<?php echo $_SERVER['PHP_SELF'];
                                     ?>">
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputEmail" name="email" type="text"

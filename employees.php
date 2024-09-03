@@ -70,7 +70,19 @@ session_start(); {
                                                 <th><?php echo $row["full_name"] ?></th>
                                                 <th><?php echo $row["em_email"]; ?></th>
                                                 <th><?php echo $row["em_phone"]; ?></th>
-                                                <th><?php echo $row["em_role"]; ?></th>
+                                                <th>
+                                                    <?php
+                                                    if ($row["em_role"] == 1) {
+                                                        echo "Admin";
+                                                    } elseif ($row["em_role"] == 2) {
+                                                        echo "Manager";
+                                                    } elseif ($row["em_role"] == 3) {
+                                                        echo "HR";
+                                                    } else {
+                                                        echo "Employee";
+                                                    }
+                                                    ?>
+                                                </th>
                                                 <?php if ($em_role == '1' || $em_role == '3') { ?>
                                                     <th>
                                                         <a href="employeeDetail.php?em_id=<?php echo $encoded_id; ?>"> <i
