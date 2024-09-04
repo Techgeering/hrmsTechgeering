@@ -52,14 +52,15 @@ session_start(); {
             border-top: none;
             animation: fadeEffect 1s;
         }
-/* color of value */
-.negative-amount {
-    color: red;
-}
 
-.positive-amount {
-    color: green;
-}
+        /* color of value */
+        .negative-amount {
+            color: red;
+        }
+
+        .positive-amount {
+            color: green;
+        }
 
 
         /* Go from zero to full opacity */
@@ -109,131 +110,133 @@ session_start(); {
                         <button class="tablinks" onclick="openDialog(event, 'OfficeTasks')"> Office Tasks </button>
                         <button class="tablinks" onclick="openDialog(event, 'projectsFiles')"> Projects Files </button>
                         <?php if ($em_role == '1' || $em_role == '4') { ?>
-                        <button class="tablinks" onclick="openDialog(event, 'notes')"> Notes </button>
+                            <button class="tablinks" onclick="openDialog(event, 'notes')"> Notes </button>
                         <?php } ?>
                         <?php if ($em_role == '1') { ?>
-                        <button class="tablinks" onclick="openDialog(event, 'Expenses')"> Expenses </button>
+                            <button class="tablinks" onclick="openDialog(event, 'Expenses')"> Expenses </button>
                         <?php } ?>
                         <?php if ($em_role == '1') { ?>
-                        <button class="tablinks" onclick="openDialog(event, 'Users')"> Users </button>
+                            <button class="tablinks" onclick="openDialog(event, 'Users')"> Users </button>
                         <?php } ?>
                     </div>
                     <div id="ProjectView" class="tabcontent">
                         <div class="row">
                             <?php if ($em_role == '1') { ?>
-                            <div class="col-md-4">
-                                
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <img src="assets/uploads/employee/6614b390d974e.jpg" class="img-circle"
-                                            width="150">
-                                        <h4 class="card-title m-t-10">ccccc</h4>
-                                        <h6 class="card-subtitle">ccccc</h6>
-                                    </div>
-                                    <div>
-                                        <hr>
-                                    </div>
-                                    <div class="card-body">
-                                        <small class="text-muted">Email address </small>
-                                        <h6>ffff</h6>
-                                        <small class="text-muted p-t-30 db">Phone</small>
-                                        <h6>ffff</h6>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="col-md-8"></div>
-                                <?php }else{ ?>
-                                    <div class="col-md-12">
-                                <?php } ?>
-                                <!-- <form class="row" action="Update" method="post" enctype="multipart/form-data"
-                                    novalidate="novalidate"> -->
-                                <div class="form-group col-md-12 m-t-10">
-                                    <label>Project Title </label>
-                                    <p class="form-control form-control-line edit"><?php echo $row["pro_name"]; ?>
-                                    </p>
-                                    <input type="text" class='txtedit' value='<?php echo $row["pro_name"]; ?>'
-                                        id='pro_name-<?php echo $row["id"]; ?>-project' style="display:none;">
-                                </div>
-                                <div class="form-group col-md-6 m-t-10">
-                                    <label>Project Start Date </label>
-                                    <p class="form-control form-control-line edit"><?php echo $row["pro_start_date"]; ?>
-                                    </p>
-                                    <input type="date" class='txtedit' value='<?php echo $row["pro_start_date"]; ?>'
-                                        id='pro_start_date-<?php echo $row["id"]; ?>-project' style="display:none;">
-                                </div>
-                                <div class="form-group col-md-6 m-t-10">
-                                    <label>Project End Date</label>
-                                    <p class="form-control form-control-line edit"><?php echo $row["pro_end_date"]; ?>
-                                    </p>
-                                    <input type="date" class='txtedit' value='<?php echo $row["pro_end_date"]; ?>'
-                                        id='pro_end_date-<?php echo $row["id"]; ?>-project' style="display:none;">
-                                </div>
-                                <div class="form-group col-md-12 m-t-10">
-                                    <div class="form-group col-md-12 m-t-10">
-                                        <label>Project Summary </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["pro_summary"]; ?>
-                                        </p>
-                                        <textarea class='txtedit' id='pro_summary-<?php echo $row["id"]; ?>-project'
-                                            style="display:none;"><?php echo $row["pro_summary"]; ?></textarea>
+                                <div class="col-md-4">
+
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <img src="assets/uploads/employee/6614b390d974e.jpg" class="img-circle"
+                                                width="150">
+                                            <h4 class="card-title m-t-10">ccccc</h4>
+                                            <h6 class="card-subtitle">ccccc</h6>
+                                        </div>
+                                        <div>
+                                            <hr>
+                                        </div>
+                                        <div class="card-body">
+                                            <small class="text-muted">Email address </small>
+                                            <h6>ffff</h6>
+                                            <small class="text-muted p-t-30 db">Phone</small>
+                                            <h6>ffff</h6>
+                                        </div>
                                     </div>
 
                                 </div>
-                                <div class="form-group col-md-12 m-t-10">
-                                    <label>Details </label>
-                                    <p class="form-control form-control-line edit">
-                                        <?php echo $row["pro_description"]; ?>
-                                    </p>
-                                    <textarea class='txtedit' id='pro_description-<?php echo $row["id"]; ?>-project'
-                                        style="display:none;"><?php echo $row["pro_description"]; ?></textarea>
+
+                                <div class="col-md-8">
+                                <?php } else { ?>
+                                    <div class="col-md-12">
+                                    <?php } ?>
+                                    <!-- <form class="row" action="Update" method="post" enctype="multipart/form-data"
+                                    novalidate="novalidate"> -->
+                                    <div class="form-group col-md-12 m-t-10">
+                                        <label>Project Title </label>
+                                        <p class="form-control form-control-line edit"><?php echo $row["pro_name"]; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row["pro_name"]; ?>'
+                                            id='pro_name-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                    </div>
+                                    <div class="form-group col-md-6 m-t-10">
+                                        <label>Project Start Date </label>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo $row["pro_start_date"]; ?>
+                                        </p>
+                                        <input type="date" class='txtedit' value='<?php echo $row["pro_start_date"]; ?>'
+                                            id='pro_start_date-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                    </div>
+                                    <div class="form-group col-md-6 m-t-10">
+                                        <label>Project End Date</label>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo $row["pro_end_date"]; ?>
+                                        </p>
+                                        <input type="date" class='txtedit' value='<?php echo $row["pro_end_date"]; ?>'
+                                            id='pro_end_date-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-10">
+                                        <div class="form-group col-md-12 m-t-10">
+                                            <label>Project Summary </label>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo $row["pro_summary"]; ?>
+                                            </p>
+                                            <textarea class='txtedit' id='pro_summary-<?php echo $row["id"]; ?>-project'
+                                                style="display:none;"><?php echo $row["pro_summary"]; ?></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-10">
+                                        <label>Details </label>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo $row["pro_description"]; ?>
+                                        </p>
+                                        <textarea class='txtedit' id='pro_description-<?php echo $row["id"]; ?>-project'
+                                            style="display:none;"><?php echo $row["pro_description"]; ?></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12 m-t-10">
+                                        <label>Status</label>
+                                        <p class="form-control form-control-line edit"
+                                            onclick="showDropdown('pro_status-<?php echo $row['id']; ?>-project')">
+                                            <?php echo $row["pro_status"]; ?>
+                                        </p>
+                                        <select class='txtedit' id='pro_status-<?php echo $row["id"]; ?>-project'
+                                            style="display:none;">
+                                            <option value="upcoming" <?php if ($row["pro_status"] == "upcoming")
+                                                echo 'selected="selected"'; ?>>upcoming
+                                            </option>
+                                            <option value="complete" <?php if ($row["pro_status"] == "complete")
+                                                echo 'selected="selected"'; ?>>complete</option>
+                                            <option value="running" <?php if ($row["pro_status"] == "running")
+                                                echo 'selected="selected"'; ?>>running</option>
+                                        </select>
+                                    </div>
+                                    <!-- </form> -->
                                 </div>
-                                <div class="form-group col-md-12 m-t-10">
-                                    <label>Status</label>
-                                    <p class="form-control form-control-line edit"
-                                        onclick="showDropdown('pro_status-<?php echo $row['id']; ?>-project')">
-                                        <?php echo $row["pro_status"]; ?>
-                                    </p>
-                                    <select class='txtedit' id='pro_status-<?php echo $row["id"]; ?>-project'
-                                        style="display:none;">
-                                        <option value="upcoming" <?php if ($row["pro_status"] == "upcoming")
-                                            echo 'selected="selected"'; ?>>upcoming
-                                        </option>
-                                        <option value="complete" <?php if ($row["pro_status"] == "complete")
-                                            echo 'selected="selected"'; ?>>complete</option>
-                                        <option value="running" <?php if ($row["pro_status"] == "running")
-                                            echo 'selected="selected"'; ?>>running</option>
-                                    </select>
-                                </div>
-                                <!-- </form> -->
                             </div>
                         </div>
-                    </div>
-                    <div id="ProjectTasks" class="tabcontent">
-                        <div class="card p-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Projects Tasks</h6>
-                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                    data-bs-target="#addDept">
-                                    <i class="fa-solid fa-plus"></i>Add Tasks
-                                </button>
-                            </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Sl</th>
-                                        <th class="text-center">Project Title</th>
-                                        <th class="text-center">Start date</th>
-                                        <th class="text-center">End Date</th>
-                                        <th class="text-center">Assigned Users</th>
-                                        <!-- <th class="text-center">Action</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include "common/conn.php";
-                                    $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, 
+                        <div id="ProjectTasks" class="tabcontent">
+                            <div class="card p-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="">Projects Tasks</h6>
+                                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                        data-bs-target="#addDept">
+                                        <i class="fa-solid fa-plus"></i>Add Tasks
+                                    </button>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Sl</th>
+                                            <th class="text-center">Project Title</th>
+                                            <th class="text-center">Start date</th>
+                                            <th class="text-center">End Date</th>
+                                            <th class="text-center">Assigned Users</th>
+                                            <!-- <th class="text-center">Action</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, 
                                                         GROUP_CONCAT(at.assign_user SEPARATOR ', ') AS assign_users
                                                         FROM  pro_task pt
                                                         JOIN  assign_task at
@@ -241,57 +244,58 @@ session_start(); {
                                                         WHERE pt.pro_id = $proId AND pt.task_type = 'Field'
                                                         GROUP BY 
                                                         pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
-                                    $result1 = $conn->query($sql1);
-                                    $slno = 1;
-                                    if ($result1->num_rows > 0) {
-                                        while ($row1 = $result1->fetch_assoc()) {
-                                            ?>
-                                            <tr>
-                                                <td class="text-center"><?php echo $row1["pro_id"]; ?></td>
-                                                <!-- <td class="text-center"><?php echo $row1["task_title"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row1['task_title']; ?></p>
-                                                    <input type="text" class='txtedit'
-                                                        value='<?php echo $row1["task_title"]; ?>'
-                                                        id='task_title-<?php echo $row1["id"]; ?>-pro_task'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <!-- <td class="text-center"><?php echo $row1["start_date"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row1['start_date']; ?></p>
-                                                    <input type="date" class='txtedit'
-                                                        value='<?php echo $row1["start_date"]; ?>'
-                                                        id='start_date-<?php echo $row1["id"]; ?>-pro_task'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <!-- <td class="text-center"><?php echo $row1["end_date"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row1['end_date']; ?></p>
-                                                    <input type="date" class='txtedit' value='<?php echo $row1["end_date"]; ?>'
-                                                        id='end_date-<?php echo $row1["id"]; ?>-pro_task'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <!-- <td class="text-center"><?php echo $row1["assign_users"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row1['assign_users']; ?></p>
-                                                    <select class='txtedit' value='<?php echo $row1['assign_user']; ?>'
-                                                        id='assign_user-<?php echo $row1["id"]; ?>-assign_task'
-                                                        style="display: none;">
-                                                        <?php
-                                                        include "common/conn.php";
-                                                        $sqlproject = "SELECT * FROM employee";
-                                                        $resultproject = $conn->query($sqlproject);
-                                                        while ($rowproject = $resultproject->fetch_assoc()) { ?>
-                                                            <option value="<?php echo $rowproject['full_name']; ?>">
-                                                                <?php echo $rowproject['full_name']; ?>
-                                                            </option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </td>
-                                                <!-- <td class="text-center">
+                                        $result1 = $conn->query($sql1);
+                                        $slno = 1;
+                                        if ($result1->num_rows > 0) {
+                                            while ($row1 = $result1->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $row1["pro_id"]; ?></td>
+                                                    <!-- <td class="text-center"><?php echo $row1["task_title"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row1['task_title']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row1["task_title"]; ?>'
+                                                            id='task_title-<?php echo $row1["id"]; ?>-pro_task'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <!-- <td class="text-center"><?php echo $row1["start_date"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row1['start_date']; ?></p>
+                                                        <input type="date" class='txtedit'
+                                                            value='<?php echo $row1["start_date"]; ?>'
+                                                            id='start_date-<?php echo $row1["id"]; ?>-pro_task'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <!-- <td class="text-center"><?php echo $row1["end_date"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row1['end_date']; ?></p>
+                                                        <input type="date" class='txtedit'
+                                                            value='<?php echo $row1["end_date"]; ?>'
+                                                            id='end_date-<?php echo $row1["id"]; ?>-pro_task'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <!-- <td class="text-center"><?php echo $row1["assign_users"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row1['assign_users']; ?></p>
+                                                        <select class='txtedit' value='<?php echo $row1['assign_user']; ?>'
+                                                            id='assign_user-<?php echo $row1["id"]; ?>-assign_task'
+                                                            style="display: none;">
+                                                            <?php
+                                                            include "common/conn.php";
+                                                            $sqlproject = "SELECT * FROM employee";
+                                                            $resultproject = $conn->query($sqlproject);
+                                                            while ($rowproject = $resultproject->fetch_assoc()) { ?>
+                                                                <option value="<?php echo $rowproject['full_name']; ?>">
+                                                                    <?php echo $rowproject['full_name']; ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                    <!-- <td class="text-center">
                                                     <a href="projectDetails.php?id=<?php echo $row1['id']; ?>">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
@@ -299,42 +303,42 @@ session_start(); {
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </a>
                                                 </td> -->
-                                            </tr>
-                                            <?php
+                                                </tr>
+                                                <?php
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>0 results</td></tr>";
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='6'>0 results</td></tr>";
-                                    }
-                                    $conn->close();
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="OfficeTasks" class="tabcontent">
-                        <div class="card p-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">OfficeTasks</h6>
-                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                    data-bs-target="#addDept">
-                                    <i class="fa-solid fa-plus"></i>Add OfficeTasks
-                                </button>
+                                        $conn->close();
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Sl</th>
-                                        <th class="text-center">Project Title</th>
-                                        <th class="text-center">Start date</th>
-                                        <th class="text-center">End Date</th>
-                                        <th class="text-center">Assigned Users</th>
-                                        <!-- <th class="text-center">Action</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include "common/conn.php";
-                                    $sql2 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, 
+                        </div>
+                        <div id="OfficeTasks" class="tabcontent">
+                            <div class="card p-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="">OfficeTasks</h6>
+                                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                        data-bs-target="#addDept">
+                                        <i class="fa-solid fa-plus"></i>Add OfficeTasks
+                                    </button>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Sl</th>
+                                            <th class="text-center">Project Title</th>
+                                            <th class="text-center">Start date</th>
+                                            <th class="text-center">End Date</th>
+                                            <th class="text-center">Assigned Users</th>
+                                            <!-- <th class="text-center">Action</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql2 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, 
                                                         GROUP_CONCAT(at.assign_user SEPARATOR ', ') AS assign_users
                                                         FROM  pro_task pt
                                                         JOIN  assign_task at
@@ -342,56 +346,57 @@ session_start(); {
                                                         WHERE pt.pro_id = $proId AND pt.task_type = 'Office'
                                                         GROUP BY 
                                                         pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
-                                    $result2 = $conn->query($sql2);
-                                    if ($result2->num_rows > 0) {
-                                        while ($row2 = $result2->fetch_assoc()) {
-                                            ?>
-                                            <tr>
-                                                <td class="text-center"><?php echo $slno; ?></td>
-                                                <!-- <td class="text-center"><?php echo $row2["task_title"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row2['task_title']; ?></p>
-                                                    <input type="text" class='txtedit'
-                                                        value='<?php echo $row2["task_title"]; ?>'
-                                                        id='task_title-<?php echo $row2["id"]; ?>-pro_task'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <!-- <td class="text-center"><?php echo $row2["start_date"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row2['start_date']; ?></p>
-                                                    <input type="date" class='txtedit'
-                                                        value='<?php echo $row2["start_date"]; ?>'
-                                                        id='start_date-<?php echo $row2["id"]; ?>-pro_task'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <!-- <td class="text-center"><?php echo $row2["end_date"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row2['end_date']; ?></p>
-                                                    <input type="date" class='txtedit' value='<?php echo $row2["end_date"]; ?>'
-                                                        id='end_date-<?php echo $row2["id"]; ?>-pro_task'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <!-- <td class="text-center"><?php echo $row2["assign_users"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row2['assign_users']; ?></p>
-                                                    <select class='txtedit' value='<?php echo $row2['assign_user']; ?>'
-                                                        id='assign_user-<?php echo $row2["id"]; ?>-assign_task'
-                                                        style="display: none;">
-                                                        <?php
-                                                        include "common/conn.php";
-                                                        $sqloffice = "SELECT * FROM employee";
-                                                        $resultoffice = $conn->query($sqloffice);
-                                                        while ($rowoffice = $resultoffice->fetch_assoc()) { ?>
-                                                            <option value="<?php echo $rowoffice['full_name']; ?>">
-                                                                <?php echo $rowoffice['full_name']; ?>
-                                                            </option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </td>
-                                                <!-- <td class="text-center">
+                                        $result2 = $conn->query($sql2);
+                                        if ($result2->num_rows > 0) {
+                                            while ($row2 = $result2->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $slno; ?></td>
+                                                    <!-- <td class="text-center"><?php echo $row2["task_title"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row2['task_title']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row2["task_title"]; ?>'
+                                                            id='task_title-<?php echo $row2["id"]; ?>-pro_task'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <!-- <td class="text-center"><?php echo $row2["start_date"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row2['start_date']; ?></p>
+                                                        <input type="date" class='txtedit'
+                                                            value='<?php echo $row2["start_date"]; ?>'
+                                                            id='start_date-<?php echo $row2["id"]; ?>-pro_task'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <!-- <td class="text-center"><?php echo $row2["end_date"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row2['end_date']; ?></p>
+                                                        <input type="date" class='txtedit'
+                                                            value='<?php echo $row2["end_date"]; ?>'
+                                                            id='end_date-<?php echo $row2["id"]; ?>-pro_task'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <!-- <td class="text-center"><?php echo $row2["assign_users"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row2['assign_users']; ?></p>
+                                                        <select class='txtedit' value='<?php echo $row2['assign_user']; ?>'
+                                                            id='assign_user-<?php echo $row2["id"]; ?>-assign_task'
+                                                            style="display: none;">
+                                                            <?php
+                                                            include "common/conn.php";
+                                                            $sqloffice = "SELECT * FROM employee";
+                                                            $resultoffice = $conn->query($sqloffice);
+                                                            while ($rowoffice = $resultoffice->fetch_assoc()) { ?>
+                                                                <option value="<?php echo $rowoffice['full_name']; ?>">
+                                                                    <?php echo $rowoffice['full_name']; ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                    <!-- <td class="text-center">
                                                     <a href="projectDetails.php?id=<?php echo $row2['id']; ?>">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
@@ -399,93 +404,93 @@ session_start(); {
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </a>
                                                 </td> -->
-                                            </tr>
-                                            <?php
-                                            $slno++;
+                                                </tr>
+                                                <?php
+                                                $slno++;
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>0 results</td></tr>";
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='6'>0 results</td></tr>";
-                                    }
-                                    $conn->close();
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="projectsFiles" class="tabcontent">
-                        <div class="card p-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Projects Files</h6>
-                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                    data-bs-target="#addfiles">
-                                    <i class="fa-solid fa-plus"></i>Add Files
-                                </button>
+                                        $conn->close();
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Sl</th>
-                                        <th class="text-center">File Details</th>
-                                        <th class="text-center">Upload Document</th>
-                                        <th class="text-center">Assigned Users</th>
-                                        <!-- <th class="text-center">Action</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include "common/conn.php";
-                                    $sql3 = "SELECT * FROM project_file WHERE pro_id='$proId'";
-                                    $result3 = $conn->query($sql3);
-                                    $slno = 1;
-                                    if ($result3->num_rows > 0) {
-                                        while ($row3 = $result3->fetch_assoc()) {
-                                            ?>
-                                            <tr>
-                                                <td class="text-center"><?php echo $slno; ?></td>
-                                                <!-- <td class="text-center"><?php echo $row3["file_details"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row3['file_details']; ?></p>
-                                                    <input type="text" class='txtedit'
-                                                        value='<?php echo $row3["file_details"]; ?>'
-                                                        id='file_details-<?php echo $row3["id"]; ?>-project_file'
-                                                        name="pdf_file" style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <!-- <td class="text-center"><?php echo $row3["file_url"]; ?></td> -->
-                                                <!-- <td class="text-center">
+                        </div>
+                        <div id="projectsFiles" class="tabcontent">
+                            <div class="card p-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="">Projects Files</h6>
+                                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                        data-bs-target="#addfiles">
+                                        <i class="fa-solid fa-plus"></i>Add Files
+                                    </button>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Sl</th>
+                                            <th class="text-center">File Details</th>
+                                            <th class="text-center">Upload Document</th>
+                                            <th class="text-center">Assigned Users</th>
+                                            <!-- <th class="text-center">Action</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql3 = "SELECT * FROM project_file WHERE pro_id='$proId'";
+                                        $result3 = $conn->query($sql3);
+                                        $slno = 1;
+                                        if ($result3->num_rows > 0) {
+                                            while ($row3 = $result3->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $slno; ?></td>
+                                                    <!-- <td class="text-center"><?php echo $row3["file_details"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row3['file_details']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row3["file_details"]; ?>'
+                                                            id='file_details-<?php echo $row3["id"]; ?>-project_file'
+                                                            name="pdf_file" style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <!-- <td class="text-center"><?php echo $row3["file_url"]; ?></td> -->
+                                                    <!-- <td class="text-center">
                                                     <a href="uploads/<?php echo $row3["file_url"]; ?>" target="_blank">
                                                         <i class="fas fa-file-pdf" style="font-size: 20px; color: red;"></i>
                                                     </a>
                                                 </td> -->
-                                                <td class="text-center">
-                                                    <a href="uploads/<?php echo $row3["file_url"]; ?>" target="_blank">
-                                                        <i class="fas fa-file-pdf" style="font-size: 20px; color: red;"></i>
-                                                    </a>
-                                                    <i class="fas fa-edit"
-                                                        style="font-size: 20px; color: blue; cursor: pointer;"
-                                                        onclick="showFileInput(<?php echo $row3['id']; ?>)"></i>
-                                                    <input type="file" id="fileInput-<?php echo $row3['id']; ?>"
-                                                        style="display: none;"
-                                                        onchange="uploadFile(<?php echo $row3['id']; ?>)">
-                                                </td>
-                                                <!-- <td class="text-center"><?php echo $row3["assigned_to"]; ?></td> -->
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row3['assigned_to']; ?></p>
-                                                    <select class='txtedit' value='<?php echo $row3['assigned_to']; ?>'
-                                                        id='assigned_to-<?php echo $row3["id"]; ?>-project_file'
-                                                        style="display: none;">
-                                                        <?php
-                                                        include "common/conn.php";
-                                                        $sqlnotes = "SELECT * FROM employee";
-                                                        $resultnotes = $conn->query($sqlnotes);
-                                                        while ($rownotes = $resultnotes->fetch_assoc()) { ?>
-                                                            <option value="<?php echo $rownotes['full_name']; ?>">
-                                                                <?php echo $rownotes['full_name']; ?>
-                                                            </option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </td>
-                                                <!-- <td class="text-center">
+                                                    <td class="text-center">
+                                                        <a href="uploads/<?php echo $row3["file_url"]; ?>" target="_blank">
+                                                            <i class="fas fa-file-pdf" style="font-size: 20px; color: red;"></i>
+                                                        </a>
+                                                        <i class="fas fa-edit"
+                                                            style="font-size: 20px; color: blue; cursor: pointer;"
+                                                            onclick="showFileInput(<?php echo $row3['id']; ?>)"></i>
+                                                        <input type="file" id="fileInput-<?php echo $row3['id']; ?>"
+                                                            style="display: none;"
+                                                            onchange="uploadFile(<?php echo $row3['id']; ?>)">
+                                                    </td>
+                                                    <!-- <td class="text-center"><?php echo $row3["assigned_to"]; ?></td> -->
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row3['assigned_to']; ?></p>
+                                                        <select class='txtedit' value='<?php echo $row3['assigned_to']; ?>'
+                                                            id='assigned_to-<?php echo $row3["id"]; ?>-project_file'
+                                                            style="display: none;">
+                                                            <?php
+                                                            include "common/conn.php";
+                                                            $sqlnotes = "SELECT * FROM employee";
+                                                            $resultnotes = $conn->query($sqlnotes);
+                                                            while ($rownotes = $resultnotes->fetch_assoc()) { ?>
+                                                                <option value="<?php echo $rownotes['full_name']; ?>">
+                                                                    <?php echo $rownotes['full_name']; ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                    <!-- <td class="text-center">
                                                     <a href="projectDetails.php?id=<?php echo $row3['id']; ?>">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
@@ -497,109 +502,111 @@ session_start(); {
                                                         data-bs-toggle="modal" data-bs-target="#updatefiles"><i
                                                             class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
                                                 </td> -->
-                                            </tr>
-                                            <?php
-                                            $slno++;
+                                                </tr>
+                                                <?php
+                                                $slno++;
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>0 results</td></tr>";
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='6'>0 results</td></tr>";
-                                    }
-                                    $conn->close();
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="notes" class="tabcontent">
-                        <div class="card p-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Projects Notes</h6>
-                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                    data-bs-target="#addnotes">
-                                    <i class="fa-solid fa-plus"></i>Add Notes
-                                </button>
+                                        $conn->close();
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Sl</th>
-                                        <th class="text-center">Project Details</th>
-                                        <th class="text-center">Assigned Users</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include "common/conn.php";
-                                    $sql4 = "SELECT * FROM pro_notes WHERE pro_id='$proId'";
-                                    $result4 = $conn->query($sql4);
-                                    $slno = 1;
-                                    if ($result4->num_rows > 0) {
-                                        while ($row4 = $result4->fetch_assoc()) {
-                                            ?>
-                                            <tr>
-                                                <td class="text-center"><?php echo $slno; ?></td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row4['details']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row4["details"]; ?>'
-                                                        id='details-<?php echo $row4["id"]; ?>-pro_notes'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row4['assign_to']; ?></p>
-                                                    <select class='txtedit' id='assign_to-<?php echo $row4["id"]; ?>-pro_notes'
-                                                        style="display: none;">
-                                                        <?php
-                                                        include "common/conn.php";
-                                                        $sqlnotes = "SELECT * FROM employee";
-                                                        $resultnotes = $conn->query($sqlnotes);
-                                                        while ($rownotes = $resultnotes->fetch_assoc()) {
-                                                            $selected = ($rownotes['full_name'] == $row4['assign_to']) ? 'selected' : '';
-                                                            ?>
-                                                            <option value="<?php echo $rownotes['full_name']; ?>" <?php echo $selected; ?>>
-                                                                <?php echo $rownotes['full_name']; ?>
-                                                            </option>
+                        </div>
+                        <div id="notes" class="tabcontent">
+                            <div class="card p-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="">Projects Notes</h6>
+                                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                        data-bs-target="#addnotes">
+                                        <i class="fa-solid fa-plus"></i>Add Notes
+                                    </button>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Sl</th>
+                                            <th class="text-center">Project Details</th>
+                                            <th class="text-center">Assigned Users</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql4 = "SELECT * FROM pro_notes WHERE pro_id='$proId'";
+                                        $result4 = $conn->query($sql4);
+                                        $slno = 1;
+                                        if ($result4->num_rows > 0) {
+                                            while ($row4 = $result4->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $slno; ?></td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row4['details']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row4["details"]; ?>'
+                                                            id='details-<?php echo $row4["id"]; ?>-pro_notes'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row4['assign_to']; ?></p>
+                                                        <select class='txtedit'
+                                                            id='assign_to-<?php echo $row4["id"]; ?>-pro_notes'
+                                                            style="display: none;">
                                                             <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </td>
+                                                            include "common/conn.php";
+                                                            $sqlnotes = "SELECT * FROM employee";
+                                                            $resultnotes = $conn->query($sqlnotes);
+                                                            while ($rownotes = $resultnotes->fetch_assoc()) {
+                                                                $selected = ($rownotes['full_name'] == $row4['assign_to']) ? 'selected' : '';
+                                                                ?>
+                                                                <option value="<?php echo $rownotes['full_name']; ?>" <?php echo $selected; ?>>
+                                                                    <?php echo $rownotes['full_name']; ?>
+                                                                </option>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </td>
 
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row4['pro_status']; ?></p>
-                                                    <input type="text" class='txtedit'
-                                                        value='<?php echo $row4["pro_status"]; ?>'
-                                                        id='pro_status-<?php echo $row4["id"]; ?>-pro_notes'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="projectDetails.php?id=<?php echo $row4['id']; ?>">
-                                                        <i class="fa-solid fa-eye text-success"></i>
-                                                    </a>
-                                                    <!-- <a href="editProject.php?id=<?php echo $row4['id']; ?>">
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row4['pro_status']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row4["pro_status"]; ?>'
+                                                            id='pro_status-<?php echo $row4["id"]; ?>-pro_notes'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="projectDetails.php?id=<?php echo $row4['id']; ?>">
+                                                            <i class="fa-solid fa-eye text-success"></i>
+                                                        </a>
+                                                        <!-- <a href="editProject.php?id=<?php echo $row4['id']; ?>">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </a> -->
-                                                    <!-- <a href="deleteProject.php?id=<?php //echo $row['id']; ?>"><i class="fa-solid fa-trash text-danger"></i></a> -->
-                                                </td>
-                                            </tr>
-                                            <?php
-                                            $slno++;
+                                                        <!-- <a href="deleteProject.php?id=<?php //echo $row['id']; ?>"><i class="fa-solid fa-trash text-danger"></i></a> -->
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                                $slno++;
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>0 results</td></tr>";
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='6'>0 results</td></tr>";
-                                    }
-                                    $conn->close();
-                                    ?>
-                                </tbody>
-                            </table>
+                                        $conn->close();
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div id="Expenses" class="tabcontent">
-                        <div class="card p-2">
-                            <div class="d-flex justify-content-between align-items-center">
+                        <div id="Expenses" class="tabcontent">
+                            <div class="card p-2">
+                                <div class="d-flex justify-content-between align-items-center">
                                     <?php
                                     include "common/conn.php";
                                     $sql_c = " SELECT SUM(deposite) AS total,SUM(withdraw) AS totall FROM account WHERE pro_id='$proId'";
@@ -611,173 +618,183 @@ session_start(); {
                                         $balance = $depositetotal - $withdrawtotal;
                                     }
                                     ?>
-                                <h6 class="">Projects Expenses:-<?php echo $balance; ?></h6>
-                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                    data-bs-target="#addExpences">
-                                    <i class="fa-solid fa-plus"></i>Add Expenses
-                                </button>
-                               
-                            </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Assigned users</th>
-                                        <th class="text-center">Details</th>
-                                        <th class="text-center">Tax Type</th>
-                                        <th class="text-center">Deposite</th>
-                                        <th class="text-center">Withdraw</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include "common/conn.php";
-                                    $sql5 = "SELECT * FROM account WHERE pro_id='$proId' ORDER BY date DESC";
-                                    $result5 = $conn->query($sql5);
-                                    $slno = 1;
-                                    if ($result5->num_rows > 0) {
-                                        while ($row5 = $result5->fetch_assoc()) {
-                                            ?>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['date']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
-                                                    </input>
-                                                </td>
-                                                 <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['assign_to']; ?></p>
-                                                    <select class='txtedit'
-                                                        id='assign_to-<?php echo $row5["id"]; ?>-pro_expenses'
-                                                        style="display: none;">
-                                                        <?php
-                                                        include "common/conn.php";
-                                                        $sql2ee = "SELECT * FROM employee";
-                                                        $resultee = $conn->query($sql2ee);
-                                                        while ($rowee = $resultee->fetch_assoc()) {
-                                                            // Check if this option should be selected
-                                                            $selected = ($rowee['full_name'] == $row5['assign_to']) ? 'selected' : '';
-                                                            ?>
-                                                            <option value="<?php echo $rowee['full_name']; ?>" <?php echo $selected; ?>>
-                                                                <?php echo $rowee['full_name']; ?>
-                                                            </option>
+                                    <h6 class="">Projects Expenses:-<?php echo $balance; ?></h6>
+                                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                        data-bs-target="#addExpences">
+                                        <i class="fa-solid fa-plus"></i>Add Expenses
+                                    </button>
+
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Date</th>
+                                            <th class="text-center">Assigned users</th>
+                                            <th class="text-center">Details</th>
+                                            <th class="text-center">Tax Type</th>
+                                            <th class="text-center">Deposite</th>
+                                            <th class="text-center">Withdraw</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql5 = "SELECT * FROM account WHERE pro_id='$proId' ORDER BY date DESC";
+                                        $result5 = $conn->query($sql5);
+                                        $slno = 1;
+                                        if ($result5->num_rows > 0) {
+                                            while ($row5 = $result5->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row5['date']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row5["details"]; ?>'
+                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row5['assign_to']; ?></p>
+                                                        <select class='txtedit'
+                                                            id='assign_to-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                            style="display: none;">
                                                             <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['particulars']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['tex_type']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['deposite']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row5['withdraw']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row5["details"]; ?>'
-                                                        id='details-<?php echo $row5["id"]; ?>-pro_expenses' style="display: none;">
-                                                    </input>
-                                                </td>
-                                            </tr>
-                                            <?php
+                                                            include "common/conn.php";
+                                                            $sql2ee = "SELECT * FROM employee";
+                                                            $resultee = $conn->query($sql2ee);
+                                                            while ($rowee = $resultee->fetch_assoc()) {
+                                                                // Check if this option should be selected
+                                                                $selected = ($rowee['full_name'] == $row5['assign_to']) ? 'selected' : '';
+                                                                ?>
+                                                                <option value="<?php echo $rowee['full_name']; ?>" <?php echo $selected; ?>>
+                                                                    <?php echo $rowee['full_name']; ?>
+                                                                </option>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row5['particulars']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row5["details"]; ?>'
+                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row5['tex_type']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row5["details"]; ?>'
+                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row5['deposite']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row5["details"]; ?>'
+                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row5['withdraw']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row5["details"]; ?>'
+                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>0 results</td></tr>";
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='6'>0 results</td></tr>";
-                                    }
-                                    $conn->close();
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="Users" class="tabcontent">
-                        <div class="card p-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="">Users</h6>
-                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                    data-bs-target="#addUsers">
-                                    <i class="fa-solid fa-plus"></i>Add Users
-                                </button>
+                                        $conn->close();
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Sl</th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">Designation</th>
-                                        <th class="text-center">Mobile Number</th>
-                                        <th class="text-center">Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include "common/conn.php";
-                                    $sql8 = "SELECT * FROM representative WHERE pro_id='$proId'";
-                                    $result8 = $conn->query($sql8);
-                                    $slno = 1;
-                                    if ($result8->num_rows > 0) {
-                                        while ($row8 = $result8->fetch_assoc()) {
-                                            ?>
-                                            <tr>
-                                                <td class="text-center"><?php echo $slno; ?></td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row8['user_name']; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row8["user_name"]; ?>'
-                                                        id='user_name-<?php echo $row8["id"]; ?>-representative'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row8['user_designation']; ?></p>
-                                                    <input type="text" class='txtedit'
-                                                        value='<?php echo $row8["user_designation"]; ?>'
-                                                        id='user_designation-<?php echo $row8["id"]; ?>-representative'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row8['user_mobile_number']; ?></p>
-                                                    <input type="text" class='txtedit'
-                                                        value='<?php echo $row8["user_mobile_number"]; ?>'
-                                                        id='user_mobile_number-<?php echo $row8["id"]; ?>-representative'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                                <td class="text-center">
-                                                    <p class="edit"><?php echo $row8['user_email']; ?></p>
-                                                    <input type="text" class='txtedit'
-                                                        value='<?php echo $row8["user_email"]; ?>'
-                                                        id='user_email-<?php echo $row8["id"]; ?>-representative'
-                                                        style="display: none;">
-                                                    </input>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                            $slno++;
+                        </div>
+                        <div id="Users" class="tabcontent">
+                            <div class="card p-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="">Users</h6>
+                                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                        data-bs-target="#addUsers">
+                                        <i class="fa-solid fa-plus"></i>Add Users
+                                    </button>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Sl</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Designation</th>
+                                            <th class="text-center">Mobile Number</th>
+                                            <th class="text-center">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql8 = "SELECT * FROM representative WHERE pro_id='$proId'";
+                                        $result8 = $conn->query($sql8);
+                                        $slno = 1;
+                                        if ($result8->num_rows > 0) {
+                                            while ($row8 = $result8->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $slno; ?></td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row8['user_name']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row8["user_name"]; ?>'
+                                                            id='user_name-<?php echo $row8["id"]; ?>-representative'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row8['user_designation']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row8["user_designation"]; ?>'
+                                                            id='user_designation-<?php echo $row8["id"]; ?>-representative'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row8['user_mobile_number']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row8["user_mobile_number"]; ?>'
+                                                            id='user_mobile_number-<?php echo $row8["id"]; ?>-representative'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p class="edit"><?php echo $row8['user_email']; ?></p>
+                                                        <input type="text" class='txtedit'
+                                                            value='<?php echo $row8["user_email"]; ?>'
+                                                            id='user_email-<?php echo $row8["id"]; ?>-representative'
+                                                            style="display: none;">
+                                                        </input>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                                $slno++;
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>0 results</td></tr>";
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='6'>0 results</td></tr>";
-                                    }
-                                    $conn->close();
-                                    ?>
-                                </tbody>
-                            </table>
+                                        $conn->close();
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
             </main>
             <?php include 'common/copyrightfooter.php' ?>
         </div>
@@ -1042,103 +1059,108 @@ session_start(); {
     </div>
 
     <!-- Expences modal -->
- <div class="modal fade" id="addExpences" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="addDeptLabel">Add Expenses</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form name="form1" id="form2" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="row">
-                        <input type="hidden" class="form-control" value="<?php echo $proId; ?>" id="project_name" name="project_name" required>
-                        
-                        <div class="col-4">
-                            <div class="mb-2">
-                                <label for="startDate" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="Date" name="Date" required>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-2">
-                                <label class="form-label">Transaction Type</label>
-                                <div class="d-flex">
-                                    <div class="me-2">
-                                        <input type="radio" id="deposit" name="transaction_type" value="deposit" required>
-                                        <label for="deposit">Deposit</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="withdrawal" name="transaction_type" value="withdrawal" required>
-                                        <label for="withdrawal">Withdrawal</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4" id="gst_type_field" style="display:none;">
-                            <div class="mb-2">
-                                <label class="form-label">GST Type</label>
-                                <div class="d-flex">
-                                    <div class="me-1">
-                                        <input type="radio" name="taxtype" id="include_gst" value="NONGST" required>
-                                        <label for="include_gst">NON-GST</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" name="taxtype" id="exclude_gst" value="GST" required>
-                                        <label for="exclude_gst">GST</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-2">
-                                <label for="ProjectTitle" class="form-label">Expenses Details</label>
-                                <input type="text" class="form-control" id="Project_Details" name="Project_Details" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-2" id="assigned_users_field" style="display:none;">
-                                <label for="assigned_users" class="form-label">Assigned Users</label>
-                                <select class="form-control" name="assigned_users" id="assigned_users">
-                                    <option value="" disabled selected>Select a user</option>
-                                    <?php
-                                    include "common/conn.php";
-                                    $sql5 = "SELECT * FROM employee";
-                                    $result5 = $conn->query($sql5);
-                                    while ($row5 = $result5->fetch_assoc()) {
-                                        ?>
-                                        <option value="<?php echo $row5['full_name']; ?>"><?php echo $row5['full_name']; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="mb-2" id="gst_field" style="display:none;">
-                                <label for="gst" class="form-label">GST %</label>
-                                <input type="text" class="form-control" id="gst" name="gst">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-2" id="deposite1" style="display:none;">
-                                <label for="Amount" class="form-label">deposite</label>
-                                <input type="text" class="form-control" name="deposite1">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-2" id="withdrawl1" style="display:none;">
-                                <label for="Amount" class="form-label">withdrawl</label>
-                                <input type="text" class="form-control" name="withdrawl1">
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="task_type" value="protask">
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="project_task">Submit</button>
-                    </div>
+    <div class="modal fade" id="addExpences" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Expenses</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </form>
+                <form name="form1" id="form2" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="hidden" class="form-control" value="<?php echo $proId; ?>" id="project_name"
+                                name="project_name" required>
+
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="startDate" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="Date" name="Date" required>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label class="form-label">Transaction Type</label>
+                                    <div class="d-flex">
+                                        <div class="me-2">
+                                            <input type="radio" id="deposit" name="transaction_type" value="deposit"
+                                                required>
+                                            <label for="deposit">Deposit</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="withdrawal" name="transaction_type"
+                                                value="withdrawal" required>
+                                            <label for="withdrawal">Withdrawal</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4" id="gst_type_field" style="display:none;">
+                                <div class="mb-2">
+                                    <label class="form-label">GST Type</label>
+                                    <div class="d-flex">
+                                        <div class="me-1">
+                                            <input type="radio" name="taxtype" id="include_gst" value="NONGST" required>
+                                            <label for="include_gst">NON-GST</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="taxtype" id="exclude_gst" value="GST" required>
+                                            <label for="exclude_gst">GST</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <label for="ProjectTitle" class="form-label">Expenses Details</label>
+                                    <input type="text" class="form-control" id="Project_Details" name="Project_Details"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2" id="assigned_users_field" style="display:none;">
+                                    <label for="assigned_users" class="form-label">Assigned Users</label>
+                                    <select class="form-control" name="assigned_users" id="assigned_users">
+                                        <option value="" disabled selected>Select a user</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql5 = "SELECT * FROM employee";
+                                        $result5 = $conn->query($sql5);
+                                        while ($row5 = $result5->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?php echo $row5['full_name']; ?>">
+                                                <?php echo $row5['full_name']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="mb-2" id="gst_field" style="display:none;">
+                                    <label for="gst" class="form-label">GST %</label>
+                                    <input type="text" class="form-control" id="gst" name="gst">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2" id="deposite1" style="display:none;">
+                                    <label for="Amount" class="form-label">deposite</label>
+                                    <input type="text" class="form-control" name="deposite1">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2" id="withdrawl1" style="display:none;">
+                                    <label for="Amount" class="form-label">withdrawl</label>
+                                    <input type="text" class="form-control" name="withdrawl1">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="task_type" value="protask">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="project_task">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- user modal -->
     <div class="modal fade" id="addUsers" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
@@ -1157,7 +1179,9 @@ session_start(); {
                                 <div class="mb-2">
                                     <label for="ProjectTitle" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="representative_namee"
-                                        name="representative_name" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();" required>
+                                        name="representative_name"
+                                        oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                        required>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -1170,7 +1194,8 @@ session_start(); {
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="startDate" class="form-label">Mobile Number</label>
-                                    <input type="text" class="form-control" id="mobile_numberr" name="mobile_numberr1"  oninput="if(this.value.length > 10) this.value = this.value.slice(0, 20); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                    <input type="text" class="form-control" id="mobile_numberr" name="mobile_numberr1"
+                                        oninput="if(this.value.length > 10) this.value = this.value.slice(0, 20); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
                                         required>
                                 </div>
                             </div>
@@ -1484,84 +1509,85 @@ session_start(); {
         }
     </script>
     <!-- for withdrawal amount of expences -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const depositRadio = document.getElementById('deposit');
-        const withdrawalRadio = document.getElementById('withdrawal');
-        const includeGstRadio = document.getElementById('include_gst');
-        const excludeGstRadio = document.getElementById('exclude_gst');
-        const gstField = document.getElementById('gst_field');
-        const gstTypeField = document.getElementById('gst_type_field');
-        const assignedUsersField = document.getElementById('assigned_users_field');
-        const amountInput = document.getElementById('Amount');
-        const gstInput = document.getElementById('gst');
-        const depositeInput = document.getElementById('deposite1');
-        const withdrawlInput = document.getElementById('withdrawl1');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const depositRadio = document.getElementById('deposit');
+            const withdrawalRadio = document.getElementById('withdrawal');
+            const includeGstRadio = document.getElementById('include_gst');
+            const excludeGstRadio = document.getElementById('exclude_gst');
+            const gstField = document.getElementById('gst_field');
+            const gstTypeField = document.getElementById('gst_type_field');
+            const assignedUsersField = document.getElementById('assigned_users_field');
+            const amountInput = document.getElementById('Amount');
+            const gstInput = document.getElementById('gst');
+            const depositeInput = document.getElementById('deposite1');
+            const withdrawlInput = document.getElementById('withdrawl1');
 
-        function toggleFields() {
-            if (depositRadio.checked) {
-                gstTypeField.style.display = 'block';
-                gstField.style.display = 'block';
-                assignedUsersField.style.display = 'none';
-                depositeInput.style.display = 'block';
-                withdrawlInput.style.display = 'none';
-                const amount = parseFloat(amountInput.value);
-                if (!isNaN(amount)) {
-                    amountInput.value = Math.abs(amount); // Ensure positive value
-                }
-            } else if (withdrawalRadio.checked) {
-                gstTypeField.style.display = 'block';
-                gstField.style.display = 'block';
-                assignedUsersField.style.display = 'block';
-                depositeInput.style.display = 'none';
-                withdrawlInput.style.display = 'block';
-                const amount = parseFloat(amountInput.value);
-                if (!isNaN(amount)) {
-                    amountInput.value = -Math.abs(amount); // Ensure negative value
-                }
-            }
-        }
-        depositRadio.addEventListener('change', toggleFields);
-        withdrawalRadio.addEventListener('change', toggleFields);
-
-        // Ensure fields are properly toggled on page load
-        toggleFields();
-
-        function calculateGST() {
-            const amount = parseFloat(amountInput.value);
-            const gstPercent = parseFloat(gstInput.value);
-            if (!isNaN(amount) && !isNaN(gstPercent)) {
-                let gstAmount;
-                let finalAmount;
-
-                if (includeGstRadio.checked) {
-                    gstAmount = (amount * gstPercent) / 100;
-                    finalAmount = amount + gstAmount;
-                } else if (excludeGstRadio.checked) {
-                    gstAmount = amount - (amount * (100 / (100 + gstPercent)));
-                    finalAmount = amount - gstAmount;
-                }
-
-                if (!isNaN(finalAmount)) {
-                    amountInput.value = finalAmount.toFixed(2);
+            function toggleFields() {
+                if (depositRadio.checked) {
+                    gstTypeField.style.display = 'block';
+                    gstField.style.display = 'block';
+                    assignedUsersField.style.display = 'none';
+                    depositeInput.style.display = 'block';
+                    withdrawlInput.style.display = 'none';
+                    const amount = parseFloat(amountInput.value);
+                    if (!isNaN(amount)) {
+                        amountInput.value = Math.abs(amount); // Ensure positive value
+                    }
+                } else if (withdrawalRadio.checked) {
+                    gstTypeField.style.display = 'block';
+                    gstField.style.display = 'block';
+                    assignedUsersField.style.display = 'block';
+                    depositeInput.style.display = 'none';
+                    withdrawlInput.style.display = 'block';
+                    const amount = parseFloat(amountInput.value);
+                    if (!isNaN(amount)) {
+                        amountInput.value = -Math.abs(amount); // Ensure negative value
+                    }
                 }
             }
-        }
+            depositRadio.addEventListener('change', toggleFields);
+            withdrawalRadio.addEventListener('change', toggleFields);
 
-        includeGstRadio.addEventListener('change', calculateGST);
-        excludeGstRadio.addEventListener('change', calculateGST);
+            // Ensure fields are properly toggled on page load
+            toggleFields();
 
-        document.getElementById('form2').addEventListener('submit', function (e) {
-            if (depositRadio.checked) {
-                calculateGST();
-            } else if (withdrawalRadio.checked) {
+            function calculateGST() {
                 const amount = parseFloat(amountInput.value);
-                if (!isNaN(amount)) {
-                    amountInput.value = -Math.abs(amount); // Ensure negative value
+                const gstPercent = parseFloat(gstInput.value);
+                if (!isNaN(amount) && !isNaN(gstPercent)) {
+                    let gstAmount;
+                    let finalAmount;
+
+                    if (includeGstRadio.checked) {
+                        gstAmount = (amount * gstPercent) / 100;
+                        finalAmount = amount + gstAmount;
+                    } else if (excludeGstRadio.checked) {
+                        gstAmount = amount - (amount * (100 / (100 + gstPercent)));
+                        finalAmount = amount - gstAmount;
+                    }
+
+                    if (!isNaN(finalAmount)) {
+                        amountInput.value = finalAmount.toFixed(2);
+                    }
                 }
             }
+
+            includeGstRadio.addEventListener('change', calculateGST);
+            excludeGstRadio.addEventListener('change', calculateGST);
+
+            document.getElementById('form2').addEventListener('submit', function (e) {
+                if (depositRadio.checked) {
+                    calculateGST();
+                } else if (withdrawalRadio.checked) {
+                    const amount = parseFloat(amountInput.value);
+                    if (!isNaN(amount)) {
+                        amountInput.value = -Math.abs(amount); // Ensure negative value
+                    }
+                }
+            });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>

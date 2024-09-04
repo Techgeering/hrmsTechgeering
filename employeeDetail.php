@@ -471,14 +471,27 @@ session_start(); {
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="m-2">
-                                            <input type="text" class="form-control form-control-line P-2"
-                                                name="degreetitle" id="degreetitle" placeholder="Degree Title" required>
+                                            <select class="form-control form-control-line p-2" name="degreetitle"
+                                                id="degreetitle" required>
+                                                <option value="">Select Degree Title</option>
+                                                <option value="10th">10th</option>
+                                                <option value="+2">+2</option>
+                                                <option value="+3">+3</option>
+                                                <option value="BBA">BBA</option>
+                                                <option value="BCA">BCA</option>
+                                                <option value="MSC">MSC</option>
+                                                <option value="MCA">MCA</option>
+                                                <option value="MBA">MBA</option>
+                                                <option value="BTECH">BTECH</option>
+                                                <option value="MTECH">MTECH</option>
+                                                <option value="PhD">PhD</option>
+                                                <option value="Diploma">Diploma</option>
+                                            </select>
                                         </div>
                                         <div class="m-2">
                                             <input type="text" class="form-control form-control-line" name="university"
                                                 id="university" placeholder="University Name" required>
                                         </div>
-
                                     </div>
                                     <div class="col-6">
                                         <div class="m-2">
@@ -492,17 +505,24 @@ session_start(); {
                                                 <div class="">
                                                     <input type="text" class="form-control form-control-line P-2"
                                                         name="result"
-                                                        oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');"
-                                                        id="result" placeholder="Result (%)" required>
+                                                        oninput="this.value = this.value.replace(/[^0-9%]/g,''); if(this.value.match(/\d+/) && this.value.match(/\d+/)[0].length > 2) this.value = this.value.slice(0, 2) + '%';"
+                                                        id="result" placeholder="Result (%)" maxlength="3" required>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="">
-                                                    <input type="text" class="form-control form-control-line"
-                                                        name="passingyear" id="passingyear"
-                                                        oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');"
-                                                        placeholder="Passing Year" required>
+                                                    <select class="form-select" name="passingyear" id="passingyear"
+                                                        required>
+                                                        <option value="" selected>Passing Year</option>
+                                                        <?php
+                                                        $currentYear = date("Y");
+                                                        for ($year = 2000; $year <= $currentYear; $year++) {
+                                                            echo "<option value=\"$year\">$year</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
                                                 </div>
+
                                             </div>
                                         </div>
 
