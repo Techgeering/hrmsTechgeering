@@ -339,10 +339,12 @@ session_start(); {
                                             id='em_joining_date-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;"></input>
                                     </div>
+
+
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Last Company Date</label>
                                         <p class="form-control form-control-line edit">
-                                            <?php echo $row["last_company_date"]; ?>
+                                            <?php echo !empty($row2["last_company_date"]) ? $row2["last_company_date"] : "N/A"; ?>
                                         </p>
                                         <input type="date" class='txtedit'
                                             value='<?php echo $row["last_company_date"]; ?>'
