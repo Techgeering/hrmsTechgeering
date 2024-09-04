@@ -117,7 +117,7 @@ session_start(); {
                                         <div class="form-group">
                                             <label for="employeeId">Employee Id</label>
                                             <input type="text" class="form-control" id="employeeId" name="employeeId"
-                                                oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');" required>
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label for="department">Role</label>
@@ -130,7 +130,7 @@ session_start(); {
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="doj">DOJ</label>
+                                            <label for="doj">DOB</label>
                                             <input type="date" class="form-control" id="doj" name="doj" required>
                                         </div>
                                         <div class="form-group">
@@ -183,8 +183,7 @@ session_start(); {
                                         <div class="form-group">
                                             <label for="LeavingDate">Leaving Date <small>(Privious
                                                     Company)</small></label>
-                                            <input type="date" class="form-control" id="LeavingDate" name="LeavingDate"
-                                                required>
+                                            <input type="date" class="form-control" id="LeavingDate" name="LeavingDate">
                                         </div>
                                     </div>
                                     <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>

@@ -630,7 +630,7 @@ session_start(); {
                                     <div class="col-6">
                                         <div class="m-2">
                                             <input type="text" class="form-control form-control-line P-2"
-                                                name="degreetitle" id="degreetitle" placeholder="Degree Title">
+                                                name="degreetitle" id="degreetitle" placeholder="Degree Title" required>
                                         </div>
                                         <div class="m-2">
                                             <input type="text" class="form-control form-control-line P-2" name="result"
@@ -880,7 +880,8 @@ session_start(); {
                                                         <td><?php echo $slno; ?></td>
                                                         <td><?php echo $row6["file_title"]; ?></td>
                                                         <td>
-                                                            <a href="uploads/<?php echo $row6['file_url']; ?>" target="_blank">
+                                                            <a href="assets/uploads/employee/<?php echo $row6['file_url']; ?>"
+                                                                target="_blank">
                                                                 <i class="fas fa-file-pdf"></i>
                                                             </a>
                                                         </td>
@@ -936,7 +937,7 @@ session_start(); {
                             // Validate file type
                             if (in_array($file_type, $allowed_types)) {
                                 $new_file_name = uniqid() . '.' . $file_type;
-                                $upload_dir = "uploads/";
+                                $upload_dir = "assets/uploads/employee/";
 
                                 // Create directory if it does not exist
                                 if (!is_dir($upload_dir)) {
