@@ -202,7 +202,6 @@ session_start(); {
         }
 
         $balance_query1 = "SELECT balance FROM account WHERE balance_T IS NOT NULL AND date_time < '$datetime' ORDER BY date_time DESC LIMIT 1";
-        // $balance_query1 = "SELECT balance FROM account ORDER BY id DESC LIMIT 1";
         $balance_result1 = $conn->query($balance_query1);
         if ($balance_result1->num_rows > 0) {
             $row1 = $balance_result1->fetch_assoc();

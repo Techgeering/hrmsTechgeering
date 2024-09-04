@@ -163,17 +163,6 @@ session_start(); {
         $Details = $_POST['Details'];
         $Summary = $_POST['Summary'];
         $Status = $_POST['Status'];
-        // $proposalFileName = $_FILES['proposal']['name'];
-        // $proposalTempName = $_FILES['proposal']['tmp_name'];
-        // $mouFileName = $_FILES['mou']['name'];
-        // $mouTempName = $_FILES['mou']['tmp_name'];
-    
-
-        // $proposalDestination = "uploads/proposal/" . $proposalFileName;
-        // $mouDestination = "uploads/mou/" . $mouFileName;
-        // move_uploaded_file($proposalTempName, $proposalDestination);
-        // move_uploaded_file($mouTempName, $mouDestination);
-    
         // Insert data into database
         $sql = "INSERT INTO project (pro_name, pro_start_date, pro_end_date, pro_description, pro_summary, pro_status) 
                 VALUES ('$ProjectTitle', '$startDate', '$ProjectEndDate', '$Details', '$Summary', '$Status')";

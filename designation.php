@@ -76,9 +76,6 @@ session_start(); {
                                                         echo "<a href='inactive.php?status0=$idm&&tb=designation&&returnpage=designation.php' class='danger'><i class='fa-solid fa-lock text-danger'></i></a>";
                                                     }
                                                     ?>
-                                                    <!-- <i class="fa-solid fa-lock text-danger"></i> -->
-                                                    <!-- <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i> -->
-                                                    <!-- <i class="fa-solid fa-lock text-danger"></i> -->
                                                 </td>
                                             </tr>
                                             <?php

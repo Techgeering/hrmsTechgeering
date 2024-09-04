@@ -156,20 +156,10 @@ session_start(); {
                                                                         </li>
                                                                     </ul>
                                                                 <?php } ?>
-
                                                                 <input type="hidden" name="idd" value="<?php echo $row['id']; ?>">
                                                             </div>
                                                         </form>
                                                     </th>
-                                                <?php } ?>
-                                                <!-- <th>
-                                                    <?php echo $row["leave_status"]; ?>
-                                                </th> -->
-                                                <?php if ($em_role == '1') { ?>
-                                                    <!-- <th>
-                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                        <i class="fa-solid fa-lock text-danger"></i>
-                                                    </th> -->
                                                 <?php } ?>
                                             </tr>
                                             <?php

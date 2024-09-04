@@ -248,12 +248,6 @@ session_start(); {
         }
         $sql = "INSERT INTO employee (des_id, dep_id, full_name, em_email, prof_email, em_password, em_code, em_role, em_gender, em_phone, em_wahtsapp, em_birthday, em_blood_group, em_joining_date, last_company_date, em_aadher, em_pan, em_image) 
             VALUES ('$desig', '$department', '$name', '$personalEmail', '$professionalEmail', '$hashedPassword', '$employeeId', '$role', '$gender', '$contactNumber', '$whatsappNumber', '$doj', '$bloodGroup', '$JoiningDate', '$LeavingDate', '$aadharNumber', '$panNumber', '$upload_file')";
-
-
-        // Prepare SQL insert statement
-        //   $sql_insert = "INSERT INTO employees (name, designation, doj, contact_number, blood_group, pan_number, employee_id, department, personal_email, whatsapp_number, professional_email, aadhar_number, image_path, permanent_address, communication_address, other_id_number, id_type, bank_account_detail, status) 
-        //   VALUES ('$name', '$designation', '$doj', '$contactNumber', '$bloodGroup', '$panNumber', '$employeeId', '$department', '$personalEmail', '$whatsappNumber', '$professionalEmail', '$aadharNumber', '$upload_file', '$permanentAddress', '$communicationAddress', '$otherIdNumber', '$idType', '$bankAccountDetail','1')";
-    
         if (mysqli_query($conn, $sql)) {
             $sql1 = "INSERT INTO address (emp_id, type) VALUES ('$employeeId', 'Permanent')";
             if (mysqli_query($conn, $sql1)) {

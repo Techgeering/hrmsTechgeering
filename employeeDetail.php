@@ -982,39 +982,6 @@ session_start(); {
                                     </table>
                                 </div>
                             </div>
-                            <!-- <div class="card-body">
-                                <form class="row" action="Add_Experience" method="post" enctype="multipart/form-data"
-                                    novalidate="novalidate">
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label> Company Name</label>
-                                        <input type="text" name="company_name"
-                                            class="form-control form-control-line company_name"
-                                            placeholder="Company Name" minlength="2" required="">
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label>Position</label>
-                                        <input type="text" name="position_name"
-                                            class="form-control form-control-line position_name" placeholder="Position"
-                                            minlength="3" required="">
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label>Address</label>
-                                        <input type="text" name="address" class="form-control form-control-line duty"
-                                            placeholder="Address" minlength="7" required="">
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label>Working Duration</label>
-                                        <input type="text" name="work_duration"
-                                            class="form-control form-control-line working_period"
-                                            placeholder="Working Duration" required="">
-                                    </div>
-                                    <div class="form-actions col-md-12">
-                                        <input type="hidden" name="emid" value="Soy1332">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>
-                                            Save</button>
-                                    </div>
-                                </form>
-                            </div> -->
                         </div>
                     </div>
                     <div id="Password" class="tabcontent">

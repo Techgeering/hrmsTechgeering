@@ -193,10 +193,6 @@ session_start(); {
                                     </div>
                                 </div>
                             <?php } ?>
-                            <!-- <div class="form-group">
-                                <label for="DepartmentName">Total Cost</label>
-                                <input type="text" class="form-control" id="totalcost" name="totalcost1" readonly>
-                            </div> -->
                         </div>
                     </div>
                     <div class="modal-footer">

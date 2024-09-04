@@ -88,9 +88,6 @@ session_start(); {
                                                     <th>
                                                         <a href="employeeDetail.php?em_id=<?php echo $encoded_id; ?>"> <i
                                                                 class="fa-solid fa-eye  text-primary"></i></a>
-                                                        <!-- <i class="fa-solid fa-lock text-danger mx-2"></i> -->
-                                                        <!-- Disciplinary -->
-                                                        <!-- <i class="fa-solid fa-exclamation-circle"></i> -->
                                                     </th>
                                                 <?php } ?>
                                             </tr>

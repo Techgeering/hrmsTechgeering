@@ -77,9 +77,6 @@ session_start(); {
                                                 <td>
                                                     <a href="leadview.php?id=<?php echo $encoded_id; ?>"><i
                                                             class="fa-solid fa-eye text-success"></i></a>
-                                                    <!-- <a href="editProject.php?id=<?php //echo $row['id']; ?>"><i -->
-                                                    <!-- class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a> -->
-                                                    <!-- <a href="deleteProject.php?id=<?php //echo $row['id']; ?>"><i class="fa-solid fa-trash text-danger"></i></a> -->
                                                 </td>
                                             </tr>
                                             <?php

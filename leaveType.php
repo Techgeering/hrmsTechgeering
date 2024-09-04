@@ -65,14 +65,12 @@ session_start(); {
                                                 <th><?php echo $row["type_id"]; ?></th>
                                                 <th><?php echo $row["name"]; ?></th>
                                                 <th><?php echo $row["leave_day"]; ?></th>
-                                                <!-- <th><?php //echo $row["status"]; ?></th> -->
                                                 <?php if ($em_role == '1') { ?>
                                                     <th>
 
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
                                                             onclick="myfcn5(<?php echo $row['type_id']; ?>,'<?php echo $row['name']; ?>','<?php echo $row['leave_day']; ?>')"
                                                             data-bs-toggle="modal" data-bs-target="#updateleavetype"></i>
-                                                        <!-- <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i> -->
                                                         <i class="fa-solid fa-lock text-danger"></i>
                                                     </th>
                                                 <?php } ?>

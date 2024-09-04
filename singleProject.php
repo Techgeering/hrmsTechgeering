@@ -149,68 +149,75 @@ session_start(); {
                                 <?php } else { ?>
                                     <div class="col-md-12">
                                     <?php } ?>
-                                    <!-- <form class="row" action="Update" method="post" enctype="multipart/form-data"
-                                    novalidate="novalidate"> -->
-                                    <div class="form-group col-md-12 m-t-10">
-                                        <label>Project Title </label>
-                                        <p class="form-control form-control-line edit"><?php echo $row["pro_name"]; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row["pro_name"]; ?>'
-                                            id='pro_name-<?php echo $row["id"]; ?>-project' style="display:none;">
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-10">
-                                        <label>Project Start Date </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["pro_start_date"]; ?>
-                                        </p>
-                                        <input type="date" class='txtedit' value='<?php echo $row["pro_start_date"]; ?>'
-                                            id='pro_start_date-<?php echo $row["id"]; ?>-project' style="display:none;">
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-10">
-                                        <label>Project End Date</label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["pro_end_date"]; ?>
-                                        </p>
-                                        <input type="date" class='txtedit' value='<?php echo $row["pro_end_date"]; ?>'
-                                            id='pro_end_date-<?php echo $row["id"]; ?>-project' style="display:none;">
-                                    </div>
-                                    <div class="form-group col-md-12 m-t-10">
+                                    <div class="row">
                                         <div class="form-group col-md-12 m-t-10">
-                                            <label>Project Summary </label>
+                                            <label>Project Title </label>
                                             <p class="form-control form-control-line edit">
-                                                <?php echo $row["pro_summary"]; ?>
+                                                <?php echo $row["pro_name"]; ?>
                                             </p>
-                                            <textarea class='txtedit' id='pro_summary-<?php echo $row["id"]; ?>-project'
-                                                style="display:none;"><?php echo $row["pro_summary"]; ?></textarea>
+                                            <input type="text" class='txtedit' value='<?php echo $row["pro_name"]; ?>'
+                                                id='pro_name-<?php echo $row["id"]; ?>-project' style="display:none;">
                                         </div>
+                                        <div class="form-group col-md-4 m-t-10">
+                                            <label>Project Start Date </label>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo $row["pro_start_date"]; ?>
+                                            </p>
+                                            <input type="date" class='txtedit'
+                                                value='<?php echo $row["pro_start_date"]; ?>'
+                                                id='pro_start_date-<?php echo $row["id"]; ?>-project'
+                                                style="display:none;">
+                                        </div>
+                                        <div class="form-group col-md-4 m-t-10">
+                                            <label>Project End Date</label>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo $row["pro_end_date"]; ?>
+                                            </p>
+                                            <input type="date" class='txtedit'
+                                                value='<?php echo $row["pro_end_date"]; ?>'
+                                                id='pro_end_date-<?php echo $row["id"]; ?>-project'
+                                                style="display:none;">
+                                        </div>
+                                        <div class="form-group col-md-4 m-t-10">
+                                            <label>Status</label>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="showDropdown('pro_status-<?php echo $row['id']; ?>-project')">
+                                                <?php echo $row["pro_status"]; ?>
+                                            </p>
+                                            <select class='txtedit' id='pro_status-<?php echo $row["id"]; ?>-project'
+                                                style="display:none;">
+                                                <option value="upcoming" <?php if ($row["pro_status"] == "upcoming")
+                                                    echo 'selected="selected"'; ?>>upcoming
+                                                </option>
+                                                <option value="complete" <?php if ($row["pro_status"] == "complete")
+                                                    echo 'selected="selected"'; ?>>complete
+                                                </option>
+                                                <option value="running" <?php if ($row["pro_status"] == "running")
+                                                    echo 'selected="selected"'; ?>>running</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-12 m-t-10">
+                                            <div class="form-group col-md-12 m-t-10">
+                                                <label>Project Summary </label>
+                                                <p class="form-control form-control-line edit">
+                                                    <?php echo $row["pro_summary"]; ?>
+                                                </p>
+                                                <textarea class='txtedit'
+                                                    id='pro_summary-<?php echo $row["id"]; ?>-project'
+                                                    style="display:none;"><?php echo $row["pro_summary"]; ?></textarea>
+                                            </div>
 
+                                        </div>
+                                        <div class="form-group col-md-12 m-t-10">
+                                            <label>Details </label>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo $row["pro_description"]; ?>
+                                            </p>
+                                            <textarea class='txtedit'
+                                                id='pro_description-<?php echo $row["id"]; ?>-project'
+                                                style="display:none;"><?php echo $row["pro_description"]; ?></textarea>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-12 m-t-10">
-                                        <label>Details </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["pro_description"]; ?>
-                                        </p>
-                                        <textarea class='txtedit' id='pro_description-<?php echo $row["id"]; ?>-project'
-                                            style="display:none;"><?php echo $row["pro_description"]; ?></textarea>
-                                    </div>
-                                    <div class="form-group col-md-12 m-t-10">
-                                        <label>Status</label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="showDropdown('pro_status-<?php echo $row['id']; ?>-project')">
-                                            <?php echo $row["pro_status"]; ?>
-                                        </p>
-                                        <select class='txtedit' id='pro_status-<?php echo $row["id"]; ?>-project'
-                                            style="display:none;">
-                                            <option value="upcoming" <?php if ($row["pro_status"] == "upcoming")
-                                                echo 'selected="selected"'; ?>>upcoming
-                                            </option>
-                                            <option value="complete" <?php if ($row["pro_status"] == "complete")
-                                                echo 'selected="selected"'; ?>>complete</option>
-                                            <option value="running" <?php if ($row["pro_status"] == "running")
-                                                echo 'selected="selected"'; ?>>running</option>
-                                        </select>
-                                    </div>
-                                    <!-- </form> -->
                                 </div>
                             </div>
                         </div>
@@ -296,14 +303,6 @@ session_start(); {
                                                             <?php } ?>
                                                         </select>
                                                     </td>
-                                                    <!-- <td class="text-center">
-                                                    <a href="projectDetails.php?id=<?php echo $row1['id']; ?>">
-                                                        <i class="fa-solid fa-eye text-success"></i>
-                                                    </a>
-                                                    <a href="editProject.php?id=<?php echo $row1['id']; ?>">
-                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                    </a>
-                                                </td> -->
                                                 </tr>
                                                 <?php
                                             }
@@ -957,60 +956,6 @@ session_start(); {
             </div>
         </div>
     </div>
-    <!-- project file update modal -->
-    <!-- <div class="modal fade" id="updatefiles" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Files</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-                    <input type="hidden" class="form-control" name="project_name1" value="<?php echo $proId; ?>">
-                    <div class="modal-body">
-                        <input type="hidden" name="id4" id="id4">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="mb-2">
-                                    <label for="filename" class="form-label">File Details</label>
-                                    <input type="text" class="form-control" id="filename1" name="file_name1" required>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-2">
-                                    <label for="pdf" class="form-label">Upload Document</label>
-                                    <input type="file" class="form-control" accept=".pdf,.docx,.doc" id="pdf11"
-                                        name="pdf11">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-2">
-                                    <label for="assigned_users" class="form-label">Assigned Users</label>
-                                    <select class="form-control" name="assigned_users1" id="assigned_users1">
-                                        <option value="" disabled selected>Select a user</option>
-                                        <?php
-                                        include "common/conn.php";
-                                        $sql5 = "SELECT * FROM employee";
-                                        $result5 = $conn->query($sql5);
-                                        while ($row5 = $result5->fetch_assoc()) {
-                                            echo '<option value="' . $row5['full_name'] . '">' . $row5['full_name'] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="update_file">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
-
-
     <!-- notes modal -->
     <div class="modal fade" id="addnotes" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
