@@ -154,33 +154,28 @@ session_start(); {
     <script src="assets/js/datatables-simple-demo.js"></script>
     <?php
     include "common/conn.php";
-
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-        // Include the connection file
+        // Retrieve form data
+        $ProjectTitle = $_POST['ProjectTitle'];
+        $startDate = $_POST['startDate'];
+        $ProjectEndDate = $_POST['ProjectEndDate'];
+        $Details = $_POST['Details'];
+        $Summary = $_POST['Summary'];
+        $Status = $_POST['Status'];
+        // $proposalFileName = $_FILES['proposal']['name'];
+        // $proposalTempName = $_FILES['proposal']['tmp_name'];
+        // $mouFileName = $_FILES['mou']['name'];
+        // $mouTempName = $_FILES['mou']['tmp_name'];
     
 
-        // Retrieve form data
-        $projectName = $_POST['ProjectName'];
-        $domainName = $_POST['domainName'];
-        $companyName = $_POST['companyName'];
-        $startDate = $_POST['startDate'];
-        $deadlineDate = $_POST['DeadlineDate'];
-
-        // File handling
-        $proposalFileName = $_FILES['proposal']['name'];
-        $proposalTempName = $_FILES['proposal']['tmp_name'];
-        $mouFileName = $_FILES['mou']['name'];
-        $mouTempName = $_FILES['mou']['tmp_name'];
-
-        // Move uploaded files to a directory
-        $proposalDestination = "uploads/proposal/" . $proposalFileName;
-        $mouDestination = "uploads/mou/" . $mouFileName;
-        move_uploaded_file($proposalTempName, $proposalDestination);
-        move_uploaded_file($mouTempName, $mouDestination);
-
+        // $proposalDestination = "uploads/proposal/" . $proposalFileName;
+        // $mouDestination = "uploads/mou/" . $mouFileName;
+        // move_uploaded_file($proposalTempName, $proposalDestination);
+        // move_uploaded_file($mouTempName, $mouDestination);
+    
         // Insert data into database
-        $sql = "INSERT INTO projects (project_name, domain_name, company_id, start_date, end_date, Proposal, Mou) 
-                VALUES ('$projectName', '$domainName', '$companyName', '$startDate', '$deadlineDate', '$proposalDestination', '$mouDestination')";
+        $sql = "INSERT INTO project (pro_name, pro_start_date, pro_end_date, pro_description, pro_summary, pro_status) 
+                VALUES ('$ProjectTitle', '$startDate', '$ProjectEndDate', '$Details', '$Summary', '$Status')";
 
         if (mysqli_query($conn, $sql)) {
             echo " <script>alert('success')</script>";

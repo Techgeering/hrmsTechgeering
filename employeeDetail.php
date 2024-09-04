@@ -140,39 +140,12 @@ session_start(); {
                                         <input type="text" class='txtedit' value='<?php echo $row["em_phone"]; ?>'
                                             id='em_phone-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;"></input>
-                                        <!-- <small class="text-muted p-t-30 db">Social Profile</small>
-                                        <br>
-                                        <a class="btn btn-circle btn-secondary" href="" target="_blank"><i
-                                                class="fa-brands fa-square-facebook"></i></a>
-                                        <a class="btn btn-circle btn-secondary" href="" target="_blank"><i
-                                                class="fa-brands fa-instagram"></i></a>
-                                        <a class="btn btn-circle btn-secondary" href="" target="_blank"><i
-                                                class="fa-brands fa-skype"></i></a>
-                                        <a class="btn btn-circle btn-secondary" href="" target="_blank"><i
-                                                class="fa-brands fa-linkedin"></i></a> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <form class="row" action="Update" method="post" enctype="multipart/form-data"
                                     novalidate="novalidate">
-                                    <!-- <div class="form-group col-md-4 m-t-10">
-                                        <label>Employee Code</label>
-                                        <p class="form-control form-control-line"></p>
-                                    </div> -->
-                                    <!-- <div class="form-group col-md-4 m-t-10">
-                                        <label>Full Name</label>
-                                        <p class="form-control form-control-line">Asutosh Das</p>
-                                    </div> -->
-                                    <!-- <div class="form-group col-md-4 m-t-10">
-                                        <label>Blood Group </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["em_blood_group"]; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row["em_blood_group"]; ?>'
-                                            id='em_blood_group-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;"></input>
-                                    </div> -->
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Blood Group</label>
                                         <p class="form-control form-control-line edit"
@@ -253,15 +226,6 @@ session_start(); {
                                                 echo 'selected="selected"'; ?>>INACTIVE</option>
                                         </select>
                                     </div>
-                                    <!-- <div class="form-group col-md-4 m-t-10">
-                                        <label>Date Of Birth </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["em_birthday"]; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row["em_birthday"]; ?>'
-                                            id='em_birthday-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;"></input>
-                                    </div> -->
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Date Of Birth</label>
                                         <p class="form-control form-control-line edit">
@@ -351,10 +315,6 @@ session_start(); {
                                             id='last_company_date-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;">
                                     </div>
-                                    <!-- <div class="form-group col-md-4 m-t-10">
-                                        <label>Email </label>
-                                        <p class="form-control form-control-line">email@mail.com</p>
-                                    </div> -->
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Aadher Number </label>
                                         <p class="form-control form-control-line edit"><?php echo $row["em_aadher"]; ?>
@@ -370,12 +330,6 @@ session_start(); {
                                         <input type="text" class='txtedit' value='<?php echo $row["em_pan"]; ?>'
                                             id='em_pan-<?php echo $row["id"]; ?>-employee' style="display:none;">
                                     </div>
-                                    <!-- <div class="form-actions col-md-12">
-                                        <input type="hidden" name="emid" value="Soy1332">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>
-                                            Save</button>
-                                        <button type="button" class="btn btn-danger">Cancel</button>
-                                    </div> -->
                                 </form>
                             </div>
                         </div>
@@ -474,118 +428,6 @@ session_start(); {
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="Address" class="tabcontent">
-                        <div class="row m-2">
-                            <div class="col-6 card p-2">
-                                <h4 class="test-center">Present Address</h4>
-                                <p class="form-control form-control-line edit"
-                                    onclick="editField('address1-<?php echo $row1["id"]; ?>-address')">
-                                    <?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>
-                                </p>
-                                <input type="text" class='txtedit'
-                                    value='<?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>'
-                                    id='address1-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
-                                <p class="form-control form-control-line edit"
-                                    onclick="editField('address2-<?php echo $row1["id"]; ?>-address')">
-                                    <?php echo !empty($row1["address2"]) ? $row1["address2"] : "N/A"; ?>
-                                </p>
-                                <input type="text" class='txtedit'
-                                    value='<?php echo !empty($row1["address2"]) ? $row1["address2"] : "N/A"; ?>'
-                                    id='address2-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('city-<?php echo $row1["id"]; ?>-address')">
-                                            <?php echo !empty($row1["city"]) ? $row1["city"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo !empty($row1["city"]) ? $row1["city"] : "N/A"; ?>'
-                                            id='city-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('state-<?php echo $row1["id"]; ?>-address')">
-                                            <?php echo !empty($row1["state"]) ? $row1["state"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo !empty($row1["state"]) ? $row1["state"] : "N/A"; ?>'
-                                            id='state-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('country-<?php echo $row1["id"]; ?>-address')">
-                                            <?php echo !empty($row1["country"]) ? $row1["country"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo !empty($row1["country"]) ? $row1["country"] : "N/A"; ?>'
-                                            id='country-<?php echo $row1["id"]; ?>-address'
-                                            style="display:none;"></input>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('pincode-<?php echo $row1["id"]; ?>-address')">
-                                            <?php echo !empty($row1["pincode"]) ? $row1["pincode"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo !empty($row1["pincode"]) ? $row1["pincode"] : "N/A"; ?>'
-                                            id='pincode-<?php echo $row1["id"]; ?>-address'
-                                            style="display:none;"></input>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 card p-2">
-                                <h4 class="test-center">Permanent Address</h4>
-                                <p class="form-control form-control-line"
-                                    onclick="editField('address1-<?php echo $row2["id"]; ?>-address')">
-                                    <?php echo !empty($row2["address1"]) ? $row2["address1"] : "N/A"; ?>
-                                </p>
-                                <p class="form-control form-control-line"
-                                    onclick="editField('address2-<?php echo $row2["id"]; ?>-address')">
-                                    <?php echo !empty($row2["address2"]) ? $row2["address2"] : "N/A"; ?>
-                                </p>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('city-<?php echo $row2["id"]; ?>-address')">
-                                            <?php echo !empty($row2["city"]) ? $row2["city"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo !empty($row2["city"]) ? $row2["city"] : "N/A"; ?>'
-                                            id='city-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('state-<?php echo $row2["id"]; ?>-address')">
-                                            <?php echo !empty($row2["state"]) ? $row2["state"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo !empty($row2["state"]) ? $row2["state"] : "N/A"; ?>'
-                                            id='state-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('country-<?php echo $row2["id"]; ?>-address')">
-                                            <?php echo !empty($row2["country"]) ? $row2["country"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo !empty($row2["country"]) ? $row2["country"] : "N/A"; ?>'
-                                            id='country-<?php echo $row2["id"]; ?>-address'
-                                            style="display:none;"></input>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('pincode-<?php echo $row2["id"]; ?>-address')">
-                                            <?php echo !empty($row2["pincode"]) ? $row2["pincode"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo !empty($row2["pincode"]) ? $row2["pincode"] : "N/A"; ?>'
-                                            id='pincode-<?php echo $row2["id"]; ?>-address'
-                                            style="display:none;"></input>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                     <div id="Education" class="tabcontent p-2">
                         <div class="card p-2 m-2">
                             <table id="datatablesSimple">

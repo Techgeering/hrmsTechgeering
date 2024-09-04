@@ -1157,7 +1157,7 @@ session_start(); {
                                 <div class="mb-2">
                                     <label for="ProjectTitle" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="representative_namee"
-                                        name="representative_name" required>
+                                        name="representative_name" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();" required>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -1170,7 +1170,7 @@ session_start(); {
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="startDate" class="form-label">Mobile Number</label>
-                                    <input type="text" class="form-control" id="mobile_numberr" name="mobile_numberr1"
+                                    <input type="text" class="form-control" id="mobile_numberr" name="mobile_numberr1"  oninput="if(this.value.length > 10) this.value = this.value.slice(0, 20); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
                                         required>
                                 </div>
                             </div>
