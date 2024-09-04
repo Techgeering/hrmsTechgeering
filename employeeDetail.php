@@ -633,10 +633,10 @@ session_start(); {
                                                 name="degreetitle" id="degreetitle" placeholder="Degree Title" required>
                                         </div>
                                         <div class="m-2">
-                                            <input type="text" class="form-control form-control-line P-2" name="result"
-                                                oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');" id="result"
-                                                placeholder="Result" required>
+                                            <input type="text" class="form-control form-control-line" name="university"
+                                                id="university" placeholder="University Name" required>
                                         </div>
+
                                     </div>
                                     <div class="col-6">
                                         <div class="m-2">
@@ -645,19 +645,27 @@ session_start(); {
                                                 oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
                                                 placeholder="Institute Name" required>
                                         </div>
-                                        <div class="m-2">
-                                            <input type="text" class="form-control form-control-line" name="university"
-                                                id="university" placeholder="University Name" required>
+                                        <div class="row m-2">
+                                            <div class="col-6">
+                                                <div class="">
+                                                    <input type="text" class="form-control form-control-line P-2"
+                                                        name="result"
+                                                        oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');"
+                                                        id="result" placeholder="Result" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="">
+                                                    <input type="text" class="form-control form-control-line"
+                                                        name="passingyear" id="passingyear"
+                                                        oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');"
+                                                        placeholder="Passing Year" required>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
-                                    <div class="col-12">
-                                        <div class="m-2">
-                                            <input type="text" class="form-control form-control-line" name="passingyear"
-                                                id="passingyear"
-                                                oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');"
-                                                placeholder="Passing Year" required>
-                                        </div>
-                                    </div>
+
                                     <div class="col-12 m-3">
                                         <button type="submit" class="btn btn-success" name="insertdegree">
                                             <i class="fa fa-check"></i>Save
