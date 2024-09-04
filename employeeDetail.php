@@ -97,10 +97,7 @@ session_start(); {
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="my-2">Employee</h3>
-                        <a href="employeeAdd.php" type="button" class="btn btn-primary">
-                            <i class="fa-solid fa-plus"></i> Employee
-                        </a>
+                        <h3 class="my-2">Employee Details</h3>
                     </div>
                     <div class="tab profile ">
                         <button class="tablinks" onclick="openDilog(event, 'PersonalInfo')" id="defaultOpen"> Personal
@@ -651,7 +648,7 @@ session_start(); {
                                                     <input type="text" class="form-control form-control-line P-2"
                                                         name="result"
                                                         oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');"
-                                                        id="result" placeholder="Result" required>
+                                                        id="result" placeholder="Result (%)" required>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -1155,7 +1152,6 @@ session_start(); {
                         </div>
                     </div>
                     <div id="Password" class="tabcontent">
-                        <h3>Change Password</h3>
                         <div class="card-body">
                             <form class="row" action="<?php $_SERVER['PHP_SELF']; ?>" method="post"
                                 enctype="multipart/form-data" novalidate="novalidate">
