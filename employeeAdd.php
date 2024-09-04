@@ -246,7 +246,7 @@ session_start(); {
         } else {
             echo "Error: " . $_FILES["image"]["error"];
         }
-        $sql = "INSERT INTO employee (des_id, dep_id, full_name, em_email, prof_email, em_password, em_code, em_role, em_gender, em_phone, em_wahtsapp, em_birthday, em_blood_group, em_joining_date, em_contact_end, em_aadher, em_pan, em_image) 
+        $sql = "INSERT INTO employee (des_id, dep_id, full_name, em_email, prof_email, em_password, em_code, em_role, em_gender, em_phone, em_wahtsapp, em_birthday, em_blood_group, em_joining_date, last_company_date, em_aadher, em_pan, em_image) 
             VALUES ('$desig', '$department', '$name', '$personalEmail', '$professionalEmail', '$hashedPassword', '$employeeId', '$role', '$gender', '$contactNumber', '$whatsappNumber', '$doj', '$bloodGroup', '$JoiningDate', '$LeavingDate', '$aadharNumber', '$panNumber', '$upload_file')";
 
 

@@ -340,12 +340,13 @@ session_start(); {
                                             style="display:none;"></input>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
-                                        <label>Contract End Date</label>
+                                        <label>Last Company Date</label>
                                         <p class="form-control form-control-line edit">
-                                            <?php echo $row["em_contact_end"]; ?>
+                                            <?php echo $row["last_company_date"]; ?>
                                         </p>
-                                        <input type="date" class='txtedit' value='<?php echo $row["em_contact_end"]; ?>'
-                                            id='em_contact_end-<?php echo $row["id"]; ?>-employee'
+                                        <input type="date" class='txtedit'
+                                            value='<?php echo $row["last_company_date"]; ?>'
+                                            id='last_company_date-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;">
                                     </div>
                                     <!-- <div class="form-group col-md-4 m-t-10">
