@@ -150,7 +150,7 @@ session_start(); {
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Father Name</label>
                                         <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["father_name"]) ? $row2["father_name"] : "N/A"; ?>
+                                            <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
                                         </p>
                                         <input type="text" class='txtedit'
                                             value='<?php echo $row["father_name"]; ?>'
