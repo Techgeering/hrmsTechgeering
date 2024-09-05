@@ -48,6 +48,12 @@ session_start(); {
                                                 required>
                                         </div>
                                         <div class="form-group">
+                                            <label for="fathername">Father Name</label>
+                                            <input type="text" class="form-control" id="fathername" name="fathername"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="department">Department</label>
                                             <select name="department" id="department" class="form-control" required>
                                                 <option value="">Select Department</option>
@@ -56,10 +62,10 @@ session_start(); {
                                                 $result = mysqli_query($conn, "SELECT * FROM department");
                                                 while ($row = mysqli_fetch_array($result)) {
                                                     ?>
-                                                    <option value="<?php echo $row['id']; ?>">
-                                                        <?php echo $row["dep_name"]; ?>
-                                                    </option>
-                                                    <?php
+                                                <option value="<?php echo $row['id']; ?>">
+                                                    <?php echo $row["dep_name"]; ?>
+                                                </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>
@@ -73,10 +79,10 @@ session_start(); {
                                                 $result = mysqli_query($conn, "SELECT * FROM designation");
                                                 while ($row = mysqli_fetch_array($result)) {
                                                     ?>
-                                                    <option value="<?php echo $row['id']; ?>">
-                                                        <?php echo $row["des_name"]; ?>
-                                                    </option>
-                                                    <?php
+                                                <option value="<?php echo $row['id']; ?>">
+                                                    <?php echo $row["des_name"]; ?>
+                                                </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>
@@ -97,26 +103,17 @@ session_start(); {
                                                 oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
                                                 required>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="bloodGroup">Blood Group</label>
-                                            <select name="bloodGroup" id="bloodGroup" class="form-control" required>
-                                                <option value="">Select Blood Group</option>
-                                                <option value="O+">O+</option>
-                                                <option value="O-">O-</option>
-                                                <option value="A+">A+</option>
-                                                <option value="A-">A-</option>
-                                                <option value="B-">B-</option>
-                                                <option value="B+">B+</option>
-                                                <option value="Ab+">AB+</option>
-                                                <option value="Ab-">AB-</option>
-                                                <option value="OB+">OB+</option>
-                                            </select>
-                                        </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="employeeId">Employee Id</label>
                                             <input type="text" class="form-control" id="employeeId" name="employeeId"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mothername">Mother Name</label>
+                                            <input type="text" class="form-control" id="mothername" name="mothername"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
                                                 required>
                                         </div>
                                         <div class="form-group">
@@ -145,17 +142,57 @@ session_start(); {
                                                 oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
                                                 required>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="professionalEmail">Email (Professional)</label>
-                                            <input type="email" class="form-control" id="professionalEmail"
-                                                name="professionalEmail" required>
-                                        </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="image">Image</label>
                                             <input type="file" class="form-control" id="image" name="image">
                                             <img src="user.jpg" alt="" class="img-fluid mt-2" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="bloodGroup">Blood Group</label>
+                                            <select name="bloodGroup" id="bloodGroup" class="form-control" required>
+                                                <option value="">Select Blood Group</option>
+                                                <option value="O+">O+</option>
+                                                <option value="O-">O-</option>
+                                                <option value="A+">A+</option>
+                                                <option value="A-">A-</option>
+                                                <option value="B-">B-</option>
+                                                <option value="B+">B+</option>
+                                                <option value="Ab+">AB+</option>
+                                                <option value="Ab-">AB-</option>
+                                                <option value="OB+">OB+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="professionalEmail">Email (Professional)</label>
+                                            <input type="email" class="form-control" id="professionalEmail"
+                                                name="professionalEmail">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="maritalstatus">Marital Status</label>
+                                            <select name="maritalstatus" id="maritalstatus" class="form-control" required>
+                                                <option value="">Select Marital Status</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Widowed">Widowed</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="emergencycontact">Emergency Contact Number</label>
+                                            <input type="tel" class="form-control" id="emergencycontact" name="emergencycontact"
+                                            oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                            required >
                                         </div>
                                     </div>
                                     <div class="col-3">
@@ -222,6 +259,10 @@ session_start(); {
         $JoiningDate = $_POST["JoiningDate"];
         $LeavingDate = $_POST["LeavingDate"];
         $password = $_POST["contactNumber"];
+        $fathername = $_POST["fathername"];
+        $mothername = $_POST["mothername"];
+        $maritalstatus = $_POST["maritalstatus"];
+        $emergencycontact = $_POST["emergencycontact"];
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Now you can store $hashedPassword in the database
@@ -246,8 +287,8 @@ session_start(); {
         } else {
             echo "Error: " . $_FILES["image"]["error"];
         }
-        $sql = "INSERT INTO employee (des_id, dep_id, full_name, em_email, prof_email, em_password, em_code, em_role, em_gender, em_phone, em_wahtsapp, em_birthday, em_blood_group, em_joining_date, last_company_date, em_aadher, em_pan, em_image) 
-            VALUES ('$desig', '$department', '$name', '$personalEmail', '$professionalEmail', '$hashedPassword', '$employeeId', '$role', '$gender', '$contactNumber', '$whatsappNumber', '$doj', '$bloodGroup', '$JoiningDate', '$LeavingDate', '$aadharNumber', '$panNumber', '$upload_file')";
+        $sql = "INSERT INTO employee (des_id, dep_id, full_name, em_email, prof_email, em_password, em_code, em_role, em_gender, em_phone, em_wahtsapp, em_birthday, em_blood_group, em_joining_date, last_company_date, em_aadher, em_pan, em_image,father_name,mother_name,marital_status,emergency_contact) 
+            VALUES ('$desig', '$department', '$name', '$personalEmail', '$professionalEmail', '$hashedPassword', '$employeeId', '$role', '$gender', '$contactNumber', '$whatsappNumber', '$doj', '$bloodGroup', '$JoiningDate', '$LeavingDate', '$aadharNumber', '$panNumber', '$upload_file','$fathername','$mothername','$maritalstatus','$emergencycontact')";
         if (mysqli_query($conn, $sql)) {
             $sql1 = "INSERT INTO address (emp_id, type) VALUES ('$employeeId', 'Permanent')";
             if (mysqli_query($conn, $sql1)) {
