@@ -16,54 +16,54 @@ session_start(); {
     <link href="assets/css/styles.css?v=<?php echo time(); ?>" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
-        /* Style the tab */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 10px 12px;
+        transition: 0.3s;
+        font-size: 15px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+        animation: fadeEffect 1s;
+    }
+
+    /* Go from zero to full opacity */
+    @keyframes fadeEffect {
+        from {
+            opacity: 0;
         }
 
-        /* Style the buttons inside the tab */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 10px 12px;
-            transition: 0.3s;
-            font-size: 15px;
+        to {
+            opacity: 1;
         }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-            background-color: #ddd;
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active {
-            background-color: #ccc;
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-            animation: fadeEffect 1s;
-        }
-
-        /* Go from zero to full opacity */
-        @keyframes fadeEffect {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
+    }
     </style>
 </head>
 
@@ -74,7 +74,6 @@ session_start(); {
     <div id="layoutSidenav">
         <!-- start Side Navbar -->
         <?php include 'common/sidenav.php' ?>
-
         <?php
         include 'common/conn.php';
         $empId = isset($_GET['em_id']) ? $_GET['em_id'] : NULL;
@@ -92,7 +91,6 @@ session_start(); {
         $result5 = $conn->query($sql5);
         $row5 = $result5->fetch_assoc();
         ?>
-
         <!-- end Side Navbar -->
         <div id="layoutSidenav_content">
             <main>
@@ -152,20 +150,16 @@ session_start(); {
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
                                         </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo $row["father_name"]; ?>'
-                                            id='father_name-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
+                                        <input type="text" class='txtedit' value='<?php echo $row["father_name"]; ?>'
+                                            id='father_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Mother Name</label>
                                         <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["mother_name"]) ? $row2["mother_name"] : "N/A"; ?>
+                                            <?php echo !empty($row["mother_name"]) ? $row["mother_name"] : "N/A"; ?>
                                         </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo $row["mother_name"]; ?>'
-                                            id='mother_name-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
+                                        <input type="text" class='txtedit' value='<?php echo $row["mother_name"]; ?>'
+                                            id='mother_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Blood Group</label>
@@ -205,9 +199,6 @@ session_start(); {
                                                 echo 'selected="selected"'; ?>>Female</option>
                                         </select>
                                     </div>
-
-
-
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Marital Status </label>
                                         <p class="form-control form-control-line edit"
@@ -226,10 +217,8 @@ session_start(); {
                                                 echo 'selected="selected"'; ?>>Divorced</option>
                                             <option value="Separated" <?php if ($row["marital_status"] == "Separated")
                                                 echo 'selected="selected"'; ?>>Separated</option>
-                                           
                                         </select>
                                     </div>
-
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>User Type </label>
                                         <p class="form-control form-control-line edit"
@@ -258,7 +247,6 @@ session_start(); {
                                                 echo 'selected="selected"'; ?>>Employee</option>
                                         </select>
                                     </div>
-                                    
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Status </label>
                                         <p class="form-control form-control-line edit"
@@ -282,17 +270,6 @@ session_start(); {
                                             id='em_birthday-<?php echo $row["id"]; ?>-employee' style="display:none;">
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
-                                        <label>Whatsapp Number </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["em_wahtsapp"]; ?>
-                                        </p>
-                                        <input type="text" class="txtedit" value="<?php echo $row["em_wahtsapp"]; ?>"
-                                            id="em_wahtsapp-<?php echo $row["id"]; ?>-employee" pattern="\d{10}"
-                                            maxlength="10" minlength="10" title="Please enter exactly 10 digits"
-                                            oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
-                                            style="display:none;">
-                                    </div>
-                                    <div class="form-group col-md-4 m-t-10">
                                         <label>Department</label>
                                         <p class="form-control form-control-line edit">
                                             <?php
@@ -310,9 +287,9 @@ session_start(); {
                                             $resultaa = $conn->query($sqlaa);
                                             while ($rowa = $resultaa->fetch_assoc()) {
                                                 ?>
-                                                <option value="<?php echo $rowa['id']; ?>">
-                                                    <?php echo $rowa['dep_name']; ?>
-                                                </option>
+                                            <option value="<?php echo $rowa['id']; ?>">
+                                                <?php echo $rowa['dep_name']; ?>
+                                            </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -334,9 +311,9 @@ session_start(); {
                                             $resultaaa = $conn->query($sqlaaa);
                                             while ($rowaa = $resultaaa->fetch_assoc()) {
                                                 ?>
-                                                <option value="<?php echo $rowaa['id']; ?>">
-                                                    <?php echo $rowaa['des_name']; ?>
-                                                </option>
+                                            <option value="<?php echo $rowaa['id']; ?>">
+                                                <?php echo $rowaa['des_name']; ?>
+                                            </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -350,8 +327,6 @@ session_start(); {
                                             id='em_joining_date-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;"></input>
                                     </div>
-
-
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Last Company Date</label>
                                         <p class="form-control form-control-line edit">
@@ -362,7 +337,18 @@ session_start(); {
                                             id='last_company_date-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;">
                                     </div>
-                                    <div class="form-group col-md-4 m-t-10">
+                                    <div class="form-group col-md-3 m-t-10">
+                                        <label>Whatsapp Number </label>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo $row["em_wahtsapp"]; ?>
+                                        </p>
+                                        <input type="text" class="txtedit" value="<?php echo $row["em_wahtsapp"]; ?>"
+                                            id="em_wahtsapp-<?php echo $row["id"]; ?>-employee" pattern="\d{10}"
+                                            maxlength="10" minlength="10" title="Please enter exactly 10 digits"
+                                            oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                            style="display:none;">
+                                    </div>
+                                    <div class="form-group col-md-3 m-t-10">
                                         <label>Aadher Number </label>
                                         <p class="form-control form-control-line edit"><?php echo $row["em_aadher"]; ?>
                                         </p>
@@ -371,11 +357,17 @@ session_start(); {
                                             oninput="if(this.value.length > 20) this.value = this.value.slice(0, 20); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
                                             style="display:none;">
                                     </div>
-                                    <div class="form-group col-md-4 m-t-10">
+                                    <div class="form-group col-md-3 m-t-10">
                                         <label>PAN Number </label>
                                         <p class="form-control form-control-line edit"><?php echo $row["em_pan"]; ?></p>
                                         <input type="text" class='txtedit' value='<?php echo $row["em_pan"]; ?>'
                                             id='em_pan-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                    </div>                                    
+                                    <div class="form-group col-md-3 m-t-10">
+                                        <label>Emergency Contact </label>
+                                        <p class="form-control form-control-line edit"><?php echo $row["emergency_contact"]; ?></p>
+                                        <input type="text" class='txtedit' value='<?php echo $row["emergency_contact"]; ?>'
+                                            id='emergency_contact-<?php echo $row["id"]; ?>-employee' style="display:none;">
                                     </div>
                                 </form>
                             </div>
@@ -495,15 +487,15 @@ session_start(); {
                                     $slno = 1;
                                     if ($result3->num_rows > 0) {
                                         while ($row3 = $result3->fetch_assoc()) { ?>
-                                            <tr>
-                                                <td><?php echo $slno; ?></td>
-                                                <td><?php echo $row3["edu_type"]; ?></td>
-                                                <td><?php echo $row3["institute"]; ?></td>
-                                                <td><?php echo $row3["university"]; ?></td>
-                                                <td><?php echo $row3["result"]; ?></td>
-                                                <td><?php echo $row3["year"]; ?></td>
-                                            </tr>
-                                            <?php
+                                    <tr>
+                                        <td><?php echo $slno; ?></td>
+                                        <td><?php echo $row3["edu_type"]; ?></td>
+                                        <td><?php echo $row3["institute"]; ?></td>
+                                        <td><?php echo $row3["university"]; ?></td>
+                                        <td><?php echo $row3["result"]; ?></td>
+                                        <td><?php echo $row3["year"]; ?></td>
+                                    </tr>
+                                    <?php
                                             $slno++;
                                         }
                                     } else {
@@ -569,12 +561,9 @@ session_start(); {
                                                         ?>
                                                     </select>
                                                 </div>
-
                                             </div>
                                         </div>
-
                                     </div>
-
                                     <div class="col-12 m-3">
                                         <button type="submit" class="btn btn-success" name="insertdegree">
                                             <i class="fa fa-check"></i>Save
@@ -626,14 +615,14 @@ session_start(); {
                                             if ($result4->num_rows > 0) {
                                                 // output data of each row
                                                 while ($row4 = $result4->fetch_assoc()) { ?>
-                                                    <tr>
-                                                        <td><?php echo $slno; ?></td>
-                                                        <td><?php echo $row4["exp_company"]; ?></td>
-                                                        <td><?php echo $row4["exp_com_position"]; ?></td>
-                                                        <td><?php echo $row4["exp_workduration"]; ?></td>
-                                                        <td><?php echo $row4["exp_com_address"]; ?></td>
-                                                    </tr>
-                                                    <?php
+                                            <tr>
+                                                <td><?php echo $slno; ?></td>
+                                                <td><?php echo $row4["exp_company"]; ?></td>
+                                                <td><?php echo $row4["exp_com_position"]; ?></td>
+                                                <td><?php echo $row4["exp_workduration"]; ?></td>
+                                                <td><?php echo $row4["exp_com_address"]; ?></td>
+                                            </tr>
+                                            <?php
                                                     $slno++;
                                                 }
                                             } else {
@@ -793,18 +782,17 @@ session_start(); {
                                             if ($result6->num_rows > 0) {
                                                 // output data of each row
                                                 while ($row6 = $result6->fetch_assoc()) { ?>
-                                                    <tr>
-                                                        <td><?php echo $slno; ?></td>
-                                                        <td><?php echo $row6["file_title"]; ?></td>
-                                                        <td>
-                                                            <a href="assets/uploads/employee/<?php echo $row6['file_url']; ?>"
-                                                                target="_blank">
-                                                                <i class="fas fa-file-pdf"></i>
-                                                            </a>
-                                                        </td>
-
-                                                    </tr>
-                                                    <?php
+                                            <tr>
+                                                <td><?php echo $slno; ?></td>
+                                                <td><?php echo $row6["file_title"]; ?></td>
+                                                <td>
+                                                    <a href="assets/uploads/employee/<?php echo $row6['file_url']; ?>"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php
                                                 }
                                             } else {
                                                 echo "0 results";
@@ -850,19 +838,15 @@ session_start(); {
                             $pdf_tmp = $_FILES['pdf1']['tmp_name'];
                             $file_type = pathinfo($pdf_name, PATHINFO_EXTENSION);
                             $allowed_types = ['pdf']; // Allowed file types
-                    
                             // Validate file type
                             if (in_array($file_type, $allowed_types)) {
                                 $new_file_name = uniqid() . '.' . $file_type;
                                 $upload_dir = "assets/uploads/employee/";
-
                                 // Create directory if it does not exist
                                 if (!is_dir($upload_dir)) {
                                     mkdir($upload_dir);
                                 }
-
                                 $target_file = $upload_dir . $new_file_name;
-
                                 // Move uploaded file to target directory
                                 if (move_uploaded_file($pdf_tmp, $target_file)) {
                                     // File uploaded successfully
@@ -875,10 +859,8 @@ session_start(); {
                         } else {
                             echo "<script>alert('No file uploaded or file upload error.');</script>";
                         }
-
                         // Get form data
                         $filename = $_POST["file_name"];
-
                         // Insert data into database
                         $sqldocument = "INSERT INTO employee_file (file_url, file_title, em_id) VALUES ('$new_file_name', '$filename', '$empId')";
                         if ($conn->query($sqldocument) === true) {
@@ -997,7 +979,6 @@ session_start(); {
                                             <?php
                                             $sql4 = "SELECT * FROM leave_types";
                                             $result4 = $conn->query($sql4);
-
                                             if ($result4->num_rows > 0) {
                                                 $slNo = 1;
                                                 while ($row4 = $result4->fetch_assoc()) {
@@ -1011,13 +992,13 @@ session_start(); {
                                                         $takenLeave = $rowTakenLeave["taken_leave"];
                                                     }
                                                     ?>
-                                                    <tr>
-                                                        <td><?php echo $slNo; ?></td>
-                                                        <td><?php echo $row4["name"]; ?></td>
-                                                        <td><?php echo $row4["leave_day"]; ?></td>
-                                                        <td><?php echo $takenLeave; ?></td>
-                                                    </tr>
-                                                    <?php
+                                            <tr>
+                                                <td><?php echo $slNo; ?></td>
+                                                <td><?php echo $row4["name"]; ?></td>
+                                                <td><?php echo $row4["leave_day"]; ?></td>
+                                                <td><?php echo $takenLeave; ?></td>
+                                            </tr>
+                                            <?php
                                                     $slNo++;
                                                 }
                                             } else {
@@ -1055,7 +1036,6 @@ session_start(); {
                         // Get form data
                         $filename = $_POST["file_name"];
                         $hashedPassword = password_hash($filename, PASSWORD_DEFAULT);
-
                         // Insert data into database
                         $sqlpessword = "UPDATE employee SET em_password='$hashedPassword' WHERE em_code='$empId'";
                         if ($conn->query($sqlpessword) === true) {
@@ -1079,86 +1059,82 @@ session_start(); {
     <script src="assets/js/datatables-simple-demo.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        function openDilog(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
+    function openDilog(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
         }
-        document.getElementById("defaultOpen").click();
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    document.getElementById("defaultOpen").click();
     </script>
     <script>
-        $(document).ready(function () {
-            $(document).on('click', '.edit', function () {
-                var txtEdit = $(this).next('.txtedit');
-                var editText = $(this);
-
-                txtEdit.show().focus();
-                editText.hide();
-
-                txtEdit.focusout(function () {
-                    var field_name = txtEdit.attr('id').split("-")[0];
-                    var edit_id = txtEdit.attr('id').split("-")[1];
-                    var table_name = txtEdit.attr('id').split("-")[2];
-                    var value = txtEdit.val();
-
-                    console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
-                        "Value:", value);
-
-                    if (value !== null && value.trim() !== '') {
-                        var pattern = txtEdit.attr('pattern');
-                        if (pattern) {
-                            var regex = new RegExp(pattern);
-                            if (!regex.test(value)) {
-                                alert('Invalid pattern. Please enter a valid value.');
-                                return;
-                            }
+    $(document).ready(function() {
+        $(document).on('click', '.edit', function() {
+            var txtEdit = $(this).next('.txtedit');
+            var editText = $(this);
+            txtEdit.show().focus();
+            editText.hide();
+            txtEdit.focusout(function() {
+                var field_name = txtEdit.attr('id').split("-")[0];
+                var edit_id = txtEdit.attr('id').split("-")[1];
+                var table_name = txtEdit.attr('id').split("-")[2];
+                var value = txtEdit.val();
+                console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
+                    "Value:", value);
+                if (value !== null && value.trim() !== '') {
+                    var pattern = txtEdit.attr('pattern');
+                    if (pattern) {
+                        var regex = new RegExp(pattern);
+                        if (!regex.test(value)) {
+                            alert('Invalid pattern. Please enter a valid value.');
+                            return;
                         }
                     }
-                    editText.show();
-                    editText.text(value);
-                    txtEdit.hide();
-                    $.ajax({
-                        url: 'insert.php',
-                        type: 'post',
-                        data: {
-                            field: field_name,
-                            value: value,
-                            id: edit_id,
-                            tbnm: table_name
-                        },
-                        success: function (response) {
-                            console.log("AJAX response:", response);
-                            if (response == 1) {
-                                console.log('Save Successfully');
-                            } else {
-                                console.log('Not Saved');
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("AJAX error:", status, error);
+                }
+                editText.show();
+                editText.text(value);
+                txtEdit.hide();
+                $.ajax({
+                    url: 'insert.php',
+                    type: 'post',
+                    data: {
+                        field: field_name,
+                        value: value,
+                        id: edit_id,
+                        tbnm: table_name
+                    },
+                    success: function(response) {
+                        console.log("AJAX response:", response);
+                        if (response == 1) {
+                            console.log('Save Successfully');
+                        } else {
+                            console.log('Not Saved');
                         }
-                    });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX error:", status, error);
+                    }
                 });
             });
         });
+    });
     </script>
     <!-- for input show and hide -->
     <script>
-        function showInput(inputId) {
-            document.getElementById(inputId).style.display = 'inline';
-        }
+    function showInput(inputId) {
+        document.getElementById(inputId).style.display = 'inline';
+    }
 
-        function hideInput(inputId) {
-            document.getElementById(inputId).style.display = 'none';
-        }
+    function hideInput(inputId) {
+        document.getElementById(inputId).style.display = 'none';
+    }
     </script>
 </body>
 
