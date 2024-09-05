@@ -148,6 +148,26 @@ session_start(); {
                                 <form class="row" action="Update" method="post" enctype="multipart/form-data"
                                     novalidate="novalidate">
                                     <div class="form-group col-md-4 m-t-10">
+                                        <label>Father Name</label>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row2["father_name"]) ? $row2["father_name"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit'
+                                            value='<?php echo $row["father_name"]; ?>'
+                                            id='father_name-<?php echo $row["id"]; ?>-employee'
+                                            style="display:none;">
+                                    </div>
+                                    <div class="form-group col-md-4 m-t-10">
+                                        <label>Mother Name</label>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row2["mother_name"]) ? $row2["mother_name"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit'
+                                            value='<?php echo $row["mother_name"]; ?>'
+                                            id='mother_name-<?php echo $row["id"]; ?>-employee'
+                                            style="display:none;">
+                                    </div>
+                                    <div class="form-group col-md-4 m-t-10">
                                         <label>Blood Group</label>
                                         <p class="form-control form-control-line edit"
                                             onclick="showDropdown('em_blood_group-<?php echo $row['id']; ?>-employee')">
@@ -185,6 +205,31 @@ session_start(); {
                                                 echo 'selected="selected"'; ?>>Female</option>
                                         </select>
                                     </div>
+
+
+
+                                    <div class="form-group col-md-4 m-t-10">
+                                        <label>Marital Status </label>
+                                        <p class="form-control form-control-line edit"
+                                            onclick="showDropdown('marital_status-<?php echo $row['id']; ?>-employee')">
+                                            <?php echo $row["marital_status"]; ?>
+                                        </p>
+                                        <select class='txtedit' id='marital_status-<?php echo $row["id"]; ?>-employee'
+                                            style="display:none;">
+                                            <option value="Single" <?php if ($row["marital_status"] == "Single")
+                                                echo 'selected="selected"'; ?>>Single</option>
+                                            <option value="Married" <?php if ($row["marital_status"] == "Married")
+                                                echo 'selected="selected"'; ?>>Married</option>
+                                            <option value="Widowed" <?php if ($row["marital_status"] == "Widowed")
+                                                echo 'selected="selected"'; ?>>Widowed</option>
+                                            <option value="Divorced" <?php if ($row["marital_status"] == "Divorced")
+                                                echo 'selected="selected"'; ?>>Divorced</option>
+                                            <option value="Separated" <?php if ($row["marital_status"] == "Separated")
+                                                echo 'selected="selected"'; ?>>Separated</option>
+                                           
+                                        </select>
+                                    </div>
+
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>User Type </label>
                                         <p class="form-control form-control-line edit"
@@ -213,6 +258,7 @@ session_start(); {
                                                 echo 'selected="selected"'; ?>>Employee</option>
                                         </select>
                                     </div>
+                                    
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Status </label>
                                         <p class="form-control form-control-line edit"
