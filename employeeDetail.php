@@ -416,7 +416,7 @@ session_start(); {
                                             id='city-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
                                     </div>
                                     <div class="col-6">
-                                        <lable>Distit</lable>
+                                        <lable>District</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row1["dist"]) ? $row1["dist"] : "N/A"; ?>
                                         </p>
@@ -489,7 +489,7 @@ session_start(); {
                                             id='city-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
                                     </div>
                                     <div class="col-6">
-                                        <lable>Dist</lable>
+                                        <lable>District</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row2["dist"]) ? $row2["dist"] : "N/A"; ?>
                                         </p>
