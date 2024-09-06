@@ -362,12 +362,15 @@ session_start(); {
                                         <p class="form-control form-control-line edit"><?php echo $row["em_pan"]; ?></p>
                                         <input type="text" class='txtedit' value='<?php echo $row["em_pan"]; ?>'
                                             id='em_pan-<?php echo $row["id"]; ?>-employee' style="display:none;">
-                                    </div>                                    
+                                    </div>
                                     <div class="form-group col-md-3 m-t-10">
                                         <label>Emergency Contact </label>
-                                        <p class="form-control form-control-line edit"><?php echo $row["emergency_contact"]; ?></p>
-                                        <input type="text" class='txtedit' value='<?php echo $row["emergency_contact"]; ?>'
-                                            id='emergency_contact-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo $row["emergency_contact"]; ?></p>
+                                        <input type="text" class='txtedit'
+                                            value='<?php echo $row["emergency_contact"]; ?>'
+                                            id='emergency_contact-<?php echo $row["id"]; ?>-employee'
+                                            style="display:none;">
                                     </div>
                                 </form>
                             </div>
@@ -377,18 +380,35 @@ session_start(); {
                         <div class="row m-2">
                             <div class="col-6 card p-2">
                                 <h4 class="test-center">Permanent Address</h4>
-                                <p class="form-control form-control-line edit">
-                                    <?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>
-                                </p>
-                                <input type="text" class='txtedit' value='<?php echo $row1["address1"]; ?>'
-                                    id='address1-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
-                                <p class="form-control form-control-line edit">
-                                    <?php echo !empty($row1["address2"]) ? $row1["address2"] : "N/A"; ?>
-                                </p>
-                                <input type="text" class='txtedit' value='<?php echo $row1["address2"]; ?>'
-                                    id='address2-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
                                 <div class="row">
                                     <div class="col-6">
+                                        <lable>Address 1/At</lable>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row1["address1"]; ?>'
+                                            id='address1-<?php echo $row1["id"]; ?>-address'
+                                            style="display:none;"></input>
+                                    </div>
+                                    <div class="col-6">
+                                        <lable>Post</lable>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row1["post"]) ? $row1["post"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row1["post"]; ?>'
+                                            id='post-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                    </div>
+                                    <div class="col-6">
+                                        <lable>Police station</lable>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row1["polic_station"]) ? $row1["polic_station"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row1["polic_station"]; ?>'
+                                            id='polic_station-<?php echo $row1["id"]; ?>-address'
+                                            style="display:none;"></input>
+                                    </div>
+                                    <div class="col-6">
+                                        <lable>City</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row1["city"]) ? $row1["city"] : "N/A"; ?>
                                         </p>
@@ -396,6 +416,15 @@ session_start(); {
                                             id='city-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
                                     </div>
                                     <div class="col-6">
+                                        <lable>Distit</lable>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row1["dist"]) ? $row1["dist"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row1["dist"]; ?>'
+                                            id='dist-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                    </div>
+                                    <div class="col-6">
+                                        <lable>State</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row1["state"]) ? $row1["state"] : "N/A"; ?>
                                         </p>
@@ -403,6 +432,7 @@ session_start(); {
                                             id='state-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
                                     </div>
                                     <div class="col-6">
+                                        <lable>Country</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row1["country"]) ? $row1["country"] : "N/A"; ?>
                                         </p>
@@ -411,6 +441,7 @@ session_start(); {
                                             style="display:none;"></input>
                                     </div>
                                     <div class="col-6">
+                                        <lable>Pin code</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row1["pincode"]) ? $row1["pincode"] : "N/A"; ?>
                                         </p>
@@ -422,18 +453,35 @@ session_start(); {
                             </div>
                             <div class="col-6 card p-2">
                                 <h4 class="test-center">Present Address</h4>
-                                <p class="form-control form-control-line edit">
-                                    <?php echo !empty($row2["address1"]) ? $row2["address1"] : "N/A"; ?>
-                                </p>
-                                <input type="text" class='txtedit' value='<?php echo $row2["address1"]; ?>'
-                                    id='address1-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
-                                <p class="form-control form-control-line edit">
-                                    <?php echo !empty($row2["address2"]) ? $row2["address2"] : "N/A"; ?>
-                                </p>
-                                <input type="text" class='txtedit' value='<?php echo $row2["address2"]; ?>'
-                                    id='address2-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
                                 <div class="row">
                                     <div class="col-6">
+                                        <lable>Address 1/At</lable>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row2["address1"]) ? $row2["address1"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row2["address1"]; ?>'
+                                            id='address1-<?php echo $row2["id"]; ?>-address'
+                                            style="display:none;"></input>
+                                    </div>
+                                    <div class="col-6">
+                                        <lable>Post</lable>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row2["post"]) ? $row2["post"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row2["post"]; ?>'
+                                            id='post-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                    </div>
+                                    <div class="col-6">
+                                        <lable>Police Station</lable>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row2["polic_station"]) ? $row2["polic_station"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row2["polic_station"]; ?>'
+                                            id='polic_station-<?php echo $row2["id"]; ?>-address'
+                                            style="display:none;"></input>
+                                    </div>
+                                    <div class="col-6">
+                                        <lable>City</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row2["city"]) ? $row2["city"] : "N/A"; ?>
                                         </p>
@@ -441,6 +489,15 @@ session_start(); {
                                             id='city-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
                                     </div>
                                     <div class="col-6">
+                                        <lable>Dist</lable>
+                                        <p class="form-control form-control-line edit">
+                                            <?php echo !empty($row2["dist"]) ? $row2["dist"] : "N/A"; ?>
+                                        </p>
+                                        <input type="text" class='txtedit' value='<?php echo $row2["dist"]; ?>'
+                                            id='dist-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                    </div>
+                                    <div class="col-6">
+                                        <lable>State</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row2["state"]) ? $row2["state"] : "N/A"; ?>
                                         </p>
@@ -448,6 +505,7 @@ session_start(); {
                                             id='state-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
                                     </div>
                                     <div class="col-6">
+                                        <lable>Country</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row2["country"]) ? $row2["country"] : "N/A"; ?>
                                         </p>
@@ -456,6 +514,7 @@ session_start(); {
                                             style="display:none;"></input>
                                     </div>
                                     <div class="col-6">
+                                        <lable>pincode</lable>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row2["pincode"]) ? $row2["pincode"] : "N/A"; ?>
                                         </p>
