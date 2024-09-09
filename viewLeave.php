@@ -271,39 +271,12 @@ session_start(); {
         $days = $interval->days;
         $totalHours = calculateHours(clone $date1, $date2);
 
-                        // Check if file was uploaded
-                        if (isset($_FILES['supportingdocument']) && $_FILES['supportingdocument']['error'] == 0) {
-                            $pdf_name = $_FILES['supportingdocument']['name'];
-                            $pdf_size = $_FILES['supportingdocument']['size'];
-                            $pdf_tmp = $_FILES['supportingdocument']['tmp_name'];
-                            $file_type = pathinfo($pdf_name, PATHINFO_EXTENSION);
-                            $allowed_types = ['pdf']; // Allowed file types
-                            // Validate file type
-                            if (in_array($file_type, $allowed_types)) {
-                                $new_file_name = uniqid() . '.' . $file_type;
-                                $upload_dir = "assets/uploads/leave/";
-                                // Create directory if it does not exist
-                                if (!is_dir($upload_dir)) {
-                                    mkdir($upload_dir);
-                                }
-                                $target_file = $upload_dir . $new_file_name;
-                                // Move uploaded file to target directory
-                                if (move_uploaded_file($pdf_tmp, $target_file)) {
-                                    // File uploaded successfully
-                                } else {
-                                    echo "<script>alert('File not uploaded');</script>";
-                                }
-                            } else {
-                                echo "<script>alert('Invalid file type. Only PDFs are allowed.');</script>";
-                            }
-                        } else {
-                            echo "<script>alert('No file uploaded or file upload error.');</script>";
-                        }
+        
                        
 
 
         $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason,  leave_status,supportingdocument)
-            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0',$new_file_name)";
+            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0','////')";
         if ($conn->query($sql1) === TRUE) {
             echo " <script>alert('success')</script>";
         } else {
