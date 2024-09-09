@@ -122,14 +122,6 @@ session_start(); {
                                             data-bs-target="#exampleModalCenter">
                                             <i class="fas fa-pencil-alt edit-icon">Edit image</i>
                                         </button>
-
-
-
-
-
-
-
-
                                         <h4 class="card-title m-t-10 edit"><?php echo $row["full_name"]; ?></h4>
                                         <input type="text" class='txtedit' value='<?php echo $row["full_name"]; ?>'
                                             id='full_name-<?php echo $row["id"]; ?>-employee'
@@ -1236,8 +1228,7 @@ session_start(); {
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Profile
-                    </h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Profile</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1247,13 +1238,31 @@ session_start(); {
                     <div class="modal-body">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputtext"></label>
+                                <label for="exampleInputfile"></label>
                                 <input type="hidden" value="<?php echo $row["id"]; ?>" name="id7" id="id7">
-                                <input type="file" class="form-control" id="exampleInputfile"
-                                    placeholder="recruireters image" name="image"
-                                    onchange="document.getElementById('image45').src = window.URL.createObjectURL(this.files[0])">
-                                <img id="image45" src="assets\images\avatars\noimage1.png" alt="New image" width="50"
+
+                                <!-- File input for selecting image -->
+                                <div class="d-flex align-items-center">
+                                    <input type="file" class="form-control" id="exampleInputfile"
+                                        placeholder="Recruiter's image" name="image" accept="image/*"
+                                        onchange="previewImage(event)">
+
+                                    <!-- Button to capture photo using camera -->
+                                    <button type="button" class="btn btn-primary ms-2" onclick="startCamera()">Camera
+                                    </button>
+                                </div>
+                                <!-- Image preview -->
+                                <br>
+                                <img id="image45" src="assets/img/noimage1.png" alt="New image" width="50"
                                     height="50" />
+
+                                <!-- Hidden canvas element to capture and upload the image from the camera -->
+                                <canvas id="canvas" style="display:none;"></canvas>
+
+                                <!-- Video element to display live camera feed -->
+                                <video id="video" width="320" height="240" autoplay style="display:none;"></video>
+                                <button type="button" id="captureBtn" class="btn btn-success mt-2" style="display:none;"
+                                    onclick="capturePhoto()">Take Photo</button>
                             </div>
                         </div>
                     </div>
@@ -1503,6 +1512,62 @@ session_start(); {
 
         function hideInput(inputId) {
             document.getElementById(inputId).style.display = 'none';
+        }
+    </script>
+    <!-- for capture photo -->
+    <script>
+        // Variables for video and canvas elements
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('captureBtn');
+        // Function to start the camera and show video feed
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    // Display the video stream from the camera
+                    video.style.display = 'block';
+                    captureBtn.style.display = 'inline-block';
+                    video.srcObject = stream;
+                })
+                .catch(function (error) {
+                    console.log("Something went wrong with accessing the camera: " + error);
+                });
+        }
+
+        // Function to capture the photo from the video stream
+        function capturePhoto() {
+            const context = canvas.getContext('2d');
+            // Set the canvas width and height to match the video
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Draw the current frame from the video onto the canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Get the image data from the canvas
+            const dataUrl = canvas.toDataURL('image/png');
+
+            // Set the image preview to the captured photo
+            document.getElementById('image45').src = dataUrl;
+
+            // Convert data URL to Blob and attach it to the file input for form submission
+            canvas.toBlob(function (blob) {
+                const fileInput = document.getElementById('exampleInputfile');
+                const file = new File([blob], "captured-photo.png", { type: "image/png" });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+            });
+
+            // Hide the video and capture button after taking the photo
+            video.style.display = 'none';
+            captureBtn.style.display = 'none';
+        }
+
+        // Function to preview image when selected via file input
+        function previewImage(event) {
+            const image = document.getElementById('image45');
+            image.src = URL.createObjectURL(event.target.files[0]);
         }
     </script>
 </body>
