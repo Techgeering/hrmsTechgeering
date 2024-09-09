@@ -70,7 +70,7 @@
             $hashedPassword = $row['em_password'];
             if (password_verify($password, $hashedPassword)) {
                 $user_id = $row['id'];
-                $emp_id = $row['emp_id'];
+                $emp_id = $row['em_code'];
                 $em_role = $row['em_role'];
                 // Store the user ID in the session
                 session_start();
