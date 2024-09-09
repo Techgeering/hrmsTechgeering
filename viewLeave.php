@@ -1,6 +1,8 @@
 <?php
 session_start(); {
     $em_role = $_SESSION["em_role"];
+    $emp_id = $_SESSION["emp_id"] ;
+    echo "<script>alert( $emp_id)</script>"
 }
 ?>
 <!DOCTYPE html>
@@ -190,7 +192,7 @@ session_start(); {
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="empId">Employee id</label>
-                            <input type="text" class="form-control" id="empId" name="empId">
+                            <input type="text" class="form-control" id="empId" name="empId" value = "<?php echo  $emp_id; ?>">
                         </div>
                         <div class="form-group">
                             <label for="Leavetype">Leave type</label>

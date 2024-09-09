@@ -70,11 +70,13 @@
             $hashedPassword = $row['em_password'];
             if (password_verify($password, $hashedPassword)) {
                 $user_id = $row['id'];
+                $emp_id = $row['emp_id'];
                 $em_role = $row['em_role'];
                 // Store the user ID in the session
                 session_start();
                 $_SESSION["username"] = "$user_id";
                 $_SESSION["em_role"] = "$em_role";
+                $_SESSION["emp_id"] = "$emp_id";
                 // Redirect the user to index.php after successful sign-in
                 echo "<script>window.location.href='index.php';</script>";
             } else {
