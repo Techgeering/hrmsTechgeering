@@ -217,6 +217,7 @@ session_start(); {
             $namee[] = "$value";//8000,3000,4000,...
             $totalValue += $value;
         }
+
         $expen_name = implode(',', $namee);
         $sql = "INSERT INTO expenditure_calculator(year, month, name) VALUES('$year','$month','$totalValue')";
         if ($conn->query($sql) == true) {

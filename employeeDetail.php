@@ -16,54 +16,54 @@ session_start(); {
     <link href="assets/css/styles.css?v=<?php echo time(); ?>" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
-    /* Style the tab */
-    .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-    }
-
-    /* Style the buttons inside the tab */
-    .tab button {
-        background-color: inherit;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 10px 12px;
-        transition: 0.3s;
-        font-size: 15px;
-    }
-
-    /* Change background color of buttons on hover */
-    .tab button:hover {
-        background-color: #ddd;
-    }
-
-    /* Create an active/current tablink class */
-    .tab button.active {
-        background-color: #ccc;
-    }
-
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-        animation: fadeEffect 1s;
-    }
-
-    /* Go from zero to full opacity */
-    @keyframes fadeEffect {
-        from {
-            opacity: 0;
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
         }
 
-        to {
-            opacity: 1;
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 12px;
+            transition: 0.3s;
+            font-size: 15px;
         }
-    }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+            animation: fadeEffect 1s;
+        }
+
+        /* Go from zero to full opacity */
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -117,6 +117,19 @@ session_start(); {
                                     <div class="card-body text-center">
                                         <img src="<?php echo $row["em_image"];
                                         ?>" class="img-circle" width="150">
+
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModalCenter">
+                                            <i class="fas fa-pencil-alt edit-icon">Edit image</i>
+                                        </button>
+
+
+
+
+
+
+
+
                                         <h4 class="card-title m-t-10 edit"><?php echo $row["full_name"]; ?></h4>
                                         <input type="text" class='txtedit' value='<?php echo $row["full_name"]; ?>'
                                             id='full_name-<?php echo $row["id"]; ?>-employee'
@@ -203,7 +216,7 @@ session_start(); {
                                         <label>Marital Status </label>
                                         <p class="form-control form-control-line edit"
                                             onclick="showDropdown('marital_status-<?php echo $row['id']; ?>-employee')">
-                                            <?php echo $row["marital_status"]; ?>
+                                            <?php echo !empty($row["marital_status"]) ? $row["marital_status"] : 'N/A'; ?>
                                         </p>
                                         <select class='txtedit' id='marital_status-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;">
@@ -287,9 +300,9 @@ session_start(); {
                                             $resultaa = $conn->query($sqlaa);
                                             while ($rowa = $resultaa->fetch_assoc()) {
                                                 ?>
-                                            <option value="<?php echo $rowa['id']; ?>">
-                                                <?php echo $rowa['dep_name']; ?>
-                                            </option>
+                                                <option value="<?php echo $rowa['id']; ?>">
+                                                    <?php echo $rowa['dep_name']; ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -311,9 +324,9 @@ session_start(); {
                                             $resultaaa = $conn->query($sqlaaa);
                                             while ($rowaa = $resultaaa->fetch_assoc()) {
                                                 ?>
-                                            <option value="<?php echo $rowaa['id']; ?>">
-                                                <?php echo $rowaa['des_name']; ?>
-                                            </option>
+                                                <option value="<?php echo $rowaa['id']; ?>">
+                                                    <?php echo $rowaa['des_name']; ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -366,7 +379,8 @@ session_start(); {
                                     <div class="form-group col-md-3 m-t-10">
                                         <label>Emergency Contact </label>
                                         <p class="form-control form-control-line edit">
-                                            <?php echo $row["emergency_contact"]; ?></p>
+                                            <?php echo $row["emergency_contact"]; ?>
+                                        </p>
                                         <input type="text" class='txtedit'
                                             value='<?php echo $row["emergency_contact"]; ?>'
                                             id='emergency_contact-<?php echo $row["id"]; ?>-employee'
@@ -537,6 +551,7 @@ session_start(); {
                                         <th>University Name</th>
                                         <th>Result</th>
                                         <th>Passing Year</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -546,15 +561,21 @@ session_start(); {
                                     $slno = 1;
                                     if ($result3->num_rows > 0) {
                                         while ($row3 = $result3->fetch_assoc()) { ?>
-                                    <tr>
-                                        <td><?php echo $slno; ?></td>
-                                        <td><?php echo $row3["edu_type"]; ?></td>
-                                        <td><?php echo $row3["institute"]; ?></td>
-                                        <td><?php echo $row3["university"]; ?></td>
-                                        <td><?php echo $row3["result"]; ?></td>
-                                        <td><?php echo $row3["year"]; ?></td>
-                                    </tr>
-                                    <?php
+                                            <tr>
+                                                <td><?php echo $slno; ?></td>
+                                                <td><?php echo $row3["edu_type"]; ?></td>
+                                                <td><?php echo $row3["institute"]; ?></td>
+                                                <td><?php echo $row3["university"]; ?></td>
+                                                <td><?php echo $row3["result"]; ?>%</td>
+                                                <td><?php echo $row3["year"]; ?></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-light"
+                                                        onclick="myfcn6(<?php echo $row3['id']; ?>,'<?php echo $row3['edu_type']; ?>','<?php echo $row3['institute']; ?>','<?php echo $row3['university']; ?>','<?php echo $row3['result']; ?>','<?php echo $row3['year']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updateedu"><i
+                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
+                                                </td>
+                                            </tr>
+                                            <?php
                                             $slno++;
                                         }
                                     } else {
@@ -570,7 +591,7 @@ session_start(); {
                                     <div class="col-6">
                                         <div class="m-2">
                                             <select class="form-control form-control-line p-2" name="degreetitle"
-                                                id="degreetitle" required>
+                                                required>
                                                 <option value="">Select Degree Title</option>
                                                 <option value="10th">10th</option>
                                                 <option value="+2">+2</option>
@@ -588,14 +609,12 @@ session_start(); {
                                         </div>
                                         <div class="m-2">
                                             <input type="text" class="form-control form-control-line" name="university"
-                                                id="university" placeholder="University Name" required>
+                                                placeholder="University Name" required>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="m-2">
                                             <input type="text" class="form-control form-control-line" name="institute"
-                                                id="institute"
-                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
                                                 placeholder="Institute Name" required>
                                         </div>
                                         <div class="row m-2">
@@ -603,14 +622,13 @@ session_start(); {
                                                 <div class="">
                                                     <input type="text" class="form-control form-control-line P-2"
                                                         name="result"
-                                                        oninput="this.value = this.value.replace(/[^0-9%]/g,''); if(this.value.match(/\d+/) && this.value.match(/\d+/)[0].length > 2) this.value = this.value.slice(0, 2) + '%';"
-                                                        id="result" placeholder="Result (%)" maxlength="3" required>
+                                                        oninput="this.value = this.value.replace(/[^0-9%]/g,''); if(this.value.match(/\d+/) && this.value.match(/\d+/)[0].length > 2) this.value = this.value.slice(0, 2);"
+                                                        placeholder="Result (%)" maxlength="3" required>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="">
-                                                    <select class="form-select" name="passingyear" id="passingyear"
-                                                        required>
+                                                    <select class="form-select" name="passingyear" required>
                                                         <option value="" selected>Passing Year</option>
                                                         <?php
                                                         $currentYear = date("Y");
@@ -649,6 +667,100 @@ session_start(); {
                         $conn->close();
                     }
                     ?>
+                    <!-- update modal of education -->
+                    <div class="modal fade" id="updateedu" tabindex="-1" aria-labelledby="addDeptLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Education</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+                                    <div class="modal-body">
+                                        <input type="text" name="id6" id="id6">
+                                        <!-- <div class="form-group">
+                                            <label for="empid">Emp Id</label>
+                                            <input type="text" class="form-control" id="empid22" name="empid">
+                                        </div> -->
+                                        <div class="form-group">
+                                            <label for="degreetitle">Degree Title</label>
+                                            <select class="form-control form-control-line p-2"
+                                                value="<?php echo $row3['edu_type']; ?>" name="degreetitle"
+                                                id="degreetitle22">
+                                                <option value="">Select Degree Title</option>
+                                                <option value="10th">10th</option>
+                                                <option value="+2">+2</option>
+                                                <option value="+3">+3</option>
+                                                <option value="BBA">BBA</option>
+                                                <option value="BCA">BCA</option>
+                                                <option value="MSC">MSC</option>
+                                                <option value="MCA">MCA</option>
+                                                <option value="MBA">MBA</option>
+                                                <option value="BTECH">BTECH</option>
+                                                <option value="MTECH">MTECH</option>
+                                                <option value="PhD">PhD</option>
+                                                <option value="Diploma">Diploma</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="institutename">Institute Name</label>
+                                            <input type="text" class="form-control" id="institutename22"
+                                                name="institutename">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="universityname">University Name</label>
+                                            <input type="text" class="form-control" id="universityname22"
+                                                name="universityname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="result">Result</label>
+                                            <input type="text" class="form-control" id="result22" name="result">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="passingyear">Passing Year</label>
+                                            <div class="">
+                                                <select class="form-select" name="passingyear" id="passingyear22"
+                                                    required>
+                                                    <option value="" selected>Passing Year</option>
+                                                    <?php
+                                                    $currentYear = date("Y");
+                                                    for ($year = 2000; $year <= $currentYear; $year++) {
+                                                        echo "<option value=\"$year\">$year</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="updateedu1">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    if (isset($_POST['updateedu1'])) {
+                        include "common/conn.php";
+                        $degreetitle = $_POST["degreetitle"];
+                        $institutename = $_POST["institutename"];
+                        $universityname = $_POST["universityname"];
+                        $result = $_POST["result"];
+                        $passingyear = $_POST["passingyear"];
+                        $id = $_POST["id6"];
+                        $sql10 = "UPDATE education SET edu_type='$degreetitle', institute='$institutename', university='$universityname', result='$result', year='$passingyear' WHERE id='$id'";
+                        if ($conn->query($sql10) === true) {
+                            echo " <script>alert('success')</script>";
+                        } else {
+                            echo $conn->error;
+                        }
+                        $conn->close();
+                    }
+                    ?>
                     <div id="Experience" class="tabcontent p-2">
                         <div class="card">
                             <div class="card-body">
@@ -674,14 +786,14 @@ session_start(); {
                                             if ($result4->num_rows > 0) {
                                                 // output data of each row
                                                 while ($row4 = $result4->fetch_assoc()) { ?>
-                                            <tr>
-                                                <td><?php echo $slno; ?></td>
-                                                <td><?php echo $row4["exp_company"]; ?></td>
-                                                <td><?php echo $row4["exp_com_position"]; ?></td>
-                                                <td><?php echo $row4["exp_workduration"]; ?></td>
-                                                <td><?php echo $row4["exp_com_address"]; ?></td>
-                                            </tr>
-                                            <?php
+                                                    <tr>
+                                                        <td><?php echo $slno; ?></td>
+                                                        <td><?php echo $row4["exp_company"]; ?></td>
+                                                        <td><?php echo $row4["exp_com_position"]; ?></td>
+                                                        <td><?php echo $row4["exp_workduration"]; ?></td>
+                                                        <td><?php echo $row4["exp_com_address"]; ?></td>
+                                                    </tr>
+                                                    <?php
                                                     $slno++;
                                                 }
                                             } else {
@@ -830,7 +942,8 @@ session_start(); {
                                             <tr>
                                                 <td>ID </td>
                                                 <td>File Name</td>
-                                                <td>Files </td>
+                                                <td>Files</td>
+                                                <td>Action</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -841,17 +954,24 @@ session_start(); {
                                             if ($result6->num_rows > 0) {
                                                 // output data of each row
                                                 while ($row6 = $result6->fetch_assoc()) { ?>
-                                            <tr>
-                                                <td><?php echo $slno; ?></td>
-                                                <td><?php echo $row6["file_title"]; ?></td>
-                                                <td>
-                                                    <a href="assets/uploads/employee/<?php echo $row6['file_url']; ?>"
-                                                        target="_blank">
-                                                        <i class="fas fa-file-pdf"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php
+                                                    <tr>
+                                                        <td><?php echo $slno; ?></td>
+                                                        <td><?php echo $row6["file_title"]; ?></td>
+                                                        <td>
+                                                            <a href="assets/uploads/employee/<?php echo $row6['file_url']; ?>"
+                                                                target="_blank">
+                                                                <i class="fas fa-file-pdf"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-light"
+                                                                onclick="myfcn8(<?php echo $row6['id']; ?>,'<?php echo $row6['file_title']; ?>')"
+                                                                data-bs-toggle="modal" data-bs-target="#updatedocument"><i
+                                                                    class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                    $slno++;
                                                 }
                                             } else {
                                                 echo "0 results";
@@ -1051,13 +1171,13 @@ session_start(); {
                                                         $takenLeave = $rowTakenLeave["taken_leave"];
                                                     }
                                                     ?>
-                                            <tr>
-                                                <td><?php echo $slNo; ?></td>
-                                                <td><?php echo $row4["name"]; ?></td>
-                                                <td><?php echo $row4["leave_day"]; ?></td>
-                                                <td><?php echo $takenLeave; ?></td>
-                                            </tr>
-                                            <?php
+                                                    <tr>
+                                                        <td><?php echo $slNo; ?></td>
+                                                        <td><?php echo $row4["name"]; ?></td>
+                                                        <td><?php echo $row4["leave_day"]; ?></td>
+                                                        <td><?php echo $takenLeave; ?></td>
+                                                    </tr>
+                                                    <?php
                                                     $slNo++;
                                                 }
                                             } else {
@@ -1110,6 +1230,196 @@ session_start(); {
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
+    <!-- modal for change image -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Profile
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="myform" action="<?php $_SERVER['PHP_SELF']; ?>" method='post'
+                    enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputtext"></label>
+                                <input type="hidden" value="<?php echo $row["id"]; ?>" name="id7" id="id7">
+                                <input type="file" class="form-control" id="exampleInputfile"
+                                    placeholder="recruireters image" name="image"
+                                    onchange="document.getElementById('image45').src = window.URL.createObjectURL(this.files[0])">
+                                <img id="image45" src="assets\images\avatars\noimage1.png" alt="New image" width="50"
+                                    height="50" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="update3" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <?php
+    if (isset($_POST['update3'])) {
+        include "common/conn.php";
+
+        $id = $_POST["id7"];
+        $image_name = $_FILES['image']['name'];
+        $image_size = $_FILES['image']['size'];
+        $image_tmp = $_FILES['image']['tmp_name'];
+        $image_error = $_FILES['image']['error'];
+        $file_type = pathinfo($image_name, PATHINFO_EXTENSION);
+        $new_file_name = uniqid() . '.' . $file_type;
+
+        $upload_dir = "assets/uploads/employee";
+
+        // Check if the directory exists, and create it if not
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $target_file = $upload_dir . '/' . $new_file_name;
+
+        // Check for file upload errors
+        if ($image_error === 0) {
+            if (move_uploaded_file($image_tmp, $target_file)) {
+                echo "<script>alert('Image uploaded successfully');</script>";
+            } else {
+                echo "<script>alert('Image not uploaded');</script>";
+            }
+
+            // Update the database with the new image path
+            $sql34 = "UPDATE employee SET em_image='assets/uploads/employee/$new_file_name' WHERE id='$id'";
+            if ($conn->query($sql34) === true) {
+                echo "<script>window.location.href='employeeDetail.php';</script>";
+            } else {
+                echo "<script>alert('Database update failed: " . $conn->error . "');</script>";
+            }
+        } else {
+            echo "<script>alert('Error during image upload');</script>";
+        }
+
+        $conn->close();
+    }
+    ?>
+    <!-- update pdf -->
+    <div class="modal fade" id="updatedocument" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Document</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="id8" id="id8">
+                        <div class="form-group">
+                            <label for="filename">File Name</label>
+                            <input type="text" class="form-control" id="filename11" name="filename" required>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="exampleInputtext">Upload File:
+                                <span class="required"></span>
+                            </label>
+                            <input type="file" class="form-control" placeholder="pdf" name="file_url"
+                                accept=".pdf,.docx,.doc" onchange="checkFileType(this)">
+                            <span id="fileName"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="updatedocument1">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <?php
+    if (isset($_POST['updatedocument1'])) {
+        include "common/conn.php";
+        // Sanitize inputs
+        $id = $conn->real_escape_string($_POST["id8"]);
+        $name = $conn->real_escape_string($_POST["filename"]);
+
+        // File handling - PDF/DOCX/DOC
+        $allowed_file_types = ['pdf', 'docx', 'doc']; // Allowed file types
+        $pdf_name = $_FILES['file_url']['name'];
+        $pdf_tmp = $_FILES['file_url']['tmp_name'];
+        $pdf_size = $_FILES['file_url']['size'];
+        $pdf_type = strtolower(pathinfo($pdf_name, PATHINFO_EXTENSION));
+
+        $new_pdf_name = null; // Initialize variable for new file name
+        $upload_dir = "assets/uploads/employee/"; // Set upload directory
+    
+        // Check if a file is uploaded
+        if (!empty($pdf_name)) {
+            // Validate file type
+            if (in_array($pdf_type, $allowed_file_types)) {
+                // Validate file size (e.g., max 5MB)
+                if ($pdf_size <= 5000000) {
+                    // Generate a unique name for the uploaded file
+                    $new_pdf_name = uniqid() . '.' . $pdf_type;
+
+                    // Create directory if it doesn't exist
+                    if (!is_dir($upload_dir)) {
+                        mkdir($upload_dir, 0777, true); // Ensure directory is writable
+                    }
+
+                    $target_pdf_file = $upload_dir . $new_pdf_name;
+
+                    // Move uploaded file to the upload directory
+                    if (move_uploaded_file($pdf_tmp, $target_pdf_file)) {
+                        // File uploaded successfully
+                    } else {
+                        // Error in uploading file
+                        echo "<script>alert('File upload failed');</script>";
+                    }
+                } else {
+                    echo "<script>alert('File size exceeds the limit of 5MB');</script>";
+                }
+            } else {
+                echo "<script>alert('Invalid file type. Only PDF, DOC, and DOCX files are allowed.');</script>";
+            }
+        }
+
+        // Prepare SQL update query
+        if (!empty($new_pdf_name)) {
+            // If a new file is uploaded, update both name and file fields
+            $sql = "UPDATE employee_file SET file_title='$name', file_url='$new_pdf_name' WHERE id='$id'";
+        } else {
+            // If no new file is uploaded, update only the name field
+            $sql = "UPDATE employee_file SET file_title='$name' WHERE id='$id'";
+        }
+
+        // Execute SQL query
+        if ($conn->query($sql) === true) {
+            // Success message with redirect after 1 second
+            echo "<script>
+            $(document).ready(function(){
+                toastr.success('Document updated successfully');
+                setTimeout(function(){
+                    window.location.href = 'employeeDetail.php';
+                }, 1000); // 1000 milliseconds = 1 second
+            });
+        </script>";
+        } else {
+            // Error message if SQL query fails
+            echo "Error updating record: " . $conn->error;
+        }
+
+        // Close database connection
+        $conn->close();
+    }
+    ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js?v=<?php echo time(); ?>"></script>
@@ -1118,82 +1428,82 @@ session_start(); {
     <script src="assets/js/datatables-simple-demo.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    function openDilog(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+        function openDilog(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-    document.getElementById("defaultOpen").click();
+        document.getElementById("defaultOpen").click();
     </script>
     <script>
-    $(document).ready(function() {
-        $(document).on('click', '.edit', function() {
-            var txtEdit = $(this).next('.txtedit');
-            var editText = $(this);
-            txtEdit.show().focus();
-            editText.hide();
-            txtEdit.focusout(function() {
-                var field_name = txtEdit.attr('id').split("-")[0];
-                var edit_id = txtEdit.attr('id').split("-")[1];
-                var table_name = txtEdit.attr('id').split("-")[2];
-                var value = txtEdit.val();
-                console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
-                    "Value:", value);
-                if (value !== null && value.trim() !== '') {
-                    var pattern = txtEdit.attr('pattern');
-                    if (pattern) {
-                        var regex = new RegExp(pattern);
-                        if (!regex.test(value)) {
-                            alert('Invalid pattern. Please enter a valid value.');
-                            return;
+        $(document).ready(function () {
+            $(document).on('click', '.edit', function () {
+                var txtEdit = $(this).next('.txtedit');
+                var editText = $(this);
+                txtEdit.show().focus();
+                editText.hide();
+                txtEdit.focusout(function () {
+                    var field_name = txtEdit.attr('id').split("-")[0];
+                    var edit_id = txtEdit.attr('id').split("-")[1];
+                    var table_name = txtEdit.attr('id').split("-")[2];
+                    var value = txtEdit.val();
+                    console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
+                        "Value:", value);
+                    if (value !== null && value.trim() !== '') {
+                        var pattern = txtEdit.attr('pattern');
+                        if (pattern) {
+                            var regex = new RegExp(pattern);
+                            if (!regex.test(value)) {
+                                alert('Invalid pattern. Please enter a valid value.');
+                                return;
+                            }
                         }
                     }
-                }
-                editText.show();
-                editText.text(value);
-                txtEdit.hide();
-                $.ajax({
-                    url: 'insert.php',
-                    type: 'post',
-                    data: {
-                        field: field_name,
-                        value: value,
-                        id: edit_id,
-                        tbnm: table_name
-                    },
-                    success: function(response) {
-                        console.log("AJAX response:", response);
-                        if (response == 1) {
-                            console.log('Save Successfully');
-                        } else {
-                            console.log('Not Saved');
+                    editText.show();
+                    editText.text(value);
+                    txtEdit.hide();
+                    $.ajax({
+                        url: 'insert.php',
+                        type: 'post',
+                        data: {
+                            field: field_name,
+                            value: value,
+                            id: edit_id,
+                            tbnm: table_name
+                        },
+                        success: function (response) {
+                            console.log("AJAX response:", response);
+                            if (response == 1) {
+                                console.log('Save Successfully');
+                            } else {
+                                console.log('Not Saved');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error:", status, error);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX error:", status, error);
-                    }
+                    });
                 });
             });
         });
-    });
     </script>
     <!-- for input show and hide -->
     <script>
-    function showInput(inputId) {
-        document.getElementById(inputId).style.display = 'inline';
-    }
+        function showInput(inputId) {
+            document.getElementById(inputId).style.display = 'inline';
+        }
 
-    function hideInput(inputId) {
-        document.getElementById(inputId).style.display = 'none';
-    }
+        function hideInput(inputId) {
+            document.getElementById(inputId).style.display = 'none';
+        }
     </script>
 </body>
 

@@ -73,5 +73,23 @@ function myfcn5(idx, leaveTypee, dayss) {
 }
 
 
+/* for leaveTypee id get */
+function myfcn6(idx, degreetitle, institutename, universityname, result, passingyear) {
+    document.getElementById("id6").value = idx;
+    document.getElementById("degreetitle22").value = degreetitle;
+    document.getElementById("institutename22").value = institutename;
+    document.getElementById("universityname22").value = universityname;
+    document.getElementById("result22").value = result;
+    document.getElementById("passingyear22").value = passingyear;
+}
+
+/* for pdf id get */
+function myfcn8(idx, filename) {
+    document.getElementById("id8").value = idx;
+    document.getElementById("filename11").value = filename;
+}
+
+
+
 
 
