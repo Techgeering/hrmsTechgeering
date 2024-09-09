@@ -276,7 +276,7 @@ session_start(); {
 
 
         $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason,  leave_status,supportingdocument)
-            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0','////')";
+            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0','ppp')";
         if ($conn->query($sql1) === TRUE) {
             echo " <script>alert('success')</script>";
         } else {
