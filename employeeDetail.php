@@ -123,13 +123,23 @@ session_start(); {
                                             <i class="fas fa-pencil-alt edit-icon">Edit image</i>
                                         </button>
                                         <h4 class="card-title m-t-10 edit"><?php echo $row["full_name"]; ?></h4>
+                                        <!-- <input type="text" class='txtedit' value='<? php// echo $row["full_name"]; ?>'
+                                            id='full_name-<? php// echo $row["id"]; ?>-employee'
+                                            style="display:none;"></input>
+                                        <h6 class="card-subtitle edit">Employee Id: <? php// echo $row["em_code"]; ?></h6>
+                                        <input type="text" class='txtedit' value='<? php// echo $row["em_code"]; ?>'
+                                            id='em_code-<? php// echo $row["id"]; ?>-em_code'
+                                            style="display:none;"></input> -->
+
                                         <input type="text" class='txtedit' value='<?php echo $row["full_name"]; ?>'
                                             id='full_name-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;"></input>
+
                                         <h6 class="card-subtitle edit">Employee Id: <?php echo $row["em_code"]; ?></h6>
-                                        <input type="text" class='txtedit' value='<?php echo $row["em_code"]; ?>'
-                                            id='em_code-<?php echo $row["id"]; ?>-em_code'
-                                            style="display:none;"></input>
+                                        <button data-bs-toggle="modal" data-bs-target="#exampleModalcode">
+                                            <i class="fas fa-pencil-alt edit-icon">Edit Emp Id</i>
+                                        </button>
+
                                     </div>
                                     <div>
                                         <hr>
@@ -1222,6 +1232,94 @@ session_start(); {
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
+    <!-- modal for emp id -->
+    <div class="modal fade" id="exampleModalcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Empid</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="myform" action="<?php $_SERVER['PHP_SELF']; ?>" method='post'
+                    enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputfile"></label>
+                                <input type="hidden" value="<?php echo $row["em_code"]; ?>" name="id10" id="id10">
+                                <div class="form-group">
+                                    <label for="filename">Emp Id</label>
+                                    <input type="text" value="<?php echo $row["em_code"]; ?>" class="form-control"
+                                        id="empidd" name="empid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="updateempid" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <?php
+    if (isset($_POST['updateempid'])) {
+        include "common/conn.php";
+        $id = $_POST["id10"];
+        $empid = $_POST["empid"];
+
+        // Check if the new emp_code already exists
+        $sql10 = "SELECT * FROM employee WHERE em_code='$empid'";
+        $result = $conn->query($sql10);
+
+        if ($result->num_rows > 0) {
+            echo "<script>alert('Employee code already exists');</script>";
+        } else {
+            $sql11 = "UPDATE employee SET em_code='$empid' WHERE em_code='$id'";
+            if ($conn->query($sql11) === true) {
+
+                $sql12 = "UPDATE address SET emp_id='$empid' WHERE emp_id='$id'";
+                if ($conn->query($sql12) === true) {
+
+                    $sql13 = "UPDATE education SET emp_id='$empid' WHERE emp_id='$id'";
+                    if ($conn->query($sql13) === true) {
+
+                        $sql14 = "UPDATE emp_experience SET emp_id='$empid' WHERE emp_id='$id'";
+                        if ($conn->query($sql14) === true) {
+
+                            $sql15 = "UPDATE bank_info SET em_id='$empid' WHERE em_id='$id'";
+                            if ($conn->query($sql15) === true) {
+
+                                $sql16 = "UPDATE employee_file SET em_id='$empid' WHERE em_id='$id'";
+                                if ($conn->query($sql16) === true) {
+                                    echo "<script>alert('Update successful');</script>";
+                                } else {
+                                    echo "<script>alert('Error updating employee_file: " . $conn->error . "');</script>";
+                                }
+                            } else {
+                                echo "<script>alert('Error updating bank_info: " . $conn->error . "');</script>";
+                            }
+                        } else {
+                            echo "<script>alert('Error updating emp_experience: " . $conn->error . "');</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Error updating education: " . $conn->error . "');</script>";
+                    }
+                } else {
+                    echo "<script>alert('Error updating address: " . $conn->error . "');</script>";
+                }
+            } else {
+                echo "<script>alert('Error updating employee: " . $conn->error . "');</script>";
+            }
+        }
+        $conn->close();
+    }
+    ?>
     <!-- modal for change image -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
