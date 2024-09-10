@@ -857,7 +857,7 @@
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Bank Name</label>
                                         <p class="form-control form-control-line edit"
-                                            onclick="editField('bank_name-<?php echo $row5["id"]; ?>-bank_info')">
+                                            onclick="editField('bank_name-<?php echo $row5['id']; ?>-bank_info')">
                                             <?php echo !empty($row5["bank_name"]) ? $row5["bank_name"] : "N/A"; ?>
                                         </p>
                                         <input type="text" class="txtedit"
@@ -867,7 +867,7 @@
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Bank Account Holder Name</label>
                                         <p class="form-control form-control-line edit"
-                                            onclick="editField('holder_name-<?php echo $row5["id"]; ?>-bank_info')">
+                                            onclick="editField('holder_name-<?php echo $row5['id']; ?>-bank_info')">
                                             <?php echo !empty($row5["holder_name"]) ? $row5["holder_name"] : "N/A"; ?>
                                         </p>
                                         <input type="text" class="txtedit"
@@ -877,7 +877,7 @@
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Branch Name</label>
                                         <p class="form-control form-control-line edit"
-                                            onclick="editField('branch_name-<?php echo $row5["id"]; ?>-bank_info')">
+                                            onclick="editField('branch_name-<?php echo $row5['id']; ?>-bank_info')">
                                             <?php echo !empty($row5["branch_name"]) ? $row5["branch_name"] : "N/A"; ?>
                                         </p>
                                         <input type="text" class="txtedit"
@@ -887,7 +887,7 @@
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Bank Account Number</label>
                                         <p class="form-control form-control-line edit"
-                                            onclick="editField('account_number-<?php echo $row5["id"]; ?>-bank_info')">
+                                            onclick="editField('account_number-<?php echo $row5['id']; ?>-bank_info')">
                                             <?php echo !empty($row5["account_number"]) ? $row5["account_number"] : "N/A"; ?>
                                         </p>
                                         <input type="text" class="txtedit"
@@ -898,7 +898,7 @@
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>IFSC Code</label>
                                         <p class="form-control form-control-line edit"
-                                            onclick="editField('ifsc_code-<?php echo $row5["id"]; ?>-bank_info')">
+                                            onclick="editField('ifsc_code-<?php echo $row5['id']; ?>-bank_info')">
                                             <?php echo !empty($row5["ifsc_code"]) ? $row5["ifsc_code"] : "N/A"; ?>
                                         </p>
                                         <input type="text" class="txtedit"
@@ -908,7 +908,7 @@
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Bank Account Type</label>
                                         <p class="form-control form-control-line edit"
-                                            onclick="editField('account_type-<?php echo $row5["id"]; ?>-bank_info')">
+                                            onclick="editField('account_type-<?php echo $row5['id']; ?>-bank_info')">
                                             <?php echo !empty($row5["account_type"]) ? $row5["account_type"] : "N/A"; ?>
                                         </p>
                                         <input type="text" class="txtedit"

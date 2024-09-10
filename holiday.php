@@ -40,8 +40,8 @@
                                     <tr>
                                         <th>Sl No</th>
                                         <th>Name</th>
-                                        <th>From Date</th>
-                                        <th>To Date</th>
+                                        <th>Closing Start Date</th>
+                                        <th>Opening Date</th>
                                         <th>Days</th>
                                         <th>Year</th>
                                         <th>Hour</th>
@@ -107,11 +107,11 @@
                             <input type="text" class="form-control" id="holiday" name="holiday">
                         </div>
                         <div class="form-group">
-                            <label for="from_date">from_date</label>
+                            <label for="from_date">Closing Start Date</label>
                             <input type="date" class="form-control" id="from_date" name="from_date">
                         </div>
                         <div class="form-group">
-                            <label for="to_date">to_date</label>
+                            <label for="to_date">Opening Date</label>
                             <input type="date" class="form-control" id="to_date" name="to_date">
                         </div>
                     </div>
@@ -148,10 +148,12 @@
         $holiday = $_POST["holiday"];
         $from_date = $_POST["from_date"];
         $to_date = $_POST["to_date"];
-        $year = date('m-Y');
+        // $year = date('m-Y');
 
         $date1 = new DateTime($from_date);
         $date2 = new DateTime($to_date);
+
+        $year = $date1->format('Y');
 
         $totalHours = calculateHours(clone $date1, $date2);
         $interval = $date1->diff($date2);
@@ -178,17 +180,17 @@
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
-                        <input type="text" name="id4" id="id4">
+                        <input type="hidden" name="id4" id="id4">
                         <div class="form-group">
                             <label for="DepartmentName">Holiday Name</label>
                             <input type="text" class="form-control" id="holiday1" name="holiday">
                         </div>
                         <div class="form-group">
-                            <label for="from_date">from_date</label>
+                            <label for="from_date">Closing Start Date</label>
                             <input type="date" class="form-control" id="from_date1" name="from_date">
                         </div>
                         <div class="form-group">
-                            <label for="to_date">to_date</label>
+                            <label for="to_date">Opening Date</label>
                             <input type="date" class="form-control" id="to_date1" name="to_date">
                         </div>
                     </div>
@@ -207,7 +209,16 @@
         $holiday = $_POST["holiday"];
         $from_date = $_POST["from_date"];
         $to_date = $_POST["to_date"];
-        $sql1 = "UPDATE holiday SET holiday_name='$holiday', from_date='$from_date', to_date=' $to_date' WHERE id='$id'";
+
+        $date1 = new DateTime($from_date);
+        $date2 = new DateTime($to_date);
+        $year = $date1->format('Y');
+
+        $totalHours = calculateHours(clone $date1, $date2);
+        $interval = $date1->diff($date2);
+        $days = $interval->days;
+
+        $sql1 = "UPDATE holiday SET year='$year' , holiday_name='$holiday', from_date='$from_date', to_date=' $to_date', number_of_days = '$days',number_of_holiday_hour = '$totalHours' WHERE id='$id'";
         if ($conn->query($sql1) === true) {
             echo " <script>alert('success')</script>";
         } else {

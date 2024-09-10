@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -52,7 +51,9 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM attendance";
+                                    $sql = "SELECT a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
+                                                FROM attendance a
+                                                JOIN employee e ON a.emp_id = e.em_code";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         // output data of each row
@@ -60,7 +61,7 @@
                                             ?>
                                             <tr>
                                                 <th><?php echo $row["emp_id"]; ?></th>
-                                                <th><?php echo $row["emp_id"]; ?></th>
+                                                <th><?php echo $row["full_name"]; ?></th>
                                                 <th><?php echo $row["atten_date"]; ?></th>
                                                 <th><?php echo $row["signin_time"]; ?></th>
                                                 <th><?php echo $row["signout_time"]; ?></th>
@@ -160,7 +161,11 @@
 
                             // Calculate the working hours
                             $interval = $signinDateTime->diff($signoutDateTime);
-                            $working_hours = $interval->h + ($interval->i / 60);
+                            $hours = $interval->h;
+                            $minutes = $interval->i;
+
+                            // Format the output
+                            $working_hours = $hours . 'h ' . $minutes . ' min';
 
                             // Check if the date is Saturday
                             $attenDateTime = new DateTime($atten_date);

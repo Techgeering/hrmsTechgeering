@@ -52,27 +52,20 @@
                                 <tbody>
                                     <?php
                                     include 'common/conn.php';
-                                    $sql4 = "SELECT * FROM attadence_report";
+                                    $sql4 = "SELECT ar.*, e.full_name 
+                                                FROM attadence_report ar
+                                                JOIN employee e ON ar.emp_id = e.em_code";
                                     $result4 = $conn->query($sql4);
 
                                     if ($result4->num_rows > 0) {
                                         $slNo = 1;
                                         while ($row4 = $result4->fetch_assoc()) {
-                                            // Calculate taken leave
-                                            // $leaveType = $row4["name"];
-                                            // $sqlTakenLeave = "SELECT COUNT(*) AS taken_leave FROM emp_leave WHERE leave_type = '$leaveType' AND em_id='123456'";
-                                            // $resultTakenLeave = $conn->query($sqlTakenLeave);
-                                            // $takenLeave = 0;
-                                            // if ($resultTakenLeave->num_rows > 0) {
-                                            //     $rowTakenLeave = $resultTakenLeave->fetch_assoc();
-                                            //     $takenLeave = $rowTakenLeave["taken_leave"];
-                                            // }
                                             ?>
                                             <tr>
                                                 <td><?php echo $slNo; ?></td>
                                                 <td><?php echo $row4["month"]; ?></td>
                                                 <td><?php echo $row4["emp_id"]; ?></td>
-                                                <td><?php echo $row4["emp_id"]; ?></td>
+                                                <td><?php echo $row4["full_name"]; ?></td>
                                                 <td><?php echo $row4["working_hour"]; ?></td>
                                                 <td><?php echo $row4["present_hour"]; ?></td>
                                                 <td><?php echo $row4["holiday_hour"]; ?></td>
