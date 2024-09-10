@@ -1,8 +1,3 @@
-<?php
-session_start(); {
-    $em_role = $_SESSION["em_role"];
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,10 +57,10 @@ session_start(); {
                                                 $result = mysqli_query($conn, "SELECT * FROM department");
                                                 while ($row = mysqli_fetch_array($result)) {
                                                     ?>
-                                                <option value="<?php echo $row['id']; ?>">
-                                                    <?php echo $row["dep_name"]; ?>
-                                                </option>
-                                                <?php
+                                                    <option value="<?php echo $row['id']; ?>">
+                                                        <?php echo $row["dep_name"]; ?>
+                                                    </option>
+                                                    <?php
                                                 }
                                                 ?>
                                             </select>
@@ -79,10 +74,10 @@ session_start(); {
                                                 $result = mysqli_query($conn, "SELECT * FROM designation");
                                                 while ($row = mysqli_fetch_array($result)) {
                                                     ?>
-                                                <option value="<?php echo $row['id']; ?>">
-                                                    <?php echo $row["des_name"]; ?>
-                                                </option>
-                                                <?php
+                                                    <option value="<?php echo $row['id']; ?>">
+                                                        <?php echo $row["des_name"]; ?>
+                                                    </option>
+                                                    <?php
                                                 }
                                                 ?>
                                             </select>
@@ -177,7 +172,8 @@ session_start(); {
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="maritalstatus">Marital Status</label>
-                                            <select name="maritalstatus" id="maritalstatus" class="form-control" required>
+                                            <select name="maritalstatus" id="maritalstatus" class="form-control"
+                                                required>
                                                 <option value="">Select Marital Status</option>
                                                 <option value="Single">Single</option>
                                                 <option value="Married">Married</option>
@@ -190,9 +186,10 @@ session_start(); {
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="emergencycontact">Emergency Contact Number</label>
-                                            <input type="tel" class="form-control" id="emergencycontact" name="emergencycontact"
-                                            oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
-                                            required >
+                                            <input type="tel" class="form-control" id="emergencycontact"
+                                                name="emergencycontact"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-3">

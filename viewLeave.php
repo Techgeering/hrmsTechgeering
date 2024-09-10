@@ -1,7 +1,7 @@
 <?php
 session_start(); {
     $em_role = $_SESSION["em_role"];
-    $emp_id = $_SESSION["emp_id"] ;
+    $emp_id = $_SESSION["emp_id"];
 }
 ?>
 <!DOCTYPE html>
@@ -50,6 +50,7 @@ session_start(); {
                                         <th>End Date</th>
                                         <th>Days</th>
                                         <th>Reason</th>
+                                        <th>Leave Report</th>
                                         <?php if ($em_role == '4') { ?>
                                             <th>View</th>
                                         <?php } ?>
@@ -70,10 +71,10 @@ session_start(); {
                                         while ($row = $result->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <th><?php echo $row["id"]; ?></th>
-                                                <th><?php echo $row["apply_date"]; ?></th>
-                                                <th><?php echo $row["em_id"]; ?></th>
-                                                <th>
+                                                <td><?php echo $row["id"]; ?></td>
+                                                <td><?php echo $row["apply_date"]; ?></td>
+                                                <td><?php echo $row["em_id"]; ?></td>
+                                                <td>
                                                     <?php
                                                     $typeid = $row["typeid"];
                                                     $sql2 = "SELECT * FROM leave_types WHERE type_id = $typeid";
@@ -81,11 +82,19 @@ session_start(); {
                                                     $row2 = $result2->fetch_assoc();
                                                     echo htmlspecialchars($row2["name"], ENT_QUOTES, 'UTF-8');
                                                     ?>
-                                                </th>
-                                                <th><?php echo $row["start_date"]; ?></th>
-                                                <th><?php echo $row["end_date"]; ?></th>
-                                                <th><?php echo $row["leave_duration"]; ?></th>
-                                                <th><?php echo $row["reason"]; ?></th>
+                                                </td>
+                                                <td><?php echo $row["start_date"]; ?></td>
+                                                <td><?php echo $row["end_date"]; ?></td>
+                                                <td><?php echo $row["leave_duration"]; ?></td>
+                                                <td><?php echo $row["reason"]; ?></td>
+                                                <td>
+                                                    <?php if (!empty($row['supportingdocument'])): ?>
+                                                        <a href="<?php echo $row['supportingdocument']; ?>" target="_blank">
+                                                            <i class="fas fa-file-pdf"></i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </td>
+
                                                 <?php if ($em_role == '4') { ?>
                                                     <th>
                                                         <?php
@@ -103,7 +112,7 @@ session_start(); {
                                                     </th>
                                                 <?php } ?>
                                                 <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
-                                                    <th>
+                                                    <td>
                                                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                                             <div class="btn-group">
                                                                 <?php
@@ -160,7 +169,7 @@ session_start(); {
                                                                 <input type="hidden" name="idd" value="<?php echo $row['id']; ?>">
                                                             </div>
                                                         </form>
-                                                    </th>
+                                                    </td>
                                                 <?php } ?>
                                             </tr>
                                             <?php
@@ -184,14 +193,15 @@ session_start(); {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Leave Application</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="empId">Employee id</label>
-                            <input type="text" class="form-control" id="empId" name="empId" value = "<?php echo  $emp_id; ?>" readonly>
+                            <input type="text" class="form-control" id="empId" name="empId"
+                                value="<?php echo $emp_id; ?>" readonly>
                         </div>
                         <div class="form-group">
                             <label for="Leavetype">Leave type</label>
@@ -224,12 +234,13 @@ session_start(); {
                         </div>
                         <div class="form-group">
                             <label for="supportingdocument">Supporting Document</label>
-                            <input type="file" class="form-control" id="supportingdocument" name="supportingdocument">
+                            <input type="file" class="form-control" id="supportingdocument" name="supportingdocument"
+                                accept=".pdf,.docx,.doc" onchange="checkFileType(this)">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        <button type="submit" class="btn btn-primary" name="submitleave">Submit</button>
                     </div>
                 </form>
             </div>
@@ -240,10 +251,8 @@ session_start(); {
     function calculateHours($date1, $date2)
     {
         $totalHours = 0;
-
         $endDate = clone $date2;
         // $endDate->modify('-1 day');
-    
         while ($date1 < $endDate) {
             $dayOfWeek = $date1->format('N');
             if ($dayOfWeek == 6) {
@@ -256,7 +265,7 @@ session_start(); {
         }
         return $totalHours;
     }
-    if (isset($_POST['submit'])) {
+    if (isset($_POST['submitleave'])) {
         // Retrieve form data
         $empId = $_POST["empId"];
         $Leavetype = $_POST["Leavetype"];
@@ -271,20 +280,32 @@ session_start(); {
         $days = $interval->days;
         $totalHours = calculateHours(clone $date1, $date2);
 
-        
-                       
+        // Handle file upload
+        $targetDir = "assets/uploads/employee/"; // Directory to save files
+        $fileName = basename($_FILES["supportingdocument"]["name"]);
+        $targetFilePath = $targetDir . $fileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-
-        $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason,  leave_status,supportingdocument)
-            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0','ppp')";
-        if ($conn->query($sql1) === TRUE) {
-            echo " <script>alert('success')</script>";
+        // Allow certain file formats
+        $allowedTypes = array('pdf', 'doc', 'docx');
+        if (in_array($fileType, $allowedTypes)) {
+            // Upload file to server
+            if (move_uploaded_file($_FILES["supportingdocument"]["tmp_name"], $targetFilePath)) {
+                $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status, supportingdocument)
+                VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0', '$targetFilePath')";
+                if ($conn->query($sql1) === TRUE) {
+                    echo "<script>alert('Leave application submitted successfully!');</script>";
+                } else {
+                    echo "<script>alert('Database error occurred.');</script>";
+                }
+            } else {
+                echo "<script>alert('Error uploading file.');</script>";
+            }
         } else {
-            echo " <script>alert('error')</script>";
+            echo "<script>alert('Only PDF, DOC, and DOCX files are allowed.');</script>";
         }
         $conn->close();
     }
-    $conn->close();
     ?>
     <?php
     include "common/conn.php";
