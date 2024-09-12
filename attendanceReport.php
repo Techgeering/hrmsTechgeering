@@ -188,6 +188,7 @@
 
         $year = $_POST["year"];
         $month = $_POST["month"];
+        $monthYear = $month . "-" . $year;
         $WorkingHour = calculateTotalWorkingHours($year, $month);
 
 
