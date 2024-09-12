@@ -194,15 +194,8 @@
         $sdate = DateTime::createFromFormat('Y-m-d', $_POST["startdate4"]);
         $edate = DateTime::createFromFormat('Y-m-d', $_POST["enddate4"]);
         
-// working
-        // $startDate1 = "2024-08-01";
-        // $endDate = "2024-08-31";
-      
-       // not woking
-  $startDate =  $sdate->format('Y-m-d');
-        $endDate =  $edate->format('Y-m-d');
-
-       
+        $startDate =  $sdate->format('Y-m-d');
+        $endDate =  $edate->format('Y-m-d');      
 
 
         include "common/conn.php";
@@ -212,9 +205,6 @@
         $result6 = $conn->query($sql6);
         $row6 = $result6->fetch_assoc();
         $totalHolidayHours = $row6["totalHolidayHour"];
-        
-
-
 
         $sql5 = "SELECT  emp_id, SUM(working_hour) AS total_working_hours
                 FROM attendance
@@ -236,8 +226,6 @@
                 $totalLeaveDuration = $row7["totalLeaveDuration"];
 
                 $payableHour = $presentHour + $totalHolidayHours + $totalLeaveDuration;
-
-              
                     $sql = "INSERT INTO attadence_report (month,emp_id, working_hour, present_hour,holiday_hour,leave_hour,payable_hour)
                         VALUES ('$monthYear','$empid', '$WorkingHour', '$presentHour', '$totalHolidayHours', '$totalLeaveDuration', '$payableHour')";
                         if ($conn->query($sql) === TRUE) {
@@ -245,14 +233,11 @@
                         } else {
                             echo "Error: " . $sql . "<br>" . $conn->error;
                         }
-               
-
-               
-
                 $conn->close();
-
             }
+            $conn->close();
         }
+        $conn->close();
     }
     ?>
     <!-- <p><?php //echo $row5["emp_id"] . " " . $row5["total_working_hours"]; ?></p> -->
