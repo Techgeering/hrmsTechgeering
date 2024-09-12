@@ -1042,89 +1042,67 @@
                     <div id="Salary" class="tabcontent">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Basic Salary</h3>
-                                <form action="Add_Salary" method="post" enctype="multipart/form-data"
-                                    novalidate="novalidate">
-                                    <div class="row">
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label class="control-label">Salary Type</label>
-                                            <select class="form-control  custom-select"
-                                                data-placeholder="Choose a Category" tabindex="1" name="typeid"
-                                                required="">
-                                                <!-- <option selected>Choose Type...</option> -->
-                                                <option value="2">Monthly</option>
-                                                <option value="4">Daily</option>
-                                                <option value="1">Hourly</option>
-                                                <option value="2">Monthly</option>
-                                                <option value="3">Weekly</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>Total Salary</label>
-                                            <input type="text" name="total" class="form-control form-control-line total"
-                                                placeholder="Total Salary" value="18100" minlength="3" required="">
-                                        </div>
-                                    </div>
-                                    <h3 class="card-title">Addition</h3>
-                                    <div class="row">
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>Basic</label>
-                                            <input type="text" name="basic" class="form-control form-control-line basic"
-                                                placeholder="Basic..." value="9050.00">
-                                        </div>
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>House Rent</label>
-                                            <input type="text" name="houserent"
-                                                class="form-control form-control-line houserent"
-                                                placeholder="House Rent..." value="7240.00">
-                                        </div>
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>Medical</label>
-                                            <input type="text" name="medical"
-                                                class="form-control form-control-line medical" placeholder="Medical..."
-                                                value="905.00">
-                                        </div>
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>Conveyance</label>
-                                            <input type="text" name="conveyance"
-                                                class="form-control form-control-line conveyance"
-                                                placeholder="Conveyance..." value="905.00">
-                                        </div>
-                                    </div>
-                                    <h3 class="card-title">Deduction</h3>
-                                    <div class="row">
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>Insurance</label>
-                                            <input type="text" name="bima" class="form-control form-control-line"
-                                                placeholder="Insurance" value="">
-                                        </div>
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>Tax</label>
-                                            <input type="text" name="tax" class="form-control form-control-line"
-                                                placeholder="Tax" value="10">
-                                        </div>
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>Provident Fund</label>
-                                            <input type="text" name="provident" class="form-control form-control-line"
-                                                placeholder="Provident..." value="500">
-                                        </div>
-                                        <div class="form-group col-md-6 m-t-5">
-                                            <label>Others</label>
-                                            <input type="text" name="others" class="form-control form-control-line"
-                                                placeholder="others..." value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <input type="hidden" name="emid" value="Soy1332">
-                                            <input type="hidden" name="sid" value="3">
-                                            <input type="hidden" name="aid" value="3">
-                                            <input type="hidden" name="did" value="3">
-                                            <button type="submit" style="float: right" class="btn btn-success">Add
-                                                Salary</button>
-                                        </div>
-                                    </div>
-                                </form>
+                            <div class="table-responsive ">
+                                    <table id="example23"
+                                        class="display nowrap table table-hover table-striped table-bordered"
+                                        cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <td class="fw-bold">Sl. no</td>
+                                                <td class="fw-bold">Month-Year</td>
+                                                <td class="text-success fw-bold">Basic</td>
+                                                <td class="text-success fw-bold">House Rent</td>
+                                                <td class="text-success fw-bold">Medical</td>
+                                                <td class="text-success fw-bold">Conveyance</td>
+                                                <td class="text-success fw-bold">Performance Bonus</td>
+                                                <td class="text-danger fw-bold">Insurance</td>
+                                                <td class="text-danger fw-bold">Provident Fund</td>
+                                                <td class="text-danger fw-bold">Tax</td>
+                                                <td class="text-danger fw-bold">Loans</td>
+                                                <td class="text-danger fw-bold">Others</td>
+                                                <td class="text-primary fw-bold">Salary Paid</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $sql11 = "SELECT * FROM pay_salary ";
+                                            // $sql11 = "SELECT * FROM pay_salary WHERE em_id='$empId'";
+                                            $result11 = $conn->query($sql11);
+                                            $slno = 1;
+                                            if ($result11->num_rows > 0) {
+                                                // output data of each row
+                                                while ($row11 = $result11->fetch_assoc()) { ?>
+                                                    <tr>
+                                                        <td><?php echo $slno; ?></td>
+                                                        <td><?php echo $row11["month"].'/'.$row11["year"]; ?></td>                                                        
+                                                        <td><?php echo $row11["basic"]; ?></td>
+                                                        <td><?php echo $row11["house_rent"]; ?></td>
+                                                        <td><?php echo $row11["medical"]; ?></td>
+                                                        <td><?php echo $row11["transporting"]; ?></td>
+                                                        <td><?php echo $row11["bonus"]; ?></td>
+                                                        <td><?php echo $row11["bima"]; ?></td>
+                                                        <td><?php echo $row11["provident_fund"]; ?></td>
+                                                        <td><?php echo $row11["tax"]; ?></td>
+                                                        <td><?php echo $row11["loan"]; ?></td>
+                                                        <td><?php echo $row11["other_diduction"]; ?></td> 
+                                                        <td><?php 
+                                                                $earn = $row11["basic"]+$row11["house_rent"]+$row11["medical"]+$row11["transporting"]+$row11["bonus"];
+                                                                $dedect =  $earn- $row11["bima"]-$row11["provident_fund"]-$row11["tax"]-$row11["loan"]-$row11["other_diduction"];
+                                                        
+                                                        echo $dedect; 
+                                                        ?></td>
+                                                    </tr>
+                                                    <?php
+                                                    $slno++;
+                                                }
+                                            } else {
+                                                echo "0 results";
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>

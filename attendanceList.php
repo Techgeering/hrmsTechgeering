@@ -165,7 +165,7 @@
                             $minutes = $interval->i;
 
                             // Format the output
-                            $working_hours = $hours . 'h ' . $minutes . ' min';
+                            $working_hours = $hours.'.'.$minutes;
 
                             // Check if the date is Saturday
                             $attenDateTime = new DateTime($atten_date);
