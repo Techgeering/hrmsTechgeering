@@ -30,6 +30,7 @@ session_start(); {
     if ($result13->num_rows > 0) {
         $row13 = $result13->fetch_assoc();
         $name = $row13["full_name"];
+        $dept = $row13["dep_id"];
     }
     ?>
     <!-- end Top Navbar -->
@@ -66,15 +67,18 @@ session_start(); {
                                         <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
                                             <th>Status</th>
                                         <?php } ?>
-
-                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    if ($em_role == '4' || $em_role == '2') {
+                                    if ($em_role == '4') {
                                         $sql = "SELECT * FROM emp_leave WHERE em_id = '$emp_id'";
+                                    } elseif ($em_role == '2') {
+                                        $sql = "SELECT el.* 
+                                        FROM emp_leave el
+                                        JOIN employee e ON el.em_id = e.em_code
+                                        WHERE e.dep_id = '$dept'";
                                     } else {
                                         $sql = "SELECT * FROM emp_leave";
                                     }

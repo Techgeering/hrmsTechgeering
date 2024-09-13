@@ -82,6 +82,7 @@
     if ($result10->num_rows > 0) {
         $row10 = $result10->fetch_assoc();
         $name = $row10["full_name"];
+        $dept = $row["dep_id"];
     }
     ?>
     <!-- end Top Navbar -->
@@ -110,9 +111,15 @@
                     <div class="tab profile">
                         <button class="tablinks" onclick="openDialog(event, 'ProjectView')" id="defaultOpen">Project
                             View</button>
-                        <button class="tablinks" onclick="openDialog(event, 'ProjectTasks')"> Project Tasks </button>
-                        <button class="tablinks" onclick="openDialog(event, 'OfficeTasks')"> Office Tasks </button>
-                        <button class="tablinks" onclick="openDialog(event, 'projectsFiles')"> Projects Files </button>
+                        <?php if ($em_role == '1' || $em_role == '4' || $em_role == '2') { ?>
+                            <button class="tablinks" onclick="openDialog(event, 'ProjectTasks')"> Project Tasks </button>
+                        <?php } ?>
+                        <?php if ($em_role == '1' || $em_role == '4' || $em_role == '2') { ?>
+                            <button class="tablinks" onclick="openDialog(event, 'OfficeTasks')"> Office Tasks </button>
+                        <?php } ?>
+                        <?php if ($em_role == '1' || $em_role == '4' || $em_role == '2') { ?>
+                            <button class="tablinks" onclick="openDialog(event, 'projectsFiles')"> Projects Files </button>
+                        <?php } ?>
                         <?php if ($em_role == '1' || $em_role == '4') { ?>
                             <button class="tablinks" onclick="openDialog(event, 'notes')"> Notes </button>
                         <?php } ?>
@@ -153,21 +160,21 @@
                                     <div class="row">
                                         <div class="form-group col-md-12 m-t-10">
                                             <label>Project Title </label>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <input type="text" class="form-control form-control-line edit"
                                                     value="<?php echo $row["pro_name"]; ?>" />
                                             <?php } else { ?>
                                                 <p class="form-control form-control-line"><?php echo $row["pro_name"]; ?>
                                                 </p>
                                             <?php } ?>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <input type="text" class='txtedit' value='<?php echo $row["pro_name"]; ?>'
                                                     id='pro_name-<?php echo $row["id"]; ?>-project' style="display:none;">
                                             <?php } ?>
                                         </div>
                                         <div class="form-group col-md-4 m-t-10">
                                             <label>Project Start Date </label>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <input type="text" class="form-control form-control-line edit"
                                                     value="<?php echo $row["pro_start_date"]; ?>" />
                                             <?php } else { ?>
@@ -175,7 +182,7 @@
                                                     <?php echo $row["pro_start_date"]; ?>
                                                 </p>
                                             <?php } ?>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <input type="date" class='txtedit'
                                                     value='<?php echo $row["pro_start_date"]; ?>'
                                                     id='pro_start_date-<?php echo $row["id"]; ?>-project'
@@ -184,7 +191,7 @@
                                         </div>
                                         <div class="form-group col-md-4 m-t-10">
                                             <label>Project End Date</label>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <input type="text" class="form-control form-control-line edit"
                                                     value="<?php echo $row["pro_end_date"]; ?>" />
                                             <?php } else { ?>
@@ -192,34 +199,16 @@
                                                     <?php echo $row["pro_end_date"]; ?>
                                                 </p>
                                             <?php } ?>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <input type="date" class='txtedit'
                                                     value='<?php echo $row["pro_end_date"]; ?>'
                                                     id='pro_end_date-<?php echo $row["id"]; ?>-project'
                                                     style="display:none;">
                                             <?php } ?>
                                         </div>
-                                        <!-- <div class="form-group col-md-4 m-t-10">
-                                            <label>Status</label>
-                                            <p class="form-control form-control-line edit"
-                                                onclick="showDropdown('pro_status-<?php echo $row['id']; ?>-project')">
-                                                <?php echo $row["pro_status"]; ?>
-                                            </p>
-                                            <select class='txtedit' id='pro_status-<?php echo $row["id"]; ?>-project'
-                                                style="display:none;">
-                                                <option value="upcoming" <?php if ($row["pro_status"] == "upcoming")
-                                                    echo 'selected="selected"'; ?>>upcoming
-                                                </option>
-                                                <option value="complete" <?php if ($row["pro_status"] == "complete")
-                                                    echo 'selected="selected"'; ?>>complete
-                                                </option>
-                                                <option value="running" <?php if ($row["pro_status"] == "running")
-                                                    echo 'selected="selected"'; ?>>running</option>
-                                            </select>
-                                        </div> -->
                                         <div class="form-group col-md-4 m-t-10">
                                             <label>Status</label>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <p class="form-control form-control-line edit"
                                                     onclick="showDropdown('pro_status-<?php echo $row['id']; ?>-project')">
                                                     <?php echo $row["pro_status"]; ?>
@@ -244,7 +233,7 @@
                                         <div class="form-group col-md-12 m-t-10">
                                             <div class="form-group col-md-12 m-t-10">
                                                 <label>Project Summary </label>
-                                                <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                                <?php if ($em_role == '1') { ?>
                                                     <!-- <textarea class="form-control form-control-line edit"
                                                         value="<?php echo $row["pro_summary"]; ?>"></textarea> -->
                                                     <input type="text" class="form-control form-control-line edit"
@@ -254,7 +243,7 @@
                                                         <?php echo $row["pro_summary"]; ?>
                                                     </p>
                                                 <?php } ?>
-                                                <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                                <?php if ($em_role == '1') { ?>
                                                     <textarea class='txtedit'
                                                         id='pro_summary-<?php echo $row["id"]; ?>-project'
                                                         style="display:none;"><?php echo $row["pro_summary"]; ?></textarea>
@@ -263,7 +252,7 @@
                                         </div>
                                         <div class="form-group col-md-12 m-t-10">
                                             <label>Details</label>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <!-- <textarea class="form-control form-control-line edit"
                                                     value="<?php echo $row["pro_description"]; ?>"></textarea> -->
                                                 <input type="text" class="form-control form-control-line edit"
@@ -273,7 +262,7 @@
                                                     <?php echo $row["pro_description"]; ?>
                                                 </p>
                                             <?php } ?>
-                                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <?php if ($em_role == '1') { ?>
                                                 <textarea class='txtedit'
                                                     id='pro_description-<?php echo $row["id"]; ?>-project'
                                                     style="display:none;"><?php echo $row["pro_description"]; ?></textarea>
@@ -299,32 +288,56 @@
                                             <th class="text-center">Project Title</th>
                                             <th class="text-center">Start date</th>
                                             <th class="text-center">End Date</th>
-                                            <th class="text-center">Assigned Users</th>
+                                            <th class="text-center">Assigned Manager</th>
+                                            <th class="text-center">Assigned Employees</th>
                                             <th class="text-center">Status</th>
-                                            <th class="text-center">View</th>
+                                            <th class="text-center">Desc</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         include "common/conn.php";
-                                        if ($em_role == '4' || $em_role == '2') {
+                                        if ($em_role == '4') {
+                                            // Admin or similar role
                                             $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
-                                                        GROUP_CONCAT(at.assign_user SEPARATOR ', ') AS assign_users
-                                                        FROM  pro_task pt
-                                                        JOIN  assign_task at
-                                                        ON      pt.id = at.task_id
-                                                        WHERE pt.pro_id = $proId AND pt.task_type = 'Field' AND assign_user = '$name' 
-                                                        GROUP BY 
-                                                        pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+            FROM pro_task pt
+            JOIN assign_task at ON pt.id = at.task_id
+            WHERE pt.pro_id = $proId AND pt.task_type = 'Field' AND at.assign_user = '$name'
+            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+
+
+                                            //                                 $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
+                                            // GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+                                            // (SELECT at2.assign_user FROM assign_task at2 WHERE at2.task_id = pt.id AND at2.user_type = 'Team Head' LIMIT 1) AS assigned_manager
+                                            // FROM pro_task pt
+                                            // JOIN assign_task at ON pt.id = at.task_id
+                                            // WHERE pt.pro_id = $proId 
+                                            // AND pt.task_type = 'Field'
+                                            // GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date
+                                            // HAVING FIND_IN_SET('$name', assign_users) > 0";
+                                        
+                                        } elseif ($em_role == '2') {
+                                            // Team Head role
+                                            $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
+            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+            FROM pro_task pt
+            JOIN assign_task at ON pt.id = at.task_id
+            WHERE pt.pro_id = $proId AND pt.task_type = 'Field' AND 
+            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') = '$name'
+            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+
                                         } else {
-                                            $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status, 
-                                                        GROUP_CONCAT(at.assign_user SEPARATOR ', ') AS assign_users
-                                                        FROM  pro_task pt
-                                                        JOIN  assign_task at
-                                                        ON      pt.id = at.task_id
-                                                        WHERE pt.pro_id = $proId AND pt.task_type = 'Field'
-                                                        GROUP BY 
-                                                        pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                            // General user or other roles
+                                            $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
+            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+            FROM pro_task pt
+            JOIN assign_task at ON pt.id = at.task_id
+            WHERE pt.pro_id = $proId AND pt.task_type = 'Field'
+            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
                                         }
                                         $result1 = $conn->query($sql1);
                                         $slno = 1;
@@ -371,7 +384,27 @@
                                                         <?php } ?>
                                                     </td>
                                                     <td class="text-center">
-                                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                                        <?php if ($em_role == '1' || $em_role == '3' || $em_role == '2') { ?>
+                                                            <p class="edit"><?php echo $row1['assigned_manager']; ?></p>
+                                                            <select class='txtedit' value='<?php echo $row1['assign_user']; ?>'
+                                                                id='assign_user-<?php echo $row1["id"]; ?>-assign_task'
+                                                                style="display: none;">
+                                                                <?php
+                                                                include "common/conn.php";
+                                                                $sqlproject = "SELECT * FROM employee";
+                                                                $resultproject = $conn->query($sqlproject);
+                                                                while ($rowproject = $resultproject->fetch_assoc()) { ?>
+                                                                    <option value="<?php echo $rowproject['full_name']; ?>">
+                                                                        <?php echo $rowproject['full_name']; ?>
+                                                                    </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>
+                                                            <p><?php echo $row1['assign_users']; ?></p>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <?php if ($em_role == '1' || $em_role == '3' || $em_role == '2') { ?>
                                                             <p class="edit"><?php echo $row1['assign_users']; ?></p>
                                                             <select class='txtedit' value='<?php echo $row1['assign_user']; ?>'
                                                                 id='assign_user-<?php echo $row1["id"]; ?>-assign_task'
@@ -409,7 +442,6 @@
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                             </div>
-
                                                             <?php
                                                             $sql17 = "SELECT * FROM pro_task WHERE id =$idd";
                                                             $result17 = $conn->query($sql17);
@@ -1024,12 +1056,12 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
-                                    <label for="assigned_users" class="form-label">Assigned Users</label>
+                                    <label for="assigned_users" class="form-label">Manager</label>
                                     <select class="form-control" name="assigned_users" id="assigned_users">
                                         <option value="" disabled selected>Select a user</option>
                                         <?php
                                         include "common/conn.php";
-                                        $sql5 = "SELECT * FROM employee ";
+                                        $sql5 = "SELECT * FROM employee WHERE em_role = '2'";
                                         $result5 = $conn->query($sql5);
                                         while ($row5 = $result5->fetch_assoc()) {
                                             ?>
@@ -1047,7 +1079,11 @@
                                         <option value="" disabled>Select users</option>
                                         <?php
                                         include "common/conn.php";
-                                        $sql5 = "SELECT * FROM employee";
+                                        if ($em_role == '2') {
+                                            $sql5 = "SELECT * FROM employee WHERE em_role = '4' AND dep_id = '$dept'";
+                                        } else {
+                                            $sql5 = "SELECT * FROM employee WHERE em_role = '4'";
+                                        }
                                         $result5 = $conn->query($sql5);
                                         while ($row5 = $result5->fetch_assoc()) {
                                             ?>

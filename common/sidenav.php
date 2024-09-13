@@ -89,20 +89,24 @@
                         </nav>
                     </div>
                 <?php } ?>
-                <?php if ($em_role == '1') { ?>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Payroll"
+                <?php if ($em_role == '1' || $em_role == '3') { ?>
+                    <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Payroll"
                         aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-person-walking-luggage"></i></div>
                         Payroll
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a> -->
+                    <a class="nav-link" href="payroll.php">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Payroll
                     </a>
-                    <div class="collapse" id="Payroll" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <!-- <div class="collapse" id="Payroll" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="payrollList.php"> Payroll List </a>
                             <a class="nav-link" href="company.php"> Generate Payslip</a>
                             <a class="nav-link" href="companyPersons.php"> Payslip Report</a>
                         </nav>
-                    </div>
+                    </div> -->
                 <?php } ?>
                 <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#ProjectLayouts"
