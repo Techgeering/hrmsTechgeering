@@ -261,11 +261,23 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <div class="col-6">
+                            <!-- <div class="col-6">
                                 <h6>Status</h6>
                                 <label class="radio-container">
                                     <input type="radio" name="Status" value="complete">Complete
                                     <input type="radio" name="Status" value="running">Running
+                                    <input type="radio" name="Status" value="cancel">Cancel
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> -->
+                            <div class="col-6">
+                                <h6>Status</h6>
+                                <label class="radio-container">
+                                    <input type="radio" name="Status" value="not started">Not Started
+                                    <input type="radio" name="Status" value="running">Running
+                                    <input type="radio" name="Status" value="complete">Complete
+                                    <input type="radio" name="Status" value="testing">Testing
+                                    <input type="radio" name="Status" value="done">Done
                                     <input type="radio" name="Status" value="cancel">Cancel
                                     <span class="checkmark"></span>
                                 </label>

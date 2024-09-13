@@ -112,7 +112,6 @@
                                     <div class="card-body text-center">
                                         <img src="<?php echo $row["em_image"];
                                         ?>" class="img-circle" width="150">
-
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#exampleModalCenter">
                                             <i class="fas fa-pencil-alt edit-icon">Edit image</i>
@@ -121,17 +120,15 @@
                                         <input type="text" class='txtedit' value='<?php echo $row["full_name"]; ?>'
                                             id='full_name-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;"></input>
-
-                                        <h6 class="card-subtitle edit">Employee Id: <?php echo $row["em_code"]; ?></h6>
+                                        <h6 class="card-subtitle">Employee Id: <?php echo $row["em_code"]; ?></h6>
                                         <button data-bs-toggle="modal" data-bs-target="#exampleModalcode">
                                             <i class="fas fa-pencil-alt edit-icon">Edit Emp Id</i>
                                         </button>
-
                                     </div>
                                     <div>
                                         <hr>
                                     </div>
-                                    <div class="card-body"> <small class="text-muted">Email address </small>
+                                    <div class="card-body"><small class="text-muted">Email address </small>
                                         <h6 class="edit"><?php echo $row["em_email"]; ?></h6>
                                         <input type="text" class='txtedit' value='<?php echo $row["em_email"]; ?>'
                                             id='em_email-<?php echo $row["id"]; ?>-employee'
@@ -1042,7 +1039,7 @@
                     <div id="Salary" class="tabcontent">
                         <div class="card">
                             <div class="card-body">
-                            <div class="table-responsive ">
+                                <div class="table-responsive ">
                                     <table id="example23"
                                         class="display nowrap table table-hover table-striped table-bordered"
                                         cellspacing="0" width="100%">
@@ -1074,7 +1071,7 @@
                                                 while ($row11 = $result11->fetch_assoc()) { ?>
                                                     <tr>
                                                         <td><?php echo $slno; ?></td>
-                                                        <td><?php echo $row11["month"].'/'.$row11["year"]; ?></td>                                                        
+                                                        <td><?php echo $row11["month"] . '/' . $row11["year"]; ?></td>
                                                         <td><?php echo $row11["basic"]; ?></td>
                                                         <td><?php echo $row11["house_rent"]; ?></td>
                                                         <td><?php echo $row11["medical"]; ?></td>
@@ -1084,12 +1081,12 @@
                                                         <td><?php echo $row11["provident_fund"]; ?></td>
                                                         <td><?php echo $row11["tax"]; ?></td>
                                                         <td><?php echo $row11["loan"]; ?></td>
-                                                        <td><?php echo $row11["other_diduction"]; ?></td> 
-                                                        <td><?php 
-                                                                $earn = $row11["basic"]+$row11["house_rent"]+$row11["medical"]+$row11["transporting"]+$row11["bonus"];
-                                                                $dedect =  $earn- $row11["bima"]-$row11["provident_fund"]-$row11["tax"]-$row11["loan"]-$row11["other_diduction"];
-                                                        
-                                                        echo $dedect; 
+                                                        <td><?php echo $row11["other_diduction"]; ?></td>
+                                                        <td><?php
+                                                        $earn = $row11["basic"] + $row11["house_rent"] + $row11["medical"] + $row11["transporting"] + $row11["bonus"];
+                                                        $dedect = $earn - $row11["bima"] - $row11["provident_fund"] - $row11["tax"] - $row11["loan"] - $row11["other_diduction"];
+
+                                                        echo $dedect;
                                                         ?></td>
                                                     </tr>
                                                     <?php
@@ -1102,7 +1099,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
