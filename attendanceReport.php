@@ -1,3 +1,10 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+    $emp_id = $_SESSION["emp_id"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,9 +35,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="my-2">Attendance Report</h2>
                         <?php if ($em_role == '1' || $em_role == '3') { ?>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
-                            <i class="fa-solid fa-plus"></i> Attendance Report
-                        </button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
+                                <i class="fa-solid fa-plus"></i> Attendance Report
+                            </button>
                         <?php } ?>
                     </div>
                     <div class="card mb-4">
@@ -52,27 +59,33 @@
                                 <tbody>
                                     <?php
                                     include 'common/conn.php';
-                                    $sql4 = "SELECT ar.*, e.full_name 
+                                    if ($em_role == '4' || $em_role == '2') {
+                                        $sql4 = "SELECT ar.*, e.full_name 
+                                                FROM attadence_report ar
+                                                JOIN employee e ON ar.emp_id = e.em_code WHERE ar.emp_id = '$emp_id'";
+                                    } else {
+                                        $sql4 = "SELECT ar.*, e.full_name 
                                                 FROM attadence_report ar
                                                 JOIN employee e ON ar.emp_id = e.em_code";
+                                    }
                                     $result4 = $conn->query($sql4);
 
                                     if ($result4->num_rows > 0) {
                                         $slNo = 1;
                                         while ($row4 = $result4->fetch_assoc()) {
                                             ?>
-                                    <tr>
-                                        <td><?php echo $slNo; ?></td>
-                                        <td><?php echo $row4["month"]; ?></td>
-                                        <td><?php echo $row4["emp_id"]; ?></td>
-                                        <td><?php echo $row4["full_name"]; ?></td>
-                                        <td><?php echo $row4["working_hour"]; ?></td>
-                                        <td><?php echo $row4["present_hour"]; ?></td>
-                                        <td><?php echo $row4["holiday_hour"]; ?></td>
-                                        <td><?php echo $row4["leave_hour"]; ?></td>
-                                        <td><?php echo $row4["payable_hour"]; ?></td>
-                                    </tr>
-                                    <?php
+                                            <tr>
+                                                <td><?php echo $slNo; ?></td>
+                                                <td><?php echo $row4["month"]; ?></td>
+                                                <td><?php echo $row4["emp_id"]; ?></td>
+                                                <td><?php echo $row4["full_name"]; ?></td>
+                                                <td><?php echo $row4["working_hour"]; ?></td>
+                                                <td><?php echo $row4["present_hour"]; ?></td>
+                                                <td><?php echo $row4["holiday_hour"]; ?></td>
+                                                <td><?php echo $row4["leave_hour"]; ?></td>
+                                                <td><?php echo $row4["payable_hour"]; ?></td>
+                                            </tr>
+                                            <?php
                                             $slNo++;
                                         }
                                     } else {
@@ -116,10 +129,10 @@
                             </select>
                             <select class="form-control m-2" name="year" id="year">
                                 <script>
-                                const currentYear = new Date().getFullYear();
-                                document.write('<option value="' + currentYear + '">' + currentYear + '</option>');
-                                document.write('<option value="' + (currentYear - 1) + '">' + (currentYear - 1) +
-                                    '</option>');
+                                    const currentYear = new Date().getFullYear();
+                                    document.write('<option value="' + currentYear + '">' + currentYear + '</option>');
+                                    document.write('<option value="' + (currentYear - 1) + '">' + (currentYear - 1) +
+                                        '</option>');
                                 </script>
                             </select>
                             <input type="hidden" name="startdate4" id="startdate4" placeholder="Start Date">
@@ -133,124 +146,124 @@
                 </form>
 
                 <script>
-                document.getElementById('month').addEventListener('change', updateDates);
-                document.getElementById('year').addEventListener('change', updateDates);
+                    document.getElementById('month').addEventListener('change', updateDates);
+                    document.getElementById('year').addEventListener('change', updateDates);
 
-                function updateDates() {
-                    const month = document.getElementById('month').value;
-                    const year = document.getElementById('year').value;
+                    function updateDates() {
+                        const month = document.getElementById('month').value;
+                        const year = document.getElementById('year').value;
 
-                    if (month && year) {
-                        const startDate = `${year}-${month}-01`;
-                        document.getElementById('startdate4').value = startDate;
+                        if (month && year) {
+                            const startDate = `${year}-${month}-01`;
+                            document.getElementById('startdate4').value = startDate;
 
-                        const lastDayOfMonth = new Date(year, month, 0).getDate();
-                        const endDate =
-                            `${year}-${month}-${lastDayOfMonth < 10 ? '0' + lastDayOfMonth : lastDayOfMonth}`;
-                        document.getElementById('enddate4').value = endDate;
+                            const lastDayOfMonth = new Date(year, month, 0).getDate();
+                            const endDate =
+                                `${year}-${month}-${lastDayOfMonth < 10 ? '0' + lastDayOfMonth : lastDayOfMonth}`;
+                            document.getElementById('enddate4').value = endDate;
+                        }
                     }
-                }
                 </script>
 
             </div>
         </div>
     </div>
     <?php
-include "common/conn.php";
-if (isset($_POST['submit'])) {
+    include "common/conn.php";
+    if (isset($_POST['submit'])) {
 
-    function calculateTotalWorkingHours($year, $month)
-    {
-        $totalHours = 0;
-        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        function calculateTotalWorkingHours($year, $month)
+        {
+            $totalHours = 0;
+            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
-        for ($day = 1; $day <= $daysInMonth; $day++) {
-            $date = sprintf('%04d-%02d-%02d', $year, $month, $day);
-            $dayOfWeek = date('N', strtotime($date)); // 1 (for Monday) through 7 (for Sunday)
-
-            if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
-                // Monday to Friday
-                $totalHours += 9;
-            } elseif ($dayOfWeek == 6) {
-                // Saturday
-                $totalHours += 5;
+            for ($day = 1; $day <= $daysInMonth; $day++) {
+                $date = sprintf('%04d-%02d-%02d', $year, $month, $day);
+                $dayOfWeek = date('N', strtotime($date)); // 1 (for Monday) through 7 (for Sunday)
+    
+                if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
+                    // Monday to Friday
+                    $totalHours += 9;
+                } elseif ($dayOfWeek == 6) {
+                    // Saturday
+                    $totalHours += 5;
+                }
             }
+
+            return $totalHours;
         }
 
-        return $totalHours;
-    }
+        $year = $_POST["year"];
+        $month = $_POST["month"];
+        $monthYear = $month . "-" . $year;
+        $WorkingHour = calculateTotalWorkingHours($year, $month);
 
-    $year = $_POST["year"];
-    $month = $_POST["month"];
-    $monthYear = $month . "-" . $year;
-    $WorkingHour = calculateTotalWorkingHours($year, $month);
+        $sdate = DateTime::createFromFormat('Y-m-d', $_POST["startdate4"]);
+        $edate = DateTime::createFromFormat('Y-m-d', $_POST["enddate4"]);
 
-    $sdate = DateTime::createFromFormat('Y-m-d', $_POST["startdate4"]);
-    $edate = DateTime::createFromFormat('Y-m-d', $_POST["enddate4"]);
+        $startDate = $sdate->format('Y-m-d');
+        $endDate = $edate->format('Y-m-d');
 
-    $startDate = $sdate->format('Y-m-d');
-    $endDate = $edate->format('Y-m-d');
-
-    // Query for total holiday hours
-    $sql6 = "SELECT SUM(number_of_holiday_hour) AS totalHolidayHour
+        // Query for total holiday hours
+        $sql6 = "SELECT SUM(number_of_holiday_hour) AS totalHolidayHour
              FROM holiday
              WHERE from_date BETWEEN '$startDate' AND '$endDate'";
-    $result6 = $conn->query($sql6);
-    $row6 = $result6->fetch_assoc();
-    $totalHolidayHours = $row6["totalHolidayHour"] ?? 0;
+        $result6 = $conn->query($sql6);
+        $row6 = $result6->fetch_assoc();
+        $totalHolidayHours = $row6["totalHolidayHour"] ?? 0;
 
-    // Query for total working hours for each employee
-    $sql5 = "SELECT emp_id, SUM(working_hour) AS total_working_hours
+        // Query for total working hours for each employee
+        $sql5 = "SELECT emp_id, SUM(working_hour) AS total_working_hours
              FROM attendance
              WHERE atten_date BETWEEN '$startDate' AND '$endDate'
              GROUP BY emp_id";
-    $result5 = $conn->query($sql5);
+        $result5 = $conn->query($sql5);
 
-    if ($result5->num_rows > 0) {
-        while ($row5 = $result5->fetch_assoc()) {
-            $empid = $row5["emp_id"];
-            $presentHour = $row5["total_working_hours"] ?? 0;
+        if ($result5->num_rows > 0) {
+            while ($row5 = $result5->fetch_assoc()) {
+                $empid = $row5["emp_id"];
+                $presentHour = $row5["total_working_hours"] ?? 0;
 
-            // Query for total leave hours
-            $sql7 = "SELECT SUM(duration_hour) AS totalLeaveDuration 
+                // Query for total leave hours
+                $sql7 = "SELECT SUM(duration_hour) AS totalLeaveDuration 
                      FROM emp_leave 
                      WHERE start_date BETWEEN '$startDate' AND '$endDate' 
                      AND leave_status = 1 
                      AND em_id = '$empid'";
-            $result7 = $conn->query($sql7);
-            $row7 = $result7->fetch_assoc();
-            $totalLeaveDuration = $row7["totalLeaveDuration"] ?? 0;
+                $result7 = $conn->query($sql7);
+                $row7 = $result7->fetch_assoc();
+                $totalLeaveDuration = $row7["totalLeaveDuration"] ?? 0;
 
-            $payableHour = $presentHour + $totalHolidayHours + $totalLeaveDuration;
+                $payableHour = $presentHour + $totalHolidayHours + $totalLeaveDuration;
 
-            // Check if record already exists in attadence_report
-            $sql1 = "SELECT month, emp_id 
+                // Check if record already exists in attadence_report
+                $sql1 = "SELECT month, emp_id 
                      FROM attadence_report 
                      WHERE month = '$monthYear' AND emp_id = '$empid'";
-            $result1 = $conn->query($sql1);
+                $result1 = $conn->query($sql1);
 
-            if ($result1->num_rows === 0) {
-                // Insert new record
-                $sql = "INSERT INTO attadence_report (month, emp_id, working_hour, present_hour, holiday_hour, leave_hour, payable_hour)
+                if ($result1->num_rows === 0) {
+                    // Insert new record
+                    $sql = "INSERT INTO attadence_report (month, emp_id, working_hour, present_hour, holiday_hour, leave_hour, payable_hour)
                         VALUES ('$monthYear', '$empid', '$WorkingHour', '$presentHour', '$totalHolidayHours', '$totalLeaveDuration', '$payableHour')";
-            } else {
-                // Update existing record
-                $sql = "UPDATE attadence_report 
+                } else {
+                    // Update existing record
+                    $sql = "UPDATE attadence_report 
                         SET working_hour = '$WorkingHour', present_hour = '$presentHour', holiday_hour = '$totalHolidayHours', leave_hour = '$totalLeaveDuration', payable_hour = '$payableHour'
                         WHERE month = '$monthYear' AND emp_id = '$empid'";
-            }
+                }
 
-            // Execute query
-            if ($conn->query($sql) === TRUE) {
-                echo "Record processed successfully for emp_id: $empid";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                // Execute query
+                if ($conn->query($sql) === TRUE) {
+                    echo "Record processed successfully for emp_id: $empid";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
             }
         }
+        $conn->close();
     }
-    $conn->close();
-}
-?>
+    ?>
 
     <!-- <p><?php //echo $row5["emp_id"] . " " . $row5["total_working_hours"]; ?></p> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">

@@ -144,233 +144,368 @@
                             <div class="col-md-8">
                                 <form class="row" action="Update" method="post" enctype="multipart/form-data"
                                     novalidate="novalidate">
-                                    <div class="form-group col-md-4 m-t-10">
+                                    <!-- <div class="form-group col-md-4 m-t-10">
                                         <label>Father Name</label>
                                         <p class="form-control form-control-line edit">
                                             <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
                                         </p>
                                         <input type="text" class='txtedit' value='<?php echo $row["father_name"]; ?>'
                                             id='father_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                    </div> -->
+
+                                    <!-- <div class="form-group col-md-4 m-t-10">
+                                        <label>Father Name</label>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row["father_name"]; ?>'
+                                                id='father_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <?php } ?>
+                                    </div> -->
+
+                                    <div class="form-group col-md-4 m-t-10">
+                                        <label>Father Name</label>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row["father_name"]; ?>'
+                                                id='father_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Mother Name</label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row["mother_name"]) ? $row["mother_name"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row["mother_name"]; ?>'
-                                            id='mother_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row["mother_name"]) ? $row["mother_name"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row["mother_name"]; ?>'
+                                                id='mother_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row["mother_name"]) ? $row["mother_name"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Blood Group</label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="showDropdown('em_blood_group-<?php echo $row['id']; ?>-employee')">
-                                            <?php echo $row["em_blood_group"]; ?>
-                                        </p>
-                                        <select class='txtedit' id='em_blood_group-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
-                                            <option value="A+" <?php if ($row["em_blood_group"] == "A+")
-                                                echo 'selected="selected"'; ?>>A+</option>
-                                            <option value="A-" <?php if ($row["em_blood_group"] == "A-")
-                                                echo 'selected="selected"'; ?>>A-</option>
-                                            <option value="B+" <?php if ($row["em_blood_group"] == "B+")
-                                                echo 'selected="selected"'; ?>>B+</option>
-                                            <option value="B-" <?php if ($row["em_blood_group"] == "B-")
-                                                echo 'selected="selected"'; ?>>B-</option>
-                                            <option value="O+" <?php if ($row["em_blood_group"] == "O+")
-                                                echo 'selected="selected"'; ?>>O+</option>
-                                            <option value="O-" <?php if ($row["em_blood_group"] == "O-")
-                                                echo 'selected="selected"'; ?>>O-</option>
-                                            <option value="AB+" <?php if ($row["em_blood_group"] == "AB+")
-                                                echo 'selected="selected"'; ?>>AB+</option>
-                                        </select>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="showDropdown('em_blood_group-<?php echo $row['id']; ?>-employee')">
+                                                <?php echo $row["em_blood_group"]; ?>
+                                            </p>
+                                            <select class='txtedit' id='em_blood_group-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;">
+                                                <option value="A+" <?php if ($row["em_blood_group"] == "A+")
+                                                    echo 'selected="selected"'; ?>>A+</option>
+                                                <option value="A-" <?php if ($row["em_blood_group"] == "A-")
+                                                    echo 'selected="selected"'; ?>>A-</option>
+                                                <option value="B+" <?php if ($row["em_blood_group"] == "B+")
+                                                    echo 'selected="selected"'; ?>>B+</option>
+                                                <option value="B-" <?php if ($row["em_blood_group"] == "B-")
+                                                    echo 'selected="selected"'; ?>>B-</option>
+                                                <option value="O+" <?php if ($row["em_blood_group"] == "O+")
+                                                    echo 'selected="selected"'; ?>>O+</option>
+                                                <option value="O-" <?php if ($row["em_blood_group"] == "O-")
+                                                    echo 'selected="selected"'; ?>>O-</option>
+                                                <option value="AB+" <?php if ($row["em_blood_group"] == "AB+")
+                                                    echo 'selected="selected"'; ?>>AB+</option>
+                                            </select>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo $row["em_blood_group"]; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Gender </label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="showDropdown('em_gender-<?php echo $row['id']; ?>-employee')">
-                                            <?php echo $row["em_gender"]; ?>
-                                        </p>
-                                        <select class='txtedit' id='em_gender-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
-                                            <option value="Male" <?php if ($row["em_gender"] == "Male")
-                                                echo 'selected="selected"'; ?>>Male</option>
-                                            <option value="Female" <?php if ($row["em_gender"] == "Female")
-                                                echo 'selected="selected"'; ?>>Female</option>
-                                        </select>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="showDropdown('em_gender-<?php echo $row['id']; ?>-employee')">
+                                                <?php echo $row["em_gender"]; ?>
+                                            </p>
+                                            <select class='txtedit' id='em_gender-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;">
+                                                <option value="Male" <?php if ($row["em_gender"] == "Male")
+                                                    echo 'selected="selected"'; ?>>Male</option>
+                                                <option value="Female" <?php if ($row["em_gender"] == "Female")
+                                                    echo 'selected="selected"'; ?>>Female</option>
+                                            </select>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo $row["em_gender"]; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Marital Status </label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="showDropdown('marital_status-<?php echo $row['id']; ?>-employee')">
-                                            <?php echo !empty($row["marital_status"]) ? $row["marital_status"] : 'N/A'; ?>
-                                        </p>
-                                        <select class='txtedit' id='marital_status-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
-                                            <option value="Single" <?php if ($row["marital_status"] == "Single")
-                                                echo 'selected="selected"'; ?>>Single</option>
-                                            <option value="Married" <?php if ($row["marital_status"] == "Married")
-                                                echo 'selected="selected"'; ?>>Married</option>
-                                            <option value="Widowed" <?php if ($row["marital_status"] == "Widowed")
-                                                echo 'selected="selected"'; ?>>Widowed</option>
-                                            <option value="Divorced" <?php if ($row["marital_status"] == "Divorced")
-                                                echo 'selected="selected"'; ?>>Divorced</option>
-                                            <option value="Separated" <?php if ($row["marital_status"] == "Separated")
-                                                echo 'selected="selected"'; ?>>Separated</option>
-                                        </select>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="showDropdown('marital_status-<?php echo $row['id']; ?>-employee')">
+                                                <?php echo !empty($row["marital_status"]) ? $row["marital_status"] : 'N/A'; ?>
+                                            </p>
+                                            <select class='txtedit' id='marital_status-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;">
+                                                <option value="Single" <?php if ($row["marital_status"] == "Single")
+                                                    echo 'selected="selected"'; ?>>Single</option>
+                                                <option value="Married" <?php if ($row["marital_status"] == "Married")
+                                                    echo 'selected="selected"'; ?>>Married</option>
+                                                <option value="Widowed" <?php if ($row["marital_status"] == "Widowed")
+                                                    echo 'selected="selected"'; ?>>Widowed</option>
+                                                <option value="Divorced" <?php if ($row["marital_status"] == "Divorced")
+                                                    echo 'selected="selected"'; ?>>Divorced</option>
+                                                <option value="Separated" <?php if ($row["marital_status"] == "Separated")
+                                                    echo 'selected="selected"'; ?>>Separated</option>
+                                            </select>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row["marital_status"]) ? $row["marital_status"] : 'N/A'; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>User Type </label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="showDropdown('em_role-<?php echo $row['id']; ?>-employee')">
-                                            <?php
-                                            if ($row["em_role"] == 1) {
-                                                echo "Admin";
-                                            } elseif ($row["em_role"] == 2) {
-                                                echo "Manager";
-                                            } elseif ($row["em_role"] == 3) {
-                                                echo "HR";
-                                            } else {
-                                                echo "Employee";
-                                            }
-                                            ?>
-                                        </p>
-                                        <select class='txtedit' id='em_role-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
-                                            <option value="1" <?php if ($row["em_role"] == "1")
-                                                echo 'selected="selected"'; ?>>Admin</option>
-                                            <option value="2" <?php if ($row["em_role"] == "2")
-                                                echo 'selected="selected"'; ?>>Manager</option>
-                                            <option value="3" <?php if ($row["em_role"] == "3")
-                                                echo 'selected="selected"'; ?>>Hr</option>
-                                            <option value="4" <?php if ($row["em_role"] == "4")
-                                                echo 'selected="selected"'; ?>>Employee</option>
-                                        </select>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="showDropdown('em_role-<?php echo $row['id']; ?>-employee')">
+                                                <?php
+                                                if ($row["em_role"] == 1) {
+                                                    echo "Admin";
+                                                } elseif ($row["em_role"] == 2) {
+                                                    echo "Manager";
+                                                } elseif ($row["em_role"] == 3) {
+                                                    echo "HR";
+                                                } else {
+                                                    echo "Employee";
+                                                }
+                                                ?>
+                                            </p>
+                                            <select class='txtedit' id='em_role-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;">
+                                                <option value="1" <?php if ($row["em_role"] == "1")
+                                                    echo 'selected="selected"'; ?>>Admin</option>
+                                                <option value="2" <?php if ($row["em_role"] == "2")
+                                                    echo 'selected="selected"'; ?>>Manager</option>
+                                                <option value="3" <?php if ($row["em_role"] == "3")
+                                                    echo 'selected="selected"'; ?>>Hr</option>
+                                                <option value="4" <?php if ($row["em_role"] == "4")
+                                                    echo 'selected="selected"'; ?>>Employee</option>
+                                            </select>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php
+                                                if ($row["em_role"] == 1) {
+                                                    echo "Admin";
+                                                } elseif ($row["em_role"] == 2) {
+                                                    echo "Manager";
+                                                } elseif ($row["em_role"] == 3) {
+                                                    echo "HR";
+                                                } else {
+                                                    echo "Employee";
+                                                }
+                                                ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Status </label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="showDropdown('status-<?php echo $row['id']; ?>-employee')">
-                                            <?php echo $row["status"]; ?>
-                                        </p>
-                                        <select class='txtedit' id='status-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
-                                            <option value="ACTIVE" <?php if ($row["status"] == "ACTIVE")
-                                                echo 'selected="selected"'; ?>>ACTIVE</option>
-                                            <option value="INACTIVE" <?php if ($row["status"] == "INACTIVE")
-                                                echo 'selected="selected"'; ?>>INACTIVE</option>
-                                        </select>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="showDropdown('status-<?php echo $row['id']; ?>-employee')">
+                                                <?php echo $row["status"]; ?>
+                                            </p>
+                                            <select class='txtedit' id='status-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;">
+                                                <option value="ACTIVE" <?php if ($row["status"] == "ACTIVE")
+                                                    echo 'selected="selected"'; ?>>ACTIVE</option>
+                                                <option value="INACTIVE" <?php if ($row["status"] == "INACTIVE")
+                                                    echo 'selected="selected"'; ?>>INACTIVE</option>
+                                            </select>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo $row["status"]; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Date Of Birth</label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["em_birthday"]; ?>
-                                        </p>
-                                        <input type="date" class='txtedit' value='<?php echo $row["em_birthday"]; ?>'
-                                            id='em_birthday-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo $row["em_birthday"]; ?>
+                                            </p>
+                                            <input type="date" class='txtedit' value='<?php echo $row["em_birthday"]; ?>'
+                                                id='em_birthday-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo $row["em_birthday"]; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Department</label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php
-                                            $dept_id = $row["dep_id"];
-                                            $sql12 = "SELECT * FROM department WHERE id = $dept_id";
-                                            $result12 = $conn->query($sql12);
-                                            $row12 = $result12->fetch_assoc();
-                                            echo $row12["dep_name"];
-                                            ?>
-                                        </p>
-                                        <select class='txtedit' value='<?php echo $row["dep_id"]; ?>'
-                                            id='dep_id-<?php echo $row["id"]; ?>-employee' style="display: none;">
-                                            <?php
-                                            $sqlaa = "SELECT * FROM department";
-                                            $resultaa = $conn->query($sqlaa);
-                                            while ($rowa = $resultaa->fetch_assoc()) {
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php
+                                                $dept_id = $row["dep_id"];
+                                                $sql12 = "SELECT * FROM department WHERE id = $dept_id";
+                                                $result12 = $conn->query($sql12);
+                                                $row12 = $result12->fetch_assoc();
+                                                echo $row12["dep_name"];
                                                 ?>
-                                                <option value="<?php echo $rowa['id']; ?>">
-                                                    <?php echo $rowa['dep_name']; ?>
-                                                </option>
+                                            </p>
+                                            <select class='txtedit' value='<?php echo $row["dep_id"]; ?>'
+                                                id='dep_id-<?php echo $row["id"]; ?>-employee' style="display: none;">
+                                                <?php
+                                                $sqlaa = "SELECT * FROM department";
+                                                $resultaa = $conn->query($sqlaa);
+                                                while ($rowa = $resultaa->fetch_assoc()) {
+                                                    ?>
+                                                    <option value="<?php echo $rowa['id']; ?>">
+                                                        <?php echo $rowa['dep_name']; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php
+                                                $dept_id = $row["dep_id"];
+                                                $sql12 = "SELECT * FROM department WHERE id = $dept_id";
+                                                $result12 = $conn->query($sql12);
+                                                $row12 = $result12->fetch_assoc();
+                                                echo $row12["dep_name"];
+                                                ?>
                                             <?php } ?>
-                                        </select>
+                                        </p>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Designation </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php
-                                            $des_id = $row["des_id"];
-                                            $sql13 = "SELECT * FROM designation WHERE id = $des_id";
-                                            $result13 = $conn->query($sql13);
-                                            $row13 = $result13->fetch_assoc();
-                                            echo $row13["des_name"];
-                                            ?>
-                                        </p>
-                                        <select class='txtedit' value='<?php echo $row["des_id"]; ?>'
-                                            id='des_id-<?php echo $row["id"]; ?>-employee' style="display: none;">
-                                            <?php
-                                            $sqlaaa = "SELECT * FROM designation";
-                                            $resultaaa = $conn->query($sqlaaa);
-                                            while ($rowaa = $resultaaa->fetch_assoc()) {
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php
+                                                $des_id = $row["des_id"];
+                                                $sql13 = "SELECT * FROM designation WHERE id = $des_id";
+                                                $result13 = $conn->query($sql13);
+                                                $row13 = $result13->fetch_assoc();
+                                                echo $row13["des_name"];
                                                 ?>
-                                                <option value="<?php echo $rowaa['id']; ?>">
-                                                    <?php echo $rowaa['des_name']; ?>
-                                                </option>
+                                            </p>
+                                            <select class='txtedit' value='<?php echo $row["des_id"]; ?>'
+                                                id='des_id-<?php echo $row["id"]; ?>-employee' style="display: none;">
+                                                <?php
+                                                $sqlaaa = "SELECT * FROM designation";
+                                                $resultaaa = $conn->query($sqlaaa);
+                                                while ($rowaa = $resultaaa->fetch_assoc()) {
+                                                    ?>
+                                                    <option value="<?php echo $rowaa['id']; ?>">
+                                                        <?php echo $rowaa['des_name']; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php
+                                                $des_id = $row["des_id"];
+                                                $sql13 = "SELECT * FROM designation WHERE id = $des_id";
+                                                $result13 = $conn->query($sql13);
+                                                $row13 = $result13->fetch_assoc();
+                                                echo $row13["des_name"];
+                                                ?>
                                             <?php } ?>
-                                        </select>
+                                        </p>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Date Of Joining </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["em_joining_date"]; ?>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo $row["em_joining_date"]; ?>
+                                            </p>
+                                            <input type="date" class='txtedit'
+                                                value='<?php echo $row["em_joining_date"]; ?>'
+                                                id='em_joining_date-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo $row["em_joining_date"]; ?>
+                                            <?php } ?>
                                         </p>
-                                        <input type="date" class='txtedit'
-                                            value='<?php echo $row["em_joining_date"]; ?>'
-                                            id='em_joining_date-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;"></input>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Last Company Date</label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["last_company_date"]) ? $row2["last_company_date"] : "N/A"; ?>
-                                        </p>
-                                        <input type="date" class='txtedit'
-                                            value='<?php echo $row["last_company_date"]; ?>'
-                                            id='last_company_date-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["last_company_date"]) ? $row2["last_company_date"] : "N/A"; ?>
+                                            </p>
+                                            <input type="date" class='txtedit'
+                                                value='<?php echo $row["last_company_date"]; ?>'
+                                                id='last_company_date-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["last_company_date"]) ? $row2["last_company_date"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-3 m-t-10">
                                         <label>Whatsapp Number </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["em_wahtsapp"]; ?>
-                                        </p>
-                                        <input type="text" class="txtedit" value="<?php echo $row["em_wahtsapp"]; ?>"
-                                            id="em_wahtsapp-<?php echo $row["id"]; ?>-employee" pattern="\d{10}"
-                                            maxlength="10" minlength="10" title="Please enter exactly 10 digits"
-                                            oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
-                                            style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo $row["em_wahtsapp"]; ?>
+                                            </p>
+                                            <input type="text" class="txtedit" value="<?php echo $row["em_wahtsapp"]; ?>"
+                                                id="em_wahtsapp-<?php echo $row["id"]; ?>-employee" pattern="\d{10}"
+                                                maxlength="10" minlength="10" title="Please enter exactly 10 digits"
+                                                oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                                style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo $row["em_wahtsapp"]; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-3 m-t-10">
                                         <label>Aadher Number </label>
-                                        <p class="form-control form-control-line edit"><?php echo $row["em_aadher"]; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row["em_aadher"]; ?>'
-                                            id='em_aadher-<?php echo $row["id"]; ?>-employee'
-                                            oninput="if(this.value.length > 20) this.value = this.value.slice(0, 20); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
-                                            style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"><?php echo $row["em_aadher"]; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row["em_aadher"]; ?>'
+                                                id='em_aadher-<?php echo $row["id"]; ?>-employee'
+                                                oninput="if(this.value.length > 20) this.value = this.value.slice(0, 20); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                                style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line"><?php echo $row["em_aadher"]; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-3 m-t-10">
                                         <label>PAN Number </label>
-                                        <p class="form-control form-control-line edit"><?php echo $row["em_pan"]; ?></p>
-                                        <input type="text" class='txtedit' value='<?php echo $row["em_pan"]; ?>'
-                                            id='em_pan-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"><?php echo $row["em_pan"]; ?></p>
+                                            <input type="text" class='txtedit' value='<?php echo $row["em_pan"]; ?>'
+                                                id='em_pan-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line"><?php echo $row["em_pan"]; ?></p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-3 m-t-10">
                                         <label>Emergency Contact </label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo $row["emergency_contact"]; ?>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo $row["emergency_contact"]; ?>
+                                            </p>
+                                            <input type="text" class='txtedit'
+                                                value='<?php echo $row["emergency_contact"]; ?>'
+                                                id='emergency_contact-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo $row["emergency_contact"]; ?>
+                                            <?php } ?>
                                         </p>
-                                        <input type="text" class='txtedit'
-                                            value='<?php echo $row["emergency_contact"]; ?>'
-                                            id='emergency_contact-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;">
                                     </div>
                                 </form>
                             </div>
@@ -383,71 +518,119 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <lable>Address 1/At</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row1["address1"]; ?>'
-                                            id='address1-<?php echo $row1["id"]; ?>-address'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row1["address1"]; ?>'
+                                                id='address1-<?php echo $row1["id"]; ?>-address'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>Post</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row1["post"]) ? $row1["post"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row1["post"]; ?>'
-                                            id='post-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row1["post"]) ? $row1["post"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row1["post"]; ?>'
+                                                id='post-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row1["post"]) ? $row1["post"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>Police station</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row1["polic_station"]) ? $row1["polic_station"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row1["polic_station"]; ?>'
-                                            id='polic_station-<?php echo $row1["id"]; ?>-address'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row1["polic_station"]) ? $row1["polic_station"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row1["polic_station"]; ?>'
+                                                id='polic_station-<?php echo $row1["id"]; ?>-address'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row1["polic_station"]) ? $row1["polic_station"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>City</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row1["city"]) ? $row1["city"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row1["city"]; ?>'
-                                            id='city-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row1["city"]) ? $row1["city"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row1["city"]; ?>'
+                                                id='city-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row1["city"]) ? $row1["city"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>District</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row1["dist"]) ? $row1["dist"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row1["dist"]; ?>'
-                                            id='dist-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row1["dist"]) ? $row1["dist"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row1["dist"]; ?>'
+                                                id='dist-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row1["dist"]) ? $row1["dist"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>State</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row1["state"]) ? $row1["state"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row1["state"]; ?>'
-                                            id='state-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row1["state"]) ? $row1["state"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row1["state"]; ?>'
+                                                id='state-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row1["state"]) ? $row1["state"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>Country</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row1["country"]) ? $row1["country"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row1["country"]; ?>'
-                                            id='country-<?php echo $row1["id"]; ?>-address'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row1["country"]) ? $row1["country"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row1["country"]; ?>'
+                                                id='country-<?php echo $row1["id"]; ?>-address'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row1["country"]) ? $row1["country"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>Pin code</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row1["pincode"]) ? $row1["pincode"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row1["pincode"]; ?>'
-                                            id='pincode-<?php echo $row1["id"]; ?>-address'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row1["pincode"]) ? $row1["pincode"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row1["pincode"]; ?>'
+                                                id='pincode-<?php echo $row1["id"]; ?>-address'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row1["pincode"]) ? $row1["pincode"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -456,71 +639,119 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <lable>Address 1/At</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["address1"]) ? $row2["address1"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row2["address1"]; ?>'
-                                            id='address1-<?php echo $row2["id"]; ?>-address'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["address1"]) ? $row2["address1"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row2["address1"]; ?>'
+                                                id='address1-<?php echo $row2["id"]; ?>-address'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["address1"]) ? $row2["address1"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>Post</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["post"]) ? $row2["post"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row2["post"]; ?>'
-                                            id='post-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["post"]) ? $row2["post"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row2["post"]; ?>'
+                                                id='post-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["post"]) ? $row2["post"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>Police Station</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["polic_station"]) ? $row2["polic_station"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row2["polic_station"]; ?>'
-                                            id='polic_station-<?php echo $row2["id"]; ?>-address'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["polic_station"]) ? $row2["polic_station"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row2["polic_station"]; ?>'
+                                                id='polic_station-<?php echo $row2["id"]; ?>-address'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["polic_station"]) ? $row2["polic_station"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>City</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["city"]) ? $row2["city"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row2["city"]; ?>'
-                                            id='city-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["city"]) ? $row2["city"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row2["city"]; ?>'
+                                                id='city-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["city"]) ? $row2["city"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>District</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["dist"]) ? $row2["dist"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row2["dist"]; ?>'
-                                            id='dist-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["dist"]) ? $row2["dist"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row2["dist"]; ?>'
+                                                id='dist-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["dist"]) ? $row2["dist"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>State</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["state"]) ? $row2["state"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row2["state"]; ?>'
-                                            id='state-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["state"]) ? $row2["state"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row2["state"]; ?>'
+                                                id='state-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["state"]) ? $row2["state"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>Country</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["country"]) ? $row2["country"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row2["country"]; ?>'
-                                            id='country-<?php echo $row2["id"]; ?>-address'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["country"]) ? $row2["country"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row2["country"]; ?>'
+                                                id='country-<?php echo $row2["id"]; ?>-address'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["country"]) ? $row2["country"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="col-6">
                                         <lable>pincode</lable>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row2["pincode"]) ? $row2["pincode"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row2["pincode"]; ?>'
-                                            id='pincode-<?php echo $row2["id"]; ?>-address'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit">
+                                                <?php echo !empty($row2["pincode"]) ? $row2["pincode"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class='txtedit' value='<?php echo $row2["pincode"]; ?>'
+                                                id='pincode-<?php echo $row2["id"]; ?>-address'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line">
+                                                <?php echo !empty($row2["pincode"]) ? $row2["pincode"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -571,70 +802,72 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="card m-2">
-                            <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="m-2">
-                                            <select class="form-control form-control-line p-2" name="degreetitle"
-                                                required>
-                                                <option value="">Select Degree Title</option>
-                                                <option value="10th">10th</option>
-                                                <option value="+2">+2</option>
-                                                <option value="+3">+3</option>
-                                                <option value="BBA">BBA</option>
-                                                <option value="BCA">BCA</option>
-                                                <option value="MSC">MSC</option>
-                                                <option value="MCA">MCA</option>
-                                                <option value="MBA">MBA</option>
-                                                <option value="BTECH">BTECH</option>
-                                                <option value="MTECH">MTECH</option>
-                                                <option value="PhD">PhD</option>
-                                                <option value="Diploma">Diploma</option>
-                                            </select>
-                                        </div>
-                                        <div class="m-2">
-                                            <input type="text" class="form-control form-control-line" name="university"
-                                                placeholder="University Name" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="m-2">
-                                            <input type="text" class="form-control form-control-line" name="institute"
-                                                placeholder="Institute Name" required>
-                                        </div>
-                                        <div class="row m-2">
-                                            <div class="col-6">
-                                                <div class="">
-                                                    <input type="text" class="form-control form-control-line P-2"
-                                                        name="result"
-                                                        oninput="this.value = this.value.replace(/[^0-9%]/g,''); if(this.value.match(/\d+/) && this.value.match(/\d+/)[0].length > 2) this.value = this.value.slice(0, 2);"
-                                                        placeholder="Result (%)" maxlength="3" required>
-                                                </div>
+                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                            <div class="card m-2">
+                                <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="m-2">
+                                                <select class="form-control form-control-line p-2" name="degreetitle"
+                                                    required>
+                                                    <option value="">Select Degree Title</option>
+                                                    <option value="10th">10th</option>
+                                                    <option value="+2">+2</option>
+                                                    <option value="+3">+3</option>
+                                                    <option value="BBA">BBA</option>
+                                                    <option value="BCA">BCA</option>
+                                                    <option value="MSC">MSC</option>
+                                                    <option value="MCA">MCA</option>
+                                                    <option value="MBA">MBA</option>
+                                                    <option value="BTECH">BTECH</option>
+                                                    <option value="MTECH">MTECH</option>
+                                                    <option value="PhD">PhD</option>
+                                                    <option value="Diploma">Diploma</option>
+                                                </select>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="">
-                                                    <select class="form-select" name="passingyear" required>
-                                                        <option value="" selected>Passing Year</option>
-                                                        <?php
-                                                        $currentYear = date("Y");
-                                                        for ($year = 2000; $year <= $currentYear; $year++) {
-                                                            echo "<option value=\"$year\">$year</option>";
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                            <div class="m-2">
+                                                <input type="text" class="form-control form-control-line" name="university"
+                                                    placeholder="University Name" required>
                                             </div>
                                         </div>
+                                        <div class="col-6">
+                                            <div class="m-2">
+                                                <input type="text" class="form-control form-control-line" name="institute"
+                                                    placeholder="Institute Name" required>
+                                            </div>
+                                            <div class="row m-2">
+                                                <div class="col-6">
+                                                    <div class="">
+                                                        <input type="text" class="form-control form-control-line P-2"
+                                                            name="result"
+                                                            oninput="this.value = this.value.replace(/[^0-9%]/g,''); if(this.value.match(/\d+/) && this.value.match(/\d+/)[0].length > 2) this.value = this.value.slice(0, 2);"
+                                                            placeholder="Result (%)" maxlength="3" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="">
+                                                        <select class="form-select" name="passingyear" required>
+                                                            <option value="" selected>Passing Year</option>
+                                                            <?php
+                                                            $currentYear = date("Y");
+                                                            for ($year = 2000; $year <= $currentYear; $year++) {
+                                                                echo "<option value=\"$year\">$year</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 m-3">
+                                            <button type="submit" class="btn btn-success" name="insertdegree">
+                                                <i class="fa fa-check"></i>Save
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="col-12 m-3">
-                                        <button type="submit" class="btn btn-success" name="insertdegree">
-                                            <i class="fa fa-check"></i>Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
+                        <?php } ?>
                     </div>
                     <?php
                     if (isset($_POST['insertdegree'])) {
@@ -790,44 +1023,46 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <form class="row" action="<?php $_SERVER['PHP_SELF']; ?>" method="post"
-                                    enctype="multipart/form-data" novalidate="novalidate">
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label> Company Name</label>
-                                        <input type="text" name="company_name" id="companyname"
-                                            class="form-control form-control-line company_name"
-                                            placeholder="Company Name" minlength="2" required>
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label>Position</label>
-                                        <input type="text" name="position_name" id="positionname"
-                                            class="form-control form-control-line position_name"
-                                            oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
-                                            placeholder="Position" minlength="3" required>
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label>Address</label>
-                                        <input type="text" name="address" id="addressa"
-                                            class="form-control form-control-line duty" placeholder="Address"
-                                            minlength="7" required>
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label>Working Duration</label>
-                                        <input type="text" name="work_duration" id="workingduration"
-                                            class="form-control form-control-line working_period"
-                                            placeholder="Working Duration"
-                                            oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');" required>
-                                    </div>
-                                    <div class="form-actions col-md-12">
-                                        <input type="hidden" name="emid" value="Soy1332">
-                                        <button type="submit" class="btn btn-success" name="insertexperience">
-                                            <i class="fa fa-check"></i>
-                                            Save
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                <div class="card-body">
+                                    <form class="row" action="<?php $_SERVER['PHP_SELF']; ?>" method="post"
+                                        enctype="multipart/form-data" novalidate="novalidate">
+                                        <div class="form-group col-md-6 m-t-5">
+                                            <label> Company Name</label>
+                                            <input type="text" name="company_name" id="companyname"
+                                                class="form-control form-control-line company_name"
+                                                placeholder="Company Name" minlength="2" required>
+                                        </div>
+                                        <div class="form-group col-md-6 m-t-5">
+                                            <label>Position</label>
+                                            <input type="text" name="position_name" id="positionname"
+                                                class="form-control form-control-line position_name"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                                placeholder="Position" minlength="3" required>
+                                        </div>
+                                        <div class="form-group col-md-6 m-t-5">
+                                            <label>Address</label>
+                                            <input type="text" name="address" id="addressa"
+                                                class="form-control form-control-line duty" placeholder="Address"
+                                                minlength="7" required>
+                                        </div>
+                                        <div class="form-group col-md-6 m-t-5">
+                                            <label>Working Duration</label>
+                                            <input type="text" name="work_duration" id="workingduration"
+                                                class="form-control form-control-line working_period"
+                                                placeholder="Working Duration"
+                                                oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');" required>
+                                        </div>
+                                        <div class="form-actions col-md-12">
+                                            <input type="hidden" name="emid" value="Soy1332">
+                                            <button type="submit" class="btn btn-success" name="insertexperience">
+                                                <i class="fa fa-check"></i>
+                                                Save
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php
@@ -853,65 +1088,107 @@
                                     novalidate="novalidate">
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Bank Name</label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('bank_name-<?php echo $row5['id']; ?>-bank_info')">
-                                            <?php echo !empty($row5["bank_name"]) ? $row5["bank_name"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class="txtedit"
-                                            value="<?php echo !empty($row5["bank_name"]) ? $row5["bank_name"] : ""; ?>"
-                                            id="bank_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="editField('bank_name-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["bank_name"]) ? $row5["bank_name"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class="txtedit"
+                                                value="<?php echo !empty($row5["bank_name"]) ? $row5["bank_name"] : ""; ?>"
+                                                id="bank_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line"
+                                                onclick="editField('bank_name-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["bank_name"]) ? $row5["bank_name"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Bank Account Holder Name</label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('holder_name-<?php echo $row5['id']; ?>-bank_info')">
-                                            <?php echo !empty($row5["holder_name"]) ? $row5["holder_name"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class="txtedit"
-                                            value="<?php echo !empty($row5["holder_name"]) ? $row5["holder_name"] : ""; ?>"
-                                            id="holder_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="editField('holder_name-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["holder_name"]) ? $row5["holder_name"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class="txtedit"
+                                                value="<?php echo !empty($row5["holder_name"]) ? $row5["holder_name"] : ""; ?>"
+                                                id="holder_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line"
+                                                onclick="editField('holder_name-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["holder_name"]) ? $row5["holder_name"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Branch Name</label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('branch_name-<?php echo $row5['id']; ?>-bank_info')">
-                                            <?php echo !empty($row5["branch_name"]) ? $row5["branch_name"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class="txtedit"
-                                            value="<?php echo !empty($row5["branch_name"]) ? $row5["branch_name"] : ""; ?>"
-                                            id="branch_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="editField('branch_name-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["branch_name"]) ? $row5["branch_name"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class="txtedit"
+                                                value="<?php echo !empty($row5["branch_name"]) ? $row5["branch_name"] : ""; ?>"
+                                                id="branch_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line"
+                                                onclick="editField('branch_name-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["branch_name"]) ? $row5["branch_name"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Bank Account Number</label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('account_number-<?php echo $row5['id']; ?>-bank_info')">
-                                            <?php echo !empty($row5["account_number"]) ? $row5["account_number"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class="txtedit"
-                                            value="<?php echo !empty($row5["account_number"]) ? $row5["account_number"] : ""; ?>"
-                                            id="account_number-<?php echo $row5["id"]; ?>-bank_info"
-                                            style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="editField('account_number-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["account_number"]) ? $row5["account_number"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class="txtedit"
+                                                value="<?php echo !empty($row5["account_number"]) ? $row5["account_number"] : ""; ?>"
+                                                id="account_number-<?php echo $row5["id"]; ?>-bank_info"
+                                                style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line"
+                                                onclick="editField('account_number-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["account_number"]) ? $row5["account_number"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>IFSC Code</label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('ifsc_code-<?php echo $row5['id']; ?>-bank_info')">
-                                            <?php echo !empty($row5["ifsc_code"]) ? $row5["ifsc_code"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class="txtedit"
-                                            value="<?php echo !empty($row5["ifsc_code"]) ? $row5["ifsc_code"] : ""; ?>"
-                                            id="ifsc_code-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="editField('ifsc_code-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["ifsc_code"]) ? $row5["ifsc_code"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class="txtedit"
+                                                value="<?php echo !empty($row5["ifsc_code"]) ? $row5["ifsc_code"] : ""; ?>"
+                                                id="ifsc_code-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line"
+                                                onclick="editField('ifsc_code-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["ifsc_code"]) ? $row5["ifsc_code"] : "N/A"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group col-md-6 m-t-5">
                                         <label>Bank Account Type</label>
-                                        <p class="form-control form-control-line edit"
-                                            onclick="editField('account_type-<?php echo $row5['id']; ?>-bank_info')">
-                                            <?php echo !empty($row5["account_type"]) ? $row5["account_type"] : "N/A"; ?>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <p class="form-control form-control-line edit"
+                                                onclick="editField('account_type-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["account_type"]) ? $row5["account_type"] : "N/A"; ?>
+                                            </p>
+                                            <input type="text" class="txtedit"
+                                                value="<?php echo !empty($row5["account_type"]) ? $row5["account_type"] : ""; ?>"
+                                                id="account_type-<?php echo $row5["id"]; ?>-bank_info"
+                                                style="display:none;">
+                                        <?php } else { ?>
+                                            <p class="form-control form-control-line"
+                                                onclick="editField('account_type-<?php echo $row5['id']; ?>-bank_info')">
+                                                <?php echo !empty($row5["account_type"]) ? $row5["account_type"] : "N/A"; ?>
+                                            <?php } ?>
                                         </p>
-                                        <input type="text" class="txtedit"
-                                            value="<?php echo !empty($row5["account_type"]) ? $row5["account_type"] : ""; ?>"
-                                            id="account_type-<?php echo $row5["id"]; ?>-bank_info"
-                                            style="display:none;">
                                     </div>
                                 </form>
                             </div>
@@ -967,30 +1244,32 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <form class="row" action="<?php $_SERVER['PHP_SELF']; ?>" method="post"
-                                    enctype="multipart/form-data" novalidate="novalidate">
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label>File Name</label>
-                                        <input type="text" name="file_name"
-                                            class="form-control form-control-line company_name" placeholder="File Name"
-                                            minlength="2" required="">
-                                    </div>
-                                    <div class="form-group col-md-6 m-t-5">
-                                        <label>Upload Files</label>
-                                        <input type="file" name="pdf1"
-                                            class="form-control form-control-line position_name"
-                                            accept=".pdf,.docx,.doc" placeholder="Position"
-                                            onchange="checkFileType(this)" minlength="3" required="">
-                                    </div>
-                                    <div class="form-actions col-md-12">
-                                        <input type="hidden" name="emid" value="Soy1332">
-                                        <button type="submit" name="add_file" class="btn btn-success"><i
-                                                class="fa fa-check"></i>
-                                            Save</button>
-                                    </div>
-                                </form>
-                            </div>
+                            <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                <div class="card-body">
+                                    <form class="row" action="<?php $_SERVER['PHP_SELF']; ?>" method="post"
+                                        enctype="multipart/form-data" novalidate="novalidate">
+                                        <div class="form-group col-md-6 m-t-5">
+                                            <label>File Name</label>
+                                            <input type="text" name="file_name"
+                                                class="form-control form-control-line company_name" placeholder="File Name"
+                                                minlength="2" required="">
+                                        </div>
+                                        <div class="form-group col-md-6 m-t-5">
+                                            <label>Upload Files</label>
+                                            <input type="file" name="pdf1"
+                                                class="form-control form-control-line position_name"
+                                                accept=".pdf,.docx,.doc" placeholder="Position"
+                                                onchange="checkFileType(this)" minlength="3" required="">
+                                        </div>
+                                        <div class="form-actions col-md-12">
+                                            <input type="hidden" name="emid" value="Soy1332">
+                                            <button type="submit" name="add_file" class="btn btn-success"><i
+                                                    class="fa fa-check"></i>
+                                                Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php

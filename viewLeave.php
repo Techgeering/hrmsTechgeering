@@ -23,6 +23,15 @@ session_start(); {
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
+    <?php
+    include "common/conn.php";
+    $sql13 = "SELECT * FROM employee WHERE id=$userid";
+    $result13 = $conn->query($sql13);
+    if ($result13->num_rows > 0) {
+        $row13 = $result13->fetch_assoc();
+        $name = $row13["full_name"];
+    }
+    ?>
     <!-- end Top Navbar -->
     <div id="layoutSidenav">
         <!-- start Side Navbar -->
@@ -52,10 +61,10 @@ session_start(); {
                                         <th>Reason</th>
                                         <th>Leave Report</th>
                                         <?php if ($em_role == '4') { ?>
-                                        <th>View</th>
+                                            <th>View</th>
                                         <?php } ?>
                                         <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
-                                        <th>Status</th>
+                                            <th>Status</th>
                                         <?php } ?>
 
                                         <!-- <th>Action</th> -->
@@ -64,40 +73,43 @@ session_start(); {
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM emp_leave";
+                                    if ($em_role == '4' || $em_role == '2') {
+                                        $sql = "SELECT * FROM emp_leave WHERE em_id = '$emp_id'";
+                                    } else {
+                                        $sql = "SELECT * FROM emp_leave";
+                                    }
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
-                                        // output data of each row
                                         while ($row = $result->fetch_assoc()) {
                                             ?>
-                                    <tr>
-                                        <td><?php echo $row["id"]; ?></td>
-                                        <td><?php echo $row["apply_date"]; ?></td>
-                                        <td><?php echo $row["em_id"]; ?></td>
-                                        <td>
-                                            <?php
+                                            <tr>
+                                                <td><?php echo $row["id"]; ?></td>
+                                                <td><?php echo $row["apply_date"]; ?></td>
+                                                <td><?php echo $row["em_id"]; ?></td>
+                                                <td>
+                                                    <?php
                                                     $typeid = $row["typeid"];
                                                     $sql2 = "SELECT * FROM leave_types WHERE type_id = $typeid";
                                                     $result2 = $conn->query($sql2);
                                                     $row2 = $result2->fetch_assoc();
                                                     echo htmlspecialchars($row2["name"], ENT_QUOTES, 'UTF-8');
                                                     ?>
-                                        </td>
-                                        <td><?php echo $row["start_date"]; ?></td>
-                                        <td><?php echo $row["end_date"]; ?></td>
-                                        <td><?php echo $row["leave_duration"]; ?></td>
-                                        <td><?php echo $row["reason"]; ?></td>
-                                        <td>
-                                            <?php if (!empty($row['supportingdocument'])): ?>
-                                            <a href="<?php echo $row['supportingdocument']; ?>" target="_blank">
-                                                <i class="fas fa-file-pdf"></i>
-                                            </a>
-                                            <?php endif; ?>
-                                        </td>
+                                                </td>
+                                                <td><?php echo $row["start_date"]; ?></td>
+                                                <td><?php echo $row["end_date"]; ?></td>
+                                                <td><?php echo $row["leave_duration"]; ?></td>
+                                                <td><?php echo $row["reason"]; ?></td>
+                                                <td>
+                                                    <?php if (!empty($row['supportingdocument'])): ?>
+                                                        <a href="<?php echo $row['supportingdocument']; ?>" target="_blank">
+                                                            <i class="fas fa-file-pdf"></i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </td>
 
-                                        <?php if ($em_role == '4') { ?>
-                                        <th>
-                                            <?php
+                                                <?php if ($em_role == '4') { ?>
+                                                    <th>
+                                                        <?php
                                                         $status = $row["leave_status"];
                                                         if ($status == '1') {
                                                             echo "Approved";
@@ -109,71 +121,72 @@ session_start(); {
                                                             echo "Pending";
                                                         }
                                                         ?>
-                                        </th>
-                                        <?php } ?>
-                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
-                                        <td>
-                                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                                                <div class="btn-group">
-                                                    <?php
-                                                                $leave_status = $row['leave_status']; 
-                                                                 if ($leave_status == '0' || $leave_status == '1' || $leave_status == '2') { ?>
-                                                    <button class="btn btn-success dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton_<?php echo $row['id']; ?>"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <?php
+                                                    </th>
+                                                <?php } ?>
+                                                <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                                    <td>
+                                                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                                            <div class="btn-group">
+                                                                <?php
+                                                                $leave_status = $row['leave_status'];
+                                                                if ($leave_status == '0' || $leave_status == '1' || $leave_status == '2') { ?>
+                                                                    <button class="btn btn-success dropdown-toggle" type="button"
+                                                                        id="dropdownMenuButton_<?php echo $row['id']; ?>"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <?php
                                                                         $leave_status = $row['leave_status'];
                                                                         echo ($leave_status == 0) ? "Pending" :
                                                                             (($leave_status == 1) ? "Approved" :
                                                                                 (($leave_status == 2) ? "Not Approved" : "Cancel"));
                                                                         ?>
-                                                    </button>
-                                                    <?php } ?>
-                                                    <?php if ($leave_status == '3') { ?>
-                                                    <button class="btn btn-danger" type="button">Cancelled</button>
-                                                    <?php } ?>
-                                                    <?php if ($leave_status == '0') { ?>
-                                                    <ul class="dropdown-menu"
-                                                        aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
-                                                        <li>
-                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
-                                                            <button class="dropdown-item" type="submit"
-                                                                name="status_update" value="1">Approved</button>
-                                                            <?php } ?>
-                                                        </li>
-                                                        <li>
-                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
-                                                            <button class="dropdown-item" type="submit"
-                                                                name="status_update" value="2">Not Approved</button>
-                                                            <?php } ?>
-                                                        </li>
-                                                        <li>
-                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
-                                                            <button class="dropdown-item" type="submit"
-                                                                name="status_update" value="3">Cancel</button>
-                                                            <?php } ?>
-                                                        </li>
-                                                    </ul>
-                                                    <?php } ?>
-                                                    <?php if ($leave_status == '1' || $leave_status == '2') { ?>
-                                                    <ul class="dropdown-menu"
-                                                        aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
-                                                        <li>
-                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
-                                                            <button class="dropdown-item" type="submit"
-                                                                name="status_update" value="3">Cancel</button>
-                                                            <?php } ?>
-                                                        </li>
-                                                    </ul>
-                                                    <?php } ?>
-                                                    <input type="hidden" name="idd" value="<?php echo $row['id']; ?>">
-                                                    <input type="hidden" name="em_id" value="<?php echo $row['em_id']; ?>">
-                                                </div>
-                                            </form>
-                                        </td>
-                                        <?php } ?>
-                                    </tr>
-                                    <?php
+                                                                    </button>
+                                                                <?php } ?>
+                                                                <?php if ($leave_status == '3') { ?>
+                                                                    <button class="btn btn-danger" type="button">Cancelled</button>
+                                                                <?php } ?>
+                                                                <?php if ($leave_status == '0') { ?>
+                                                                    <ul class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
+                                                                        <li>
+                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                                                                <button class="dropdown-item" type="submit"
+                                                                                    name="status_update" value="1">Approved</button>
+                                                                            <?php } ?>
+                                                                        </li>
+                                                                        <li>
+                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                                                                <button class="dropdown-item" type="submit"
+                                                                                    name="status_update" value="2">Not Approved</button>
+                                                                            <?php } ?>
+                                                                        </li>
+                                                                        <li>
+                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                                                                <button class="dropdown-item" type="submit"
+                                                                                    name="status_update" value="3">Cancel</button>
+                                                                            <?php } ?>
+                                                                        </li>
+                                                                    </ul>
+                                                                <?php } ?>
+                                                                <?php if ($leave_status == '1' || $leave_status == '2') { ?>
+                                                                    <ul class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
+                                                                        <li>
+                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                                                                <button class="dropdown-item" type="submit"
+                                                                                    name="status_update" value="3">Cancel</button>
+                                                                            <?php } ?>
+                                                                        </li>
+                                                                    </ul>
+                                                                <?php } ?>
+                                                                <input type="hidden" name="idd" value="<?php echo $row['id']; ?>">
+                                                                <input type="hidden" name="em_id"
+                                                                    value="<?php echo $row['em_id']; ?>">
+                                                            </div>
+                                                        </form>
+                                                    </td>
+                                                <?php } ?>
+                                            </tr>
+                                            <?php
                                         }
                                     } else {
                                         echo "0 results";
@@ -213,10 +226,10 @@ session_start(); {
                                 $result = mysqli_query($conn, "SELECT * FROM  leave_types");
                                 while ($row = mysqli_fetch_array($result)) {
                                     ?>
-                                <option value="<?php echo $row['type_id']; ?>">
-                                    <?php echo $row["name"]; ?>
-                                </option>
-                                <?php
+                                    <option value="<?php echo $row['type_id']; ?>">
+                                        <?php echo $row["name"]; ?>
+                                    </option>
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -281,9 +294,9 @@ session_start(); {
         $days = $interval->days;
         $totalHours = calculateHours(clone $date1, $date2);
 
-        if(!empty($_FILES["supportingdocument"]["name"])){
+        if (!empty($_FILES["supportingdocument"]["name"])) {
 
-        
+
 
             // Handle file upload
             $targetDir = "assets/uploads/employee/"; // Directory to save files
@@ -292,21 +305,21 @@ session_start(); {
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
             // Allow certain file formats
-
-                // Upload file to server
-                if (move_uploaded_file($_FILES["supportingdocument"]["tmp_name"], $targetFilePath)) {
-                    $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status, supportingdocument)
-                    VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0', '$targetFilePath')";
-                    if ($conn->query($sql1) === TRUE) {
-                        echo "<script>alert('Leave application submitted successfully!');</script>";
-                    } else {
-                        echo "<script>alert('Database error occurred.');</script>";
-                    }
-                } else {
-                    echo "<script>alert('Error uploading file.');</script>";
-                }
     
-        }else{
+            // Upload file to server
+            if (move_uploaded_file($_FILES["supportingdocument"]["tmp_name"], $targetFilePath)) {
+                $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status, supportingdocument)
+                    VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0', '$targetFilePath')";
+                if ($conn->query($sql1) === TRUE) {
+                    echo "<script>alert('Leave application submitted successfully!');</script>";
+                } else {
+                    echo "<script>alert('Database error occurred.');</script>";
+                }
+            } else {
+                echo "<script>alert('Error uploading file.');</script>";
+            }
+
+        } else {
             $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status)
             VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0')";
             if ($conn->query($sql1) === TRUE) {
@@ -322,7 +335,7 @@ session_start(); {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_update']) && isset($_POST['idd'])) {
         $status = $_POST['status_update'];
         $id = $_POST['idd'];
-         $em_id = $_POST['em_id'];
+        $em_id = $_POST['em_id'];
         $sql10 = "UPDATE emp_leave SET leave_status='$status' WHERE id='$id'";
         if ($conn->query($sql10) === true) {
             // echo " <script>alert('success')</script>";

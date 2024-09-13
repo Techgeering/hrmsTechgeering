@@ -1,5 +1,13 @@
+<?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+    $emp_id = $_SESSION["emp_id"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -51,9 +59,15 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
+                                    if ($em_role == '4' || $em_role == '2') {
+                                        $sql = "SELECT a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
+                                                FROM attendance a
+                                                JOIN employee e ON a.emp_id = e.em_code WHERE a.emp_id = '$emp_id'";
+                                    } else {
+                                        $sql = "SELECT a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
                                                 FROM attendance a
                                                 JOIN employee e ON a.emp_id = e.em_code";
+                                    }
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         // output data of each row
@@ -165,7 +179,7 @@
                             $minutes = $interval->i;
 
                             // Format the output
-                            $working_hours = $hours.'.'.$minutes;
+                            $working_hours = $hours . '.' . $minutes;
 
                             // Check if the date is Saturday
                             $attenDateTime = new DateTime($atten_date);
