@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <title>Employee Details</title>
+</head>
+
+<body>
+
+    <section>
+        <div class="container">
+            <h4 class="text-center">Add Employee Details</h4>
+            <nav class="p-3">
+                <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-personal-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-personal" type="button" role="tab" aria-controls="nav-personal"
+                        aria-selected="true">Personal Info</button>
+                        <button class="nav-link" id="nav-address-tab" data-bs-toggle="tab" data-bs-target="#nav-address"
+                        type="button" role="tab" aria-controls="nav-address" aria-selected="false" disabled>Address</button>
+                    
+                        <button class="nav-link" id="nav-education-tab" data-bs-toggle="tab" data-bs-target="#nav-education"
+                        type="button" role="tab" aria-controls="nav-education" aria-selected="false" disabled>Education</button>
+                    
+                    <button class="nav-link" id="nav-experience-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-experience" type="button" role="tab" aria-controls="nav-experience"
+                        aria-selected="false">Experience</button>
+                    <button class="nav-link" id="nav-document-tab" data-bs-toggle="tab" data-bs-target="#nav-document"
+                        type="button" role="tab" aria-controls="nav-document" aria-selected="false">Document</button>
+                </div>
+            </nav>
+            <div class="tab-content p-4" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-personal" role="tabpanel"
+                    aria-labelledby="nav-personal-tab" tabindex="0">
+                    <section class="container">
+                        <div class="row">
+                            <!-- Right Column: Profile Box -->
+                            <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
+                                <div class="profile-box text-center">
+                                    <img id="profile-image" src="https://via.placeholder.com/100" alt="Profile Picture"
+                                        class="img-fluid mb-3">
+                                    <p id="image-name" class="mt-2">No image captured yet</p>
+                                    <button class="btn btn-primary start-btn" onclick="startCamera()">Start
+                                        Camera</button>
+                                    <video id="video" width="320" height="240" style="display: none;"></video>
+                                    <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+                                    <button id="capture" class="btn btn-secondary capture-btn" style="display: none;"
+                                        onclick="capturePhoto()">Capture</button>
+
+                                    <!-- Upload Photo Section -->
+                                    <div class="upload-photo-container mt-3">
+                                        <img id="uploaded-image" class="mb-3" src="" alt="Uploaded Image"
+                                            style="display: none; width:100px;">
+                                        <input type="file" id="upload-photo" class="form-control" accept="image/*"
+                                            onchange="uploadPhoto()">
+                                        <p id="upload-image-name" class="mt-2">No image uploaded yet</p>
+                                    </div>
+
+                                    <h5>John Doe</h5>
+                                    <p><strong>Email:</strong> john.doe@example.com</p>
+                                    <p><strong>Phone:</strong> +91-12345-67890</p>
+                                </div>
+                            </div>
+
+                            <!-- Left Column: Form -->
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <form id="personal-info-form">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="fatherName" class="form-label">Father's Name</label>
+                                                <input type="text" class="form-control" id="fatherName" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="motherName" class="form-label">Mother's Name</label>
+                                                <input type="text" class="form-control" id="motherName" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="bloodGroup" class="form-label">Blood Group</label>
+                                                <input type="text" class="form-control" id="bloodGroup" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="gender" class="form-label">Gender</label>
+                                                <select class="form-select" id="gender" required>
+                                                    <option value="" selected>Select gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Others">Others</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="maritalStatus" class="form-label">Marital Status</label>
+                                                <select class="form-select" id="maritalStatus" required>
+                                                    <option value="" selected>Select marital status</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Widowed">Widowed</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                    <option value="Separated">Separated</option>
+                                                    <option value="Others">Others</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="whatsappNumber" class="form-label">Whatsapp Number</label>
+                                                <input type="text" class="form-control" id="whatsappNumber" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="aadharNumber" class="form-label">Aadhar Number</label>
+                                                <input type="text" class="form-control" id="aadharNumber" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="panNumber" class="form-label">PAN Number</label>
+                                                <input type="text" class="form-control" id="panNumber" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="emergencyContact" class="form-label">Emergency
+                                                    Contact</label>
+                                                <input type="text" class="form-control" id="emergencyContact" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="emergencyRelation" class="form-label">Emergency Contact
+                                                    Relation</label>
+                                                <input type="text" class="form-control" id="emergencyRelation" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Save & Next Button -->
+                                    <button type="button" class="btn btn-primary float-end" id="save-next-btn">Save &
+                                        Next</button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab"
+                    tabindex="0">
+                    <section class="container">
+                        <div class="row">
+                            <!-- Permanent Address Column -->
+                            <div class="col-lg-6">
+                                <h5>Permanent Address</h5>
+                                <form id="permanent-address-form">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="perm-address" class="form-label">Address</label>
+                                                <input type="text" class="form-control" id="perm-address" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="perm-city" class="form-label">City/Village</label>
+                                                <input type="text" class="form-control" id="perm-city" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="perm-district" class="form-label">District</label>
+                                                <input type="text" class="form-control" id="perm-district" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="perm-state" class="form-label">State</label>
+                                                <input type="text" class="form-control" id="perm-state" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="perm-country" class="form-label">Country</label>
+                                                <input type="text" class="form-control" id="perm-country" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="perm-pin" class="form-label">PIN</label>
+                                                <input type="text" class="form-control" id="perm-pin" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="perm-post" class="form-label">Post</label>
+                                                <input type="text" class="form-control" id="perm-post" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="perm-police-station" class="form-label">Police
+                                                    Station</label>
+                                                <input type="text" class="form-control" id="perm-police-station"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Present Address Column -->
+                            <div class="col-lg-6">
+                                <h5>Present Address</h5>
+                                <form id="present-address-form">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="pres-address" class="form-label">Address</label>
+                                                <input type="text" class="form-control" id="pres-address" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="pres-city" class="form-label">City/Village</label>
+                                                <input type="text" class="form-control" id="pres-city" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="pres-district" class="form-label">District</label>
+                                                <input type="text" class="form-control" id="pres-district" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="pres-state" class="form-label">State</label>
+                                                <input type="text" class="form-control" id="pres-state" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="pres-country" class="form-label">Country</label>
+                                                <input type="text" class="form-control" id="pres-country" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="pres-pin" class="form-label">PIN</label>
+                                                <input type="text" class="form-control" id="pres-pin" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="pres-post" class="form-label">Post</label>
+                                                <input type="text" class="form-control" id="pres-post" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="pres-police-station" class="form-label">Police
+                                                    Station</label>
+                                                <input type="text" class="form-control" id="pres-police-station"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="copy-address">
+                                        <label class="form-check-label" for="copy-address">
+                                            Same as Permanent Address
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Save & Next Button -->
+                        <button type="button" class="btn btn-primary float-end" id="save-next-btns">Save &
+                            Next</button>
+
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="nav-education" role="tabpanel" aria-labelledby="nav-education-tab"
+                    tabindex="0">
+                    <section class="container">
+                        <h5 class="text-center mb-4">Educational Background</h5>
+                        <div class="row">
+                            <!-- PG Section -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center fw-bold ">Post Graduation</h4>
+                                        <form id="pg-form">
+                                            <div class="mb-1">
+                                                <label for="pg-institute" class="form-label">Institute Name</label>
+                                                <input type="text" class="form-control" id="pg-institute" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="pg-university" class="form-label">University Name</label>
+                                                <input type="text" class="form-control" id="pg-university" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="pg-location" class="form-label">University Location</label>
+                                                <input type="text" class="form-control" id="pg-location" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="pg-results" class="form-label">Results in (%)</label>
+                                                <input type="number" class="form-control" id="pg-results" step="0.01"
+                                                    required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="pg-year" class="form-label">Year of Pass</label>
+                                                <input type="number" class="form-control" id="pg-year" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="pg-stream" class="form-label">Stream</label>
+                                                <input type="text" class="form-control" id="pg-stream" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Graduation Section -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center fw-bold ">Graduation</h4>
+                                        <form id="grad-form">
+                                            <div class="mb-1">
+                                                <label for="grad-institute" class="form-label">Institute Name</label>
+                                                <input type="text" class="form-control" id="grad-institute" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="grad-university" class="form-label">University Name</label>
+                                                <input type="text" class="form-control" id="grad-university" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="grad-location" class="form-label">University
+                                                    Location</label>
+                                                <input type="text" class="form-control" id="grad-location" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="grad-results" class="form-label">Results in (%)</label>
+                                                <input type="number" class="form-control" id="grad-results" step="0.01"
+                                                    required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="grad-year" class="form-label">Year of Pass</label>
+                                                <input type="number" class="form-control" id="grad-year" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="grad-stream" class="form-label">Stream</label>
+                                                <input type="text" class="form-control" id="grad-stream" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Diploma/+2 Section -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center fw-bold ">Diploma / +2</h4>
+                                        <form id="diploma-form">
+                                            <div class="mb-1">
+                                                <label for="diploma-institute" class="form-label">Institute Name</label>
+                                                <input type="text" class="form-control" id="diploma-institute" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="diploma-university" class="form-label">University
+                                                    Name</label>
+                                                <input type="text" class="form-control" id="diploma-university"
+                                                    required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="diploma-location" class="form-label">University
+                                                    Location</label>
+                                                <input type="text" class="form-control" id="diploma-location" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="diploma-results" class="form-label">Results in (%)</label>
+                                                <input type="number" class="form-control" id="diploma-results"
+                                                    step="0.01" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="diploma-year" class="form-label">Year of Pass</label>
+                                                <input type="number" class="form-control" id="diploma-year" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="diploma-stream" class="form-label">Stream</label>
+                                                <input type="text" class="form-control" id="diploma-stream" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 10th Section -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center fw-bold ">10th</h4>
+                                        <form id="10th-form">
+                                            <div class="mb-1">
+                                                <label for="10th-institute" class="form-label">Institute Name</label>
+                                                <input type="text" class="form-control" id="10th-institute" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="10th-university" class="form-label">University Name</label>
+                                                <input type="text" class="form-control" id="10th-university" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="10th-location" class="form-label">University
+                                                    Location</label>
+                                                <input type="text" class="form-control" id="10th-location" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="10th-results" class="form-label">Results in (%)</label>
+                                                <input type="number" class="form-control" id="10th-results" step="0.01"
+                                                    required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="10th-year" class="form-label">Year of Pass</label>
+                                                <input type="number" class="form-control" id="10th-year" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="10th-stream" class="form-label">Stream</label>
+                                                <input type="text" class="form-control" id="10th-stream" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Save & Next Button -->
+                        <button type="button" class="btn btn-primary float-end" id="save-next-btnss">Save &
+                            Next</button>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="nav-experience" role="tabpanel" aria-labelledby="nav-experience-tab"
+                    tabindex="0">
+                    <section class="container">
+                        <h5 class="text-center mb-4">Work Experience</h5>
+                        <div class="row">
+                            <!-- Experience Section -->
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold text-center">Experience Details</h4>
+
+                                        <!-- Experience Form -->
+                                        <form id="experience-form">
+                                            <!-- Company 1 -->
+                                            <div class="mb-4">
+                                                <h5 class="fw-bold text-center">Company 1</h5>
+                                                <div class="mb-1">
+                                                    <label for="company1-name" class="form-label">Company Name</label>
+                                                    <input type="text" class="form-control" id="company1-name" required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company1-position" class="form-label">Position</label>
+                                                    <input type="text" class="form-control" id="company1-position"
+                                                        required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company1-address" class="form-label">Address</label>
+                                                    <input type="text" class="form-control" id="company1-address"
+                                                        required>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-1">
+                                                        <label for="company1-from" class="form-label">From</label>
+                                                        <input type="date" class="form-control" id="company1-from"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-md-6 mb-1">
+                                                        <label for="company1-to" class="form-label">To</label>
+                                                        <input type="date" class="form-control" id="company1-to"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company1-salary" class="form-label">Last Salary / Annual
+                                                        CTC</label>
+                                                    <input type="number" class="form-control" id="company1-salary"
+                                                        step="0.01" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Company 2 -->
+                                            <div class="mb-4">
+                                                <h5 class="fw-bold text-center">Company 2</h5>
+                                                <div class="mb-1">
+                                                    <label for="company2-name" class="form-label">Company Name</label>
+                                                    <input type="text" class="form-control" id="company2-name" required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company2-position" class="form-label">Position</label>
+                                                    <input type="text" class="form-control" id="company2-position"
+                                                        required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company2-address" class="form-label">Address</label>
+                                                    <input type="text" class="form-control" id="company2-address"
+                                                        required>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-1">
+                                                        <label for="company2-from" class="form-label">From</label>
+                                                        <input type="date" class="form-control" id="company2-from"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-md-6 mb-1">
+                                                        <label for="company2-to" class="form-label">To</label>
+                                                        <input type="date" class="form-control" id="company2-to"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company2-salary" class="form-label">Last Salary / Annual
+                                                        CTC</label>
+                                                    <input type="number" class="form-control" id="company2-salary"
+                                                        step="0.01" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Company 3 -->
+                                            <div class="mb-4">
+                                                <h5 class="fw-bold text-center">Company 3</h5>
+                                                <div class="mb-1">
+                                                    <label for="company3-name" class="form-label">Company Name</label>
+                                                    <input type="text" class="form-control" id="company3-name" required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company3-position" class="form-label">Position</label>
+                                                    <input type="text" class="form-control" id="company3-position"
+                                                        required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company3-address" class="form-label">Address</label>
+                                                    <input type="text" class="form-control" id="company3-address"
+                                                        required>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-1">
+                                                        <label for="company3-from" class="form-label">From</label>
+                                                        <input type="date" class="form-control" id="company3-from"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-md-6 mb-1">
+                                                        <label for="company3-to" class="form-label">To</label>
+                                                        <input type="date" class="form-control" id="company3-to"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="company3-salary" class="form-label">Last Salary / Annual
+                                                        CTC</label>
+                                                    <input type="number" class="form-control" id="company3-salary"
+                                                        step="0.01" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Save & Next Button -->
+                                            <button type="button" class="btn btn-primary float-end"
+                                                id="save-next-btnsss">Save &
+                                                Next</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="nav-document-tab"
+                    tabindex="0">
+                    <div class="container">
+                        <h5 class="text-center mb-4">Upload Documents</h5>
+                        <div class="row">
+                            <!-- PG Document Upload -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">Post Graduation</h4>
+                                        <form id="pg-doc-form">
+                                            <div class="mb-3">
+                                                <label for="pg-doc" class="form-label">Upload PG Document (PDF)</label>
+                                                <input type="file" class="form-control" id="pg-doc" accept=".pdf"
+                                                    required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Graduation Document Upload -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">Graduation</h4>
+                                        <form id="grad-doc-form">
+                                            <div class="mb-3">
+                                                <label for="grad-doc" class="form-label">Upload Graduation Document
+                                                    (PDF)</label>
+                                                <input type="file" class="form-control" id="grad-doc" accept=".pdf"
+                                                    required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Class 12 Document Upload -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">Class 12</h4>
+                                        <form id="class12-doc-form">
+                                            <div class="mb-3">
+                                                <label for="class12-doc" class="form-label">Upload Class 12 Document
+                                                    (PDF)</label>
+                                                <input type="file" class="form-control" id="class12-doc" accept=".pdf"
+                                                    required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Class 10 Document Upload -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">Class 10</h4>
+                                        <form id="class10-doc-form">
+                                            <div class="mb-3">
+                                                <label for="class10-doc" class="form-label">Upload Class 10 Document
+                                                    (PDF)</label>
+                                                <input type="file" class="form-control" id="class10-doc" accept=".pdf"
+                                                    required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Aadhar Document Upload -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">Aadhar</h4>
+                                        <form id="aadhar-doc-form">
+                                            <div class="mb-3">
+                                                <label for="aadhar-doc" class="form-label">Upload Aadhar Document
+                                                    (PDF)</label>
+                                                <input type="file" class="form-control" id="aadhar-doc" accept=".pdf"
+                                                    required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PAN Document Upload -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">PAN</h4>
+                                        <form id="pan-doc-form">
+                                            <div class="mb-3">
+                                                <label for="pan-doc" class="form-label">Upload PAN Document
+                                                    (PDF)</label>
+                                                <input type="file" class="form-control" id="pan-doc" accept=".pdf"
+                                                    required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Blood Group Document Upload -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">Blood Group</h4>
+                                        <form id="blood-group-doc-form">
+                                            <div class="mb-3">
+                                                <label for="blood-group-doc" class="form-label">Upload Blood Group
+                                                    Document (PDF)</label>
+                                                <input type="file" class="form-control" id="blood-group-doc"
+                                                    accept=".pdf" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- EXperience Document Upload -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title fw-bold">Experience</h4>
+                                        <form id="experience-doc-form">
+                                            <div class="mb-3">
+                                                <label for="blood-group-doc" class="form-label">Upload Experience
+                                                    (PDF)</label>
+                                                <input type="file" class="form-control" id="experience-group-doc"
+                                                    accept=".pdf" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Save & Next Button -->
+                            <button type="button" class="btn btn-primary float-end" id="">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
