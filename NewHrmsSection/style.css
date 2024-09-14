@@ -92,3 +92,7 @@ h4 {
   text-decoration: none;
   color: white;
 }
+
+.bord {
+  border-right: 1px solid #dee2e6; /* Light gray border */
+}
