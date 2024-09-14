@@ -43,20 +43,23 @@
                             <!-- Right Column: Profile Box -->
                             <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
                                 <div class="profile-box text-center">
+                                    <!-- Profile Image -->
                                     <img id="profile-image" src="https://via.placeholder.com/100" alt="Profile Picture"
                                         class="img-fluid mb-3">
                                     <p id="image-name" class="mt-2">No image captured yet</p>
+
+                                    <!-- Camera Control -->
+                                    <video id="video" style="display: none;"></video>
                                     <button class="btn btn-primary start-btn" onclick="startCamera()">Start
                                         Camera</button>
-                                    <video id="video" width="320" height="240" style="display: none;"></video>
-                                    <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+                                    <canvas id="canvas" style="display: none;"></canvas>
                                     <button id="capture" class="btn btn-secondary capture-btn" style="display: none;"
                                         onclick="capturePhoto()">Capture</button>
 
                                     <!-- Upload Photo Section -->
                                     <div class="upload-photo-container mt-3">
                                         <img id="uploaded-image" class="mb-3" src="" alt="Uploaded Image"
-                                            style="display: none; width:100px;">
+                                            style="display: none;">
                                         <input type="file" id="upload-photo" class="form-control" accept="image/*"
                                             onchange="uploadPhoto()">
                                         <p id="upload-image-name" class="mt-2">No image uploaded yet</p>
@@ -67,6 +70,7 @@
                                     <p><strong>Phone:</strong> +91-12345-67890</p>
                                 </div>
                             </div>
+
 
                             <!-- Left Column: Form -->
                             <div class="col-lg-8 col-md-8 col-sm-12">
@@ -297,7 +301,7 @@
                             Next</button>
 
                     </section>
-                </div>
+                </div>  
                 <div class="tab-pane fade" id="nav-education" role="tabpanel" aria-labelledby="nav-education-tab"
                     tabindex="0">
                     <section class="container">
@@ -309,6 +313,17 @@
                                     <div class="card-body">
                                         <h4 class="card-title text-center fw-bold ">Post Graduation</h4>
                                         <form id="pg-form">
+                                            <div class="mb-1">
+                                                <label for="pg-stream" class="form-label">Course Title</label>
+                                                <select class="form-control" id="pg-stream" required>
+                                                    <option value="" disabled selected>Select Course</option>
+                                                    <option value="mca">MCA</option>
+                                                    <option value="mba">MBA</option>
+                                                    <option value="msc">MSC</option>
+                                                    <option value="mtech">M.TECH</option>
+                                                    <option value="mphil">M.PHIL</option>
+                                                </select>
+                                            </div>
                                             <div class="mb-1">
                                                 <label for="pg-stream" class="form-label">Stream</label>
                                                 <input type="text" class="form-control" id="pg-stream" required>
@@ -347,6 +362,16 @@
                                         <h4 class="card-title text-center fw-bold ">Graduation</h4>
                                         <form id="grad-form">
                                             <div class="mb-1">
+                                                <label for="pg-stream" class="form-label">Course Title</label>
+                                                <select class="form-control" id="pg-stream" required>
+                                                    <option value="" disabled selected>Select Course</option>
+                                                    <option value="bsc">BSC</option>
+                                                    <option value="bba">BBA</option>
+                                                    <option value="bca">BCA</option>
+                                                    <option value="btech">BTECH</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-1">
                                                 <label for="grad-stream" class="form-label">Stream</label>
                                                 <input type="text" class="form-control" id="grad-stream" required>
                                             </div>
@@ -384,6 +409,14 @@
                                         <h4 class="card-title text-center fw-bold ">Diploma / +2</h4>
                                         <form id="diploma-form">
                                             <div class="mb-1">
+                                                <label for="pg-stream" class="form-label">Course Title</label>
+                                                <select class="form-control" id="pg-stream" required>
+                                                    <option value="" disabled selected>Select Course</option>
+                                                    <option value="diploma">DIPLOMA</option>
+                                                    <option value="+2">+2</option>
+                                                </select>
+                                            </div>                                            
+                                            <div class="mb-1">
                                                 <label for="diploma-stream" class="form-label">Stream</label>
                                                 <input type="text" class="form-control" id="diploma-stream" required>
                                             </div>
@@ -399,7 +432,7 @@
                                             <div class="mb-1">
                                                 <label for="diploma-university" class="form-label">Board Name</label>
                                                 <input type="text" class="form-control" id="diploma-university"
-                                                required>
+                                                    required>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="diploma-institute" class="form-label">Institute Name</label>
@@ -721,7 +754,7 @@
                                             <div class="mb-3">
                                                 <label for="blood-group-doc" class="form-label">Upload Experience
                                                     (PDF)</label>
-                                                <input type="file" class="form-control" id="experience-group-doc"
+                                                <input type="file" class="form-control" id="experience-doc"
                                                     accept=".pdf" required>
                                             </div>
                                         </form>
@@ -730,7 +763,8 @@
                             </div>
 
                             <!-- Save & Next Button -->
-                            <button type="button" class="btn btn-primary float-end" id=""><a href="all-details.html" class="log-btn" >Submit</a></button>
+                            <button type="button" class="btn btn-primary submit-btn float-end" id=""><a href="all-details.html"
+                                    class="log-btn">Submit</a></button>
                         </div>
                     </div>
                 </div>
@@ -740,6 +774,59 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        
+            // Function to check if the Post Graduation field is filled
+            function isPostGradFieldFilled() {
+                // Replace 'pg-field1' with the actual ID of the single Post Graduation field
+                return document.getElementById('pg-university').value.trim() !== '';
+            }
+        
+            // Function to check if the Experience field is filled
+            function isExperienceFieldFilled() {
+                // Replace 'exp-field1' with the actual ID of the single Experience field
+                return document.getElementById('company1-name').value.trim() !== '';
+            }
+        
+            // Function to validate the documents
+            function validateDocuments() {
+                const postGradFieldFilled = isPostGradFieldFilled();
+                const experienceFieldFilled = isExperienceFieldFilled();
+        
+                // Check if Post Graduation document is mandatory
+                if (postGradFieldFilled && !document.getElementById('pg-doc').files.length) {
+                    alert('Post Graduation document is required.');
+                    return false;
+                }
+        
+                // Check if Experience document is mandatory
+                if (experienceFieldFilled && !document.getElementById('experience-doc').files.length) {
+                    alert('Experience document is required.');
+                    return false;
+                }
+        
+                // Validate all other documents
+                const otherDocuments = ['grad-doc', 'class12-doc', 'class10-doc', 'aadhar-doc', 'pan-doc', 'blood-group-doc'];
+                for (let doc of otherDocuments) {
+                    if (!document.getElementById(doc).files.length) {
+                        alert(`${document.querySelector(`label[for="${doc}"]`).textContent} is required.`);
+                        return false;
+                    }
+                }
+        
+                return true;
+            }
+        
+            // Add event listener to the submit button
+            document.querySelector('.submit-btn').addEventListener('click', function (event) {
+                if (!validateDocuments()) {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
+        </script>
+        
 </body>
 
 </html>
