@@ -96,3 +96,30 @@ h4 {
 .bord {
   border-right: 1px solid #dee2e6; /* Light gray border */
 }
+
+  /* Center the container and adjust width */
+  .profile-box {
+    width: 100%;
+  }
+
+  /* Center the video and image */
+  #video, #profile-image {
+    width: 180px;
+    height: 140px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  #canvas, #uploaded-image {
+    width: 180px;
+    height: 140px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .d-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Centers the content vertically */
+  }
