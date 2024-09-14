@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <title>Employee Details</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .profile-image {
+            border-radius: 50%;
+            border: 4px solid #007bff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-top: 6rem;
+        }
+
+        /* Media query for small screens (sm and below) */
+        @media (max-width: 576px) {
+            .profile-image {
+                border-radius: 50%;
+                border: 4px solid #007bff;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                margin-top: 0rem;
+            }
+        }
+
+        /* Media query for medium screens (md) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .profile-image {
+                border-radius: 50%;
+                border: 4px solid #007bff;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                margin-top: 0rem;
+            }
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #0056b3;
+        }
+
+        .card-body {
+            background-color: white;
+            padding: 2rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            border-bottom: 4px solid #007bff;
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+        }
+
+        .col-md-6 {
+            padding-bottom: 2rem;
+        }
+
+        .card {
+            margin-bottom: 2rem;
+            height: 100%;
+        }
+
+        .document-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .document-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h1>Employee Details</h1>
+            </div>
+        </div>
+
+        <!-- Personal Info Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center section-title">
+                <h2>Personal Info</h2>
+            </div>
+            <div class="col-lg-6 col-md-12 text-center">
+                <img id="profile-image" src="https://via.placeholder.com/150" alt="Profile Picture"
+                    class="img-fluid profile-image mb-4">
+                <img id="profile-image" src="https://via.placeholder.com/150" alt="Profile Picture"
+                    class="img-fluid profile-image mb-4">
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        Personal Information
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">Father's Name:</div>
+                            <div class="col-sm-6">John Doe</div>
+                            <div class="col-sm-6">Mother's Name:</div>
+                            <div class="col-sm-6">Jane Doe</div>
+                            <div class="col-sm-6">Blood Group:</div>
+                            <div class="col-sm-6">O+</div>
+                            <div class="col-sm-6">Gender:</div>
+                            <div class="col-sm-6">Male</div>
+                            <div class="col-sm-6">Marital Status:</div>
+                            <div class="col-sm-6">Single</div>
+                            <div class="col-sm-6">Whatsapp Number:</div>
+                            <div class="col-sm-6">+1234567890</div>
+                            <div class="col-sm-6">Aadhar Number:</div>
+                            <div class="col-sm-6">1234-5678-9101</div>
+                            <div class="col-sm-6">PAN Number:</div>
+                            <div class="col-sm-6">ABCDE1234F</div>
+                            <div class="col-sm-6">Emergency Contact Number:</div>
+                            <div class="col-sm-6">+0987654321</div>
+                            <div class="col-sm-6">Emergency Contact Relation:</div>
+                            <div class="col-sm-6">Sister</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Address Sections -->
+        <div class="row mb-5">
+            <div class="col-12 text-center section-title">
+                <h2>Address</h2>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        Permanent Address
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">Address:</div>
+                            <div class="col-sm-6">123 Main Street</div>
+                            <div class="col-sm-6">City/Village:</div>
+                            <div class="col-sm-6">Metropolis</div>
+                            <div class="col-sm-6">District:</div>
+                            <div class="col-sm-6">Central</div>
+                            <div class="col-sm-6">State:</div>
+                            <div class="col-sm-6">State</div>
+                            <div class="col-sm-6">Country:</div>
+                            <div class="col-sm-6">Country</div>
+                            <div class="col-sm-6">PIN:</div>
+                            <div class="col-sm-6">123456</div>
+                            <div class="col-sm-6">Post:</div>
+                            <div class="col-sm-6">Post</div>
+                            <div class="col-sm-6">Police Station:</div>
+                            <div class="col-sm-6">Station</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Present Address -->
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        Present Address
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">Address:</div>
+                            <div class="col-sm-6">456 Elm Street</div>
+                            <div class="col-sm-6">City/Village:</div>
+                            <div class="col-sm-6">Gotham</div>
+                            <div class="col-sm-6">District:</div>
+                            <div class="col-sm-6">North</div>
+                            <div class="col-sm-6">State:</div>
+                            <div class="col-sm-6">State</div>
+                            <div class="col-sm-6">Country:</div>
+                            <div class="col-sm-6">Country</div>
+                            <div class="col-sm-6">PIN:</div>
+                            <div class="col-sm-6">654321</div>
+                            <div class="col-sm-6">Post:</div>
+                            <div class="col-sm-6">Post</div>
+                            <div class="col-sm-6">Police Station:</div>
+                            <div class="col-sm-6">Station</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Educational Background Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center section-title">
+                <h2>Educational Background</h2>
+            </div>
+            <div class="col-lg-6 col-md-12 p-3">
+                <div class="card">
+                    <div class="card-header">
+                        Post Graduation
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">Stream:</div>
+                            <div class="col-sm-6">Science</div>
+                            <div class="col-sm-6">Year of Pass:</div>
+                            <div class="col-sm-6">2020</div>
+                            <div class="col-sm-6">Results in (%):</div>
+                            <div class="col-sm-6">85%</div>
+                            <div class="col-sm-6">University Name:</div>
+                            <div class="col-sm-6">XYZ University</div>
+                            <div class="col-sm-6">Institute Name:</div>
+                            <div class="col-sm-6">ABC Institute</div>
+                            <div class="col-sm-6">Institute Location:</div>
+                            <div class="col-sm-6">City</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graduation -->
+            <div class="col-lg-6 col-md-12 p-3">
+                <div class="card">
+                    <div class="card-header">
+                        Graduation
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">Stream:</div>
+                            <div class="col-sm-6">Commerce</div>
+                            <div class="col-sm-6">Year of Pass:</div>
+                            <div class="col-sm-6">2018</div>
+                            <div class="col-sm-6">Results in (%):</div>
+                            <div class="col-sm-6">80%</div>
+                            <div class="col-sm-6">University Name:</div>
+                            <div class="col-sm-6">XYZ University</div>
+                            <div class="col-sm-6">Institute Name:</div>
+                            <div class="col-sm-6">ABC Institute</div>
+                            <div class="col-sm-6">Institute Location:</div>
+                            <div class="col-sm-6">City</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diploma/+2 -->
+            <div class="col-lg-6 col-md-12 p-3">
+                <div class="card">
+                    <div class="card-header">
+                        Diploma/+2
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">Stream:</div>
+                            <div class="col-sm-6">Arts</div>
+                            <div class="col-sm-6">Year of Pass:</div>
+                            <div class="col-sm-6">2016</div>
+                            <div class="col-sm-6">Results in (%):</div>
+                            <div class="col-sm-6">88%</div>
+                            <div class="col-sm-6">Board Name:</div>
+                            <div class="col-sm-6">Board</div>
+                            <div class="col-sm-6">Institute Name:</div>
+                            <div class="col-sm-6">High School</div>
+                            <div class="col-sm-6">Institute Location:</div>
+                            <div class="col-sm-6">City</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10th -->
+            <div class="col-lg-6 col-md-12 p-3">
+                <div class="card">
+                    <div class="card-header">
+                        10th
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">Year of Pass:</div>
+                            <div class="col-sm-6">2014</div>
+                            <div class="col-sm-6">Results in (%):</div>
+                            <div class="col-sm-6">90%</div>
+                            <div class="col-sm-6">Board Name:</div>
+                            <div class="col-sm-6">Board</div>
+                            <div class="col-sm-6">Institute Name:</div>
+                            <div class="col-sm-6">School</div>
+                            <div class="col-sm-6">Institute Location:</div>
+                            <div class="col-sm-6">City</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uploaded Documents Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center section-title">
+                <h2>Uploaded Documents</h2>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">Post Graduation:</div>
+                                    <div class="col-sm-6"><a href="#" class="document-link">View Document</a></div>
+                                    <div class="col-sm-6">Graduation:</div>
+                                    <div class="col-sm-6"><a href="#" class="document-link">View Document</a></div>
+                                    <div class="col-sm-6">Diploma/+2:</div>
+                                    <div class="col-sm-6"><a href="#" class="document-link">View Document</a></div>
+                                    <div class="col-sm-6">Class 10:</div>
+                                    <div class="col-sm-6"><a href="#" class="document-link">View Document</a></div>
+                                    <div class="col-sm-6">Aadhar:</div>
+                                    <div class="col-sm-6"><a href="#" class="document-link">View Document</a></div>
+                                    <div class="col-sm-6">PAN:</div>
+                                    <div class="col-sm-6"><a href="#" class="document-link">View Document</a></div>
+                                    <div class="col-sm-6">Blood Group:</div>
+                                    <div class="col-sm-6"><a href="#" class="document-link">View Document</a></div>
+                                    <div class="col-sm-6">Experience:</div>
+                                    <div class="col-sm-6"><a href="#" class="document-link">View Document</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

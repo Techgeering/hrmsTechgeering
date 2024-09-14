@@ -19,15 +19,18 @@
                     <button class="nav-link active" id="nav-personal-tab" data-bs-toggle="tab"
                         data-bs-target="#nav-personal" type="button" role="tab" aria-controls="nav-personal"
                         aria-selected="true">Personal Info</button>
-                        <button class="nav-link" id="nav-address-tab" data-bs-toggle="tab" data-bs-target="#nav-address"
-                        type="button" role="tab" aria-controls="nav-address" aria-selected="false" disabled>Address</button>
-                    
-                        <button class="nav-link" id="nav-education-tab" data-bs-toggle="tab" data-bs-target="#nav-education"
-                        type="button" role="tab" aria-controls="nav-education" aria-selected="false" disabled>Education</button>
-                    
+                    <button class="nav-link" id="nav-address-tab" data-bs-toggle="tab" data-bs-target="#nav-address"
+                        type="button" role="tab" aria-controls="nav-address" aria-selected="false"
+                        disabled>Address</button>
+
+                    <button class="nav-link" id="nav-education-tab" data-bs-toggle="tab" data-bs-target="#nav-education"
+                        type="button" role="tab" aria-controls="nav-education" aria-selected="false"
+                        disabled>Education</button>
+
                     <button class="nav-link" id="nav-experience-tab" data-bs-toggle="tab"
                         data-bs-target="#nav-experience" type="button" role="tab" aria-controls="nav-experience"
-                        aria-selected="false">Experience</button>
+                        aria-selected="false" disabled>Experience</button>
+
                     <button class="nav-link" id="nav-document-tab" data-bs-toggle="tab" data-bs-target="#nav-document"
                         type="button" role="tab" aria-controls="nav-document" aria-selected="false">Document</button>
                 </div>
@@ -112,7 +115,6 @@
                                                     <option value="Widowed">Widowed</option>
                                                     <option value="Divorced">Divorced</option>
                                                     <option value="Separated">Separated</option>
-                                                    <option value="Others">Others</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -141,7 +143,7 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="emergencyContact" class="form-label">Emergency
-                                                    Contact</label>
+                                                    Contact Number</label>
                                                 <input type="text" class="form-control" id="emergencyContact" required>
                                             </div>
                                         </div>
@@ -308,16 +310,12 @@
                                         <h4 class="card-title text-center fw-bold ">Post Graduation</h4>
                                         <form id="pg-form">
                                             <div class="mb-1">
-                                                <label for="pg-institute" class="form-label">Institute Name</label>
-                                                <input type="text" class="form-control" id="pg-institute" required>
+                                                <label for="pg-stream" class="form-label">Stream</label>
+                                                <input type="text" class="form-control" id="pg-stream" required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="pg-university" class="form-label">University Name</label>
-                                                <input type="text" class="form-control" id="pg-university" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="pg-location" class="form-label">University Location</label>
-                                                <input type="text" class="form-control" id="pg-location" required>
+                                                <label for="pg-year" class="form-label">Year of Pass</label>
+                                                <input type="number" class="form-control" id="pg-year" required>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="pg-results" class="form-label">Results in (%)</label>
@@ -325,14 +323,19 @@
                                                     required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="pg-year" class="form-label">Year of Pass</label>
-                                                <input type="number" class="form-control" id="pg-year" required>
+                                                <label for="pg-university" class="form-label">University Name</label>
+                                                <input type="text" class="form-control" id="pg-university" required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="pg-stream" class="form-label">Stream</label>
-                                                <input type="text" class="form-control" id="pg-stream" required>
+                                                <label for="pg-institute" class="form-label">Institute Name</label>
+                                                <input type="text" class="form-control" id="pg-institute" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="pg-location" class="form-label">Institute Location</label>
+                                                <input type="text" class="form-control" id="pg-location" required>
                                             </div>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -344,17 +347,12 @@
                                         <h4 class="card-title text-center fw-bold ">Graduation</h4>
                                         <form id="grad-form">
                                             <div class="mb-1">
-                                                <label for="grad-institute" class="form-label">Institute Name</label>
-                                                <input type="text" class="form-control" id="grad-institute" required>
+                                                <label for="grad-stream" class="form-label">Stream</label>
+                                                <input type="text" class="form-control" id="grad-stream" required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="grad-university" class="form-label">University Name</label>
-                                                <input type="text" class="form-control" id="grad-university" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="grad-location" class="form-label">University
-                                                    Location</label>
-                                                <input type="text" class="form-control" id="grad-location" required>
+                                                <label for="grad-year" class="form-label">Year of Pass</label>
+                                                <input type="number" class="form-control" id="grad-year" required>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="grad-results" class="form-label">Results in (%)</label>
@@ -362,14 +360,19 @@
                                                     required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="grad-year" class="form-label">Year of Pass</label>
-                                                <input type="number" class="form-control" id="grad-year" required>
+                                                <label for="grad-university" class="form-label">University Name</label>
+                                                <input type="text" class="form-control" id="grad-university" required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="grad-stream" class="form-label">Stream</label>
-                                                <input type="text" class="form-control" id="grad-stream" required>
+                                                <label for="grad-institute" class="form-label">Institute Name</label>
+                                                <input type="text" class="form-control" id="grad-institute" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="grad-location" class="form-label">Institute Location</label>
+                                                <input type="text" class="form-control" id="grad-location" required>
                                             </div>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -381,19 +384,12 @@
                                         <h4 class="card-title text-center fw-bold ">Diploma / +2</h4>
                                         <form id="diploma-form">
                                             <div class="mb-1">
-                                                <label for="diploma-institute" class="form-label">Institute Name</label>
-                                                <input type="text" class="form-control" id="diploma-institute" required>
+                                                <label for="diploma-stream" class="form-label">Stream</label>
+                                                <input type="text" class="form-control" id="diploma-stream" required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="diploma-university" class="form-label">University
-                                                    Name</label>
-                                                <input type="text" class="form-control" id="diploma-university"
-                                                    required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="diploma-location" class="form-label">University
-                                                    Location</label>
-                                                <input type="text" class="form-control" id="diploma-location" required>
+                                                <label for="diploma-year" class="form-label">Year of Pass</label>
+                                                <input type="number" class="form-control" id="diploma-year" required>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="diploma-results" class="form-label">Results in (%)</label>
@@ -401,14 +397,21 @@
                                                     step="0.01" required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="diploma-year" class="form-label">Year of Pass</label>
-                                                <input type="number" class="form-control" id="diploma-year" required>
+                                                <label for="diploma-university" class="form-label">Board Name</label>
+                                                <input type="text" class="form-control" id="diploma-university"
+                                                required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="diploma-stream" class="form-label">Stream</label>
-                                                <input type="text" class="form-control" id="diploma-stream" required>
+                                                <label for="diploma-institute" class="form-label">Institute Name</label>
+                                                <input type="text" class="form-control" id="diploma-institute" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="diploma-location" class="form-label">Institute
+                                                    Location</label>
+                                                <input type="text" class="form-control" id="diploma-location" required>
                                             </div>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -420,17 +423,8 @@
                                         <h4 class="card-title text-center fw-bold ">10th</h4>
                                         <form id="10th-form">
                                             <div class="mb-1">
-                                                <label for="10th-institute" class="form-label">Institute Name</label>
-                                                <input type="text" class="form-control" id="10th-institute" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="10th-university" class="form-label">University Name</label>
-                                                <input type="text" class="form-control" id="10th-university" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="10th-location" class="form-label">University
-                                                    Location</label>
-                                                <input type="text" class="form-control" id="10th-location" required>
+                                                <label for="10th-year" class="form-label">Year of Pass</label>
+                                                <input type="number" class="form-control" id="10th-year" required>
                                             </div>
                                             <div class="mb-1">
                                                 <label for="10th-results" class="form-label">Results in (%)</label>
@@ -438,14 +432,19 @@
                                                     required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="10th-year" class="form-label">Year of Pass</label>
-                                                <input type="number" class="form-control" id="10th-year" required>
+                                                <label for="10th-university" class="form-label">Board Name</label>
+                                                <input type="text" class="form-control" id="10th-university" required>
                                             </div>
                                             <div class="mb-1">
-                                                <label for="10th-stream" class="form-label">Stream</label>
-                                                <input type="text" class="form-control" id="10th-stream" required>
+                                                <label for="10th-institute" class="form-label">Institute Name</label>
+                                                <input type="text" class="form-control" id="10th-institute" required>
+                                            </div>
+                                            <div class="mb-1">
+                                                <label for="10th-location" class="form-label">Institute Location</label>
+                                                <input type="text" class="form-control" id="10th-location" required>
                                             </div>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -632,7 +631,7 @@
                             <div class="col-md-12 mb-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title fw-bold">Class 12</h4>
+                                        <h4 class="card-title fw-bold">Diploma/+2</h4>
                                         <form id="class12-doc-form">
                                             <div class="mb-3">
                                                 <label for="class12-doc" class="form-label">Upload Class 12 Document
@@ -731,7 +730,7 @@
                             </div>
 
                             <!-- Save & Next Button -->
-                            <button type="button" class="btn btn-primary float-end" id="">Submit</button>
+                            <button type="button" class="btn btn-primary float-end" id=""><a href="all-details.html" class="log-btn" >Submit</a></button>
                         </div>
                     </div>
                 </div>

@@ -1,3 +1,5 @@
+
+//--------------------------------------------------------------------
 document.getElementById('save-next-btn').addEventListener('click', function() {
     const form = document.getElementById('personal-info-form');
     if (form.checkValidity()) {
@@ -45,15 +47,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const permanentAddressForm = document.getElementById('permanent-address-form');
     const presentAddressForm = document.getElementById('present-address-form');
     const educationTabButton = document.getElementById('nav-education-tab');
+    const copyAddressCheckbox = document.getElementById('copy-address'); // Checkbox to copy the address
 
+    // Function to copy data from permanent to present address
+    function copyPermanentToPresent() {
+        if (copyAddressCheckbox.checked) {
+            const permanentAddressFields = permanentAddressForm.querySelectorAll('input');
+            permanentAddressFields.forEach(field => {
+                const presentField = document.getElementById('pres-' + field.id.split('-')[1]);
+                if (presentField) {
+                    presentField.value = field.value; // Copy the value
+                }
+            });
+        }
+    }
+
+    // Function to update the "Education" tab button state
     function updateTabButtonState() {
-        // Check if both forms are valid
         const isValid = permanentAddressForm.checkValidity() && presentAddressForm.checkValidity();
         educationTabButton.disabled = !isValid;
     }
 
+    // Add event listener to the checkbox for copying address
+    copyAddressCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            copyPermanentToPresent(); // Copy data when the checkbox is checked
+        }
+        updateTabButtonState(); // Update the button state after copying
+    });
+
     // Update button state on input in both forms
-    permanentAddressForm.addEventListener('input', updateTabButtonState);
+    permanentAddressForm.addEventListener('input', function() {
+        if (!copyAddressCheckbox.checked) {
+            updateTabButtonState(); // Only check validity if checkbox is not checked
+        }
+    });
+
     presentAddressForm.addEventListener('input', updateTabButtonState);
 
     // Initial check in case the page is loaded with some data already filled
@@ -80,6 +109,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const pgForm = document.getElementById('pg-form');
+    const gradForm = document.getElementById('grad-form');
+    const diplomaForm = document.getElementById('diploma-form');
+    const tenthForm = document.getElementById('10th-form');
+    const experienceTabButton = document.getElementById('nav-experience-tab');
+
+    function updateTabButtonState() {
+        // Check if all forms are valid
+        const isValid = pgForm.checkValidity() && gradForm.checkValidity() && diplomaForm.checkValidity() && tenthForm.checkValidity();
+        experienceTabButton.disabled = !isValid;
+    }
+
+    // Update button state on input in all forms
+    pgForm.addEventListener('input', updateTabButtonState);
+    gradForm.addEventListener('input', updateTabButtonState);
+    diplomaForm.addEventListener('input', updateTabButtonState);
+    tenthForm.addEventListener('input', updateTabButtonState);
+
+    // Initial check in case the page is loaded with some data already filled
+    updateTabButtonState();
+});
+
 //------------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -106,6 +158,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const experienceForm = document.getElementById('experience-form'); // Get the experience form
+    const documentTabButton = document.getElementById('nav-document-tab'); // Get the "Document" tab button
+
+    // Function to update the "Document" tab button state
+    function updateTabButtonState() {
+        // Check if the experience form is valid
+        const isValid = experienceForm.checkValidity();
+        documentTabButton.disabled = !isValid;
+    }
+
+    // Update button state on input in the experience form
+    experienceForm.addEventListener('input', updateTabButtonState);
+
+    // Initial check in case the page is loaded with some data already filled
+    updateTabButtonState();
+});
+
 //--------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
@@ -120,6 +190,7 @@ document.getElementById('save-next-btnsss').addEventListener('click', function()
         form.reportValidity();
     }
 });
+
 //--------------------------------------------------------------------------------------------
 
 document.getElementById('copy-address').addEventListener('change', function() {
@@ -230,3 +301,5 @@ function uploadPhoto() {
         uploadedImage.style.display = 'none';
     }
 }
+
+//----------------------------------------------------------------------------------------

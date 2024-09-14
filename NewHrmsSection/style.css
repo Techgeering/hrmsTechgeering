@@ -87,3 +87,8 @@ h4 {
   border: 1px solid #ddd; /* Optional: Add a border around the image */
   border-radius: 5px; /* Optional: Add rounded corners */
 }
+
+.log-btn {
+  text-decoration: none;
+  color: white;
+}
