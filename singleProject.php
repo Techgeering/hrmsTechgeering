@@ -300,12 +300,12 @@
                                         if ($em_role == '4') {
                                             // Admin or similar role
                                             $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
-            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
-            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
-            FROM pro_task pt
-            JOIN assign_task at ON pt.id = at.task_id
-            WHERE pt.pro_id = $proId AND pt.task_type = 'Field' AND at.assign_user = '$name'
-            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+                                            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+                                            FROM pro_task pt
+                                            JOIN assign_task at ON pt.id = at.task_id
+                                            WHERE pt.pro_id = $proId AND pt.task_type = 'Field' AND at.assign_user = '$name'
+                                            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
 
 
                                             //                                 $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
@@ -321,23 +321,23 @@
                                         } elseif ($em_role == '2') {
                                             // Team Head role
                                             $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
-            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
-            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
-            FROM pro_task pt
-            JOIN assign_task at ON pt.id = at.task_id
-            WHERE pt.pro_id = $proId AND pt.task_type = 'Field' AND 
-            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') = '$name'
-            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+                                            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+                                            FROM pro_task pt
+                                            JOIN assign_task at ON pt.id = at.task_id
+                                            WHERE pt.pro_id = $proId AND pt.task_type = 'Field' AND 
+                                            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') = '$name'
+                                            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
 
                                         } else {
                                             // General user or other roles
                                             $sql1 = "SELECT pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
-            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
-            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
-            FROM pro_task pt
-            JOIN assign_task at ON pt.id = at.task_id
-            WHERE pt.pro_id = $proId AND pt.task_type = 'Field'
-            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                            GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+                                            (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+                                            FROM pro_task pt
+                                            JOIN assign_task at ON pt.id = at.task_id
+                                            WHERE pt.pro_id = $proId AND pt.task_type = 'Field'
+                                            GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
                                         }
                                         $result1 = $conn->query($sql1);
                                         $slno = 1;

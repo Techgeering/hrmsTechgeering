@@ -992,9 +992,11 @@
                                                 <th>Sl No</th>
                                                 <th>Company name</th>
                                                 <th>Position </th>
-                                                <th>Work Duration</th>
                                                 <th>Address</th>
-                                                <!-- <th>Action</th> -->
+                                                <th>Joining Date</th>
+                                                <th>Leaving Date</th>
+                                                <th>Work Duration</th>
+                                                <th>Last Salary Received</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1003,14 +1005,21 @@
                                             $result4 = $conn->query($sql4);
                                             $slno = 1;
                                             if ($result4->num_rows > 0) {
-                                                // output data of each row
-                                                while ($row4 = $result4->fetch_assoc()) { ?>
+                                                while ($row4 = $result4->fetch_assoc()) {
+                                                    $joining = new DateTime($row4["exp_joining"]);
+                                                    $leaving = new DateTime($row4["exp_leaving"]);
+                                                    $interval = $leaving->diff($joining);
+                                                    $workduration = $interval->y . " years, " . $interval->m . " months, " . $interval->d . " days";
+                                                    ?>
                                                     <tr>
                                                         <td><?php echo $slno; ?></td>
                                                         <td><?php echo $row4["exp_company"]; ?></td>
                                                         <td><?php echo $row4["exp_com_position"]; ?></td>
-                                                        <td><?php echo $row4["exp_workduration"]; ?></td>
                                                         <td><?php echo $row4["exp_com_address"]; ?></td>
+                                                        <td><?php echo $row4["exp_joining"]; ?></td>
+                                                        <td><?php echo $row4["exp_leaving"]; ?></td>
+                                                        <td><?php echo $workduration ?></td>
+                                                        <td><?php echo $row4["salary_received"]; ?></td>
                                                     </tr>
                                                     <?php
                                                     $slno++;
@@ -1047,11 +1056,22 @@
                                                 minlength="7" required>
                                         </div>
                                         <div class="form-group col-md-6 m-t-5">
-                                            <label>Working Duration</label>
-                                            <input type="text" name="work_duration" id="workingduration"
-                                                class="form-control form-control-line working_period"
-                                                placeholder="Working Duration"
-                                                oninput="this.value = this.value.replace(/[^0-9+_.%]/g,'');" required>
+                                            <label>Joining Date</label>
+                                            <input type="date" name="joiningdate" id="joiningdate1"
+                                                class="form-control form-control-line duty" placeholder="Address"
+                                                minlength="7" required>
+                                        </div>
+                                        <div class="form-group col-md-6 m-t-5">
+                                            <label>Leaving Date</label>
+                                            <input type="date" name="leavingdate" id="leavingdate1"
+                                                class="form-control form-control-line duty" placeholder="Address"
+                                                minlength="7" required>
+                                        </div>
+                                        <div class="form-group col-md-6 m-t-5">
+                                            <label>Last Salary Received</label>
+                                            <input type="text" name="lastsalary" id="lastsalary1"
+                                                class="form-control form-control-line duty"
+                                                placeholder="Last Salary Received" minlength="7" required>
                                         </div>
                                         <div class="form-actions col-md-12">
                                             <input type="hidden" name="emid" value="Soy1332">
@@ -1071,8 +1091,11 @@
                         $companyname = $_POST["company_name"];
                         $positionname = $_POST["position_name"];
                         $address = $_POST["address"];
-                        $workduration = $_POST["work_duration"];
-                        $sqlexperience = "INSERT INTO emp_experience (exp_company, exp_com_position, exp_com_address, exp_workduration, emp_id) VALUES ('$companyname','$positionname','$address', '$workduration','$empId')";
+                        // $workduration = $_POST["work_duration"];
+                        $joining = $_POST["joiningdate"];
+                        $leaving = $_POST["leavingdate"];
+                        $salaryreceived = $_POST["lastsalary"];
+                        $sqlexperience = "INSERT INTO emp_experience (exp_company, exp_com_position, exp_com_address, exp_joining, exp_leaving, salary_received, emp_id) VALUES ('$companyname','$positionname','$address', '$joining', '$leaving', '$salaryreceived', '$empId')";
                         if ($conn->query($sqlexperience) === true) {
                             echo "<script>alert('Form submitted successfully');</script>";
                         } else {

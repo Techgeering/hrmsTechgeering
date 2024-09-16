@@ -106,42 +106,131 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Payroll</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="DepartmentName">Department Name</label>
-                            <input type="text" class="form-control" id="DepartmentName" name="DepartmentName">
+                            <label for="DepartmentName">Emp Id</label>
+                            <input type="text" class="form-control" id="empid1" name="empid">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="DepartmentName">Emp Name</label>
+                            <input type="text" class="form-control" id="empname1" name="empname">
+                        </div> -->
+                        <div class="form-group col-6">
+                            <div class="mb-2">
+                                <label for="month" class="form-label">Month</label>
+                                <select class="form-select" name="month" id="month1">
+                                    <option value="" selected>Select Month</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="year" class="form-label">Year</label>
+                            <select class="form-select" name="year" id="year1">
+                                <option value="" selected>Select Year</option>
+                                <?php
+                                $currentYear = date("Y");
+                                for ($year = 2000; $year <= $currentYear; $year++) {
+                                    echo "<option value=\"$year\">$year</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-6">
+                                <label for="DepartmentName">Basic</label>
+                                <input type="text" class="form-control" id="basic1" name="basic">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">House Rent</label>
+                            <input type="text" class="form-control" id="houserent1" name="houserent">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Medical</label>
+                            <input type="text" class="form-control" id="medical1" name="medical">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Conveyance</label>
+                            <input type="text" class="form-control" id="conveyance1" name="conveyance">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Bonus</label>
+                            <input type="text" class="form-control" id="bonus1" name="bonus">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Insurance</label>
+                            <input type="text" class="form-control" id="insurance1" name="insurance">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Provident Fund</label>
+                            <input type="text" class="form-control" id="providentfund1" name="providentfund">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Tax</label>
+                            <input type="text" class="form-control" id="tax1" name="tax">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Loans</label>
+                            <input type="text" class="form-control" id="loans1" name="loans">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Others</label>
+                            <input type="text" class="form-control" id="other1" name="other">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Salary Paid</label>
+                            <input type="text" class="form-control" id="salarypaid1" name="salarypaid">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        <button type="submit" class="btn btn-primary" name="submitpayroll">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <?php
-    include "common/conn.php";
-    if (isset($_POST['submit'])) {
-        // Retrieve form data
-        $departmentName = $_POST["DepartmentName"];
-        // Prepare and bind SQL statement
-        $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
-        $stmt->bind_param("s", $departmentName);
-        // Execute SQL statement
-        if ($stmt->execute() === TRUE) {
-            echo " <script>alert('success')</script>";
+    if (isset($_POST['submitpayroll'])) {
+        include "common/conn.php";
+        $empid = $_POST["empid"];
+        $month = $_POST["month"];
+        $year = $_POST["year"];
+        $basic = $_POST["basic"];
+        $houserent = $_POST["houserent"];
+        $medical = $_POST["medical"];
+        $conveyance = $_POST["conveyance"];
+        $bonus = $_POST["bonus"];
+        $insurance = $_POST["insurance"];
+        $providentfund = $_POST["providentfund"];
+        $tax = $_POST["tax"];
+        $loans = $_POST["loans"];
+        $other = $_POST["other"];
+        $salarypaid = $_POST["salarypaid"];
+        $sqlpayroll = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, bonus, bima, provident_fund, tax, loan, other_diduction, total_pay) VALUES ('$empid','$month', '$year', '$basic', '$houserent', '$medical','$conveyance','$bonus','$insurance','$providentfund','$tax','$loans','$other',' $salarypaid')";
+        if ($conn->query($sqlpayroll) === true) {
+            echo "<script>alert('Form submitted successfully');</script>";
         } else {
-            echo " <script>alert('$stmt->error')</script>";
+            $conn->error;
         }
-        // Close connection
-        $stmt->close();
+        $conn->close();
     }
-    $conn->close();
     ?>
     <!-- update modal -->
     <div class="modal fade" id="updateDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
