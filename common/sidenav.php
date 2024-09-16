@@ -162,3 +162,36 @@
 
     </nav>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the current URL
+    var currentUrl = window.location.href;
+
+    // Get all dropdown links
+    var dropdowns = document.querySelectorAll('.collapse');
+
+    // Loop through each dropdown
+    dropdowns.forEach(function(dropdown) {
+        // Get all links inside the dropdown
+        var links = dropdown.querySelectorAll('a.nav-link');
+
+        links.forEach(function(link) {
+            // Check if the link's href matches the current URL
+            if (link.href === currentUrl) {
+                // If a match is found, add the 'show' class to keep the dropdown open
+                dropdown.classList.add('show');
+                // Also add 'active' class to the link
+                link.classList.add('active');
+                
+                // Ensure the parent 'collapsed' class is set properly for the dropdown toggle
+                var parentToggle = dropdown.previousElementSibling;
+                if (parentToggle.classList.contains('collapsed')) {
+                    parentToggle.setAttribute('aria-expanded', 'true');
+                    parentToggle.classList.remove('collapsed');
+                }
+            }
+        });
+    });
+});
+
+</script>
