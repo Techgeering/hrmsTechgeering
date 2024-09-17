@@ -66,7 +66,15 @@
                                             <tr>
                                                 <td><?php echo $slno; ?></td>
                                                 <td><?php echo $row["emp_id"]; ?></td>
-                                                <td><?php echo $row["emp_id"]; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $emp_id = $row["emp_id"];
+                                                    $sql15 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
+                                                    $result15 = $conn->query($sql15);
+                                                    $row15 = $result15->fetch_assoc();
+                                                    echo $row15["full_name"];
+                                                    ?>
+                                                </td>
                                                 <td><?php echo $row["month"] . '/' . $row["year"]; ?></td>
                                                 <td><?php echo $row["basic"]; ?></td>
                                                 <td><?php echo $row["house_rent"]; ?></td>
@@ -111,91 +119,142 @@
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="DepartmentName">Emp Id</label>
-                            <input type="text" class="form-control" id="empid1" name="empid">
-                        </div>
-                        <!-- <div class="form-group">
-                            <label for="DepartmentName">Emp Name</label>
-                            <input type="text" class="form-control" id="empname1" name="empname">
-                        </div> -->
-                        <div class="form-group col-6">
-                            <div class="mb-2">
-                                <label for="month" class="form-label">Month</label>
-                                <select class="form-select" name="month" id="month1">
-                                    <option value="" selected>Select Month</option>
-                                    <option value="January">January</option>
-                                    <option value="February">February</option>
-                                    <option value="March">March</option>
-                                    <option value="April">April</option>
-                                    <option value="May">May</option>
-                                    <option value="June">June</option>
-                                    <option value="July">July</option>
-                                    <option value="August">August</option>
-                                    <option value="September">September</option>
-                                    <option value="October">October</option>
-                                    <option value="November">November</option>
-                                    <option value="December">December</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label for="year" class="form-label">Year</label>
-                            <select class="form-select" name="year" id="year1">
-                                <option value="" selected>Select Year</option>
-                                <?php
-                                $currentYear = date("Y");
-                                for ($year = 2000; $year <= $currentYear; $year++) {
-                                    echo "<option value=\"$year\">$year</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
+                        <div class="row">
                             <div class="col-6">
-                                <label for="DepartmentName">Basic</label>
-                                <input type="text" class="form-control" id="basic1" name="basic">
+                                <div class="form-group">
+                                    <label for="empid">Employee ID</label>
+                                    <select class="form-control" name="empid" id="empid" required>
+                                        <option value="">Select EmployeeId</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql2 = " SELECT e.full_name, e.em_code, s.basic, s.medical, s.house_rent, s.transporting, s.bonus, s.bima, s.tax, s.provident_fund, s.loan, s.other_diduction, s.performance_bonus
+                                        FROM employee e
+                                        JOIN pay_salary s ON e.em_code = s.emp_id
+                                        ORDER BY s.year DESC, s.month DESC";
+                                        $result2 = $conn->query($sql2);
+                                        while ($row2 = $result2->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?php echo $row2["em_code"]; ?>"
+                                                data-empname="<?php echo $row2["full_name"]; ?>"
+                                                data-basic="<?php echo $row2["basic"]; ?>"
+                                                data-medical="<?php echo $row2["medical"]; ?>"
+                                                data-house_rent="<?php echo $row2["house_rent"]; ?>"
+                                                data-transporting="<?php echo $row2["transporting"]; ?>"
+                                                data-bonus="<?php echo $row2["bonus"]; ?>"
+                                                data-bima="<?php echo $row2["bima"]; ?>"
+                                                data-tax="<?php echo $row2["tax"]; ?>"
+                                                data-provident_fund="<?php echo $row2["provident_fund"]; ?>"
+                                                data-loan="<?php echo $row2["loan"]; ?>"
+                                                data-other="<?php echo $row2["other_diduction"]; ?>">
+                                                <?php echo $row2["em_code"];
+                                                ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">House Rent</label>
-                            <input type="text" class="form-control" id="houserent1" name="houserent">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Medical</label>
-                            <input type="text" class="form-control" id="medical1" name="medical">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Conveyance</label>
-                            <input type="text" class="form-control" id="conveyance1" name="conveyance">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Bonus</label>
-                            <input type="text" class="form-control" id="bonus1" name="bonus">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Insurance</label>
-                            <input type="text" class="form-control" id="insurance1" name="insurance">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Provident Fund</label>
-                            <input type="text" class="form-control" id="providentfund1" name="providentfund">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Tax</label>
-                            <input type="text" class="form-control" id="tax1" name="tax">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Loans</label>
-                            <input type="text" class="form-control" id="loans1" name="loans">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Others</label>
-                            <input type="text" class="form-control" id="other1" name="other">
-                        </div>
-                        <div class="form-group">
-                            <label for="DepartmentName">Salary Paid</label>
-                            <input type="text" class="form-control" id="salarypaid1" name="salarypaid">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Emp Name</label>
+                                    <input type="text" class="form-control" id="empname1" name="empname" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="mb-2">
+                                        <label for="month" class="form-label">Month</label>
+                                        <input type="text" class="form-control" name="month" id="month1" required
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="year" class="form-label">Year</label>
+                                    <input type="text" class="form-control" name="year" id="year1"
+                                        value="<?php echo date('Y'); ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Basic</label>
+                                    <input type="text" class="form-control" id="basic1" name="basic"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">House Rent</label>
+                                    <input type="text" class="form-control" id="houserent1" name="houserent"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Medical</label>
+                                    <input type="text" class="form-control" id="medical1" name="medical"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Conveyance</label>
+                                    <input type="text" class="form-control" id="conveyance1" name="conveyance"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Bonus</label>
+                                    <input type="text" class="form-control" id="bonus1" name="bonus"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Insurance</label>
+                                    <input type="text" class="form-control" id="insurance1" name="insurance"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Provident Fund</label>
+                                    <input type="text" class="form-control" id="providentfund1" name="providentfund"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Tax</label>
+                                    <input type="text" class="form-control" id="tax1" name="tax"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Loans</label>
+                                    <input type="text" class="form-control" id="loans1" name="loans"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Others</label>
+                                    <input type="text" class="form-control" id="other1" name="other"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -232,44 +291,80 @@
         $conn->close();
     }
     ?>
-    <!-- update modal -->
-    <div class="modal fade" id="updateDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Department</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <div class="modal-body">
-                        <input type="hidden" name="id1" id="id1">
-                        <div class="form-group">
-                            <label for="DepartmentName">Department Name</label>
-                            <input type="text" class="form-control" id="DepartmentNamee" name="DepartmentNamee">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="updatedepartment">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <?php
-    if (isset($_POST['updatedepartment'])) {
-        include "common/conn.php";
-        $departmentname = htmlspecialchars($_POST["DepartmentNamee"]);
-        $id = $_POST["id1"];
-        $sql1 = "UPDATE department SET dep_name='$departmentname' WHERE id='$id'";
-        if ($conn->query($sql1) === true) {
-            echo " <script>alert('success')</script>";
-        } else {
-            echo $conn->error;
-        }
-        $conn->close();
-    }
-    ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- emp name should be get through empid-->
+    <!-- <script>
+        $(document).ready(function () {
+            $('#empid').change(function () {
+                var empid = $(this).val();
+                if (empid != "") {
+                    $.ajax({
+                        url: "fetch_employee.php",
+                        type: "POST",
+                        data: { empid: empid },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data) {
+                                $('#month1').val(data.month);
+                                $('#basic1').val(data.basic);
+                                $('#houserent1').val(data.houserent);
+                                $('#medical1').val(data.medical);
+                                $('#conveyance1').val(data.conveyance);
+                                $('#bonus1').val(data.bonus);
+                                $('#insurance1').val(data.insurance);
+                                $('#providentfund1').val(data.providentfund);
+                                $('#tax1').val(data.tax);
+                                $('#loans1').val(data.loans);
+                                $('#other1').val(data.other);
+                            }
+                        }
+                    });
+                } else {
+                    $('#month1').val('');
+                    $('#basic1').val('');
+                    // Clear other fields as needed
+                }
+            });
+        });
+    </script> -->
+    <script>
+        $(document).ready(function () {
+            $('#empid').on('change', function () {
+                var empName = $(this).find(':selected').data('empname');
+                var basic = $(this).find(':selected').data('basic');
+                var medical = $(this).find(':selected').data('medical');
+                var house_rent = $(this).find(':selected').data('house_rent');
+                var transporting = $(this).find(':selected').data('transporting');
+                var bima = $(this).find(':selected').data('bima');
+                var tax = $(this).find(':selected').data('tax');
+                var provident_fund = $(this).find(':selected').data('provident_fund');
+                var loan = $(this).find(':selected').data('loan');
+                var bonus = $(this).find(':selected').data('bonus');
+                var other = $(this).find(':selected').data('other');
+                $('#empname1').val(empName);
+                $('#basic1').val(basic);
+                $('#houserent1').val(house_rent);
+                $('#medical1').val(medical);
+                $('#conveyance1').val(transporting);
+                $('#bonus1').val(bonus);
+                $('#insurance1').val(bima);
+                $('#providentfund1').val(provident_fund);
+                $('#tax1').val(tax);
+                $('#loans1').val(loan);
+                $('#other1').val(other);
+            });
+        });
+    </script>
+    <!-- previous month should be get -->
+    <script>
+        var currentMonth = new Date().getMonth();
+        var months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        var previousMonth = currentMonth - 1;
+        document.getElementById('month1').value = months[previousMonth];
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>
