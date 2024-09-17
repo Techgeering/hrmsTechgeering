@@ -39,42 +39,53 @@
                 <div class="tab-pane fade show active" id="nav-personal" role="tabpanel"
                     aria-labelledby="nav-personal-tab" tabindex="0">
                     <section class="container">
-                        <div class="row">
-                            <!-- Right Column: Profile Box -->
-                            <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
-                                <div class="profile-box text-center">
-                                    <!-- Profile Image -->
-                                    <img id="profile-image" src="https://via.placeholder.com/100" alt="Profile Picture"
-                                        class="img-fluid mb-3">
-                                    <p id="image-name" class="mt-2">No image captured yet</p>
+                        <form id="personal-info-form">
+                            <div class="row">
+                                <!-- Right Column: Profile Box -->
+                                <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
+                                    <div class="profile-box text-center">
+                                        <!-- Start of Form -->
+                                        <!-- <form id="profile-form" action="your-action-url" method="post"
+                                        enctype="multipart/form-data"> -->
+                                        <!-- Profile Image -->
+                                        <img id="profile-image" src="https://via.placeholder.com/100"
+                                            alt="Profile Picture" class="img-fluid mb-3">
+                                        <p id="image-name" class="mt-2">No image captured yet</p>
 
-                                    <!-- Camera Control -->
-                                    <video id="video" style="display: none;"></video>
-                                    <button class="btn btn-primary start-btn" onclick="startCamera()">Start
-                                        Camera</button>
-                                    <canvas id="canvas" style="display: none;"></canvas>
-                                    <button id="capture" class="btn btn-secondary capture-btn" style="display: none;"
-                                        onclick="capturePhoto()">Capture</button>
+                                        <!-- Camera Control -->
+                                        <video id="video" style="display: none;"></video>
+                                        <button class="btn btn-primary start-btn" type="button"
+                                            onclick="startCamera()">Start Camera</button>
+                                        <canvas id="canvas" style="display: none;"></canvas>
+                                        <button id="capture" class="btn btn-secondary capture-btn" type="button"
+                                            style="display: none;" onclick="capturePhoto()">Capture</button>
 
-                                    <!-- Upload Photo Section -->
-                                    <div class="upload-photo-container mt-3">
-                                        <img id="uploaded-image" class="mb-3" src="" alt="Uploaded Image"
-                                            style="display: none;">
-                                        <input type="file" id="upload-photo" class="form-control" accept="image/*"
-                                            onchange="uploadPhoto()">
-                                        <p id="upload-image-name" class="mt-2">No image uploaded yet</p>
+                                        <!-- Upload Photo Section -->
+                                        <div class="upload-photo-container mt-3">
+                                            <img id="uploaded-image" class="mb-3" src="" alt="Uploaded Image"
+                                                style="display: none;">
+                                            <input type="file" id="upload-photo" name="profile-photo"
+                                                class="form-control" accept="image/*" onchange="uploadPhoto()">
+                                            <p id="upload-image-name" class="mt-2">No image uploaded yet</p>
+                                        </div>
+
+                                        <!-- User Details -->
+                                        <h5>John Doe</h5>
+                                        <p><strong>Email:</strong> john.doe@example.com</p>
+                                        <p><strong>Phone:</strong> +91-12345-67890</p>
+
+                                        <!-- Submit Form Button -->
+                                        <!-- <button type="submit" class="btn btn-success mt-3">Submit</button> -->
+                                        <!-- </form> -->
+                                        <!-- End of Form -->
                                     </div>
-
-                                    <h5>John Doe</h5>
-                                    <p><strong>Email:</strong> john.doe@example.com</p>
-                                    <p><strong>Phone:</strong> +91-12345-67890</p>
                                 </div>
-                            </div>
 
 
-                            <!-- Left Column: Form -->
-                            <div class="col-lg-8 col-md-8 col-sm-12">
-                                <form id="personal-info-form">
+
+                                <!-- Left Column: Form -->
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
@@ -89,11 +100,28 @@
                                                 <input type="text" class="form-control" id="motherName" required>
                                             </div>
                                         </div>
-
+                                        <!-- 
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="bloodGroup" class="form-label">Blood Group</label>
                                                 <input type="text" class="form-control" id="bloodGroup" required>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="bloodgroup" class="form-label">Blood Group</label>
+                                                <select class="form-select" id="bloodgroup" required>
+                                                    <option value="" selected>Select Blood Group</option>
+                                                    <option value="A+">A+</option>
+                                                    <option value="A-">A-</option>
+                                                    <option value="B+">B+</option>
+                                                    <option value="B-">B-</option>
+                                                    <option value="O+">O+</option>
+                                                    <option value="O-">O-</option>
+                                                    <option value="AB+">AB+</option>
+                                                    <option value="AB-">AB-</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -126,21 +154,23 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="whatsappNumber" class="form-label">Whatsapp Number</label>
-                                                <input type="text" class="form-control" id="whatsappNumber" required>
+                                                <input type="text" class="form-control" maxlength="10" id="whatsappNumber" required
+                                                    inputmode="numeric">
                                             </div>
                                         </div>
 
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <label for="aadharNumber" class="form-label">Aadhar Number</label>
-                                                <input type="text" class="form-control" id="aadharNumber" required>
+                                                <label for="aadharNumber" class="form-label">Aadhaar Number</label>
+                                                <input type="text" class="form-control" maxlength="12" id="aadharNumber" required
+                                                    inputmode="numeric">
                                             </div>
                                         </div>
 
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="panNumber" class="form-label">PAN Number</label>
-                                                <input type="text" class="form-control" id="panNumber" required>
+                                                <input type="text" class="form-control" maxlength="10" id="panNumber" required>
                                             </div>
                                         </div>
 
@@ -148,7 +178,7 @@
                                             <div class="mb-3">
                                                 <label for="emergencyContact" class="form-label">Emergency
                                                     Contact Number</label>
-                                                <input type="text" class="form-control" id="emergencyContact" required>
+                                                <input type="text" class="form-control" maxlength="10" id="emergencyContact" required>
                                             </div>
                                         </div>
 
@@ -163,19 +193,20 @@
                                     <!-- Save & Next Button -->
                                     <button type="button" class="btn btn-primary float-end" id="save-next-btn">Save &
                                         Next</button>
-                                </form>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </section>
                 </div>
                 <div class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab"
                     tabindex="0">
                     <section class="container">
-                        <div class="row">
-                            <!-- Permanent Address Column -->
-                            <div class="col-lg-6 bord">
-                                <h5>Permanent Address</h5>
-                                <form id="permanent-address-form">
+                        <form id="permanent-address-form">
+                            <div class="row">
+                                <!-- Permanent Address Column -->
+                                <div class="col-lg-6 bord">
+                                    <h5>Permanent Address</h5>
+
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
@@ -197,20 +228,52 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <label for="perm-state" class="form-label">State</label>
-                                                <input type="text" class="form-control" id="perm-state" required>
+                                                <label for="prem-state" class="form-label">State</label>
+                                                <select class="form-control" id="perm-state" required>
+                                                    <option value="" disabled selected>Select a state</option>
+                                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                    <option value="Assam">Assam</option>
+                                                    <option value="Bihar">Bihar</option>
+                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                    <option value="Goa">Goa</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Haryana">Haryana</option>
+                                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                    <option value="Jharkhand">Jharkhand</option>
+                                                    <option value="Karnataka">Karnataka</option>
+                                                    <option value="Kerala">Kerala</option>
+                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                    <option value="Maharashtra">Maharashtra</option>
+                                                    <option value="Manipur">Manipur</option>
+                                                    <option value="Meghalaya">Meghalaya</option>
+                                                    <option value="Mizoram">Mizoram</option>
+                                                    <option value="Nagaland">Nagaland</option>
+                                                    <option value="Odisha">Odisha</option>
+                                                    <option value="Punjab">Punjab</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Sikkim">Sikkim</option>
+                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    <option value="Telangana">Telangana</option>
+                                                    <option value="Tripura">Tripura</option>
+                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                    <option value="Uttarakhand">Uttarakhand</option>
+                                                    <option value="West Bengal">West Bengal</option>
+                                                </select>
                                             </div>
                                         </div>
+
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-country" class="form-label">Country</label>
-                                                <input type="text" class="form-control" id="perm-country" required>
+                                                <input type="text" class="form-control" value="India" id="perm-country"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-pin" class="form-label">PIN</label>
-                                                <input type="text" class="form-control" id="perm-pin" required>
+                                                <input type="text" class="form-control" maxlength="6" id="perm-pin" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -228,13 +291,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
 
-                            <!-- Present Address Column -->
-                            <div class="col-lg-6">
-                                <h5>Present Address</h5>
-                                <form id="present-address-form">
+                                <!-- Present Address Column -->
+                                <div class="col-lg-6">
+                                    <h5>Present Address</h5>
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
@@ -257,19 +318,51 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-state" class="form-label">State</label>
-                                                <input type="text" class="form-control" id="pres-state" required>
+                                                <select class="form-control" id="pres-state" required>
+                                                    <option value="" disabled selected>Select a state</option>
+                                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                    <option value="Assam">Assam</option>
+                                                    <option value="Bihar">Bihar</option>
+                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                    <option value="Goa">Goa</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Haryana">Haryana</option>
+                                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                    <option value="Jharkhand">Jharkhand</option>
+                                                    <option value="Karnataka">Karnataka</option>
+                                                    <option value="Kerala">Kerala</option>
+                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                    <option value="Maharashtra">Maharashtra</option>
+                                                    <option value="Manipur">Manipur</option>
+                                                    <option value="Meghalaya">Meghalaya</option>
+                                                    <option value="Mizoram">Mizoram</option>
+                                                    <option value="Nagaland">Nagaland</option>
+                                                    <option value="Odisha">Odisha</option>
+                                                    <option value="Punjab">Punjab</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Sikkim">Sikkim</option>
+                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    <option value="Telangana">Telangana</option>
+                                                    <option value="Tripura">Tripura</option>
+                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                    <option value="Uttarakhand">Uttarakhand</option>
+                                                    <option value="West Bengal">West Bengal</option>
+                                                </select>
                                             </div>
                                         </div>
+
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-country" class="form-label">Country</label>
-                                                <input type="text" class="form-control" id="pres-country" required>
+                                                <input type="text" class="form-control" value="India" id="pres-country"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-pin" class="form-label">PIN</label>
-                                                <input type="text" class="form-control" id="pres-pin" required>
+                                                <input type="text" class="form-control" maxlength="6" id="pres-pin" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -293,195 +386,275 @@
                                             Same as Permanent Address
                                         </label>
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                         <!-- Save & Next Button -->
                         <button type="button" class="btn btn-primary float-end" id="save-next-btns">Save &
                             Next</button>
 
                     </section>
-                </div>  
+                </div>
                 <div class="tab-pane fade" id="nav-education" role="tabpanel" aria-labelledby="nav-education-tab"
                     tabindex="0">
                     <section class="container">
                         <h5 class="text-center mb-4">Educational Background</h5>
-                        <div class="row">
-                            <!-- PG Section -->
-                            <div class="col-md-12 col-lg-12 col-sm-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center fw-bold ">Post Graduation</h4>
-                                        <form id="pg-form">
-                                            <div class="mb-1">
-                                                <label for="pg-stream" class="form-label">Course Title</label>
-                                                <select class="form-control" id="pg-stream" required>
-                                                    <option value="" disabled selected>Select Course</option>
-                                                    <option value="mca">MCA</option>
-                                                    <option value="mba">MBA</option>
-                                                    <option value="msc">MSC</option>
-                                                    <option value="mtech">M.TECH</option>
-                                                    <option value="mphil">M.PHIL</option>
-                                                </select>
+                        <form id="education-form">
+                            <div class="row">
+                                <!-- PG Section -->
+                                <div class="col-md-12 col-lg-6 col-sm-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title text-center fw-bold ">Post Graduation</h4>
+                                            <!-- <form id="pg-form"> -->
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="pg-stream" class="form-label">Course Title</label>
+                                                        <select class="form-control" id="pg-course" required>
+                                                            <option value="" disabled selected>Select Course</option>
+                                                            <option value="mca">MCA</option>
+                                                            <option value="mba">MBA</option>
+                                                            <option value="msc">MSC</option>
+                                                            <option value="mtech">M.TECH</option>
+                                                            <option value="mphil">M.PHIL</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="pg-stream" class="form-label">Stream</label>
+                                                        <input type="text" class="form-control" id="pg-stream" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="pg-year" class="form-label">Year of Pass</label>
+                                                        <input type="number" class="form-control" id="pg-year" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="pg-results" class="form-label">Results in
+                                                            (%)</label>
+                                                        <input type="number" class="form-control" id="pg-results"
+                                                            step="0.01" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="pg-university" class="form-label">University
+                                                            Name</label>
+                                                        <input type="text" class="form-control" id="pg-university"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="pg-institute" class="form-label">Institute
+                                                            Name</label>
+                                                        <input type="text" class="form-control" id="pg-institute"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-1">
+                                                        <label for="pg-location" class="form-label">Institute
+                                                            Location</label>
+                                                        <input type="text" class="form-control" id="pg-location"
+                                                            required>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="mb-1">
-                                                <label for="pg-stream" class="form-label">Stream</label>
-                                                <input type="text" class="form-control" id="pg-stream" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="pg-year" class="form-label">Year of Pass</label>
-                                                <input type="number" class="form-control" id="pg-year" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="pg-results" class="form-label">Results in (%)</label>
-                                                <input type="number" class="form-control" id="pg-results" step="0.01"
-                                                    required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="pg-university" class="form-label">University Name</label>
-                                                <input type="text" class="form-control" id="pg-university" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="pg-institute" class="form-label">Institute Name</label>
-                                                <input type="text" class="form-control" id="pg-institute" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="pg-location" class="form-label">Institute Location</label>
-                                                <input type="text" class="form-control" id="pg-location" required>
-                                            </div>
-                                        </form>
+                                            <!-- </form> -->
 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Graduation Section -->
+                                <div class="col-md-12 col-lg-6 col-sm-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title text-center fw-bold ">Graduation</h4>
+                                            <!-- <form id="grad-form"> -->
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="pg-stream" class="form-label">Course Title</label>
+                                                        <select class="form-control" id="pg-stream" required>
+                                                            <option value="" disabled selected>Select Course</option>
+                                                            <option value="bsc">BSC</option>
+                                                            <option value="bba">BBA</option>
+                                                            <option value="bca">BCA</option>
+                                                            <option value="btech">BTECH</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="grad-stream" class="form-label">Stream</label>
+                                                        <input type="text" class="form-control" id="grad-stream"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="grad-year" class="form-label">Year of Pass</label>
+                                                        <input type="number" class="form-control" id="grad-year"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="grad-results" class="form-label">Results in
+                                                            (%)</label>
+                                                        <input type="number" class="form-control" id="grad-results"
+                                                            step="0.01" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="grad-university" class="form-label">University
+                                                            Name</label>
+                                                        <input type="text" class="form-control" id="grad-university"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="grad-institute" class="form-label">Institute
+                                                            Name</label>
+                                                        <input type="text" class="form-control" id="grad-institute"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-1">
+                                                        <label for="grad-location" class="form-label">Institute
+                                                            Location</label>
+                                                        <input type="text" class="form-control" id="grad-location"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- </form> -->
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Diploma/+2 Section -->
+                                <div class="col-md-12 col-lg-6 col-sm-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title text-center fw-bold ">Diploma / +2</h4>
+                                            <!-- <form id="diploma-form"> -->
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="pg-stream" class="form-label">Course Title</label>
+                                                        <select class="form-control" id="pg-stream" required>
+                                                            <option value="" disabled selected>Select Course</option>
+                                                            <option value="diploma">DIPLOMA</option>
+                                                            <option value="+2">+2</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="diploma-stream" class="form-label">Stream</label>
+                                                        <input type="text" class="form-control" id="diploma-stream"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="diploma-year" class="form-label">Year of
+                                                            Pass</label>
+                                                        <input type="number" class="form-control" id="diploma-year"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="diploma-results" class="form-label">Results in
+                                                            (%)</label>
+                                                        <input type="number" class="form-control" id="diploma-results"
+                                                            step="0.01" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="diploma-university" class="form-label">Board
+                                                            Name</label>
+                                                        <input type="text" class="form-control" id="diploma-university"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-1">
+                                                        <label for="diploma-institute" class="form-label">Institute
+                                                            Name</label>
+                                                        <input type="text" class="form-control" id="diploma-institute"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-1">
+                                                        <label for="diploma-location" class="form-label">Institute
+                                                            Location</label>
+                                                        <input type="text" class="form-control" id="diploma-location"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- </form> -->
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 10th Section -->
+                                <div class="col-md-12 col-lg-6 col-sm-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title text-center fw-bold ">10th</h4>
+                                            <!-- <form id="10th-form"> -->
+                                            <div class="row">
+                                                <div class="mb-1">
+                                                    <label for="10th-year" class="form-label">Year of Pass</label>
+                                                    <input type="number" class="form-control" id="10th-year" required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="10th-results" class="form-label">Results in (%)</label>
+                                                    <input type="number" class="form-control" id="10th-results"
+                                                        step="0.01" required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="10th-university" class="form-label">Board Name</label>
+                                                    <input type="text" class="form-control" id="10th-university"
+                                                        required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="10th-institute" class="form-label">Institute
+                                                        Name</label>
+                                                    <input type="text" class="form-control" id="10th-institute"
+                                                        required>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <label for="10th-location" class="form-label">Institute
+                                                        Location</label>
+                                                    <input type="text" class="form-control" id="10th-location" required>
+                                                </div>
+                                            </div>
+                                            <!-- </form> -->
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Graduation Section -->
-                            <div class="col-md-12 col-lg-12 col-sm-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center fw-bold ">Graduation</h4>
-                                        <form id="grad-form">
-                                            <div class="mb-1">
-                                                <label for="pg-stream" class="form-label">Course Title</label>
-                                                <select class="form-control" id="pg-stream" required>
-                                                    <option value="" disabled selected>Select Course</option>
-                                                    <option value="bsc">BSC</option>
-                                                    <option value="bba">BBA</option>
-                                                    <option value="bca">BCA</option>
-                                                    <option value="btech">BTECH</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="grad-stream" class="form-label">Stream</label>
-                                                <input type="text" class="form-control" id="grad-stream" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="grad-year" class="form-label">Year of Pass</label>
-                                                <input type="number" class="form-control" id="grad-year" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="grad-results" class="form-label">Results in (%)</label>
-                                                <input type="number" class="form-control" id="grad-results" step="0.01"
-                                                    required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="grad-university" class="form-label">University Name</label>
-                                                <input type="text" class="form-control" id="grad-university" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="grad-institute" class="form-label">Institute Name</label>
-                                                <input type="text" class="form-control" id="grad-institute" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="grad-location" class="form-label">Institute Location</label>
-                                                <input type="text" class="form-control" id="grad-location" required>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Diploma/+2 Section -->
-                            <div class="col-md-12 col-lg-12 col-sm-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center fw-bold ">Diploma / +2</h4>
-                                        <form id="diploma-form">
-                                            <div class="mb-1">
-                                                <label for="pg-stream" class="form-label">Course Title</label>
-                                                <select class="form-control" id="pg-stream" required>
-                                                    <option value="" disabled selected>Select Course</option>
-                                                    <option value="diploma">DIPLOMA</option>
-                                                    <option value="+2">+2</option>
-                                                </select>
-                                            </div>                                            
-                                            <div class="mb-1">
-                                                <label for="diploma-stream" class="form-label">Stream</label>
-                                                <input type="text" class="form-control" id="diploma-stream" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="diploma-year" class="form-label">Year of Pass</label>
-                                                <input type="number" class="form-control" id="diploma-year" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="diploma-results" class="form-label">Results in (%)</label>
-                                                <input type="number" class="form-control" id="diploma-results"
-                                                    step="0.01" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="diploma-university" class="form-label">Board Name</label>
-                                                <input type="text" class="form-control" id="diploma-university"
-                                                    required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="diploma-institute" class="form-label">Institute Name</label>
-                                                <input type="text" class="form-control" id="diploma-institute" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="diploma-location" class="form-label">Institute
-                                                    Location</label>
-                                                <input type="text" class="form-control" id="diploma-location" required>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 10th Section -->
-                            <div class="col-md-12 col-lg-12 col-sm-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center fw-bold ">10th</h4>
-                                        <form id="10th-form">
-                                            <div class="mb-1">
-                                                <label for="10th-year" class="form-label">Year of Pass</label>
-                                                <input type="number" class="form-control" id="10th-year" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="10th-results" class="form-label">Results in (%)</label>
-                                                <input type="number" class="form-control" id="10th-results" step="0.01"
-                                                    required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="10th-university" class="form-label">Board Name</label>
-                                                <input type="text" class="form-control" id="10th-university" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="10th-institute" class="form-label">Institute Name</label>
-                                                <input type="text" class="form-control" id="10th-institute" required>
-                                            </div>
-                                            <div class="mb-1">
-                                                <label for="10th-location" class="form-label">Institute Location</label>
-                                                <input type="text" class="form-control" id="10th-location" required>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                         <!-- Save & Next Button -->
                         <button type="button" class="btn btn-primary float-end" id="save-next-btnss">Save &
                             Next</button>
@@ -626,146 +799,178 @@
                     tabindex="0">
                     <div class="container">
                         <h5 class="text-center mb-4">Upload Documents</h5>
-                        <div class="row">
-                            <!-- PG Document Upload -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title fw-bold">Post Graduation</h4>
-                                        <form id="pg-doc-form">
-                                            <div class="mb-3">
-                                                <label for="pg-doc" class="form-label">Upload PG Document (PDF)</label>
-                                                <input type="file" class="form-control" id="pg-doc" accept=".pdf"
-                                                    required>
+                        <form id="documentation-form">
+                            <div class="row">
+                                <!-- PG Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">Post Graduation</h4>
+                                            <div id="pg-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="pg-doc" class="form-label">Upload PG Marksheet &
+                                                        Degree
+                                                        (PDF)</label>
+                                                    <input type="file" class="form-control" id="pg-doc" accept=".pdf"
+                                                        required>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Graduation Document Upload -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title fw-bold">Graduation</h4>
-                                        <form id="grad-doc-form">
-                                            <div class="mb-3">
-                                                <label for="grad-doc" class="form-label">Upload Graduation Document
-                                                    (PDF)</label>
-                                                <input type="file" class="form-control" id="grad-doc" accept=".pdf"
-                                                    required>
+                                <!-- Graduation Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">Graduation</h4>
+                                            <div id="grad-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="grad-doc" class="form-label">Upload Graduation Mark
+                                                        Sheet &
+                                                        Degree
+                                                        (PDF)</label>
+                                                    <input type="file" class="form-control" id="grad-doc" accept=".pdf"
+                                                        required>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Class 12 Document Upload -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title fw-bold">Diploma/+2</h4>
-                                        <form id="class12-doc-form">
-                                            <div class="mb-3">
-                                                <label for="class12-doc" class="form-label">Upload Class 12 Document
-                                                    (PDF)</label>
-                                                <input type="file" class="form-control" id="class12-doc" accept=".pdf"
-                                                    required>
+                                <!-- Class 12 Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">Diploma/+2</h4>
+                                            <div id="class12-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="class12-doc" class="form-label">Upload Diploma/+2 Mark
+                                                        Sheet
+                                                        &
+                                                        Degree
+                                                        (PDF)</label>
+                                                    <input type="file" class="form-control" id="class12-doc"
+                                                        accept=".pdf" required>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Class 10 Document Upload -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title fw-bold">Class 10</h4>
-                                        <form id="class10-doc-form">
-                                            <div class="mb-3">
-                                                <label for="class10-doc" class="form-label">Upload Class 10 Document
-                                                    (PDF)</label>
-                                                <input type="file" class="form-control" id="class10-doc" accept=".pdf"
-                                                    required>
+                                <!-- Class 10 Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">Class 10</h4>
+                                            <div id="class10-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="class10-doc" class="form-label">Upload Class 10 Mark
+                                                        Sheet &
+                                                        Certificate
+                                                        (PDF)</label>
+                                                    <input type="file" class="form-control" id="class10-doc"
+                                                        accept=".pdf" required>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Aadhar Document Upload -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title fw-bold">Aadhar</h4>
-                                        <form id="aadhar-doc-form">
-                                            <div class="mb-3">
-                                                <label for="aadhar-doc" class="form-label">Upload Aadhar Document
-                                                    (PDF)</label>
-                                                <input type="file" class="form-control" id="aadhar-doc" accept=".pdf"
-                                                    required>
+                                <!-- Aadhar Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">Aadhaar</h4>
+                                            <div id="aadhar-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="aadhar-doc" class="form-label">Upload Aadhaar (Both
+                                                        Front & Back)
+                                                        (PDF)</label>
+                                                    <input type="file" class="form-control" id="aadhar-doc"
+                                                        accept=".pdf" required>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- PAN Document Upload -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title fw-bold">PAN</h4>
-                                        <form id="pan-doc-form">
-                                            <div class="mb-3">
-                                                <label for="pan-doc" class="form-label">Upload PAN Document
-                                                    (PDF)</label>
-                                                <input type="file" class="form-control" id="pan-doc" accept=".pdf"
-                                                    required>
+                                <!-- PAN Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">PAN</h4>
+                                            <div id="pan-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="pan-doc" class="form-label">Upload PAN
+                                                        (PDF)</label>
+                                                    <input type="file" class="form-control" id="pan-doc" accept=".pdf"
+                                                        required>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Blood Group Document Upload -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title fw-bold">Blood Group</h4>
-                                        <form id="blood-group-doc-form">
-                                            <div class="mb-3">
-                                                <label for="blood-group-doc" class="form-label">Upload Blood Group
-                                                    Document (PDF)</label>
-                                                <input type="file" class="form-control" id="blood-group-doc"
-                                                    accept=".pdf" required>
+                                <!-- Blood Group Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">Blood Group</h4>
+                                            <div id="blood-group-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="blood-group-doc" class="form-label">Upload Blood Group
+                                                        (PDF)</label>
+                                                    <input type="file" class="form-control" id="blood-group-doc"
+                                                        accept=".pdf" required>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- EXperience Document Upload -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title fw-bold">Experience</h4>
-                                        <form id="experience-doc-form">
-                                            <div class="mb-3">
-                                                <label for="blood-group-doc" class="form-label">Upload Experience
-                                                    (PDF)</label>
-                                                <input type="file" class="form-control" id="experience-doc"
-                                                    accept=".pdf" required>
+                                <!-- EXperience Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">Experience</h4>
+                                            <div id="experience-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="blood-group-doc" class="form-label">Upload Experience &
+                                                        Releasing Certificate of all the companies mentioned
+                                                        (PDF)</label>
+                                                    <input type="file" class="form-control" id="experience-doc"
+                                                        accept=".pdf" required>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Save & Next Button -->
-                            <button type="button" class="btn btn-primary submit-btn float-end" id=""><a href="all-details.html"
-                                    class="log-btn">Submit</a></button>
-                        </div>
+                                <!-- Signature Document Upload -->
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title fw-bold">Signature</h4>
+                                            <div id="experience-doc-form">
+                                                <div class="mb-3">
+                                                    <label for="image-sign" class="form-label">Upload Signature
+                                                        (Image)</label>
+                                                    <p>(Image should be 120x20 and size 20KB )</p>
+                                                    <input type="file" class="form-control" id="image-sign"
+                                                        accept="image/*" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Save & Next Button -->
+                                <button type="button" class="btn btn-primary submit-btn button-submit float-end"
+                                    id="save-btn">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -774,59 +979,411 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+
+    <!-- <script>
+        document.getElementById('save-next-btn').addEventListener('click', function () {
+            const formData = {
+                fatherName: document.getElementById('fatherName').value,
+                motherName: document.getElementById('motherName').value,
+                bloodgroup: document.getElementById('bloodgroup').value,
+                gender: document.getElementById('gender').value,
+                maritalStatus: document.getElementById('maritalStatus').value,
+                whatsappNumber: document.getElementById('whatsappNumber').value,
+                aadharNumber: document.getElementById('aadharNumber').value,
+                panNumber: document.getElementById('panNumber').value,
+                emergencyContact: document.getElementById('emergencyContact').value,
+                emergencyRelation: document.getElementById('emergencyRelation').value,
+            };
+
+            localStorage.setItem('formData', JSON.stringify(formData));
+
+            window.location.href = 'all-details.html';
+        });
+    </script> -->
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        
+
             // Function to check if the Post Graduation field is filled
             function isPostGradFieldFilled() {
-                // Replace 'pg-field1' with the actual ID of the single Post Graduation field
                 return document.getElementById('pg-university').value.trim() !== '';
             }
-        
+
             // Function to check if the Experience field is filled
             function isExperienceFieldFilled() {
-                // Replace 'exp-field1' with the actual ID of the single Experience field
                 return document.getElementById('company1-name').value.trim() !== '';
             }
-        
+
+            // Function to add an error message below the input field
+            function showError(elementId, message) {
+                const element = document.getElementById(elementId);
+
+                if (element) {
+                    // Scroll the element into view
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Remove any existing error message
+                    const existingError = document.querySelector(`#${elementId} + .error-message`);
+                    if (existingError) {
+                        existingError.remove();
+                    }
+
+                    // Create and insert the error message
+                    const errorElement = document.createElement('div');
+                    errorElement.className = 'error-message';
+                    errorElement.style.color = 'red';
+                    errorElement.style.marginTop = '4px';
+                    errorElement.textContent = message;
+                    element.parentElement.insertBefore(errorElement, element.nextSibling);
+                }
+            }
+
+            // Function to clear all previous error messages
+            function clearErrors() {
+                document.querySelectorAll('.error-message').forEach(el => el.remove());
+            }
+
             // Function to validate the documents
             function validateDocuments() {
                 const postGradFieldFilled = isPostGradFieldFilled();
                 const experienceFieldFilled = isExperienceFieldFilled();
-        
+                let isValid = true;
+
+                // Clear previous errors
+                clearErrors();
+
                 // Check if Post Graduation document is mandatory
                 if (postGradFieldFilled && !document.getElementById('pg-doc').files.length) {
-                    alert('Post Graduation document is required.');
-                    return false;
+                    showError('pg-doc', 'Post Graduation document is required.');
+                    isValid = false;
                 }
-        
+
                 // Check if Experience document is mandatory
                 if (experienceFieldFilled && !document.getElementById('experience-doc').files.length) {
-                    alert('Experience document is required.');
-                    return false;
+                    showError('experience-doc', 'Experience document is required.');
+                    isValid = false;
                 }
-        
-                // Validate all other documents
-                const otherDocuments = ['grad-doc', 'class12-doc', 'class10-doc', 'aadhar-doc', 'pan-doc', 'blood-group-doc'];
+
+                // Validate all other mandatory documents
+                const otherDocuments = ['grad-doc', 'class12-doc', 'class10-doc', 'aadhar-doc', 'pan-doc', 'blood-group-doc', 'image-sign'];
                 for (let doc of otherDocuments) {
                     if (!document.getElementById(doc).files.length) {
-                        alert(`${document.querySelector(`label[for="${doc}"]`).textContent} is required.`);
-                        return false;
+                        showError(doc, `${document.querySelector(`label[for="${doc}"]`).textContent} is required.`);
+                        isValid = false;
                     }
                 }
-        
-                return true;
+
+                return isValid;
             }
-        
+
             // Add event listener to the submit button
             document.querySelector('.submit-btn').addEventListener('click', function (event) {
-                if (!validateDocuments()) {
+                if (validateDocuments()) {
+                    // Redirect to the new page if validation is successful
+                    window.location.href = 'all-details.html';
+                } else {
                     event.preventDefault(); // Prevent form submission if validation fails
                 }
             });
         });
-        </script>
-        
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const personalTabButton = document.getElementById('nav-personal-tab');
+            const addressTabButton = document.getElementById('nav-address-tab');
+            const educationTabButton = document.getElementById('nav-education-tab');
+            const experienceTabButton = document.getElementById('nav-experience-tab');
+            const documentTabButton = document.getElementById('nav-document-tab');
+
+            // Function to enable a tab button
+            function enableTab(tabButton) {
+                tabButton.disabled = false;
+            }
+
+            // Check sessionStorage to see if tabs were visited before
+            if (sessionStorage.getItem('addressTabVisited')) {
+                enableTab(addressTabButton);
+            }
+
+            if (sessionStorage.getItem('educationTabVisited')) {
+                enableTab(educationTabButton);
+            }
+
+            if (sessionStorage.getItem('experienceTabVisited')) {
+                enableTab(experienceTabButton);
+            }
+
+            // Event listener to mark a tab as visited when clicked
+            personalTabButton.addEventListener('click', function () {
+                enableTab(addressTabButton);
+                sessionStorage.setItem('addressTabVisited', 'true'); // Mark as visited
+            });
+
+            addressTabButton.addEventListener('click', function () {
+                enableTab(educationTabButton);
+                sessionStorage.setItem('educationTabVisited', 'true'); // Mark as visited
+            });
+
+            educationTabButton.addEventListener('click', function () {
+                enableTab(experienceTabButton);
+                sessionStorage.setItem('experienceTabVisited', 'true'); // Mark as visited
+            });
+
+            // Keep the Document tab always enabled
+            documentTabButton.disabled = false;
+
+            // Optionally, you can clear the sessionStorage on page reload if needed
+            // If you want tabs to reset after a refresh, you can use the following line:
+            // sessionStorage.clear();
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Function to validate phone number (10 digits) - only digits
+            function validatePhoneNumber(value) {
+                return /^\d{10}$/.test(value);
+            }
+
+            // Function to validate Aadhaar number (12 digits) - only digits
+            function validateAadhaarNumber(value) {
+                return /^\d{12}$/.test(value);
+            }
+
+            // Function to validate PAN number (10 alphanumeric characters)
+            function validatePanNumber(value) {
+                return /^[A-Z]{5}\d{4}[A-Z]{1}$/.test(value);
+            }
+
+            // Function to validate email
+            function validateEmail(value) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            }
+
+            // Function to add an error message below the input field
+            function showError(elementId, message) {
+                const element = document.getElementById(elementId);
+
+                if (element) {
+                    // Remove any existing error message
+                    const existingError = document.querySelector(`#${elementId} + .error-message`);
+                    if (existingError) {
+                        existingError.remove();
+                    }
+
+                    // Create and insert the error message
+                    const errorElement = document.createElement('div');
+                    errorElement.className = 'error-message';
+                    errorElement.style.color = 'red';
+                    errorElement.style.marginTop = '4px';
+                    errorElement.textContent = message;
+                    element.parentElement.insertBefore(errorElement, element.nextSibling);
+                }
+            }
+
+            // Function to clear error message
+            function clearError(elementId) {
+                const existingError = document.querySelector(`#${elementId} + .error-message`);
+                if (existingError) {
+                    existingError.remove();
+                }
+            }
+
+            // Function to validate each field on input
+            function validateOnInput(event) {
+                const id = event.target.id;
+                const value = event.target.value.trim();
+
+                switch (id) {
+                    case 'whatsappNumber':
+                    case 'emergencyContact':
+                        if (!validatePhoneNumber(value)) {
+                            showError(id, 'Phone Number must be exactly 10 digits.');
+                        } else {
+                            clearError(id);
+                        }
+                        break;
+
+                    case 'aadharNumber':
+                        if (!validateAadhaarNumber(value)) {
+                            showError(id, 'Aadhaar Number must be exactly 12 digits.');
+                        } else {
+                            clearError(id);
+                        }
+                        break;
+
+                    case 'panNumber':
+                        if (!validatePanNumber(value)) {
+                            showError(id, 'PAN Number must be exactly 10 alphanumeric characters.');
+                        } else {
+                            clearError(id);
+                        }
+                        break;
+
+                    case 'email':
+                        if (!validateEmail(value)) {
+                            showError(id, 'Invalid email address.');
+                        } else {
+                            clearError(id);
+                        }
+                        break;
+                }
+            }
+
+            // Attach input event listeners to each field
+            document.getElementById('whatsappNumber').addEventListener('input', validateOnInput);
+            document.getElementById('emergencyContact').addEventListener('input', validateOnInput);
+            document.getElementById('aadharNumber').addEventListener('input', validateOnInput);
+            document.getElementById('panNumber').addEventListener('input', validateOnInput);
+            document.querySelector('input[type="email"]').addEventListener('input', validateOnInput);
+
+            // Function to handle form validation on submit
+            function validateForm() {
+                const phoneNumber = document.getElementById('whatsappNumber').value.trim();
+                const emergencyContactnumber = document.getElementById('emergencyContact').value.trim();
+                const aadhaarNumber = document.getElementById('aadharNumber').value.trim();
+                const panNumber = document.getElementById('panNumber').value.trim();
+                const email = document.querySelector('input[type="email"]').value.trim();
+                let isValid = true;
+
+                // Validate Phone Number
+                if (!validatePhoneNumber(phoneNumber)) {
+                    showError('whatsappNumber', 'Whatsapp Number must be exactly 10 digits.');
+                    isValid = false;
+                }
+
+                // Validate Emergency Contact Number
+                if (!validatePhoneNumber(emergencyContactnumber)) {
+                    showError('emergencyContact', 'Emergency Contact Number must be exactly 10 digits.');
+                    isValid = false;
+                }
+
+                // Validate Aadhaar Number
+                if (!validateAadhaarNumber(aadhaarNumber)) {
+                    showError('aadharNumber', 'Aadhaar Number must be exactly 12 digits.');
+                    isValid = false;
+                }
+
+                // Validate PAN Number
+                if (!validatePanNumber(panNumber)) {
+                    showError('panNumber', 'PAN Number must be exactly 10 alphanumeric characters.');
+                    isValid = false;
+                }
+
+                // Validate Email
+                if (!validateEmail(email)) {
+                    showError('email', 'Invalid email address.');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            // Add event listener to the Save & Next button
+            document.getElementById('save-next-btn').addEventListener('click', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Function to validate PIN (6 digits)
+            function validatePin(value) {
+                return /^\d{6}$/.test(value);
+            }
+
+            // Function to add an error message below the input field
+            function showError(elementId, message) {
+                const element = document.getElementById(elementId);
+
+                if (element) {
+                    // Remove any existing error message
+                    const existingError = document.querySelector(`#${elementId} + .error-message`);
+                    if (existingError) {
+                        existingError.remove();
+                    }
+
+                    // Create and insert the error message
+                    const errorElement = document.createElement('div');
+                    errorElement.className = 'error-message';
+                    errorElement.style.color = 'red';
+                    errorElement.style.marginTop = '4px';
+                    errorElement.textContent = message;
+                    element.parentElement.insertBefore(errorElement, element.nextSibling);
+                }
+            }
+
+            // Function to clear error message
+            function clearError(elementId) {
+                const existingError = document.querySelector(`#${elementId} + .error-message`);
+                if (existingError) {
+                    existingError.remove();
+                }
+            }
+
+            // Function to validate each field on input
+            function validateOnInput(event) {
+                const id = event.target.id;
+                const value = event.target.value.trim();
+
+                switch (id) {
+                    // Add validation for PIN fields
+                    case 'perm-pin':
+                    case 'pres-pin':
+                        if (!validatePin(value)) {
+                            showError(id, 'PIN must be exactly 6 digits.');
+                        } else {
+                            clearError(id);
+                        }
+                        break;
+
+                    // Handle other fields if needed (e.g., phone numbers, email)
+                    // Add your other validation functions and logic here
+                }
+            }
+
+            // Attach input event listeners to PIN fields
+            document.getElementById('perm-pin').addEventListener('input', validateOnInput);
+            document.getElementById('pres-pin').addEventListener('input', validateOnInput);
+
+            // Function to handle form validation on submit
+            function validateForm() {
+                const permPin = document.getElementById('perm-pin').value.trim();
+                const presPin = document.getElementById('pres-pin').value.trim();
+                let isValid = true;
+
+                // Validate Permanent Address PIN
+                if (!validatePin(permPin)) {
+                    showError('perm-pin', 'PIN must be exactly 6 digits.');
+                    isValid = false;
+                }
+
+                // Validate Present Address PIN
+                if (!validatePin(presPin)) {
+                    showError('pres-pin', 'PIN must be exactly 6 digits.');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            // Add event listener to the Save & Next button
+            document.getElementById('save-next-btn').addEventListener('click', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
+    </script>
+
+
+
 </body>
 
 </html>

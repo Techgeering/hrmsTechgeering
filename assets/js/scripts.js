@@ -72,7 +72,6 @@ function myfcn5(idx, leaveTypee, dayss) {
     document.getElementById("dayss").value = dayss;
 }
 
-
 /* for leaveTypee id get */
 function myfcn6(idx, degreetitle, institutename, universityname, result, passingyear) {
     document.getElementById("id6").value = idx;
@@ -88,10 +87,3 @@ function myfcn8(idx, filename) {
     document.getElementById("id8").value = idx;
     document.getElementById("filename11").value = filename;
 }
-
-
-
-
-
-
-
