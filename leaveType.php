@@ -50,7 +50,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM  leave_types";
+                                    $sql = "SELECT * FROM  leave_types where status = 1";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         // output data of each row
