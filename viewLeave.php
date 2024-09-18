@@ -93,7 +93,7 @@ session_start(); {
                                                 <td>
                                                     <?php
                                                     $typeid = $row["typeid"];
-                                                    $sql2 = "SELECT * FROM leave_types WHERE type_id = $typeid";
+                                                    $sql2 = "SELECT * FROM leave_types WHERE type_id = $typeid and status = 1";
                                                     $result2 = $conn->query($sql2);
                                                     $row2 = $result2->fetch_assoc();
                                                     echo htmlspecialchars($row2["name"], ENT_QUOTES, 'UTF-8');
@@ -227,7 +227,7 @@ session_start(); {
                                 <option value="">Leave type</option>
                                 <?php
                                 include "common/conn.php";
-                                $result = mysqli_query($conn, "SELECT * FROM  leave_types");
+                                $result = mysqli_query($conn, "SELECT * FROM  leave_types where status = 1");
                                 while ($row = mysqli_fetch_array($result)) {
                                     ?>
                                     <option value="<?php echo $row['type_id']; ?>">
