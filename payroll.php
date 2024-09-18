@@ -69,7 +69,7 @@
                                                 <td>
                                                     <?php
                                                     $emp_id = $row["emp_id"];
-                                                    $sql15 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
+                                                    $sql15 = "SELECT * FROM pay_salary";
                                                     $result15 = $conn->query($sql15);
                                                     $row15 = $result15->fetch_assoc();
                                                     echo $row15["full_name"];
