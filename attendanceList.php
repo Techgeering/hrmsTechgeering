@@ -47,6 +47,7 @@ session_start(); {
                                     <tr>
                                         <th>Employee id</th>
                                         <th>Employee Name</th>
+                                        <th>Day</th>
                                         <th>Date</th>
                                         <th>Sign In</th>
                                         <th>Sign Out</th>
@@ -72,10 +73,12 @@ session_start(); {
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
+                                            $dayOfWeek = (new DateTime($row["atten_date"]))->format('l');
                                             ?>
                                             <tr>
                                                 <th><?php echo $row["emp_id"]; ?></th>
                                                 <th><?php echo $row["full_name"]; ?></th>
+                                                <td><?php echo $dayOfWeek; ?></td>
                                                 <th><?php echo $row["atten_date"]; ?></th>
                                                 <th><?php echo $row["signin_time"]; ?></th>
                                                 <th><?php echo $row["signout_time"]; ?></th>
