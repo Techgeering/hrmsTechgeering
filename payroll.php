@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,7 +12,6 @@
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -285,41 +283,6 @@
     }
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- emp name should be get through empid-->
-    <!-- <script>
-        $(document).ready(function () {
-            $('#empid').change(function () {
-                var empid = $(this).val();
-                if (empid != "") {
-                    $.ajax({
-                        url: "fetch_employee.php",
-                        type: "POST",
-                        data: { empid: empid },
-                        dataType: "json",
-                        success: function (data) {
-                            if (data) {
-                                $('#month1').val(data.month);
-                                $('#basic1').val(data.basic);
-                                $('#houserent1').val(data.houserent);
-                                $('#medical1').val(data.medical);
-                                $('#conveyance1').val(data.conveyance);
-                                $('#bonus1').val(data.bonus);
-                                $('#insurance1').val(data.insurance);
-                                $('#providentfund1').val(data.providentfund);
-                                $('#tax1').val(data.tax);
-                                $('#loans1').val(data.loans);
-                                $('#other1').val(data.other);
-                            }
-                        }
-                    });
-                } else {
-                    $('#month1').val('');
-                    $('#basic1').val('');
-                    // Clear other fields as needed
-                }
-            });
-        });
-    </script> -->
     <script>
     $(document).ready(function() {
         $('#empid').on('change', function() {
@@ -347,9 +310,6 @@
             $('#other1').val(other);
         });
     });
-    </script>
-    <!-- previous month should be get -->
-    <script>
     var currentMonth = new Date().getMonth();
     var months = [
         "January", "February", "March", "April", "May", "June",
@@ -365,5 +325,4 @@
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
-
 </html>
