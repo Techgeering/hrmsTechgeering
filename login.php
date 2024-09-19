@@ -69,7 +69,7 @@
              $client_ip = $_POST["client_ip"];
              
              // Prepare the SQL statement
-             $sql = "SELECT * FROM employee WHERE em_email = ?";
+             $sql = "SELECT * FROM employee WHERE prof_email = ?";
              $stmt = $conn->prepare($sql);
              $stmt->bind_param("s", $username);
              $stmt->execute();
