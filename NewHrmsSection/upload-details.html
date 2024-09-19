@@ -154,23 +154,24 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="whatsappNumber" class="form-label">Whatsapp Number</label>
-                                                <input type="text" class="form-control" maxlength="10" id="whatsappNumber" required
-                                                    inputmode="numeric">
+                                                <input type="text" class="form-control" maxlength="10"
+                                                    id="whatsappNumber" required inputmode="numeric">
                                             </div>
                                         </div>
 
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="aadharNumber" class="form-label">Aadhaar Number</label>
-                                                <input type="text" class="form-control" maxlength="12" id="aadharNumber" required
-                                                    inputmode="numeric">
+                                                <input type="text" class="form-control" maxlength="12" id="aadharNumber"
+                                                    required inputmode="numeric">
                                             </div>
                                         </div>
 
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="panNumber" class="form-label">PAN Number</label>
-                                                <input type="text" class="form-control" maxlength="10" id="panNumber" required>
+                                                <input type="text" class="form-control" maxlength="10" id="panNumber"
+                                                    required>
                                             </div>
                                         </div>
 
@@ -178,7 +179,8 @@
                                             <div class="mb-3">
                                                 <label for="emergencyContact" class="form-label">Emergency
                                                     Contact Number</label>
-                                                <input type="text" class="form-control" maxlength="10" id="emergencyContact" required>
+                                                <input type="text" class="form-control" maxlength="10"
+                                                    id="emergencyContact" required>
                                             </div>
                                         </div>
 
@@ -273,7 +275,8 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-pin" class="form-label">PIN</label>
-                                                <input type="text" class="form-control" maxlength="6" id="perm-pin" required>
+                                                <input type="text" class="form-control" maxlength="6" id="perm-pin"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -362,7 +365,8 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-pin" class="form-label">PIN</label>
-                                                <input type="text" class="form-control" maxlength="6" id="pres-pin" required>
+                                                <input type="text" class="form-control" maxlength="6" id="pres-pin"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -979,410 +983,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-
-    <!-- <script>
-        document.getElementById('save-next-btn').addEventListener('click', function () {
-            const formData = {
-                fatherName: document.getElementById('fatherName').value,
-                motherName: document.getElementById('motherName').value,
-                bloodgroup: document.getElementById('bloodgroup').value,
-                gender: document.getElementById('gender').value,
-                maritalStatus: document.getElementById('maritalStatus').value,
-                whatsappNumber: document.getElementById('whatsappNumber').value,
-                aadharNumber: document.getElementById('aadharNumber').value,
-                panNumber: document.getElementById('panNumber').value,
-                emergencyContact: document.getElementById('emergencyContact').value,
-                emergencyRelation: document.getElementById('emergencyRelation').value,
-            };
-
-            localStorage.setItem('formData', JSON.stringify(formData));
-
-            window.location.href = 'all-details.html';
-        });
-    </script> -->
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-
-            // Function to check if the Post Graduation field is filled
-            function isPostGradFieldFilled() {
-                return document.getElementById('pg-university').value.trim() !== '';
-            }
-
-            // Function to check if the Experience field is filled
-            function isExperienceFieldFilled() {
-                return document.getElementById('company1-name').value.trim() !== '';
-            }
-
-            // Function to add an error message below the input field
-            function showError(elementId, message) {
-                const element = document.getElementById(elementId);
-
-                if (element) {
-                    // Scroll the element into view
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                    // Remove any existing error message
-                    const existingError = document.querySelector(`#${elementId} + .error-message`);
-                    if (existingError) {
-                        existingError.remove();
-                    }
-
-                    // Create and insert the error message
-                    const errorElement = document.createElement('div');
-                    errorElement.className = 'error-message';
-                    errorElement.style.color = 'red';
-                    errorElement.style.marginTop = '4px';
-                    errorElement.textContent = message;
-                    element.parentElement.insertBefore(errorElement, element.nextSibling);
-                }
-            }
-
-            // Function to clear all previous error messages
-            function clearErrors() {
-                document.querySelectorAll('.error-message').forEach(el => el.remove());
-            }
-
-            // Function to validate the documents
-            function validateDocuments() {
-                const postGradFieldFilled = isPostGradFieldFilled();
-                const experienceFieldFilled = isExperienceFieldFilled();
-                let isValid = true;
-
-                // Clear previous errors
-                clearErrors();
-
-                // Check if Post Graduation document is mandatory
-                if (postGradFieldFilled && !document.getElementById('pg-doc').files.length) {
-                    showError('pg-doc', 'Post Graduation document is required.');
-                    isValid = false;
-                }
-
-                // Check if Experience document is mandatory
-                if (experienceFieldFilled && !document.getElementById('experience-doc').files.length) {
-                    showError('experience-doc', 'Experience document is required.');
-                    isValid = false;
-                }
-
-                // Validate all other mandatory documents
-                const otherDocuments = ['grad-doc', 'class12-doc', 'class10-doc', 'aadhar-doc', 'pan-doc', 'blood-group-doc', 'image-sign'];
-                for (let doc of otherDocuments) {
-                    if (!document.getElementById(doc).files.length) {
-                        showError(doc, `${document.querySelector(`label[for="${doc}"]`).textContent} is required.`);
-                        isValid = false;
-                    }
-                }
-
-                return isValid;
-            }
-
-            // Add event listener to the submit button
-            document.querySelector('.submit-btn').addEventListener('click', function (event) {
-                if (validateDocuments()) {
-                    // Redirect to the new page if validation is successful
-                    window.location.href = 'all-details.html';
-                } else {
-                    event.preventDefault(); // Prevent form submission if validation fails
-                }
-            });
-        });
-    </script>
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const personalTabButton = document.getElementById('nav-personal-tab');
-            const addressTabButton = document.getElementById('nav-address-tab');
-            const educationTabButton = document.getElementById('nav-education-tab');
-            const experienceTabButton = document.getElementById('nav-experience-tab');
-            const documentTabButton = document.getElementById('nav-document-tab');
-
-            // Function to enable a tab button
-            function enableTab(tabButton) {
-                tabButton.disabled = false;
-            }
-
-            // Check sessionStorage to see if tabs were visited before
-            if (sessionStorage.getItem('addressTabVisited')) {
-                enableTab(addressTabButton);
-            }
-
-            if (sessionStorage.getItem('educationTabVisited')) {
-                enableTab(educationTabButton);
-            }
-
-            if (sessionStorage.getItem('experienceTabVisited')) {
-                enableTab(experienceTabButton);
-            }
-
-            // Event listener to mark a tab as visited when clicked
-            personalTabButton.addEventListener('click', function () {
-                enableTab(addressTabButton);
-                sessionStorage.setItem('addressTabVisited', 'true'); // Mark as visited
-            });
-
-            addressTabButton.addEventListener('click', function () {
-                enableTab(educationTabButton);
-                sessionStorage.setItem('educationTabVisited', 'true'); // Mark as visited
-            });
-
-            educationTabButton.addEventListener('click', function () {
-                enableTab(experienceTabButton);
-                sessionStorage.setItem('experienceTabVisited', 'true'); // Mark as visited
-            });
-
-            // Keep the Document tab always enabled
-            documentTabButton.disabled = false;
-
-            // Optionally, you can clear the sessionStorage on page reload if needed
-            // If you want tabs to reset after a refresh, you can use the following line:
-            // sessionStorage.clear();
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to validate phone number (10 digits) - only digits
-            function validatePhoneNumber(value) {
-                return /^\d{10}$/.test(value);
-            }
-
-            // Function to validate Aadhaar number (12 digits) - only digits
-            function validateAadhaarNumber(value) {
-                return /^\d{12}$/.test(value);
-            }
-
-            // Function to validate PAN number (10 alphanumeric characters)
-            function validatePanNumber(value) {
-                return /^[A-Z]{5}\d{4}[A-Z]{1}$/.test(value);
-            }
-
-            // Function to validate email
-            function validateEmail(value) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-            }
-
-            // Function to add an error message below the input field
-            function showError(elementId, message) {
-                const element = document.getElementById(elementId);
-
-                if (element) {
-                    // Remove any existing error message
-                    const existingError = document.querySelector(`#${elementId} + .error-message`);
-                    if (existingError) {
-                        existingError.remove();
-                    }
-
-                    // Create and insert the error message
-                    const errorElement = document.createElement('div');
-                    errorElement.className = 'error-message';
-                    errorElement.style.color = 'red';
-                    errorElement.style.marginTop = '4px';
-                    errorElement.textContent = message;
-                    element.parentElement.insertBefore(errorElement, element.nextSibling);
-                }
-            }
-
-            // Function to clear error message
-            function clearError(elementId) {
-                const existingError = document.querySelector(`#${elementId} + .error-message`);
-                if (existingError) {
-                    existingError.remove();
-                }
-            }
-
-            // Function to validate each field on input
-            function validateOnInput(event) {
-                const id = event.target.id;
-                const value = event.target.value.trim();
-
-                switch (id) {
-                    case 'whatsappNumber':
-                    case 'emergencyContact':
-                        if (!validatePhoneNumber(value)) {
-                            showError(id, 'Phone Number must be exactly 10 digits.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-
-                    case 'aadharNumber':
-                        if (!validateAadhaarNumber(value)) {
-                            showError(id, 'Aadhaar Number must be exactly 12 digits.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-
-                    case 'panNumber':
-                        if (!validatePanNumber(value)) {
-                            showError(id, 'PAN Number must be exactly 10 alphanumeric characters.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-
-                    case 'email':
-                        if (!validateEmail(value)) {
-                            showError(id, 'Invalid email address.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-                }
-            }
-
-            // Attach input event listeners to each field
-            document.getElementById('whatsappNumber').addEventListener('input', validateOnInput);
-            document.getElementById('emergencyContact').addEventListener('input', validateOnInput);
-            document.getElementById('aadharNumber').addEventListener('input', validateOnInput);
-            document.getElementById('panNumber').addEventListener('input', validateOnInput);
-            document.querySelector('input[type="email"]').addEventListener('input', validateOnInput);
-
-            // Function to handle form validation on submit
-            function validateForm() {
-                const phoneNumber = document.getElementById('whatsappNumber').value.trim();
-                const emergencyContactnumber = document.getElementById('emergencyContact').value.trim();
-                const aadhaarNumber = document.getElementById('aadharNumber').value.trim();
-                const panNumber = document.getElementById('panNumber').value.trim();
-                const email = document.querySelector('input[type="email"]').value.trim();
-                let isValid = true;
-
-                // Validate Phone Number
-                if (!validatePhoneNumber(phoneNumber)) {
-                    showError('whatsappNumber', 'Whatsapp Number must be exactly 10 digits.');
-                    isValid = false;
-                }
-
-                // Validate Emergency Contact Number
-                if (!validatePhoneNumber(emergencyContactnumber)) {
-                    showError('emergencyContact', 'Emergency Contact Number must be exactly 10 digits.');
-                    isValid = false;
-                }
-
-                // Validate Aadhaar Number
-                if (!validateAadhaarNumber(aadhaarNumber)) {
-                    showError('aadharNumber', 'Aadhaar Number must be exactly 12 digits.');
-                    isValid = false;
-                }
-
-                // Validate PAN Number
-                if (!validatePanNumber(panNumber)) {
-                    showError('panNumber', 'PAN Number must be exactly 10 alphanumeric characters.');
-                    isValid = false;
-                }
-
-                // Validate Email
-                if (!validateEmail(email)) {
-                    showError('email', 'Invalid email address.');
-                    isValid = false;
-                }
-
-                return isValid;
-            }
-
-            // Add event listener to the Save & Next button
-            document.getElementById('save-next-btn').addEventListener('click', function (event) {
-                if (!validateForm()) {
-                    event.preventDefault(); // Prevent form submission if validation fails
-                }
-            });
-        });
-    </script>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to validate PIN (6 digits)
-            function validatePin(value) {
-                return /^\d{6}$/.test(value);
-            }
-
-            // Function to add an error message below the input field
-            function showError(elementId, message) {
-                const element = document.getElementById(elementId);
-
-                if (element) {
-                    // Remove any existing error message
-                    const existingError = document.querySelector(`#${elementId} + .error-message`);
-                    if (existingError) {
-                        existingError.remove();
-                    }
-
-                    // Create and insert the error message
-                    const errorElement = document.createElement('div');
-                    errorElement.className = 'error-message';
-                    errorElement.style.color = 'red';
-                    errorElement.style.marginTop = '4px';
-                    errorElement.textContent = message;
-                    element.parentElement.insertBefore(errorElement, element.nextSibling);
-                }
-            }
-
-            // Function to clear error message
-            function clearError(elementId) {
-                const existingError = document.querySelector(`#${elementId} + .error-message`);
-                if (existingError) {
-                    existingError.remove();
-                }
-            }
-
-            // Function to validate each field on input
-            function validateOnInput(event) {
-                const id = event.target.id;
-                const value = event.target.value.trim();
-
-                switch (id) {
-                    // Add validation for PIN fields
-                    case 'perm-pin':
-                    case 'pres-pin':
-                        if (!validatePin(value)) {
-                            showError(id, 'PIN must be exactly 6 digits.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-
-                    // Handle other fields if needed (e.g., phone numbers, email)
-                    // Add your other validation functions and logic here
-                }
-            }
-
-            // Attach input event listeners to PIN fields
-            document.getElementById('perm-pin').addEventListener('input', validateOnInput);
-            document.getElementById('pres-pin').addEventListener('input', validateOnInput);
-
-            // Function to handle form validation on submit
-            function validateForm() {
-                const permPin = document.getElementById('perm-pin').value.trim();
-                const presPin = document.getElementById('pres-pin').value.trim();
-                let isValid = true;
-
-                // Validate Permanent Address PIN
-                if (!validatePin(permPin)) {
-                    showError('perm-pin', 'PIN must be exactly 6 digits.');
-                    isValid = false;
-                }
-
-                // Validate Present Address PIN
-                if (!validatePin(presPin)) {
-                    showError('pres-pin', 'PIN must be exactly 6 digits.');
-                    isValid = false;
-                }
-
-                return isValid;
-            }
-
-            // Add event listener to the Save & Next button
-            document.getElementById('save-next-btn').addEventListener('click', function (event) {
-                if (!validateForm()) {
-                    event.preventDefault(); // Prevent form submission if validation fails
-                }
-            });
-        });
-    </script>
-
-
 
 </body>
 
