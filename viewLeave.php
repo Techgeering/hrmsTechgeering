@@ -110,7 +110,6 @@ session_start(); {
                                                         </a>
                                                     <?php endif; ?>
                                                 </td>
-
                                                 <?php if ($em_role == '4') { ?>
                                                     <th>
                                                         <?php

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2024 at 03:33 PM
+-- Generation Time: Sep 19, 2024 at 03:28 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -48,7 +48,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `pro_id`, `assign_to`, `particulars`, `tex_type`, `gst`, `deposite`, `withdraw`, `balance`, `balance_T`, `balance_WT`, `date`, `date_time`) VALUES
-(1, 0, '', 'extra expences', 'GST', '12', '100', '', '100', '100', '', '2024-08-16', '2024-08-16 19:12:29');
+(1, 0, '', 'extra expences', 'GST', '12', '100', '', '100', '100', '', '2024-08-16', '2024-08-16 19:12:29'),
+(2, 9, '', 'gnnjhgnjg', 'GST', '12%', '1000', '', '1100', '1100', '', '2024-09-15', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -93,6 +94,9 @@ CREATE TABLE `address` (
   `address1` varchar(255) DEFAULT NULL,
   `address2` varchar(255) DEFAULT NULL,
   `city` varchar(128) DEFAULT NULL,
+  `post` varchar(10) NOT NULL,
+  `polic_station` varchar(20) NOT NULL,
+  `dist` varchar(20) NOT NULL,
   `state` varchar(60) NOT NULL,
   `country` varchar(128) DEFAULT NULL,
   `pincode` varchar(20) DEFAULT NULL,
@@ -103,27 +107,69 @@ CREATE TABLE `address` (
 -- Dumping data for table `address`
 --
 
-INSERT INTO `address` (`id`, `emp_id`, `address1`, `address2`, `city`, `state`, `country`, `pincode`, `type`) VALUES
-(1, '123456', 'aassaaadvdfsgfdgs', 'aafsdfgs', 'aaaMuscle Shoals', 'aafgdfg', 'aaUS', 'aa123456', 'Permanent'),
-(2, '99', 'sdfgds', 'sdfgfd', 'Muscle Shoals', 'sfdgfdsg', 'US', '123456', 'Present'),
-(5, '4445', 'dcdfvd', 'ddcv', NULL, '', NULL, NULL, 'Permanent'),
-(6, '4445', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
-(7, '5845', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(8, '5845', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
-(9, '52122', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(10, '52122', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
-(11, '', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(12, '', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
-(13, '', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(14, '', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
-(15, '10', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(16, '10', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
-(17, '414', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(18, '414', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
-(19, '20', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(20, '20', NULL, NULL, NULL, '', NULL, NULL, 'Present'),
-(21, '14', NULL, NULL, NULL, '', NULL, NULL, 'Permanent'),
-(22, '14', NULL, NULL, NULL, '', NULL, NULL, 'Present');
+INSERT INTO `address` (`id`, `emp_id`, `address1`, `address2`, `city`, `post`, `polic_station`, `dist`, `state`, `country`, `pincode`, `type`) VALUES
+(1, 'TS0923006', 'dvdfsgfdgs', 'aafsdfgs', 'aaaMuscle Shoals', 'NA', '', '', 'aafgdfg', 'aaUS', 'aa123456', 'Permanent'),
+(2, '99', 'sdfgds', 'sdfgfd', 'Muscle Shoals', '', '', '', 'sfdgfdsg', 'US', '123456', 'Present'),
+(5, '4445', 'dcdfvd', 'ddcv', NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(6, '4445', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(7, '5845', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(8, '5845', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(9, '52122', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(10, '52122', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(11, '', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(12, '', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(13, '', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(14, '', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(15, '10', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(16, '10', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(17, '414', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(18, '414', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(19, '20', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(20, '20', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(21, '14', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(22, '14', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(23, '10', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(24, '10', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(25, '40', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(26, '40', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(27, '20', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(28, '20', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(29, '40', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(30, '40', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(31, '78', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(32, '78', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(33, '78', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(34, '78', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(35, '41', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(36, '41', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(37, '41', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(38, '41', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(39, '10', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(40, '10', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(41, '11', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(42, '11', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(43, '12', 'rdgrd', 'fghg', 'ghbgvhb', '', '', '', 'gvhbgv', 'gvbgvb', 'vgngvng', 'Permanent'),
+(44, '12', 'vgngvn', 'vgnvgn', 'hnh', '', '', '', 'hnhn', 'bhn', 'bnbn', 'Present'),
+(45, '12', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(46, '12', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(47, '13', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(48, '13', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(49, '15', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(50, '15', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(51, '17', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(52, '17', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(53, 'TS0923006', 'scdsdf', 'dgvg', 'dgdg', '', '', '', 'fdgf', '4242452', 'cfvfcv', 'Permanent'),
+(54, 'TS0923006', 'scdsdf', 'dgvg', 'dgdg', 'NA', 'NA', 'NA', 'fdgf', '4242452', 'cfvfcv', 'Present'),
+(55, 'TS0923008', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(56, 'TS0923008', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(57, 'TS0923010', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(58, 'TS0923010', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(59, '	TS0923009', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(60, '	TS0923009', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(61, 'TESS0012', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(62, 'TESS0012', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present'),
+(63, 'TSS0098', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Permanent'),
+(64, 'TSS0098', NULL, NULL, NULL, '', '', '', '', NULL, NULL, 'Present');
 
 -- --------------------------------------------------------
 
@@ -219,58 +265,12 @@ CREATE TABLE `assign_task` (
 --
 
 INSERT INTO `assign_task` (`id`, `task_id`, `project_id`, `assign_user`, `user_type`) VALUES
-(1, 1, 2, 'Thom', 'Team Head'),
-(2, 1, 2, 'Doe1753', 'Collaborators'),
-(8, 10, 2, 'Monalisa Das', 'Team Head'),
-(9, 10, 2, 'user3', 'Collaborators'),
-(10, 11, 2, 'aaMichael', 'Team Head'),
-(11, 11, 2, 'Thom', 'Collaborators'),
-(12, 12, 2, 'Thom', 'Team Head'),
-(13, 12, 2, 'user2', 'Collaborators'),
-(14, 13, 2, 'Colin', 'Team Head'),
-(15, 13, 2, 'user2', 'Collaborators'),
-(16, 14, 2, 'Emily', 'Team Head'),
-(17, 14, 2, 'ASUTOSH DAS', 'Collaborators'),
-(18, 15, 6, 'Emily', 'Team Head'),
-(19, 15, 6, 'Stephany', 'Collaborators'),
-(20, 16, 1, 'Emily', 'Team Head'),
-(21, 16, 1, 'Emily', 'Collaborators'),
-(22, 17, 1, 'Chris', 'Team Head'),
-(23, 17, 1, 'Monalisa Das', 'Collaborators'),
-(24, 18, 2, 'Monalisa Das', 'Team Head'),
-(25, 18, 2, 'Monalisa Das', 'Collaborators'),
-(26, 19, 2, 'Emily', 'Team Head'),
-(27, 19, 2, 'gghh', 'Collaborators'),
-(28, 20, 2, 'John', 'Team Head'),
-(29, 20, 2, 'Thom', 'Collaborators'),
-(30, 21, 2, 'nnnnn', 'Team Head'),
-(31, 21, 2, 'Thom,fffff,John', 'Collaborators'),
-(32, 22, 0, 'aaMichael', 'Team Head'),
-(33, 22, 0, 'Thom', 'Collaborators'),
-(34, 23, 1, 'Stephany', 'Team Head'),
-(35, 23, 1, 'Thom,fffff', 'Collaborators'),
-(36, 24, 1, 'Monalisa Das', 'Team Head'),
-(37, 24, 1, 'nnnnn', 'Collaborators'),
-(38, 25, 1, 'nnnnn', 'Team Head'),
-(39, 25, 1, 'Thom', 'Collaborators'),
-(40, 26, 1, 'Colin', 'Team Head'),
-(41, 26, 1, 'fffff', 'Collaborators'),
-(42, 27, 1, 'Liam', 'Team Head'),
-(43, 27, 1, 'Thom', 'Collaborators'),
-(44, 28, 1, 'ASUTOSH DAS', 'Team Head'),
-(45, 28, 1, 'fffff', 'Collaborators'),
-(46, 29, 1, 'Colin', 'Team Head'),
-(47, 29, 1, 'John', 'Collaborators'),
-(48, 30, 1, 'Emily', 'Team Head'),
-(49, 30, 1, 'gghh', 'Collaborators'),
-(50, 31, 1, 'aaaaa', 'Team Head'),
-(51, 31, 1, 'Thom', 'Collaborators'),
-(52, 32, 1, 'Monalisa Das', 'Team Head'),
-(53, 32, 1, 'Thom', 'Collaborators'),
-(54, 33, 1, 'Emily', 'Team Head'),
-(55, 33, 1, 'Thom', 'Collaborators'),
-(56, 34, 3, 'Colin', 'Team Head'),
-(57, 34, 3, 'Thom', 'Collaborators');
+(1, 15, 1, 'TS0923010', 'Team Head'),
+(2, 15, 1, 'TS0923006', 'Collaborators'),
+(3, 16, 1, 'TS0923010', 'Team Head'),
+(4, 16, 1, 'TS0923006,TESS0012', 'Collaborators'),
+(5, 17, 1, 'TSS0098', 'Team Head'),
+(6, 17, 1, 'TS0923006', 'Collaborators');
 
 -- --------------------------------------------------------
 
@@ -281,7 +281,7 @@ INSERT INTO `assign_task` (`id`, `task_id`, `project_id`, `assign_user`, `user_t
 CREATE TABLE `attadence_report` (
   `id` int(11) NOT NULL,
   `month` varchar(20) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
+  `emp_id` varchar(11) DEFAULT NULL,
   `working_hour` int(11) DEFAULT NULL,
   `present_hour` int(11) DEFAULT NULL,
   `holiday_hour` int(11) DEFAULT NULL,
@@ -294,9 +294,11 @@ CREATE TABLE `attadence_report` (
 --
 
 INSERT INTO `attadence_report` (`id`, `month`, `emp_id`, `working_hour`, `present_hour`, `holiday_hour`, `leave_hour`, `payable_hour`) VALUES
-(1, '', 123456, 205, 205, 66, 17, 288),
-(2, '06-2024', 123456, 205, 205, 66, 17, 288),
-(3, '01-2023', 123456, 218, 205, 0, 0, 205);
+(1, '08-2024', '0', 223, 155, 0, 0, 155),
+(2, '08-2024', 'TS0823003', 223, 188, 0, 0, 188),
+(3, '08-2024', 'TS0923005', 223, 177, 0, 0, 177),
+(4, '08-2024', 'TS0923006', 223, 171, 0, 0, 171),
+(5, '08-2024', 'TS0923008', 223, 155, 0, 0, 155);
 
 -- --------------------------------------------------------
 
@@ -310,44 +312,127 @@ CREATE TABLE `attendance` (
   `atten_date` varchar(64) DEFAULT NULL,
   `signin_time` time DEFAULT NULL,
   `signout_time` time DEFAULT NULL,
-  `working_hour` varchar(64) DEFAULT NULL,
-  `place` varchar(255) NOT NULL,
-  `absence` varchar(128) DEFAULT NULL,
-  `overtime` varchar(128) DEFAULT NULL,
-  `earnleave` varchar(128) DEFAULT NULL,
-  `status` varchar(64) DEFAULT NULL
+  `working_hour` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`id`, `emp_id`, `atten_date`, `signin_time`, `signout_time`, `working_hour`, `place`, `absence`, `overtime`, `earnleave`, `status`) VALUES
-(1, '123456', '01-06-2024', '08:30:00', '17:30:00', '5', '', NULL, NULL, NULL, NULL),
-(2, '123456', '03-06-2024', '08:45:00', '17:45:00', '9', '', NULL, NULL, NULL, NULL),
-(3, '123456', '04-06-2024', '09:15:00', '18:15:00', '9', '', NULL, NULL, NULL, NULL),
-(4, '123456', '05-06-2024', '08:00:00', '17:00:00', '9', '', NULL, NULL, NULL, NULL),
-(5, '123456', '06-06-2024', '09:00:00', '18:00:00', '9', '', NULL, NULL, NULL, NULL),
-(6, '123456', '07-06-2024', '08:30:00', '17:30:00', '9', '', NULL, NULL, NULL, NULL),
-(7, '123456', '08-06-2024', '09:00:00', '18:00:00', '5', '', NULL, NULL, NULL, NULL),
-(8, '123456', '10-06-2024', '09:15:00', '18:15:00', '9', '', NULL, NULL, NULL, NULL),
-(9, '123456', '11-06-2024', '08:00:00', '17:00:00', '9', '', NULL, NULL, NULL, NULL),
-(10, '123456', '12-06-2024', '09:00:00', '18:00:00', '9', '', NULL, NULL, NULL, NULL),
-(11, '123456', '13-06-2024', '08:30:00', '17:30:00', '9', '', NULL, NULL, NULL, NULL),
-(12, '123456', '14-06-2024', '09:00:00', '18:00:00', '9', '', NULL, NULL, NULL, NULL),
-(13, '123456', '15-06-2024', '08:45:00', '17:45:00', '5', '', NULL, NULL, NULL, NULL),
-(14, '123456', '17-06-2024', '08:00:00', '17:00:00', '9', '', NULL, NULL, NULL, NULL),
-(15, '123456', '18-06-2024', '09:00:00', '18:00:00', '9', '', NULL, NULL, NULL, NULL),
-(16, '123456', '19-06-2024', '08:30:00', '17:30:00', '9', '', NULL, NULL, NULL, NULL),
-(17, '123456', '20-06-2024', '09:00:00', '18:00:00', '9', '', NULL, NULL, NULL, NULL),
-(18, '123456', '21-06-2024', '08:45:00', '17:45:00', '9', '', NULL, NULL, NULL, NULL),
-(19, '123456', '22-06-2024', '09:15:00', '18:15:00', '5', '', NULL, NULL, NULL, NULL),
-(20, '123456', '24-06-2024', '09:00:00', '18:00:00', '9', '', NULL, NULL, NULL, NULL),
-(21, '123456', '25-06-2024', '08:30:00', '17:30:00', '9', '', NULL, NULL, NULL, NULL),
-(22, '123456', '26-06-2024', '09:00:00', '18:00:00', '9', '', NULL, NULL, NULL, NULL),
-(23, '123456', '27-06-2024', '08:45:00', '17:45:00', '9', '', NULL, NULL, NULL, NULL),
-(24, '123456', '28-06-2024', '09:15:00', '18:15:00', '9', '', NULL, NULL, NULL, NULL),
-(25, '123456', '29-06-2024', '08:00:00', '17:00:00', '5', '', NULL, NULL, NULL, NULL);
+INSERT INTO `attendance` (`id`, `emp_id`, `atten_date`, `signin_time`, `signout_time`, `working_hour`) VALUES
+(1, '123456', '01-06-2024', '08:30:00', '17:30:00', '5'),
+(2, '123456', '03-06-2024', '08:45:00', '17:45:00', '9'),
+(3, '123456', '04-06-2024', '09:15:00', '18:15:00', '9'),
+(4, '123456', '05-06-2024', '08:00:00', '17:00:00', '9'),
+(5, '123456', '06-06-2024', '09:00:00', '18:00:00', '9'),
+(6, '123456', '07-06-2024', '08:30:00', '17:30:00', '9'),
+(7, '123456', '08-06-2024', '09:00:00', '18:00:00', '5'),
+(8, '123456', '10-06-2024', '09:15:00', '18:15:00', '9'),
+(9, '123456', '11-06-2024', '08:00:00', '17:00:00', '9'),
+(10, '123456', '12-06-2024', '09:00:00', '18:00:00', '9'),
+(11, '123456', '13-06-2024', '08:30:00', '17:30:00', '9'),
+(12, '123456', '14-06-2024', '09:00:00', '18:00:00', '9'),
+(13, '123456', '15-06-2024', '08:45:00', '17:45:00', '5'),
+(14, '123456', '17-06-2024', '08:00:00', '17:00:00', '9'),
+(15, '123456', '18-06-2024', '09:00:00', '18:00:00', '9'),
+(16, '123456', '19-06-2024', '08:30:00', '17:30:00', '9'),
+(17, '123456', '20-06-2024', '09:00:00', '18:00:00', '9'),
+(18, '123456', '21-06-2024', '08:45:00', '17:45:00', '9'),
+(19, '123456', '22-06-2024', '09:15:00', '18:15:00', '5'),
+(20, '123456', '24-06-2024', '09:00:00', '18:00:00', '9'),
+(21, '123456', '25-06-2024', '08:30:00', '17:30:00', '9'),
+(22, '123456', '26-06-2024', '09:00:00', '18:00:00', '9'),
+(23, '123456', '27-06-2024', '08:45:00', '17:45:00', '9'),
+(24, '123456', '28-06-2024', '09:15:00', '18:15:00', '9'),
+(25, '123456', '29-06-2024', '08:00:00', '17:00:00', '5'),
+(26, 'TS0823003', '2024-08-01', '09:26:20', '19:19:06', '9'),
+(27, 'TS0823003', '2024-08-02', '09:22:15', '18:33:49', '9'),
+(28, 'TS0823003', '2024-08-03', '09:11:06', '14:20:12', '5'),
+(29, 'TS0823003', '2024-08-05', '09:02:47', '18:23:27', '9'),
+(30, 'TS0823003', '2024-08-06', '09:26:01', '18:32:43', '9'),
+(31, 'TS0823003', '2024-08-07', '09:19:00', '18:46:07', '9'),
+(32, 'TS0823003', '2024-08-08', '09:04:27', '18:38:18', '9'),
+(33, 'TS0823003', '2024-08-09', '09:06:36', '18:39:16', '9'),
+(34, 'TS0823003', '2024-08-10', '09:09:57', '14:12:52', '5'),
+(35, 'TS0823003', '2024-08-12', '09:21:03', '18:32:28', '9'),
+(36, 'TS0823003', '2024-08-13', '09:17:43', '18:10:02', '8.52'),
+(37, 'TS0823003', '2024-08-14', '09:05:51', '18:57:26', '9'),
+(38, 'TS0823003', '2024-08-16', '09:25:42', '18:34:47', '9'),
+(39, 'TS0823003', '2024-08-17', '10:13:55', '14:06:46', '3.52'),
+(40, 'TS0823003', '2024-08-20', '08:58:36', '18:39:12', '9'),
+(41, 'TS0823003', '2024-08-21', '10:10:34', '18:16:35', '8.6'),
+(42, 'TS0823003', '2024-08-22', '09:41:14', '18:21:15', '8.40'),
+(43, 'TS0823003', '2024-08-23', '09:19:50', '18:26:08', '9'),
+(44, 'TS0823003', '2024-08-24', '09:50:06', '18:42:33', '5'),
+(45, 'TS0823003', '2024-08-27', '09:15:05', '19:00:47', '9'),
+(46, 'TS0823003', '2024-08-28', '09:22:43', '18:36:31', '9'),
+(47, 'TS0823003', '2024-08-29', '09:19:51', '18:50:05', '9'),
+(48, 'TS0823003', '2024-08-30', '09:14:32', '18:32:59', '9'),
+(49, 'TS0923005', '2024-08-01', '09:07:46', '19:11:12', '9'),
+(50, 'TS0923005', '2024-08-02', '09:05:06', '18:32:01', '9'),
+(51, 'TS0923005', '2024-08-03', '09:02:41', '14:20:17', '5'),
+(52, 'TS0923005', '2024-08-05', '09:12:29', '18:39:28', '9'),
+(53, 'TS0923005', '2024-08-06', '09:09:15', '18:54:58', '9'),
+(54, 'TS0923005', '2024-08-07', '09:17:27', '19:30:37', '9'),
+(55, 'TS0923005', '2024-08-08', '09:13:49', '18:54:25', '9'),
+(56, 'TS0923005', '2024-08-09', '09:17:10', '18:38:20', '9'),
+(57, 'TS0923005', '2024-08-10', '09:14:33', '14:12:43', '4.58'),
+(58, 'TS0923005', '2024-08-12', '09:11:49', '18:56:31', '9'),
+(59, 'TS0923005', '2024-08-13', '09:23:38', '18:12:59', '8.49'),
+(60, 'TS0923005', '2024-08-14', '09:14:51', '09:14:51', '0.0'),
+(61, 'TS0923005', '2024-08-16', '09:16:00', '18:39:01', '9'),
+(62, 'TS0923005', '2024-08-17', '09:18:16', '14:23:49', '5'),
+(63, 'TS0923005', '2024-08-20', '09:30:42', '18:46:53', '9'),
+(64, 'TS0923005', '2024-08-21', '10:10:21', '16:08:22', '5.58'),
+(65, 'TS0923005', '2024-08-22', '09:35:34', '18:20:58', '8.45'),
+(66, 'TS0923005', '2024-08-23', '09:10:32', '18:39:51', '9'),
+(67, 'TS0923005', '2024-08-24', '09:17:38', '18:41:55', '5'),
+(68, 'TS0923005', '2024-08-27', '09:16:56', '18:59:48', '9'),
+(69, 'TS0923005', '2024-08-28', '09:13:36', '18:49:34', '9'),
+(70, 'TS0923005', '2024-08-29', '09:25:31', '19:45:32', '9'),
+(71, 'TS0923005', '2024-08-30', '09:14:54', '18:41:59', '9'),
+(72, 'TS0923006', '2024-08-01', '09:01:10', '19:11:17', '9'),
+(73, 'TS0923006', '2024-08-02', '09:05:03', '18:33:46', '9'),
+(74, 'TS0923006', '2024-08-03', '09:02:29', '14:20:14', '5'),
+(75, 'TS0923006', '2024-08-05', '08:57:54', '18:39:05', '9'),
+(76, 'TS0923006', '2024-08-06', '09:00:23', '18:55:07', '9'),
+(77, 'TS0923006', '2024-08-07', '09:00:24', '20:00:35', '9'),
+(78, 'TS0923006', '2024-08-08', '09:04:23', '18:54:08', '9'),
+(79, 'TS0923006', '2024-08-09', '09:00:41', '18:38:25', '9'),
+(80, 'TS0923006', '2024-08-10', '09:03:50', '14:12:56', '5'),
+(81, 'TS0923006', '2024-08-12', '09:00:58', '18:56:41', '9'),
+(82, 'TS0923006', '2024-08-13', '09:17:28', '18:13:54', '8.56'),
+(83, 'TS0923006', '2024-08-14', '09:05:48', '19:40:32', '9'),
+(84, 'TS0923006', '2024-08-16', '09:06:24', '18:40:10', '9'),
+(85, 'TS0923006', '2024-08-17', '09:09:40', '14:06:23', '4.56'),
+(86, 'TS0923006', '2024-08-20', '08:58:10', '18:49:34', '9'),
+(87, 'TS0923006', '2024-08-22', '09:56:35', '18:20:52', '8.24'),
+(88, 'TS0923006', '2024-08-23', '09:05:24', '18:40:52', '9'),
+(89, 'TS0923006', '2024-08-24', '09:12:08', '18:41:59', '5'),
+(90, 'TS0923006', '2024-08-27', '09:14:45', '18:59:50', '9'),
+(91, 'TS0923006', '2024-08-28', '09:12:21', '18:36:23', '9'),
+(92, 'TS0923006', '2024-08-29', '09:10:33', '19:45:29', '9'),
+(93, 'TS0923006', '2024-08-30', '09:14:29', '09:14:29', '0.0'),
+(94, 'TS0923008', '2024-08-01', '09:07:37', '19:11:46', '9'),
+(95, 'TS0923008', '2024-08-02', '09:05:30', '13:12:27', '4.6'),
+(96, 'TS0923008', '2024-08-05', '09:12:35', '18:39:24', '9'),
+(97, 'TS0923008', '2024-08-06', '09:09:23', '18:55:05', '9'),
+(98, 'TS0923008', '2024-08-07', '09:17:33', '19:30:28', '9'),
+(99, 'TS0923008', '2024-08-08', '09:13:55', '18:54:17', '9'),
+(100, 'TS0923008', '2024-08-09', '09:17:16', '18:39:29', '9'),
+(101, 'TS0923008', '2024-08-10', '09:14:38', '14:13:00', '4.58'),
+(102, 'TS0923008', '2024-08-12', '09:11:55', '18:56:33', '9'),
+(103, 'TS0923008', '2024-08-13', '09:23:41', '18:43:07', '9'),
+(104, 'TS0923008', '2024-08-14', '09:14:48', '18:47:13', '9'),
+(105, 'TS0923008', '2024-08-16', '09:16:03', '18:36:21', '9'),
+(106, 'TS0923008', '2024-08-17', '09:18:21', '14:24:03', '5'),
+(107, 'TS0923008', '2024-08-20', '09:30:46', '10:21:21', '0.50'),
+(108, 'TS0923008', '2024-08-23', '09:10:44', '18:39:58', '9'),
+(109, 'TS0923008', '2024-08-24', '09:17:41', '18:42:13', '5'),
+(110, 'TS0923008', '2024-08-27', '09:17:00', '19:00:02', '9'),
+(111, 'TS0923008', '2024-08-28', '09:13:34', '18:49:45', '9'),
+(112, 'TS0923008', '2024-08-29', '09:25:36', '19:45:44', '9'),
+(113, 'TS0923008', '2024-08-30', '09:15:04', '18:42:14', '9');
 
 -- --------------------------------------------------------
 
@@ -363,7 +448,7 @@ CREATE TABLE `bank_info` (
   `branch_name` varchar(256) DEFAULT NULL,
   `account_number` varchar(256) DEFAULT NULL,
   `account_type` varchar(256) DEFAULT NULL,
-  `ifsc_code` int(20) NOT NULL
+  `ifsc_code` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -371,10 +456,12 @@ CREATE TABLE `bank_info` (
 --
 
 INSERT INTO `bank_info` (`id`, `em_id`, `holder_name`, `bank_name`, `branch_name`, `account_number`, `account_type`, `ifsc_code`) VALUES
-(1, '10', NULL, NULL, NULL, NULL, NULL, 0),
-(2, '414', NULL, NULL, NULL, NULL, NULL, 0),
-(3, '20', NULL, NULL, NULL, NULL, NULL, 0),
-(4, '14', NULL, NULL, NULL, NULL, NULL, 0);
+(1, 'TS0923006', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA'),
+(2, 'TS0923008', NULL, NULL, NULL, NULL, NULL, ''),
+(3, 'TS0923010', NULL, NULL, NULL, NULL, NULL, ''),
+(4, '	TS0923009', NULL, NULL, NULL, NULL, NULL, ''),
+(5, 'TESS0012', NULL, NULL, NULL, NULL, NULL, ''),
+(6, 'TSS0098', NULL, NULL, NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -474,10 +561,13 @@ CREATE TABLE `designation` (
 --
 
 INSERT INTO `designation` (`id`, `des_name`, `status`) VALUES
-(1, 'Admin', '1'),
-(2, 'Manager', '1'),
-(3, 'Hr', '1'),
-(4, 'Employee', '0');
+(1, 'Senior Developer', '1'),
+(2, 'Jr. Developer', '1'),
+(3, 'Manager', '1'),
+(4, 'hr management', '0'),
+(5, 'Designer', '1'),
+(6, 'graphic designer', '1'),
+(7, 'tester', '1');
 
 -- --------------------------------------------------------
 
@@ -523,7 +613,7 @@ CREATE TABLE `education` (
 --
 
 INSERT INTO `education` (`id`, `emp_id`, `edu_type`, `institute`, `university`, `result`, `year`) VALUES
-(1, '99', 'ckdcdcnj', 'Vvfcd', 'njdfnv', '54%', '2023');
+(1, 'TS0923006', 'BTECH', 'fthfddd', 'fgthtdf', '87', '2012');
 
 -- --------------------------------------------------------
 
@@ -537,7 +627,11 @@ CREATE TABLE `employee` (
   `des_id` int(11) DEFAULT NULL,
   `dep_id` int(11) DEFAULT NULL,
   `full_name` varchar(128) DEFAULT NULL,
+  `father_name` varchar(50) NOT NULL,
+  `mother_name` varchar(50) NOT NULL,
   `em_email` varchar(64) DEFAULT NULL,
+  `prof_email` varchar(70) NOT NULL,
+  `marital_status` varchar(20) NOT NULL,
   `em_password` varchar(512) NOT NULL,
   `em_role` int(10) NOT NULL,
   `status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
@@ -547,37 +641,25 @@ CREATE TABLE `employee` (
   `em_birthday` varchar(128) DEFAULT NULL,
   `em_blood_group` enum('O+','O-','A+','A-','B+','B-','AB+','OB+') DEFAULT NULL,
   `em_joining_date` varchar(128) DEFAULT NULL,
+  `last_company_date` date DEFAULT NULL,
   `em_contact_end` varchar(128) DEFAULT NULL,
   `em_image` varchar(128) DEFAULT NULL,
   `em_aadher` varchar(64) DEFAULT NULL,
-  `em_pan` int(11) NOT NULL
+  `em_pan` varchar(20) NOT NULL,
+  `emergency_contact` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`id`, `em_code`, `des_id`, `dep_id`, `full_name`, `em_email`, `em_password`, `em_role`, `status`, `em_gender`, `em_phone`, `em_wahtsapp`, `em_birthday`, `em_blood_group`, `em_joining_date`, `em_contact_end`, `em_image`, `em_aadher`, `em_pan`) VALUES
-(10, '99', 3, 1, 'Thom', 'thoma@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 3, 'ACTIVE', 'Female', '7856587870', '3121141214', '1998-02-22', 'A+', '2018-01-25', '2018-01-17', 'userav-min.png', '13215456655645242', 0),
-(36, '123456', 10, 7, 'fffff', 'ssadmin@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 3, 'ACTIVE', 'Female', 'ss999999900', '42429999999999', '1950-12-13', 'A+', '2010-02-15', '2007-02-22', 'user.png', '55201253568955555', 1),
-(37, '123444', 12, 2, 'John', 'employee@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '1111110010', '', '1995-10-30', 'O+', '2019-02-15', '2019-02-22', 'Doe1753.jpg', '01253568955555', 0),
-(38, '6969', 13, 4, 'Liam', 'liam@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '7124589965', '', '1994-03-23', 'A-', '2021-05-04', '2023-05-17', 'Moo1402.png', '1234567890', 0),
-(39, '1058', 9, 4, 'Stephany', 'stephany@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Female', '7850001111', '8769534214', '1992-12-24', 'A+', '2021-04-14', '2024-07-10', 'Rob1472.png', '7000105000', 5415245),
-(40, '8877', 13, 4, 'Chris', 'chris@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'INACTIVE', 'Male', '7852140000', '', '1993-01-02', 'AB+', '2021-10-01', '', 'Tho1044.png', '0102580010', 0),
-(41, '3008', 3, 1, 'Colin', 'colin@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '7400001450', '2514823056', '1990-12-12', 'A-', '2021-10-10', '2024-07-24', 'Smi1266.png', '0147000000', 0),
-(42, '6661', 26, 10, 'Christine', 'christine@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'INACTIVE', 'Male', '1010140000', '', '1991-04-05', 'AB+', '2021-10-10', '', 'Moo1634.png', '147850000144', 0),
-(43, '8829', 22, 7, 'aaMichael', 'michael@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', 'Male', '7801450000', '', '1986-02-23', 'B-', '2021-02-02', '', 'Joh1474.png', '600254000014', 0),
-(44, '6600', 20, 7, 'Emily', 'emily@mail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'INACTIVE', 'Female', '7410144470', '', '1996-03-03', 'AB+', '2021-10-10', '', 'Den1745.png', '880024520000', 0),
-(45, 'aaaaa', 15, 2, 'aaaaa', 'aaa@aaa.ccc', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'INACTIVE', '', '9999999999', '9999999999', '2004-06-17', 'O-', '2024-06-16', '', '', '999999999999', 0),
-(47, 'aaaaa', 15, 10, 'ASUTOSH DAS', 'asutoshdas49@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'ACTIVE', '', '07978015671', '9999999999', '1997-06-06', 'B+', '2024-06-18', '', 'assets/uploads/employee/66719837db887.avif', '999999999999', 0),
-(48, '4445', 1, 1, 'Monalisa Das', 'gjfvghfv@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 4, 'ACTIVE', 'Female', '52472552745', '54752475744574547', '2024-07-11', 'O+', '2024-07-26', '2024-07-27', 'assets/uploads/employee/669e83e4af6f1.jpg', '45824264754', 2147483647),
-(49, '5845', 4, 3, 'nnnnn', 'jkjk@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 1, 'ACTIVE', 'Female', '5264546454', '5121244154', '2024-07-18', 'A-', '2024-07-26', '2024-07-25', 'assets/uploads/employee/669e8c36b6dbc.jpg', '5415454545', 2147483647),
-(50, '52122', 4, 3, 'gghh', 'bnbn@gmail.com', '$2y$10$f6AiCtTnJ7yxa/Nxa6YAq.EBmXHYNogdppsrTQibk0sgRCC9/bUJa', 2, 'ACTIVE', '', '254854215', '21548754214', '2024-07-11', 'O+', '2024-07-25', '2024-07-30', '', '56895656565', 2147483647),
-(52, '', 0, 0, '', '', '', 0, 'ACTIVE', '', '', '', '', '', '', '', '', '', 0),
-(53, '10', 0, 3, 'Monalisa', 'mona@123gmail.com', '258475255625', 1, 'ACTIVE', '', '258475255625', '54455212521', '2024-09-13', 'A+', '2024-09-21', '2024-09-24', 'assets/uploads/employee/66d6fc07ec1e1.jpg', '524752452475', 2147483647),
-(54, '414', 0, 8, 'fgfg', 'dfgg@123gmail.com', '74575757', 1, 'ACTIVE', '', '74575757', '574574577', '2024-09-12', 'B+', '2024-09-20', '2024-09-12', '', '5475745', 524757445),
-(55, '', 2, 10, 'Mona', 'mona@123gmail.com', '9987456230', 0, 'ACTIVE', '', 'O-', '9987456230', '2024-09-18', '', '2024-09-05', '2024-09-19', '', '554865426662', 548544554),
-(56, '', 1, 10, 'roja', 'vfd@12gmail.com', '9874563210', 0, 'ACTIVE', '', 'O+', '9874563210', '2024-09-12', '', '2024-09-20', '2024-09-27', '', '5424725454', 757474574);
+INSERT INTO `employee` (`id`, `em_code`, `des_id`, `dep_id`, `full_name`, `father_name`, `mother_name`, `em_email`, `prof_email`, `marital_status`, `em_password`, `em_role`, `status`, `em_gender`, `em_phone`, `em_wahtsapp`, `em_birthday`, `em_blood_group`, `em_joining_date`, `last_company_date`, `em_contact_end`, `em_image`, `em_aadher`, `em_pan`, `emergency_contact`) VALUES
+(1, 'TS0923006', 2, 9, 'Monalisa Das', 'Mohan Charan Das', 'NA', 'monalisa@123gmail.com', 'monalisa@123gmail.com', 'Single', '$2y$10$Zu4eSe2kVWLi7fCdYC/0RuyX.lEJqV.csOiu8zXT6ZmoqnIgrE3Ya', 4, 'ACTIVE', 'Female', '9985622020', '9985622020', '2024-09-12', 'O+', '2024-09-26', '0000-00-00', NULL, 'assets/uploads/employee/66e4143c70c7a.png', '8845952622', 'RE515112515T', 0),
+(2, 'TS0923008', 1, 6, 'Roni Mohapatra', 'Rabidra Mohapatra', 'Rutu Mohapatra', 'roni12@gmail.com', 'roni12@gmail.com', 'Single', '$2y$10$3a2BnvViljChdi8rLBOfdea51tlKzvnDeEBNxT5auHvqGTfu83Fpa', 1, 'ACTIVE', 'Female', '9987451510', '9987451510', '2024-09-27', 'A+', '2024-09-12', '0000-00-00', NULL, 'assets/uploads/employee/66dec2286475c.jpeg', '4785102020', '51564sxnsxhj', 2147483647),
+(3, 'TS0923010', 3, 9, 'Sagarika Das', 'Scfdsc Fgf', 'Grrfg Fgfg', 'sddb@gmail.com', 'sddb@gmail.com', 'Single', '$2y$10$Cv5mae6UPVj1/Aw9JPyY3.Q5cC3hdyN3VYOx5xjJ0UiqubNMCgNeu', 2, 'ACTIVE', 'Female', '9987451620', '9987451620', '2024-09-16', 'B+', '2024-09-17', '2024-09-25', NULL, 'assets/uploads/employee/66e405f815181.jpeg', 'dd564646556df', 'fbfb545645565', 2147483647),
+(4, '	TS0923009', 4, 9, 'Rutu Mohanty', 'Dfd Dgdg', 'Fgf Fgfggf', 'fdvgdj@gmail.com', 'fdvgdj@gmail.com', 'Single', '$2y$10$kFlz0awyDT889Pb/.sxkW.DcM/E/pC1xFEfO9kYo.pV6gmzC3HNxa', 3, 'ACTIVE', 'Female', '8895746213', '8895746213', '2024-09-28', 'B-', '2024-09-25', '2024-09-28', NULL, '', 'fgfg548545156', 'ghgh4587965', 2147483647),
+(5, 'TESS0012', 3, 9, 'Dibyanshu Das', 'Gvf Ggrdg', 'Fgbft Fgtbftb', 'fgtf@gmail.com', 'fgtf@gmail.com', 'Single', '$2y$10$eSrbGjq3/4Xi33XMNTrRz.g6hGvzPMPVadkbDhZWDC4J57hXh1IrK', 4, 'ACTIVE', 'Male', '8957462103', '8957462103', '2024-09-21', 'A+', '2024-09-05', '2024-09-26', NULL, 'assets/uploads/employee/66e4269d23f69.jpg', 'gfbg85645251', 'fg5845454', 2147483647),
+(6, 'TSS0098', 6, 9, 'Rohan Sahoo', 'Hj Hbjuh', 'Ghbj Bjbnjn', 'ftg@gmail.com', 'ftg@gmail.com', 'Married', '$2y$10$fKgsniPY9sSuSMdGuSGEZ.k73eOHwZ7swXe5N4145HSZ7VV/uXQ7.', 2, 'ACTIVE', 'Male', '7895462103', '7895462103', '2024-09-22', 'O-', '2024-09-12', '2024-09-14', NULL, 'assets/uploads/employee/66e427030c165.jpg', 'bgfb54848542', 'fhh45154458', 2147483647);
 
 -- --------------------------------------------------------
 
@@ -597,9 +679,7 @@ CREATE TABLE `employee_file` (
 --
 
 INSERT INTO `employee_file` (`id`, `em_id`, `file_title`, `file_url`) VALUES
-(1, '123456', 'gjgjh', 'hfjhf'),
-(2, '3008', 'fgvbh', '669e3e25d769f.pdf'),
-(3, '52122', 'dfvd', '669f3390f0d50.pdf');
+(1, 'TS0923008', 'sddfaaa', '66decd9a4edce.pdf');
 
 -- --------------------------------------------------------
 
@@ -627,17 +707,101 @@ CREATE TABLE `emp_experience` (
   `exp_company` varchar(128) DEFAULT NULL,
   `exp_com_position` varchar(128) DEFAULT NULL,
   `exp_com_address` varchar(128) DEFAULT NULL,
-  `exp_workduration` varchar(128) DEFAULT NULL
+  `exp_joining` varchar(20) NOT NULL,
+  `exp_leaving` varchar(20) NOT NULL,
+  `salary_received` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `emp_experience`
 --
 
-INSERT INTO `emp_experience` (`id`, `emp_id`, `exp_company`, `exp_com_position`, `exp_com_address`, `exp_workduration`) VALUES
-(1, '123456', 'fvbfvb', 'cvvc', 'dvvd', 'fff'),
-(3, '6661', 'gdgg', 'dfvdf', 'dfdfg', '1hr'),
-(5, '99', 'dfgfd7457', 'Vfdgvg', 'dvgcf', '41');
+INSERT INTO `emp_experience` (`id`, `emp_id`, `exp_company`, `exp_com_position`, `exp_com_address`, `exp_joining`, `exp_leaving`, `salary_received`) VALUES
+(1, 'TS0923006', 'dfgdfg', 'Fgbf', 'fhfgf', '2024-09-18', '2024-09-22', '5000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emp_form`
+--
+
+CREATE TABLE `emp_form` (
+  `emp_form_id` int(5) NOT NULL,
+  `emp_form_name` varchar(100) NOT NULL,
+  `emp_form_fathername` varchar(50) NOT NULL,
+  `emp_form_mothername` varchar(50) NOT NULL,
+  `emp_form_dob` varchar(25) NOT NULL,
+  `emp_form_email` varchar(100) NOT NULL,
+  `emp_form_phone` varchar(15) NOT NULL,
+  `emp_form_bg` varchar(5) NOT NULL,
+  `emp_form_gender` varchar(50) NOT NULL,
+  `emp_form_marital` varchar(20) NOT NULL,
+  `emp_form_wpnum` varchar(15) NOT NULL,
+  `emp_form_adharnum` varchar(12) NOT NULL,
+  `emp_form_pan` varchar(12) NOT NULL,
+  `emp_form_emernum` varchar(15) NOT NULL,
+  `emp_form_emerrel` varchar(50) NOT NULL,
+  `emp_form_image` varchar(100) NOT NULL,
+  `emp_form_adrs` varchar(250) NOT NULL,
+  `emp_form_city` varchar(100) NOT NULL,
+  `emp_form_dist` varchar(100) NOT NULL,
+  `emp_form_state` varchar(100) NOT NULL,
+  `emp_form_post` varchar(100) NOT NULL,
+  `emp_form_police` varchar(100) NOT NULL,
+  `emp_form_country` varchar(100) NOT NULL,
+  `emp_form_pin` varchar(6) NOT NULL,
+  `emp_form_preadrs` varchar(30) NOT NULL,
+  `emp_form_precity` varchar(30) NOT NULL,
+  `emp_form_predist` varchar(50) NOT NULL,
+  `emp_form_prestate` varchar(50) NOT NULL,
+  `emp_form_precountry` varchar(50) NOT NULL,
+  `emp_form_prepin` varchar(10) NOT NULL,
+  `emp_form_prepost` varchar(20) NOT NULL,
+  `emp_form_prepolice` varchar(20) NOT NULL,
+  `emp_form_c10school` varchar(250) NOT NULL,
+  `emp_form_c10board` varchar(100) NOT NULL,
+  `emp_form_c10result` varchar(5) NOT NULL,
+  `emp_form_c10yearpass` varchar(5) NOT NULL,
+  `emp_form_c12school` varchar(250) NOT NULL,
+  `emp_form_c12board` varchar(100) NOT NULL,
+  `emp_form_c12result` varchar(5) NOT NULL,
+  `emp_form_c12yearpass` varchar(5) NOT NULL,
+  `emp_form_grad_type` varchar(100) NOT NULL,
+  `emp_form_grad_insti` varchar(250) NOT NULL,
+  `emp_form_grad_univ` varchar(100) NOT NULL,
+  `emp_form_grad_res` varchar(5) NOT NULL,
+  `emp_form_grad_yearpass` varchar(5) NOT NULL,
+  `emp_form_pgrad_type` varchar(100) NOT NULL,
+  `emp_form_pgrad_insti` varchar(250) NOT NULL,
+  `emp_form_pgrad_univ` varchar(100) NOT NULL,
+  `emp_form_pgrad_result` varchar(5) NOT NULL,
+  `emp_form_pgrad_yearpass` varchar(5) NOT NULL,
+  `emp_form_c10_doc` varchar(100) NOT NULL,
+  `emp_form_c12_doc` varchar(100) NOT NULL,
+  `emp_form_grad_doc` varchar(100) NOT NULL,
+  `emp_form_pgrad_doc` varchar(100) NOT NULL,
+  `emp_form_adhar_doc` varchar(100) NOT NULL,
+  `emp_form_pan_doc` varchar(100) NOT NULL,
+  `emp_form_bg_doc` varchar(100) NOT NULL,
+  `emp_form_other_doc` varchar(100) NOT NULL,
+  `emp_form_c12_stream` varchar(100) NOT NULL,
+  `emp_form_grad_stream` varchar(100) NOT NULL,
+  `emp_form_pgrad_stream` varchar(100) NOT NULL,
+  `emp_form_dateofformsub` date NOT NULL,
+  `emp_form_stat` int(5) NOT NULL,
+  `emp_form_ip` varchar(100) NOT NULL,
+  `emp_form_curloc` varchar(100) NOT NULL,
+  `emp_form_livepic` varchar(100) NOT NULL,
+  `emp_form_passpic` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `emp_form`
+--
+
+INSERT INTO `emp_form` (`emp_form_id`, `emp_form_name`, `emp_form_fathername`, `emp_form_mothername`, `emp_form_dob`, `emp_form_email`, `emp_form_phone`, `emp_form_bg`, `emp_form_gender`, `emp_form_marital`, `emp_form_wpnum`, `emp_form_adharnum`, `emp_form_pan`, `emp_form_emernum`, `emp_form_emerrel`, `emp_form_image`, `emp_form_adrs`, `emp_form_city`, `emp_form_dist`, `emp_form_state`, `emp_form_post`, `emp_form_police`, `emp_form_country`, `emp_form_pin`, `emp_form_preadrs`, `emp_form_precity`, `emp_form_predist`, `emp_form_prestate`, `emp_form_precountry`, `emp_form_prepin`, `emp_form_prepost`, `emp_form_prepolice`, `emp_form_c10school`, `emp_form_c10board`, `emp_form_c10result`, `emp_form_c10yearpass`, `emp_form_c12school`, `emp_form_c12board`, `emp_form_c12result`, `emp_form_c12yearpass`, `emp_form_grad_type`, `emp_form_grad_insti`, `emp_form_grad_univ`, `emp_form_grad_res`, `emp_form_grad_yearpass`, `emp_form_pgrad_type`, `emp_form_pgrad_insti`, `emp_form_pgrad_univ`, `emp_form_pgrad_result`, `emp_form_pgrad_yearpass`, `emp_form_c10_doc`, `emp_form_c12_doc`, `emp_form_grad_doc`, `emp_form_pgrad_doc`, `emp_form_adhar_doc`, `emp_form_pan_doc`, `emp_form_bg_doc`, `emp_form_other_doc`, `emp_form_c12_stream`, `emp_form_grad_stream`, `emp_form_pgrad_stream`, `emp_form_dateofformsub`, `emp_form_stat`, `emp_form_ip`, `emp_form_curloc`, `emp_form_livepic`, `emp_form_passpic`) VALUES
+(1, '', 'Scfdsc Fgf', 'Fgf Fgfggf', '', '', '', 'A-', 'Male', 'Married', '4524254254', '574547574574', 'FGF7452475', '4245242424', 'bhnbhn', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, '', '', '', ''),
+(2, '', 'dsvf', 'dfgd', '', '', '', 'A+', 'Male', 'Single', '5245248247', '525424247524', 'DVDVD42542', '4752475475', 'gvbgvg', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -655,6 +819,7 @@ CREATE TABLE `emp_leave` (
   `duration_hour` int(11) NOT NULL,
   `apply_date` varchar(64) DEFAULT NULL,
   `reason` varchar(1024) DEFAULT NULL,
+  `supportingdocument` varchar(100) NOT NULL,
   `leave_status` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -662,9 +827,10 @@ CREATE TABLE `emp_leave` (
 -- Dumping data for table `emp_leave`
 --
 
-INSERT INTO `emp_leave` (`id`, `em_id`, `typeid`, `start_date`, `end_date`, `leave_duration`, `duration_hour`, `apply_date`, `reason`, `leave_status`) VALUES
-(1, '99', 1, '2024-09-22', '2024-09-26', '4', 27, '02-09-2024', 'hbbhjj', 0),
-(2, '99', 2, '2024-09-13', '2024-09-21', '8', 59, '02-09-2024', 'gbhgfhbf', 1);
+INSERT INTO `emp_leave` (`id`, `em_id`, `typeid`, `start_date`, `end_date`, `leave_duration`, `duration_hour`, `apply_date`, `reason`, `supportingdocument`, `leave_status`) VALUES
+(1, 'TE 0030', 1, '2024-09-14', '2024-09-22', '8', 55, '13-09-2024', 'cbcfbg', 'assets/uploads/employee/Ph.D Open Defence Viva Voce of Ms Rasmita Kumari Nayak,  18DS001164, Electro', 3),
+(2, 'TE0021', 4, '2024-09-28', '2024-09-29', '1', 5, '13-09-2024', 'gngn', 'assets/uploads/employee/AdminLTE 3  Dashboard.pdf', 1),
+(3, 'TS0923006', 1, '2024-09-21', '2024-09-22', '1', 5, '13-09-2024', 'rgtyh', 'assets/uploads/employee/gallery8.png', 0);
 
 -- --------------------------------------------------------
 
@@ -925,7 +1091,10 @@ INSERT INTO `leave_apply_approve` (`id`, `leaveapp_id`, `approved_by`, `datetime
 (8, 1, 1, '2024-09-01 20:57:39'),
 (9, 1, 1, '2024-09-02 08:37:05'),
 (10, 1, 1, '2024-09-02 08:37:14'),
-(11, 2, 1, '2024-09-02 11:32:16');
+(11, 2, 1, '2024-09-02 11:32:16'),
+(12, 2, 1, '2024-09-04 12:04:56'),
+(13, 1, 4, '2024-09-13 07:26:06'),
+(14, 2, 2, '2024-09-13 13:34:44');
 
 -- --------------------------------------------------------
 
@@ -936,25 +1105,26 @@ INSERT INTO `leave_apply_approve` (`id`, `leaveapp_id`, `approved_by`, `datetime
 CREATE TABLE `leave_types` (
   `type_id` int(14) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `leave_day` varchar(255) NOT NULL
+  `leave_day` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `leave_types`
 --
 
-INSERT INTO `leave_types` (`type_id`, `name`, `leave_day`) VALUES
-(1, 'Casual Leave', '21'),
-(2, 'Sick Leave', '15'),
-(3, 'Maternity Leave', '90'),
-(4, 'Paternal Leave', '7'),
-(5, 'Earned leave', '3'),
-(7, 'Public Holiday', '5'),
-(8, 'Optional Leave', '8'),
-(9, 'Leave without Pay', '2'),
-(10, 'dsadfds', '4'),
-(11, 'xdc', '11'),
-(12, 'cvvcvss', '10');
+INSERT INTO `leave_types` (`type_id`, `name`, `leave_day`, `status`) VALUES
+(1, 'Casual Leave', '21', 1),
+(2, 'Sick Leave', '15', 1),
+(3, 'Maternity Leave', '90', 1),
+(4, 'Paternal Leave', '7', 0),
+(5, 'Earned leave', '3', 0),
+(7, 'Public Holiday', '5', 0),
+(8, 'Optional Leave', '8', 0),
+(9, 'Leave without Pay', '2', 0),
+(10, 'dsadfds', '4', 0),
+(11, 'xdc', '11', 0),
+(12, 'cvvcvss', '10', 0);
 
 -- --------------------------------------------------------
 
@@ -1010,6 +1180,38 @@ CREATE TABLE `loan_installment` (
 
 INSERT INTO `loan_installment` (`id`, `loan_id`, `emp_id`, `loan_number`, `install_amount`, `pay_amount`, `app_date`, `receiver`, `install_no`, `notes`) VALUES
 (32, 1, 'Doe1753', '19073382', '10833', NULL, '2021-11-30', NULL, '5', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_history`
+--
+
+CREATE TABLE `login_history` (
+  `id` int(11) NOT NULL,
+  `emp_tbl_id` int(11) NOT NULL,
+  `emp_id` varchar(50) NOT NULL,
+  `ip_v6_address` varchar(250) NOT NULL,
+  `ip_v4_address` varchar(250) NOT NULL,
+  `loggedin_device` varchar(50) NOT NULL,
+  `location_details` longtext NOT NULL,
+  `login_time` timestamp NULL DEFAULT NULL,
+  `logout_time` timestamp NULL DEFAULT NULL,
+  `session_duration` time DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `login_history`
+--
+
+INSERT INTO `login_history` (`id`, `emp_tbl_id`, `emp_id`, `ip_v6_address`, `ip_v4_address`, `loggedin_device`, `location_details`, `login_time`, `logout_time`, `session_duration`, `created_at`, `updated_at`) VALUES
+(1, 1, 'TS0923006', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 05:14:32', '2024-09-19 05:39:07', '00:24:35', '2024-09-19 10:44:32', '2024-09-19 11:09:07'),
+(2, 1, 'TS0923006', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 05:39:33', '2024-09-19 05:39:38', '00:00:05', '2024-09-19 11:09:33', '2024-09-19 11:09:38'),
+(3, 2, 'TS0923008', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 05:39:59', '2024-09-19 10:17:04', '04:37:05', '2024-09-19 11:09:59', '2024-09-19 15:47:04'),
+(4, 1, 'TS0923006', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 10:17:26', '2024-09-19 10:18:12', '00:00:46', '2024-09-19 15:47:26', '2024-09-19 15:48:12'),
+(5, 2, 'TS0923008', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 10:18:32', NULL, NULL, '2024-09-19 15:48:32', '2024-09-19 15:48:32');
 
 -- --------------------------------------------------------
 
@@ -1103,14 +1305,15 @@ CREATE TABLE `pay_salary` (
   `basic` varchar(64) DEFAULT NULL,
   `medical` varchar(64) DEFAULT NULL,
   `house_rent` varchar(64) DEFAULT NULL,
+  `transporting` int(11) DEFAULT NULL,
   `bonus` varchar(64) DEFAULT NULL,
   `bima` varchar(64) DEFAULT NULL,
   `tax` varchar(64) DEFAULT NULL,
   `provident_fund` varchar(64) DEFAULT NULL,
   `loan` varchar(64) DEFAULT NULL,
   `total_pay` varchar(128) DEFAULT NULL,
-  `addition` int(128) NOT NULL,
-  `diduction` int(128) NOT NULL,
+  `performance_bonus` int(11) NOT NULL,
+  `other_diduction` int(11) NOT NULL,
   `status` enum('Paid','Process') DEFAULT 'Process',
   `paid_type` enum('Hand Cash','Bank') NOT NULL DEFAULT 'Bank'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -1119,13 +1322,12 @@ CREATE TABLE `pay_salary` (
 -- Dumping data for table `pay_salary`
 --
 
-INSERT INTO `pay_salary` (`pay_id`, `emp_id`, `type_id`, `month`, `year`, `paid_date`, `total_days`, `basic`, `medical`, `house_rent`, `bonus`, `bima`, `tax`, `provident_fund`, `loan`, `total_pay`, `addition`, `diduction`, `status`, `paid_type`) VALUES
-(1, 'Doe1754', 0, 'November', '2021', '2021-11-30', '208', '5500', NULL, NULL, NULL, NULL, NULL, NULL, '0', '5499.52', 0, 0, 'Paid', 'Bank'),
-(2, 'Doe1753', 0, 'November', '2021', '2021-11-30', '184', '13500', NULL, NULL, NULL, NULL, NULL, NULL, '10833', '2667.08', 0, 10833, 'Paid', 'Bank'),
-(3, 'Smi1266', 0, 'November', '2021', '2021-11-30', '184', '7950', NULL, NULL, NULL, NULL, NULL, NULL, '0', '7950.64', 0, 0, 'Paid', 'Bank'),
-(4, 'Moo1634', 0, 'November', '2021', '2021-12-01', '184', '8600', NULL, NULL, NULL, NULL, NULL, NULL, '0', '8600.16', 0, 0, 'Paid', 'Hand Cash'),
-(5, 'Tho1044', 0, 'November', '2021', '2021-12-01', '184', '7000', NULL, NULL, NULL, NULL, NULL, NULL, '0', '6999.36', 0, 0, 'Paid', 'Bank'),
-(6, 'Den1745', 0, 'December', '2022', '2021-12-31', '208', '5600', NULL, NULL, NULL, NULL, NULL, NULL, '0', '5599.36', 0, 0, 'Paid', 'Bank');
+INSERT INTO `pay_salary` (`pay_id`, `emp_id`, `type_id`, `month`, `year`, `paid_date`, `total_days`, `basic`, `medical`, `house_rent`, `transporting`, `bonus`, `bima`, `tax`, `provident_fund`, `loan`, `total_pay`, `performance_bonus`, `other_diduction`, `status`, `paid_type`) VALUES
+(3, '	TS0923009', 0, 'February', '2005', NULL, NULL, '44', '4754', '47554', 45, '45', '45', '4554', '45454', '45', ' ', 0, 858, 'Process', 'Bank'),
+(4, 'TS0923006', 0, 'February', '2002', NULL, NULL, '47', '74', '4774', 775, '47', '4', '74', '47', '47', ' ', 0, 4, 'Process', 'Bank'),
+(5, '	TS0923009', 0, 'August', '2024', NULL, NULL, '4433', '4754', '47554', 45, '45', '45', '4554', '45454', '45', ' ', 0, 858, 'Process', 'Bank'),
+(6, 'TS0923006', 0, 'August', '2024', NULL, NULL, '4722', '742', '4772', 7752, '472', '42', '742', '472', '472', ' ', 0, 42, 'Process', 'Bank'),
+(7, '	TS0923009', 0, 'August', '2024', NULL, NULL, '4431', '4754', '47554', 45, '45', '45', '4554', '45454', '45', ' ', 0, 858, 'Process', 'Bank');
 
 -- --------------------------------------------------------
 
@@ -1161,12 +1363,15 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id`, `pro_name`, `pro_start_date`, `pro_end_date`, `pro_description`, `pro_summary`, `pro_status`, `progress`) VALUES
-(1, 'Project X23', 'Jan 4, 2022', 'Feb 2, 2022', ' This is just a demo project! This is just a demo project! This is just a demo project! This is just a demo project!', 'This is just a demo project!', 'upcoming', NULL),
-(2, 'Multi User Chat System', 'Jan 1, 2022', 'April 14, 2022', ' You are required to develop a system that supports multi-user chatting with the help of top level technologies.', 'Development of Multi-User Chatting System', 'running', NULL),
+(1, 'Project X23ttt', '2024-09-13', '2024-09-14', 'This is just a demo project vvvv!', 'This is just a demo project rtff!', 'running', NULL),
+(2, 'Multi User Chat System', 'NA', 'April 14, 2022', ' You are required to develop a system that supports multi-user chatting with the help of top level technologies.', 'Development of Multi-User Chatting System', 'running', NULL),
 (3, 'Image Enhancement Software', 'Dec 10, 2021', 'Mar 20, 2022', 'You are required to develop of computer based software where end users can receive quality results on image enhancement. This particular project requires large number of technologies with proper use and its features.', 'Development of Image Enhancement Software', 'running', NULL),
 (4, 'aaaaaCustomer support service operation', '2024-07-18', '2024-07-26', 'sfcvfgdvgYou are required to develop a customer support service based operation using DotNet (.Net)', 'fvggvfgfrDevelop a customer support service operation', 'complete', NULL),
 (5, 'Real Estate Site', 'Dec 29, 2021', 'Mar 21, 2022', ' You are required to develop a real estate website using React, Nodejs.', 'Develop a real-estate website', 'running', NULL),
-(6, 'Graphics Illustration', 'Jan 2, 2022', 'Jan 10, 2022', 'You are required to make a graphic illustration for XYZ company. ', 'Make a graphic illustration for ....', 'running', NULL);
+(6, 'Graphics Illustration', 'Jan 2, 2022', 'Jan 10, 2022', 'You are required to make a graphic illustration for XYZ company. ', 'Make a graphic illustration for ....', 'running', NULL),
+(7, 'gfhfgfh', '2024-09-20', '2024-09-13', 'fghbftghfth', 'fhgfhf', 'complete', NULL),
+(8, 'aaa', '2024-09-22', '2024-09-15', 'gfbgfnhgf', 'gfbhgfbh', 'running', NULL),
+(9, 'aabbb', '2024-09-20', '2024-09-07', 'ghbgh', 'tfhtfh', 'running', NULL);
 
 -- --------------------------------------------------------
 
@@ -1205,7 +1410,10 @@ INSERT INTO `project_file` (`id`, `pro_id`, `file_details`, `file_url`, `assigne
 (16, 4, 'sssss', '66a10188d231e.pdf', 'Emily'),
 (17, 2, 'aaaa', '66a12b29030f3.pdf', 'fffff'),
 (18, 6, 'regtgt', '66a1cf39a7ac7.pdf', 'aaMichael'),
-(19, 3, 'dddddddddfdgfghff', '66a216e6e6bb7.pdf', 'aaMichael');
+(19, 3, 'dddddddddfdgfghff', '66a216e6e6bb7.pdf', 'aaMichael'),
+(20, 9, 'fgfgf', '66d7f5a80fd8a.pdf', 'Monalisa Das'),
+(21, 9, 'hgfhf', '66d7fdce227da.pdf', 'Monalisa Das'),
+(22, 1, 'rthytrfh', '66e2b823c501e.pdf', 'Monalisa Das');
 
 -- --------------------------------------------------------
 
@@ -1247,7 +1455,7 @@ CREATE TABLE `pro_notes` (
   `assign_to` varchar(64) DEFAULT NULL,
   `pro_id` int(14) NOT NULL,
   `details` varchar(1024) DEFAULT NULL,
-  `pro_status` int(11) NOT NULL
+  `pro_status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -1255,12 +1463,15 @@ CREATE TABLE `pro_notes` (
 --
 
 INSERT INTO `pro_notes` (`id`, `assign_to`, `pro_id`, `details`, `pro_status`) VALUES
-(1, 'aaMichael', 2, 'sfdsg', 1),
-(2, 'fffff', 2, 'jkkjjj', 1),
-(3, 'fffff', 2, 'aaa', 1),
-(4, 'Chris', 3, 'vvvvvsdcsfvdfvdddd', 1),
-(5, 'Stephany', 3, 'dvvdvd', 1),
-(6, 'Emily', 1, 'cfbvcfbfcb', 1);
+(1, 'aaMichael', 2, 'sfdsg', '1'),
+(2, 'fffff', 2, 'jkkjjj', '1'),
+(3, 'fffff', 2, 'aaa', '1'),
+(4, 'Chris', 3, 'vvvvvsdcsfvdfvdddd', '1'),
+(5, 'Stephany', 3, 'dvvdvd', '1'),
+(6, 'Monalisa Das', 1, 'sscfbvcfbfcb', 'Complete'),
+(7, 'Monalisa Das', 9, 'cv dc vdv', '1'),
+(8, 'Monalisa Das', 1, 'sdzsfgfhf', 'Started'),
+(9, 'Dibyanshu Das', 1, 'dsfdssdsds', 'Cancel');
 
 -- --------------------------------------------------------
 
@@ -1277,7 +1488,7 @@ CREATE TABLE `pro_task` (
   `image` varchar(128) DEFAULT NULL,
   `description` varchar(2048) DEFAULT NULL,
   `task_type` enum('Office','Field') NOT NULL DEFAULT 'Office',
-  `status` enum('running','complete','cancel') DEFAULT 'running',
+  `status` varchar(30) DEFAULT NULL,
   `location` varchar(512) DEFAULT NULL,
   `return_date` varchar(128) DEFAULT NULL,
   `total_days` varchar(128) DEFAULT NULL,
@@ -1290,31 +1501,23 @@ CREATE TABLE `pro_task` (
 --
 
 INSERT INTO `pro_task` (`id`, `pro_id`, `task_title`, `start_date`, `end_date`, `image`, `description`, `task_type`, `status`, `location`, `return_date`, `total_days`, `create_date`, `approve_status`) VALUES
-(1, 2, 'aaaaDemo Task Title for Testing', '2022-01-05', '2022-01-27', NULL, 'This is demo details for testing. This is demo details for testing', 'Office', 'running', NULL, NULL, NULL, '2022-01-03', ''),
-(10, 2, 'qqq', '2024-07-24', '2024-07-24', NULL, 'sdfhd', 'Office', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
-(11, 2, 'hnvhgvniiiii', '2024-07-27', '2024-07-27', NULL, 'jkhgfx', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
-(12, 2, 'hhhhh', '2024-07-24', '2024-07-24', NULL, 'zxcv', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
-(13, 2, 'fff', '2024-07-24', '2024-07-24', NULL, 'ASdf', 'Office', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
-(14, 2, 'cccccc', '2024-07-24', '2024-07-24', NULL, 'AXSzdcv', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
-(15, 6, 'dvgdfgfdgf', '2024-07-21', '2024-07-27', NULL, 'gfhn', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
-(16, 1, 'dfvfdfd', '2024-07-28', '2024-07-30', NULL, 'dfgfgfhfd', 'Field', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
-(17, 1, 'dfvdgbfd', '2024-07-27', '2024-07-28', NULL, 'fhfthghfgh', 'Office', '', NULL, NULL, NULL, NULL, 'Not Approve'),
-(18, 2, 'tttt', '2024-07-25', '2024-07-25', NULL, 'etwetw', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
-(19, 2, 'aaaaa', '2024-07-25', '2024-07-25', NULL, 'mhngbfc', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
-(20, 2, 'ssssss', '2024-07-25', '2024-07-25', NULL, 'sfdgh', 'Office', 'running', NULL, NULL, NULL, NULL, 'Not Approve'),
-(21, 2, 'aaaaa', '2024-07-25', '2024-07-25', NULL, 'jkhg', 'Office', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
-(23, 1, '', '', '', NULL, 'rgrdrdgrthhtr', 'Office', 'running', NULL, NULL, NULL, '2024-08-04', 'Not Approve'),
-(24, 1, '', '', '', NULL, 'fgbfb', 'Field', 'complete', NULL, NULL, NULL, '2024-08-01', 'Not Approve'),
-(25, 1, ' sdssssss', '', '', NULL, 'gfnhgfhg', 'Field', 'complete', NULL, NULL, NULL, '2024-08-24', 'Not Approve'),
-(26, 1, ' hhhhh', '2024-08-02', '2024-08-02', NULL, 'gvftbtftr', 'Office', 'complete', NULL, NULL, NULL, '2024-08-02', 'Not Approve'),
-(27, 1, ' dddd', '2024-08-09', '2024-08-09', NULL, 'gfhbgfhft', 'Field', 'complete', NULL, NULL, NULL, '2024-08-09', 'Not Approve'),
-(28, 1, ' rrrrrrr', '2024-08-03', '2024-08-03', NULL, 'fffffffff', 'Field', 'running', NULL, NULL, NULL, '2024-08-03', 'Not Approve'),
-(29, 1, ' wwww', '2024-08-04', '2024-08-04', NULL, 'fdvfb', 'Office', 'running', NULL, NULL, NULL, '2024-08-04', 'Not Approve'),
-(30, 1, ' yyyy', '2024-08-07', '2024-08-09', NULL, 'rfgrvgrgtgtr', 'Field', 'running', NULL, NULL, NULL, '2024-08-07', 'Not Approve'),
-(31, 1, ' asasas', '2024-08-16', '2024-08-03', NULL, 'fvfvfvfv', 'Office', 'complete', NULL, NULL, NULL, '2024-08-31', 'Not Approve'),
-(32, 1, ' swswsw', '2024-08-15', '2024-08-24', NULL, 'fcdrfcdc', 'Field', 'complete', NULL, NULL, NULL, '2024-08-16', 'Not Approve'),
-(33, 1, ' lllll', '2024-08-17', '2024-08-11', NULL, 'hghgbhj', 'Office', 'running', NULL, NULL, NULL, '2024-08-11', 'Not Approve'),
-(34, 3, ' dfdfd', '2024-08-05', '2024-08-08', NULL, 'fgbgfhbgf', 'Office', 'complete', NULL, NULL, NULL, '2024-08-04', 'Not Approve');
+(1, 1, 'aaaaaaa', '2024-09-13', '2024-09-13', NULL, 'aaaaaaaaaaaa', 'Field', 'Started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(2, 1, 'bbbbbbb', '2024-09-13', '2024-09-13', NULL, 'bbbbbbbbbb', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
+(3, 1, 'cccccccccc', '2024-09-13', '2024-09-13', NULL, 'cccccccccccccc', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
+(4, 1, 'dfcd', '2024-09-14', '2024-09-15', NULL, 'ddf', 'Office', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
+(5, 1, 'ghg', '2024-09-14', '2024-09-13', NULL, 'fbhfgbgf', 'Office', 'testing', NULL, NULL, NULL, NULL, 'Not Approve'),
+(6, 1, 'sdcfds', '2024-09-19', '2024-09-27', NULL, 'cgbngvn', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(7, 1, 'rdfg', '2024-09-07', '2024-09-22', NULL, 'fbvfcbv', 'Office', 'Testing', NULL, NULL, NULL, NULL, 'Not Approve'),
+(8, 1, 'erffr', '2024-09-05', '2024-09-22', NULL, 'sdsssd', 'Field', 'Not Started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(9, 1, 'gfhffg', '2024-09-06', '2024-09-15', NULL, 'rfrtggr', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(10, 1, 'dvvvvvv', '2024-09-14', '2024-09-12', NULL, 'fcvdvfgdf', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(11, 1, 'aaaa', '2024-09-14', '2024-09-15', NULL, 'fdvfdv', 'Office', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(12, 1, 'gbg', '2024-09-13', '2024-09-20', NULL, 'dc', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(13, 1, 'fdfdfd', '2024-09-14', '2024-09-14', NULL, 'dfv', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(14, 1, 'efs', '2024-09-15', '2024-09-14', NULL, 'grf', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(15, 1, 'gfggt', '2024-09-20', '2024-09-21', NULL, 'fgbhfg', 'Field', 'Not Started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(16, 1, 'dddd', '2024-09-13', '2024-09-21', NULL, 'fdvfdf', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
+(17, 1, 'asds', '2024-09-14', '2024-09-15', NULL, 'fgbfbb', 'Office', 'Done', NULL, NULL, NULL, NULL, 'Not Approve');
 
 -- --------------------------------------------------------
 
@@ -1349,7 +1552,9 @@ CREATE TABLE `representative` (
 
 INSERT INTO `representative` (`id`, `pro_id`, `user_name`, `user_designation`, `user_mobile_number`, `user_email`) VALUES
 (2, 3, 'cffff', 'dddddfdgvhbn', '52424524754547', 'dfghjmk@gmail.com'),
-(3, 1, 'ascsdfdf', 'dgbdfgbd', '5328242546486', 'fdgfd@gmail.com');
+(3, 1, 'ascsdfdf', 'dgbdfgbd', '5328242546486', 'fdgfd@gmail.com'),
+(4, 9, 'Monalisa Das', 'developer', '985562302', 'mona@12gmail.com'),
+(5, 9, 'Ghgthgth', 'hfhfh', '414242425', 'dshch@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -1589,6 +1794,12 @@ ALTER TABLE `emp_experience`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `emp_form`
+--
+ALTER TABLE `emp_form`
+  ADD PRIMARY KEY (`emp_form_id`);
+
+--
 -- Indexes for table `emp_leave`
 --
 ALTER TABLE `emp_leave`
@@ -1670,6 +1881,12 @@ ALTER TABLE `loan`
 -- Indexes for table `loan_installment`
 --
 ALTER TABLE `loan_installment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `login_history`
+--
+ALTER TABLE `login_history`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1776,7 +1993,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `addition`
@@ -1788,7 +2005,7 @@ ALTER TABLE `addition`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `assets`
@@ -1812,25 +2029,25 @@ ALTER TABLE `assign_leave`
 -- AUTO_INCREMENT for table `assign_task`
 --
 ALTER TABLE `assign_task`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `attadence_report`
 --
 ALTER TABLE `attadence_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `bank_info`
 --
 ALTER TABLE `bank_info`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `deduction`
@@ -1854,7 +2071,7 @@ ALTER TABLE `desciplinary`
 -- AUTO_INCREMENT for table `designation`
 --
 ALTER TABLE `designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `earned_leave`
@@ -1872,13 +2089,13 @@ ALTER TABLE `education`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `employee_file`
 --
 ALTER TABLE `employee_file`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `emp_assets`
@@ -1890,13 +2107,19 @@ ALTER TABLE `emp_assets`
 -- AUTO_INCREMENT for table `emp_experience`
 --
 ALTER TABLE `emp_experience`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `emp_form`
+--
+ALTER TABLE `emp_form`
+  MODIFY `emp_form_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `emp_leave`
 --
 ALTER TABLE `emp_leave`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `emp_penalty`
@@ -1956,7 +2179,7 @@ ALTER TABLE `lead_follow`
 -- AUTO_INCREMENT for table `leave_apply_approve`
 --
 ALTER TABLE `leave_apply_approve`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `leave_types`
@@ -1975,6 +2198,12 @@ ALTER TABLE `loan`
 --
 ALTER TABLE `loan_installment`
   MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `login_history`
+--
+ALTER TABLE `login_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `logistic_asset`
@@ -1998,19 +2227,19 @@ ALTER TABLE `notice`
 -- AUTO_INCREMENT for table `pay_salary`
 --
 ALTER TABLE `pay_salary`
-  MODIFY `pay_id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pay_id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `project_file`
 --
 ALTER TABLE `project_file`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `pro_expenses`
@@ -2022,13 +2251,13 @@ ALTER TABLE `pro_expenses`
 -- AUTO_INCREMENT for table `pro_notes`
 --
 ALTER TABLE `pro_notes`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pro_task`
 --
 ALTER TABLE `pro_task`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pro_task_assets`
@@ -2040,7 +2269,7 @@ ALTER TABLE `pro_task_assets`
 -- AUTO_INCREMENT for table `representative`
 --
 ALTER TABLE `representative`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `salary_type`
