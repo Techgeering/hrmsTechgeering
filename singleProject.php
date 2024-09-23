@@ -480,17 +480,22 @@
                                                                 $employeeNames[$row33['em_code']] = $row33['full_name'];
                                                             }
 
-                                                            // Display assigned employee names with delete icon
+                                                            // Display assigned employee names
                                                             $assignedNames = [];
                                                             foreach ($asignArray as $code) {
                                                                 if (isset($employeeNames[$code])) {
                                                                     $assignedNames[] = $employeeNames[$code];
-                                                                    echo '<span class="assigned-name-item">' . $employeeNames[$code] .
-                                                                        '</span> ';
                                                                 }
                                                             }
-                                                            echo !empty($assignedNames) ? '' : "No employees assigned.";
+
+                                                            if (!empty($assignedNames)) {
+                                                                // Display the names separated by commas
+                                                                echo implode(', ', $assignedNames);
+                                                            } else {
+                                                                echo "No employees assigned.";
+                                                            }
                                                             ?>
+
                                                         <?php } ?>
                                                     </td>
 

@@ -133,6 +133,11 @@
                                         <input type="text" class='txtedit' value='<?php echo $row["em_email"]; ?>'
                                             id='em_email-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;"></input>
+                                        <small class="text-muted">Professional Email address </small>
+                                        <h6 class="edit"><?php echo $row["prof_email"]; ?></h6>
+                                        <input type="text" class='txtedit' value='<?php echo $row["prof_email"]; ?>'
+                                            id='prof_email-<?php echo $row["id"]; ?>-employee'
+                                            style="display:none;"></input>
                                         <small class="text-muted p-t-30 db">Phone</small>
                                         <h6 class="edit"><?php echo $row["em_phone"]; ?></h6>
                                         <input type="text" class='txtedit' value='<?php echo $row["em_phone"]; ?>'
@@ -144,26 +149,6 @@
                             <div class="col-md-8">
                                 <form class="row" action="Update" method="post" enctype="multipart/form-data"
                                     novalidate="novalidate">
-                                    <!-- <div class="form-group col-md-4 m-t-10">
-                                        <label>Father Name</label>
-                                        <p class="form-control form-control-line edit">
-                                            <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
-                                        </p>
-                                        <input type="text" class='txtedit' value='<?php echo $row["father_name"]; ?>'
-                                            id='father_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
-                                    </div> -->
-
-                                    <!-- <div class="form-group col-md-4 m-t-10">
-                                        <label>Father Name</label>
-                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
-                                            <p class="form-control form-control-line edit">
-                                                <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
-                                            </p>
-                                            <input type="text" class='txtedit' value='<?php echo $row["father_name"]; ?>'
-                                                id='father_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
-                                        <?php } ?>
-                                    </div> -->
-
                                     <div class="form-group col-md-4 m-t-10">
                                         <label>Father Name</label>
                                         <?php if ($em_role == '1' || $em_role == '3') { ?>

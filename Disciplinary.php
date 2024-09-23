@@ -53,11 +53,12 @@
                                                 ";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
+                                        $slno = 1;
                                         while ($row = $result->fetch_assoc()) {
                                             $encoded_id = base64_encode($row['em_id']);
                                             ?>
                                             <tr>
-                                                <th><?php echo $row["em_id"]; ?></th>
+                                                <td><?php echo $slno; ?></td>
                                                 <th><?php echo $row["em_id"]; ?></th>
                                                 <th><?php echo $row["full_name"] ?></th>
                                                 <th><?php echo $row["title"]; ?></th>
@@ -72,6 +73,7 @@
                                                 <?php } ?>
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "0 results";

@@ -56,11 +56,12 @@
                                     $sql = "SELECT * FROM holiday";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
+                                        $slno = 1;
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <th><?php echo $row["id"]; ?></th>
+                                                <th><?php echo $slno; ?></th>
                                                 <th><?php echo $row["holiday_name"]; ?></th>
                                                 <th><?php echo $row["from_date"]; ?></th>
                                                 <th><?php echo $row["to_date"]; ?></th>
@@ -77,6 +78,7 @@
                                                 <?php } ?>
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "0 results";
@@ -149,7 +151,7 @@
         $from_date = $_POST["from_date"];
         $to_date = $_POST["to_date"];
         // $year = date('m-Y');
-
+    
         $date1 = new DateTime($from_date);
         $date2 = new DateTime($to_date);
 

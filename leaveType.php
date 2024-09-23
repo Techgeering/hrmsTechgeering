@@ -53,11 +53,12 @@
                                     $sql = "SELECT * FROM  leave_types where status = 1";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
+                                        $slno = 1;
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <th><?php echo $row["type_id"]; ?></th>
+                                                <th><?php echo $slno; ?></th>
                                                 <th><?php echo $row["name"]; ?></th>
                                                 <th><?php echo $row["leave_day"]; ?></th>
                                                 <?php if ($em_role == '1') { ?>
@@ -71,6 +72,7 @@
                                                 <?php } ?>
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "0 results";

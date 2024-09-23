@@ -47,12 +47,12 @@
                                  <label for="inputPassword">Password</label>
                               </div>
                               <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                 <div class="small">
+                                 <!-- <div class="small">
                                     <input class="form-check-input" id="inputRememberPassword" type="checkbox"
                                        value="" />
                                     <label class="form-check-label" for="inputRememberPassword">Remember
                                        Password</label>
-                                 </div>
+                                 </div> -->
                                  <input type="submit" class="btn btn-primary" name="login" value="Login">
                               </div>
                            </form>

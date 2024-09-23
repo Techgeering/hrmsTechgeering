@@ -56,11 +56,12 @@
                                     $sql = "SELECT * FROM leads";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
+                                        $slno = 1;
                                         while ($row = $result->fetch_assoc()) {
                                             $encoded_id = base64_encode($row['id']);
                                             ?>
                                             <tr>
-                                                <td><?php echo $row["id"]; ?></td>
+                                                <th><?php echo $slno; ?></th>
                                                 <td><?php echo $row["lead_name"]; ?></td>
                                                 <td><?php echo $row["companyname"]; ?></td>
                                                 <td><?php echo $row["phone_no"]; ?></td>
@@ -75,6 +76,7 @@
                                                 </td>
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "<tr><td colspan='6'>0 results</td></tr>";

@@ -84,10 +84,11 @@ session_start(); {
                                     }
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
+                                        $slno = 1;
                                         while ($row = $result->fetch_assoc()) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $row["id"]; ?></td>
+                                                <td><?php echo $slno; ?></td>
                                                 <td><?php echo $row["apply_date"]; ?></td>
                                                 <td><?php echo $row["em_id"]; ?></td>
                                                 <td>
@@ -190,6 +191,7 @@ session_start(); {
                                                 <?php } ?>
                                             </tr>
                                             <?php
+                                            $slno++;
                                         }
                                     } else {
                                         echo "0 results";
@@ -242,7 +244,7 @@ session_start(); {
                             <input type="date" class="form-control" id="StartDate" name="StartDate">
                         </div>
                         <div class="form-group">
-                            <label for="EndDate">End Date</label>
+                            <label for="EndDate">Join Date</label>
                             <input type="date" class="form-control" id="EndDate" name="EndDate">
                         </div>
                         <div class="form-group">
@@ -288,7 +290,7 @@ session_start(); {
         $Leavetype = $_POST["Leavetype"];
         $StartDate = $_POST["StartDate"];
         $EndDate = $_POST["EndDate"];
-        $Reason = $_POST["Reason"];
+        $Reason = htmlspecialchars($_POST["Reason"]);
         $currentDate = date('d-m-Y');
 
         $date1 = new DateTime($StartDate);

@@ -60,7 +60,6 @@
                                             ?>
                                             <tr>
                                                 <td><?php echo $row["date"]; ?></td>
-
                                                 <td><?php echo $row["pro_name"]; ?></td>
                                                 <td><?php echo $row["assign_to"]; ?></td>
                                                 <td><?php echo $row["particulars"]; ?></td>
