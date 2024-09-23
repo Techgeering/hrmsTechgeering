@@ -1,3 +1,12 @@
+<?php
+session_start();
+include 'conn.php';
+$mobileno = $_SESSION['emp_form_phone'];
+if ($mobileno === NULL) {
+    header("location:index.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +48,7 @@
                 <div class="tab-pane fade show active" id="nav-personal" role="tabpanel"
                     aria-labelledby="nav-personal-tab" tabindex="0">
                     <section class="container">
-                        <form id="personal-info-form">
+                        <form id="personal-info-form" method="post">
                             <div class="row">
                                 <!-- Right Column: Profile Box -->
                                 <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
@@ -50,8 +59,9 @@
                                         <!-- Profile Image -->
                                         <img id="profile-image" src="https://via.placeholder.com/100"
                                             alt="Profile Picture" class="img-fluid mb-3">
+                                        <!-- <input type="file" id="profile-image" name="capture_photo" class="form-control"
+                                            accept="image/*"> -->
                                         <p id="image-name" class="mt-2">No image captured yet</p>
-
                                         <!-- Camera Control -->
                                         <video id="video" style="display: none;"></video>
                                         <button class="btn btn-primary start-btn" type="button"
@@ -59,6 +69,9 @@
                                         <canvas id="canvas" style="display: none;"></canvas>
                                         <button id="capture" class="btn btn-secondary capture-btn" type="button"
                                             style="display: none;" onclick="capturePhoto()">Capture</button>
+
+
+                                        <input type="hidden" id="captured-photo" name="capture_photo">
 
                                         <!-- Upload Photo Section -->
                                         <div class="upload-photo-container mt-3">
@@ -68,50 +81,47 @@
                                                 class="form-control" accept="image/*" onchange="uploadPhoto()">
                                             <p id="upload-image-name" class="mt-2">No image uploaded yet</p>
                                         </div>
-
-                                        <!-- User Details -->
-                                        <h5>John Doe</h5>
-                                        <p><strong>Email:</strong> john.doe@example.com</p>
-                                        <p><strong>Phone:</strong> +91-12345-67890</p>
-
+                                        <?php
+                                        include "conn.php";
+                                        $sql = "SELECT * FROM emp_form";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                ?>
+                                                <!-- User Details -->
+                                                <h5><?php echo $row["emp_form_name"] ?></h5>
+                                                <p><strong>Email:</strong> <?php echo $row["emp_form_email"] ?></p>
+                                                <p><strong>Phone:</strong> <?php echo $row["emp_form_phone"] ?></p>
+                                            <?php }
+                                        } ?>
                                         <!-- Submit Form Button -->
                                         <!-- <button type="submit" class="btn btn-success mt-3">Submit</button> -->
                                         <!-- </form> -->
                                         <!-- End of Form -->
                                     </div>
                                 </div>
-
-
-
                                 <!-- Left Column: Form -->
                                 <div class="col-lg-8 col-md-8 col-sm-12">
-
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="fatherName" class="form-label">Father's Name</label>
-                                                <input type="text" class="form-control" id="fatherName" required>
+                                                <input type="text" class="form-control" name="fathername"
+                                                    id="fatherName" required>
                                             </div>
                                         </div>
 
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="motherName" class="form-label">Mother's Name</label>
-                                                <input type="text" class="form-control" id="motherName" required>
+                                                <input type="text" class="form-control" name="mothername"
+                                                    id="motherName" required>
                                             </div>
                                         </div>
-                                        <!-- 
-                                        <div class="col-6">
-                                            <div class="mb-3">
-                                                <label for="bloodGroup" class="form-label">Blood Group</label>
-                                                <input type="text" class="form-control" id="bloodGroup" required>
-                                            </div>
-                                        </div> -->
-
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="bloodgroup" class="form-label">Blood Group</label>
-                                                <select class="form-select" id="bloodgroup" required>
+                                                <select class="form-select" name="bloodgrp" id="bloodgroup" required>
                                                     <option value="" selected>Select Blood Group</option>
                                                     <option value="A+">A+</option>
                                                     <option value="A-">A-</option>
@@ -128,7 +138,7 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="gender" class="form-label">Gender</label>
-                                                <select class="form-select" id="gender" required>
+                                                <select class="form-select" name="genderr" id="gender" required>
                                                     <option value="" selected>Select gender</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -140,7 +150,8 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="maritalStatus" class="form-label">Marital Status</label>
-                                                <select class="form-select" id="maritalStatus" required>
+                                                <select class="form-select" name="maritalstatus" id="maritalStatus"
+                                                    required>
                                                     <option value="" selected>Select marital status</option>
                                                     <option value="Single">Single</option>
                                                     <option value="Married">Married</option>
@@ -154,23 +165,24 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="whatsappNumber" class="form-label">Whatsapp Number</label>
-                                                <input type="text" class="form-control" maxlength="10" id="whatsappNumber" required
-                                                    inputmode="numeric">
+                                                <input type="text" class="form-control" maxlength="10" name="wpnumber"
+                                                    id="whatsappNumber" required inputmode="numeric">
                                             </div>
                                         </div>
 
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="aadharNumber" class="form-label">Aadhaar Number</label>
-                                                <input type="text" class="form-control" maxlength="12" id="aadharNumber" required
-                                                    inputmode="numeric">
+                                                <input type="text" class="form-control" maxlength="12"
+                                                    name="adharnumber" id="aadharNumber" required inputmode="numeric">
                                             </div>
                                         </div>
 
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="panNumber" class="form-label">PAN Number</label>
-                                                <input type="text" class="form-control" maxlength="10" id="panNumber" required>
+                                                <input type="text" class="form-control" maxlength="10" name="pannumber"
+                                                    id="panNumber" required>
                                             </div>
                                         </div>
 
@@ -178,7 +190,8 @@
                                             <div class="mb-3">
                                                 <label for="emergencyContact" class="form-label">Emergency
                                                     Contact Number</label>
-                                                <input type="text" class="form-control" maxlength="10" id="emergencyContact" required>
+                                                <input type="text" class="form-control" maxlength="10"
+                                                    name="emergencynumber" id="emergencyContact" required>
                                             </div>
                                         </div>
 
@@ -186,12 +199,14 @@
                                             <div class="mb-3">
                                                 <label for="emergencyRelation" class="form-label">Emergency Contact
                                                     Relation</label>
-                                                <input type="text" class="form-control" id="emergencyRelation" required>
+                                                <input type="text" class="form-control" name="emergencyrelation"
+                                                    id="emergencyRelation" required>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Save & Next Button -->
-                                    <button type="button" class="btn btn-primary float-end" id="save-next-btn">Save &
+                                    <button type="submit" name="submit" class="btn btn-primary float-end"
+                                        id="save-next-btn">Save &
                                         Next</button>
                                 </div>
                             </div>
@@ -201,35 +216,37 @@
                 <div class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab"
                     tabindex="0">
                     <section class="container">
-                        <form id="permanent-address-form">
+                        <form id="permanent-address-form" method="post">
                             <div class="row">
                                 <!-- Permanent Address Column -->
                                 <div class="col-lg-6 bord">
                                     <h5>Permanent Address</h5>
-
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-address" class="form-label">Address</label>
-                                                <input type="text" class="form-control" id="perm-address" required>
+                                                <input type="text" class="form-control" name="p_address"
+                                                    id="perm-address" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-city" class="form-label">City/Village</label>
-                                                <input type="text" class="form-control" id="perm-city" required>
+                                                <input type="text" class="form-control" name="pcity" id="perm-city"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-district" class="form-label">District</label>
-                                                <input type="text" class="form-control" id="perm-district" required>
+                                                <input type="text" class="form-control" name="pdist" id="perm-district"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="prem-state" class="form-label">State</label>
-                                                <select class="form-control" id="perm-state" required>
+                                                <select class="form-control" name="pstate" id="perm-state" required>
                                                     <option value="" disabled selected>Select a state</option>
                                                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                                                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -266,28 +283,30 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-country" class="form-label">Country</label>
-                                                <input type="text" class="form-control" value="India" id="perm-country"
-                                                    required>
+                                                <input type="text" class="form-control" value="India" name="pcountry"
+                                                    id="perm-country" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-pin" class="form-label">PIN</label>
-                                                <input type="text" class="form-control" maxlength="6" id="perm-pin" required>
+                                                <input type="text" class="form-control" maxlength="6" name="p_pin"
+                                                    id="perm-pin" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-post" class="form-label">Post</label>
-                                                <input type="text" class="form-control" id="perm-post" required>
+                                                <input type="text" class="form-control" name="p_post" id="perm-post"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="perm-police-station" class="form-label">Police
                                                     Station</label>
-                                                <input type="text" class="form-control" id="perm-police-station"
-                                                    required>
+                                                <input type="text" class="form-control" name="p_police"
+                                                    id="perm-police-station" required>
                                             </div>
                                         </div>
                                     </div>
@@ -300,25 +319,28 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-address" class="form-label">Address</label>
-                                                <input type="text" class="form-control" id="pres-address" required>
+                                                <input type="text" class="form-control" name="preaddrs"
+                                                    id="pres-address" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-city" class="form-label">City/Village</label>
-                                                <input type="text" class="form-control" id="pres-city" required>
+                                                <input type="text" class="form-control" name="precity" id="pres-city"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-district" class="form-label">District</label>
-                                                <input type="text" class="form-control" id="pres-district" required>
+                                                <input type="text" class="form-control" name="predist"
+                                                    id="pres-district" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-state" class="form-label">State</label>
-                                                <select class="form-control" id="pres-state" required>
+                                                <select class="form-control" name="prestate" id="pres-state" required>
                                                     <option value="" disabled selected>Select a state</option>
                                                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                                                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -355,28 +377,30 @@
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-country" class="form-label">Country</label>
-                                                <input type="text" class="form-control" value="India" id="pres-country"
-                                                    required>
+                                                <input type="text" class="form-control" value="India" name="precountry"
+                                                    id="pres-country" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-pin" class="form-label">PIN</label>
-                                                <input type="text" class="form-control" maxlength="6" id="pres-pin" required>
+                                                <input type="text" class="form-control" maxlength="6" name="prepin"
+                                                    id="pres-pin" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-post" class="form-label">Post</label>
-                                                <input type="text" class="form-control" id="pres-post" required>
+                                                <input type="text" class="form-control" name="prepost" id="pres-post"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="pres-police-station" class="form-label">Police
                                                     Station</label>
-                                                <input type="text" class="form-control" id="pres-police-station"
-                                                    required>
+                                                <input type="text" class="form-control" name="prepolice"
+                                                    id="pres-police-station" required>
                                             </div>
                                         </div>
                                     </div>
@@ -390,7 +414,8 @@
                             </div>
                         </form>
                         <!-- Save & Next Button -->
-                        <button type="button" class="btn btn-primary float-end" id="save-next-btns">Save &
+                        <button type="submit" name="submit_add" class="btn btn-primary float-end"
+                            id="save-next-btns">Save &
                             Next</button>
 
                     </section>
@@ -399,7 +424,7 @@
                     tabindex="0">
                     <section class="container">
                         <h5 class="text-center mb-4">Educational Background</h5>
-                        <form id="education-form">
+                        <form id="education-form" method="post">
                             <div class="row">
                                 <!-- PG Section -->
                                 <div class="col-md-12 col-lg-6 col-sm-12 mb-4">
@@ -411,7 +436,7 @@
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="pg-stream" class="form-label">Course Title</label>
-                                                        <select class="form-control" id="pg-course" required>
+                                                        <select class="form-control" name="pgcourse" id="pg-course">
                                                             <option value="" disabled selected>Select Course</option>
                                                             <option value="mca">MCA</option>
                                                             <option value="mba">MBA</option>
@@ -424,45 +449,47 @@
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="pg-stream" class="form-label">Stream</label>
-                                                        <input type="text" class="form-control" id="pg-stream" required>
+                                                        <input type="text" class="form-control" name="pgstream"
+                                                            id="pg-stream">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="pg-year" class="form-label">Year of Pass</label>
-                                                        <input type="number" class="form-control" id="pg-year" required>
+                                                        <input type="number" class="form-control" name="pgyear"
+                                                            id="pg-year">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="pg-results" class="form-label">Results in
                                                             (%)</label>
-                                                        <input type="number" class="form-control" id="pg-results"
-                                                            step="0.01" required>
+                                                        <input type="number" class="form-control" name="pgresult"
+                                                            id="pg-results" step="0.01">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="pg-university" class="form-label">University
                                                             Name</label>
-                                                        <input type="text" class="form-control" id="pg-university"
-                                                            required>
+                                                        <input type="text" class="form-control" name="pguniversity"
+                                                            id="pg-university">
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="pg-institute" class="form-label">Institute
                                                             Name</label>
-                                                        <input type="text" class="form-control" id="pg-institute"
-                                                            required>
+                                                        <input type="text" class="form-control" name="pginstitute"
+                                                            id="pg-institute">
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="mb-1">
                                                         <label for="pg-location" class="form-label">Institute
                                                             Location</label>
-                                                        <input type="text" class="form-control" id="pg-location"
-                                                            required>
+                                                        <input type="text" class="form-control" name="pglocation"
+                                                            id="pg-location">
                                                     </div>
                                                 </div>
                                             </div>
@@ -482,7 +509,8 @@
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="pg-stream" class="form-label">Course Title</label>
-                                                        <select class="form-control" id="pg-stream" required>
+                                                        <select class="form-control" name="gra_course" id="pg-stream"
+                                                            required>
                                                             <option value="" disabled selected>Select Course</option>
                                                             <option value="bsc">BSC</option>
                                                             <option value="bba">BBA</option>
@@ -494,47 +522,47 @@
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="grad-stream" class="form-label">Stream</label>
-                                                        <input type="text" class="form-control" id="grad-stream"
-                                                            required>
+                                                        <input type="text" class="form-control" name="gra_stream"
+                                                            id="grad-stream" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="grad-year" class="form-label">Year of Pass</label>
-                                                        <input type="number" class="form-control" id="grad-year"
-                                                            required>
+                                                        <input type="number" class="form-control" name="gra_year"
+                                                            id="grad-year" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="grad-results" class="form-label">Results in
                                                             (%)</label>
-                                                        <input type="number" class="form-control" id="grad-results"
-                                                            step="0.01" required>
+                                                        <input type="number" class="form-control" name="gra_result"
+                                                            id="grad-results" step="0.01" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="grad-university" class="form-label">University
                                                             Name</label>
-                                                        <input type="text" class="form-control" id="grad-university"
-                                                            required>
+                                                        <input type="text" class="form-control" name="gra_university"
+                                                            id="grad-university" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="grad-institute" class="form-label">Institute
                                                             Name</label>
-                                                        <input type="text" class="form-control" id="grad-institute"
-                                                            required>
+                                                        <input type="text" class="form-control" name="gra_institude"
+                                                            id="grad-institute" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="mb-1">
                                                         <label for="grad-location" class="form-label">Institute
                                                             Location</label>
-                                                        <input type="text" class="form-control" id="grad-location"
-                                                            required>
+                                                        <input type="text" class="form-control" name="gra_location"
+                                                            id="grad-location" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -554,7 +582,8 @@
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="pg-stream" class="form-label">Course Title</label>
-                                                        <select class="form-control" id="pg-stream" required>
+                                                        <select class="form-control" name="dip_course" id="pg-stream"
+                                                            required>
                                                             <option value="" disabled selected>Select Course</option>
                                                             <option value="diploma">DIPLOMA</option>
                                                             <option value="+2">+2</option>
@@ -564,48 +593,48 @@
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="diploma-stream" class="form-label">Stream</label>
-                                                        <input type="text" class="form-control" id="diploma-stream"
-                                                            required>
+                                                        <input type="text" class="form-control" name="dip_stream"
+                                                            id="diploma-stream" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="diploma-year" class="form-label">Year of
                                                             Pass</label>
-                                                        <input type="number" class="form-control" id="diploma-year"
-                                                            required>
+                                                        <input type="number" class="form-control" name="dip_year"
+                                                            id="diploma-year" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="diploma-results" class="form-label">Results in
                                                             (%)</label>
-                                                        <input type="number" class="form-control" id="diploma-results"
-                                                            step="0.01" required>
+                                                        <input type="number" class="form-control" name="dip_result"
+                                                            id="diploma-results" step="0.01" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="diploma-university" class="form-label">Board
                                                             Name</label>
-                                                        <input type="text" class="form-control" id="diploma-university"
-                                                            required>
+                                                        <input type="text" class="form-control" name="dip_board"
+                                                            id="diploma-university" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="mb-1">
                                                         <label for="diploma-institute" class="form-label">Institute
                                                             Name</label>
-                                                        <input type="text" class="form-control" id="diploma-institute"
-                                                            required>
+                                                        <input type="text" class="form-control" name="dip_institute"
+                                                            id="diploma-institute" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="mb-1">
                                                         <label for="diploma-location" class="form-label">Institute
                                                             Location</label>
-                                                        <input type="text" class="form-control" id="diploma-location"
-                                                            required>
+                                                        <input type="text" class="form-control" name="dip_location"
+                                                            id="diploma-location" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -624,39 +653,41 @@
                                             <div class="row">
                                                 <div class="mb-1">
                                                     <label for="10th-year" class="form-label">Year of Pass</label>
-                                                    <input type="number" class="form-control" id="10th-year" required>
+                                                    <input type="number" class="form-control" name="10th_pass"
+                                                        id="10th-year" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="10th-results" class="form-label">Results in (%)</label>
-                                                    <input type="number" class="form-control" id="10th-results"
-                                                        step="0.01" required>
+                                                    <input type="number" class="form-control" name="10th_result"
+                                                        id="10th-results" step="0.01" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="10th-university" class="form-label">Board Name</label>
-                                                    <input type="text" class="form-control" id="10th-university"
-                                                        required>
+                                                    <input type="text" class="form-control" name="10th_board"
+                                                        id="10th-university" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="10th-institute" class="form-label">Institute
                                                         Name</label>
-                                                    <input type="text" class="form-control" id="10th-institute"
-                                                        required>
+                                                    <input type="text" class="form-control" name="10th_institute"
+                                                        id="10th-institute" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="10th-location" class="form-label">Institute
                                                         Location</label>
-                                                    <input type="text" class="form-control" id="10th-location" required>
+                                                    <input type="text" class="form-control" name="10th_location"
+                                                        id="10th-location" required>
                                                 </div>
                                             </div>
                                             <!-- </form> -->
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                         <!-- Save & Next Button -->
-                        <button type="button" class="btn btn-primary float-end" id="save-next-btnss">Save &
+                        <button type="submit" name="submit_edu" class="btn btn-primary float-end"
+                            id="save-next-btnss">Save &
                             Next</button>
                     </section>
                 </div>
@@ -670,43 +701,43 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title fw-bold text-center">Experience Details</h4>
-
                                         <!-- Experience Form -->
-                                        <form id="experience-form">
+                                        <form id="experience-form" method="post">
                                             <!-- Company 1 -->
                                             <div class="mb-4">
                                                 <h5 class="fw-bold text-center">Company 1</h5>
                                                 <div class="mb-1">
                                                     <label for="company1-name" class="form-label">Company Name</label>
-                                                    <input type="text" class="form-control" id="company1-name" required>
+                                                    <input type="text" class="form-control" name="cmp1_name"
+                                                        id="company1-name" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company1-position" class="form-label">Position</label>
-                                                    <input type="text" class="form-control" id="company1-position"
-                                                        required>
+                                                    <input type="text" class="form-control" name="cmp1_position"
+                                                        id="company1-position" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company1-address" class="form-label">Address</label>
-                                                    <input type="text" class="form-control" id="company1-address"
-                                                        required>
+                                                    <input type="text" class="form-control" name="cmp1_address"
+                                                        id="company1-address" required>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 mb-1">
                                                         <label for="company1-from" class="form-label">From</label>
-                                                        <input type="date" class="form-control" id="company1-from"
-                                                            required>
+                                                        <input type="date" class="form-control" name="cmp1_from"
+                                                            id="company1-from" required>
                                                     </div>
                                                     <div class="col-md-6 mb-1">
                                                         <label for="company1-to" class="form-label">To</label>
-                                                        <input type="date" class="form-control" id="company1-to"
-                                                            required>
+                                                        <input type="date" class="form-control" name="cmp1_to"
+                                                            id="company1-to" required>
                                                     </div>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company1-salary" class="form-label">Last Salary / Annual
                                                         CTC</label>
-                                                    <input type="number" class="form-control" id="company1-salary"
-                                                        step="0.01" required>
+                                                    <input type="number" class="form-control" name="cmp1_salary"
+                                                        id="company1-salary" step="0.01" required>
                                                 </div>
                                             </div>
 
@@ -715,35 +746,36 @@
                                                 <h5 class="fw-bold text-center">Company 2</h5>
                                                 <div class="mb-1">
                                                     <label for="company2-name" class="form-label">Company Name</label>
-                                                    <input type="text" class="form-control" id="company2-name" required>
+                                                    <input type="text" class="form-control" name="cmp2_name"
+                                                        id="company2-name" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company2-position" class="form-label">Position</label>
-                                                    <input type="text" class="form-control" id="company2-position"
-                                                        required>
+                                                    <input type="text" class="form-control" name="cmp2_position"
+                                                        id="company2-position" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company2-address" class="form-label">Address</label>
-                                                    <input type="text" class="form-control" id="company2-address"
-                                                        required>
+                                                    <input type="text" class="form-control" name="cmp2_address"
+                                                        id="company2-address" required>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 mb-1">
                                                         <label for="company2-from" class="form-label">From</label>
-                                                        <input type="date" class="form-control" id="company2-from"
-                                                            required>
+                                                        <input type="date" class="form-control" name="cmp2_from"
+                                                            id="company2-from" required>
                                                     </div>
                                                     <div class="col-md-6 mb-1">
                                                         <label for="company2-to" class="form-label">To</label>
-                                                        <input type="date" class="form-control" id="company2-to"
-                                                            required>
+                                                        <input type="date" class="form-control" name="cmp2_to"
+                                                            id="company2-to" required>
                                                     </div>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company2-salary" class="form-label">Last Salary / Annual
                                                         CTC</label>
-                                                    <input type="number" class="form-control" id="company2-salary"
-                                                        step="0.01" required>
+                                                    <input type="number" class="form-control" name="cmp2_saalry"
+                                                        id="company2-salary" step="0.01" required>
                                                 </div>
                                             </div>
 
@@ -752,40 +784,41 @@
                                                 <h5 class="fw-bold text-center">Company 3</h5>
                                                 <div class="mb-1">
                                                     <label for="company3-name" class="form-label">Company Name</label>
-                                                    <input type="text" class="form-control" id="company3-name" required>
+                                                    <input type="text" class="form-control" name="cmp3_name"
+                                                        id="company3-name" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company3-position" class="form-label">Position</label>
-                                                    <input type="text" class="form-control" id="company3-position"
-                                                        required>
+                                                    <input type="text" class="form-control" name="cmp3_position"
+                                                        id="company3-position" required>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company3-address" class="form-label">Address</label>
-                                                    <input type="text" class="form-control" id="company3-address"
-                                                        required>
+                                                    <input type="text" class="form-control" name="cmp3_address"
+                                                        id="company3-address" required>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 mb-1">
                                                         <label for="company3-from" class="form-label">From</label>
-                                                        <input type="date" class="form-control" id="company3-from"
-                                                            required>
+                                                        <input type="date" class="form-control" name="cmp3_from"
+                                                            id="company3-from" required>
                                                     </div>
                                                     <div class="col-md-6 mb-1">
                                                         <label for="company3-to" class="form-label">To</label>
-                                                        <input type="date" class="form-control" id="company3-to"
-                                                            required>
+                                                        <input type="date" class="form-control" name="cmp3_to"
+                                                            id="company3-to" required>
                                                     </div>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label for="company3-salary" class="form-label">Last Salary / Annual
                                                         CTC</label>
-                                                    <input type="number" class="form-control" id="company3-salary"
-                                                        step="0.01" required>
+                                                    <input type="number" class="form-control" name="cmp3_salary"
+                                                        id="company3-salary" step="0.01" required>
                                                 </div>
                                             </div>
 
                                             <!-- Save & Next Button -->
-                                            <button type="button" class="btn btn-primary float-end"
+                                            <button type="submit" name="submit_exp" class="btn btn-primary float-end"
                                                 id="save-next-btnsss">Save &
                                                 Next</button>
                                         </form>
@@ -799,7 +832,7 @@
                     tabindex="0">
                     <div class="container">
                         <h5 class="text-center mb-4">Upload Documents</h5>
-                        <form id="documentation-form">
+                        <form id="documentation-form" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <!-- PG Document Upload -->
                                 <div class="col-md-12 mb-4">
@@ -811,8 +844,8 @@
                                                     <label for="pg-doc" class="form-label">Upload PG Marksheet &
                                                         Degree
                                                         (PDF)</label>
-                                                    <input type="file" class="form-control" id="pg-doc" accept=".pdf"
-                                                        required>
+                                                    <input type="file" class="form-control" name="pg_document"
+                                                        id="pg-doc" accept=".pdf" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -830,8 +863,8 @@
                                                         Sheet &
                                                         Degree
                                                         (PDF)</label>
-                                                    <input type="file" class="form-control" id="grad-doc" accept=".pdf"
-                                                        required>
+                                                    <input type="file" class="form-control" name="grad_document"
+                                                        id="grad-doc" accept=".pdf" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -850,8 +883,8 @@
                                                         &
                                                         Degree
                                                         (PDF)</label>
-                                                    <input type="file" class="form-control" id="class12-doc"
-                                                        accept=".pdf" required>
+                                                    <input type="file" class="form-control" name="class12_document"
+                                                        id="class12-doc" accept=".pdf" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -869,8 +902,8 @@
                                                         Sheet &
                                                         Certificate
                                                         (PDF)</label>
-                                                    <input type="file" class="form-control" id="class10-doc"
-                                                        accept=".pdf" required>
+                                                    <input type="file" class="form-control" name="class10_document"
+                                                        id="class10-doc" accept=".pdf" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -887,8 +920,8 @@
                                                     <label for="aadhar-doc" class="form-label">Upload Aadhaar (Both
                                                         Front & Back)
                                                         (PDF)</label>
-                                                    <input type="file" class="form-control" id="aadhar-doc"
-                                                        accept=".pdf" required>
+                                                    <input type="file" class="form-control" name="aadhar_document"
+                                                        id="aadhar-doc" accept=".pdf" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -904,8 +937,8 @@
                                                 <div class="mb-3">
                                                     <label for="pan-doc" class="form-label">Upload PAN
                                                         (PDF)</label>
-                                                    <input type="file" class="form-control" id="pan-doc" accept=".pdf"
-                                                        required>
+                                                    <input type="file" class="form-control" name="pan_document"
+                                                        id="pan-doc" accept=".pdf" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -921,8 +954,8 @@
                                                 <div class="mb-3">
                                                     <label for="blood-group-doc" class="form-label">Upload Blood Group
                                                         (PDF)</label>
-                                                    <input type="file" class="form-control" id="blood-group-doc"
-                                                        accept=".pdf" required>
+                                                    <input type="file" class="form-control" name="bg_document"
+                                                        id="blood-group-doc" accept=".pdf" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -939,8 +972,8 @@
                                                     <label for="blood-group-doc" class="form-label">Upload Experience &
                                                         Releasing Certificate of all the companies mentioned
                                                         (PDF)</label>
-                                                    <input type="file" class="form-control" id="experience-doc"
-                                                        accept=".pdf" required>
+                                                    <input type="file" class="form-control" name="exp_document"
+                                                        id="experience-doc" accept=".pdf" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -957,18 +990,16 @@
                                                     <label for="image-sign" class="form-label">Upload Signature
                                                         (Image)</label>
                                                     <p>(Image should be 120x20 and size 20KB )</p>
-                                                    <input type="file" class="form-control" id="image-sign"
-                                                        accept="image/*" required>
+                                                    <input type="file" class="form-control" name="image_sign"
+                                                        id="image-sign" accept="image/*" required>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <!-- Save & Next Button -->
-                                <button type="button" class="btn btn-primary submit-btn button-submit float-end"
-                                    id="save-btn">Submit</button>
+                                <button type="submit" name="submit_document"
+                                    class="btn btn-primary submit-btn button-submit float-end">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -976,414 +1007,9 @@
             </div>
         </div>
     </section>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
-
-    <!-- <script>
-        document.getElementById('save-next-btn').addEventListener('click', function () {
-            const formData = {
-                fatherName: document.getElementById('fatherName').value,
-                motherName: document.getElementById('motherName').value,
-                bloodgroup: document.getElementById('bloodgroup').value,
-                gender: document.getElementById('gender').value,
-                maritalStatus: document.getElementById('maritalStatus').value,
-                whatsappNumber: document.getElementById('whatsappNumber').value,
-                aadharNumber: document.getElementById('aadharNumber').value,
-                panNumber: document.getElementById('panNumber').value,
-                emergencyContact: document.getElementById('emergencyContact').value,
-                emergencyRelation: document.getElementById('emergencyRelation').value,
-            };
-
-            localStorage.setItem('formData', JSON.stringify(formData));
-
-            window.location.href = 'all-details.html';
-        });
-    </script> -->
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-
-            // Function to check if the Post Graduation field is filled
-            function isPostGradFieldFilled() {
-                return document.getElementById('pg-university').value.trim() !== '';
-            }
-
-            // Function to check if the Experience field is filled
-            function isExperienceFieldFilled() {
-                return document.getElementById('company1-name').value.trim() !== '';
-            }
-
-            // Function to add an error message below the input field
-            function showError(elementId, message) {
-                const element = document.getElementById(elementId);
-
-                if (element) {
-                    // Scroll the element into view
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                    // Remove any existing error message
-                    const existingError = document.querySelector(`#${elementId} + .error-message`);
-                    if (existingError) {
-                        existingError.remove();
-                    }
-
-                    // Create and insert the error message
-                    const errorElement = document.createElement('div');
-                    errorElement.className = 'error-message';
-                    errorElement.style.color = 'red';
-                    errorElement.style.marginTop = '4px';
-                    errorElement.textContent = message;
-                    element.parentElement.insertBefore(errorElement, element.nextSibling);
-                }
-            }
-
-            // Function to clear all previous error messages
-            function clearErrors() {
-                document.querySelectorAll('.error-message').forEach(el => el.remove());
-            }
-
-            // Function to validate the documents
-            function validateDocuments() {
-                const postGradFieldFilled = isPostGradFieldFilled();
-                const experienceFieldFilled = isExperienceFieldFilled();
-                let isValid = true;
-
-                // Clear previous errors
-                clearErrors();
-
-                // Check if Post Graduation document is mandatory
-                if (postGradFieldFilled && !document.getElementById('pg-doc').files.length) {
-                    showError('pg-doc', 'Post Graduation document is required.');
-                    isValid = false;
-                }
-
-                // Check if Experience document is mandatory
-                if (experienceFieldFilled && !document.getElementById('experience-doc').files.length) {
-                    showError('experience-doc', 'Experience document is required.');
-                    isValid = false;
-                }
-
-                // Validate all other mandatory documents
-                const otherDocuments = ['grad-doc', 'class12-doc', 'class10-doc', 'aadhar-doc', 'pan-doc', 'blood-group-doc', 'image-sign'];
-                for (let doc of otherDocuments) {
-                    if (!document.getElementById(doc).files.length) {
-                        showError(doc, `${document.querySelector(`label[for="${doc}"]`).textContent} is required.`);
-                        isValid = false;
-                    }
-                }
-
-                return isValid;
-            }
-
-            // Add event listener to the submit button
-            document.querySelector('.submit-btn').addEventListener('click', function (event) {
-                if (validateDocuments()) {
-                    // Redirect to the new page if validation is successful
-                    window.location.href = 'all-details.html';
-                } else {
-                    event.preventDefault(); // Prevent form submission if validation fails
-                }
-            });
-        });
-    </script>
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const personalTabButton = document.getElementById('nav-personal-tab');
-            const addressTabButton = document.getElementById('nav-address-tab');
-            const educationTabButton = document.getElementById('nav-education-tab');
-            const experienceTabButton = document.getElementById('nav-experience-tab');
-            const documentTabButton = document.getElementById('nav-document-tab');
-
-            // Function to enable a tab button
-            function enableTab(tabButton) {
-                tabButton.disabled = false;
-            }
-
-            // Check sessionStorage to see if tabs were visited before
-            if (sessionStorage.getItem('addressTabVisited')) {
-                enableTab(addressTabButton);
-            }
-
-            if (sessionStorage.getItem('educationTabVisited')) {
-                enableTab(educationTabButton);
-            }
-
-            if (sessionStorage.getItem('experienceTabVisited')) {
-                enableTab(experienceTabButton);
-            }
-
-            // Event listener to mark a tab as visited when clicked
-            personalTabButton.addEventListener('click', function () {
-                enableTab(addressTabButton);
-                sessionStorage.setItem('addressTabVisited', 'true'); // Mark as visited
-            });
-
-            addressTabButton.addEventListener('click', function () {
-                enableTab(educationTabButton);
-                sessionStorage.setItem('educationTabVisited', 'true'); // Mark as visited
-            });
-
-            educationTabButton.addEventListener('click', function () {
-                enableTab(experienceTabButton);
-                sessionStorage.setItem('experienceTabVisited', 'true'); // Mark as visited
-            });
-
-            // Keep the Document tab always enabled
-            documentTabButton.disabled = false;
-
-            // Optionally, you can clear the sessionStorage on page reload if needed
-            // If you want tabs to reset after a refresh, you can use the following line:
-            // sessionStorage.clear();
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to validate phone number (10 digits) - only digits
-            function validatePhoneNumber(value) {
-                return /^\d{10}$/.test(value);
-            }
-
-            // Function to validate Aadhaar number (12 digits) - only digits
-            function validateAadhaarNumber(value) {
-                return /^\d{12}$/.test(value);
-            }
-
-            // Function to validate PAN number (10 alphanumeric characters)
-            function validatePanNumber(value) {
-                return /^[A-Z]{5}\d{4}[A-Z]{1}$/.test(value);
-            }
-
-            // Function to validate email
-            function validateEmail(value) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-            }
-
-            // Function to add an error message below the input field
-            function showError(elementId, message) {
-                const element = document.getElementById(elementId);
-
-                if (element) {
-                    // Remove any existing error message
-                    const existingError = document.querySelector(`#${elementId} + .error-message`);
-                    if (existingError) {
-                        existingError.remove();
-                    }
-
-                    // Create and insert the error message
-                    const errorElement = document.createElement('div');
-                    errorElement.className = 'error-message';
-                    errorElement.style.color = 'red';
-                    errorElement.style.marginTop = '4px';
-                    errorElement.textContent = message;
-                    element.parentElement.insertBefore(errorElement, element.nextSibling);
-                }
-            }
-
-            // Function to clear error message
-            function clearError(elementId) {
-                const existingError = document.querySelector(`#${elementId} + .error-message`);
-                if (existingError) {
-                    existingError.remove();
-                }
-            }
-
-            // Function to validate each field on input
-            function validateOnInput(event) {
-                const id = event.target.id;
-                const value = event.target.value.trim();
-
-                switch (id) {
-                    case 'whatsappNumber':
-                    case 'emergencyContact':
-                        if (!validatePhoneNumber(value)) {
-                            showError(id, 'Phone Number must be exactly 10 digits.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-
-                    case 'aadharNumber':
-                        if (!validateAadhaarNumber(value)) {
-                            showError(id, 'Aadhaar Number must be exactly 12 digits.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-
-                    case 'panNumber':
-                        if (!validatePanNumber(value)) {
-                            showError(id, 'PAN Number must be exactly 10 alphanumeric characters.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-
-                    case 'email':
-                        if (!validateEmail(value)) {
-                            showError(id, 'Invalid email address.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-                }
-            }
-
-            // Attach input event listeners to each field
-            document.getElementById('whatsappNumber').addEventListener('input', validateOnInput);
-            document.getElementById('emergencyContact').addEventListener('input', validateOnInput);
-            document.getElementById('aadharNumber').addEventListener('input', validateOnInput);
-            document.getElementById('panNumber').addEventListener('input', validateOnInput);
-            document.querySelector('input[type="email"]').addEventListener('input', validateOnInput);
-
-            // Function to handle form validation on submit
-            function validateForm() {
-                const phoneNumber = document.getElementById('whatsappNumber').value.trim();
-                const emergencyContactnumber = document.getElementById('emergencyContact').value.trim();
-                const aadhaarNumber = document.getElementById('aadharNumber').value.trim();
-                const panNumber = document.getElementById('panNumber').value.trim();
-                const email = document.querySelector('input[type="email"]').value.trim();
-                let isValid = true;
-
-                // Validate Phone Number
-                if (!validatePhoneNumber(phoneNumber)) {
-                    showError('whatsappNumber', 'Whatsapp Number must be exactly 10 digits.');
-                    isValid = false;
-                }
-
-                // Validate Emergency Contact Number
-                if (!validatePhoneNumber(emergencyContactnumber)) {
-                    showError('emergencyContact', 'Emergency Contact Number must be exactly 10 digits.');
-                    isValid = false;
-                }
-
-                // Validate Aadhaar Number
-                if (!validateAadhaarNumber(aadhaarNumber)) {
-                    showError('aadharNumber', 'Aadhaar Number must be exactly 12 digits.');
-                    isValid = false;
-                }
-
-                // Validate PAN Number
-                if (!validatePanNumber(panNumber)) {
-                    showError('panNumber', 'PAN Number must be exactly 10 alphanumeric characters.');
-                    isValid = false;
-                }
-
-                // Validate Email
-                if (!validateEmail(email)) {
-                    showError('email', 'Invalid email address.');
-                    isValid = false;
-                }
-
-                return isValid;
-            }
-
-            // Add event listener to the Save & Next button
-            document.getElementById('save-next-btn').addEventListener('click', function (event) {
-                if (!validateForm()) {
-                    event.preventDefault(); // Prevent form submission if validation fails
-                }
-            });
-        });
-    </script>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to validate PIN (6 digits)
-            function validatePin(value) {
-                return /^\d{6}$/.test(value);
-            }
-
-            // Function to add an error message below the input field
-            function showError(elementId, message) {
-                const element = document.getElementById(elementId);
-
-                if (element) {
-                    // Remove any existing error message
-                    const existingError = document.querySelector(`#${elementId} + .error-message`);
-                    if (existingError) {
-                        existingError.remove();
-                    }
-
-                    // Create and insert the error message
-                    const errorElement = document.createElement('div');
-                    errorElement.className = 'error-message';
-                    errorElement.style.color = 'red';
-                    errorElement.style.marginTop = '4px';
-                    errorElement.textContent = message;
-                    element.parentElement.insertBefore(errorElement, element.nextSibling);
-                }
-            }
-
-            // Function to clear error message
-            function clearError(elementId) {
-                const existingError = document.querySelector(`#${elementId} + .error-message`);
-                if (existingError) {
-                    existingError.remove();
-                }
-            }
-
-            // Function to validate each field on input
-            function validateOnInput(event) {
-                const id = event.target.id;
-                const value = event.target.value.trim();
-
-                switch (id) {
-                    // Add validation for PIN fields
-                    case 'perm-pin':
-                    case 'pres-pin':
-                        if (!validatePin(value)) {
-                            showError(id, 'PIN must be exactly 6 digits.');
-                        } else {
-                            clearError(id);
-                        }
-                        break;
-
-                    // Handle other fields if needed (e.g., phone numbers, email)
-                    // Add your other validation functions and logic here
-                }
-            }
-
-            // Attach input event listeners to PIN fields
-            document.getElementById('perm-pin').addEventListener('input', validateOnInput);
-            document.getElementById('pres-pin').addEventListener('input', validateOnInput);
-
-            // Function to handle form validation on submit
-            function validateForm() {
-                const permPin = document.getElementById('perm-pin').value.trim();
-                const presPin = document.getElementById('pres-pin').value.trim();
-                let isValid = true;
-
-                // Validate Permanent Address PIN
-                if (!validatePin(permPin)) {
-                    showError('perm-pin', 'PIN must be exactly 6 digits.');
-                    isValid = false;
-                }
-
-                // Validate Present Address PIN
-                if (!validatePin(presPin)) {
-                    showError('pres-pin', 'PIN must be exactly 6 digits.');
-                    isValid = false;
-                }
-
-                return isValid;
-            }
-
-            // Add event listener to the Save & Next button
-            document.getElementById('save-next-btn').addEventListener('click', function (event) {
-                if (!validateForm()) {
-                    event.preventDefault(); // Prevent form submission if validation fails
-                }
-            });
-        });
-    </script>
-
-
-
+    <script src="script.js?v=1.6"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

@@ -1,21 +1,23 @@
+
+
+
 //Image Signature Upload
+// document.getElementById('save-btn').addEventListener('click', function () {
+//     const fileInput = document.getElementById('image-sign');
+//     const file = fileInput.files[0];
 
-document.getElementById('save-btn').addEventListener('click', function () {
-    const fileInput = document.getElementById('image-sign');
-    const file = fileInput.files[0];
+//     if (file) {
+//         const reader = new FileReader();
 
-    if (file) {
-        const reader = new FileReader();
+//         reader.onloadend = function () {
+//             const imageData = reader.result;
+//             localStorage.setItem('uploadedSignature', imageData);
+//             window.location.href = 'all-details.php';
+//         };
 
-        reader.onloadend = function () {
-            const imageData = reader.result;
-            localStorage.setItem('uploadedSignature', imageData);
-            window.location.href = 'all-details.html';
-        };
-
-        reader.readAsDataURL(file);
-    }
-});
+//         reader.readAsDataURL(file);
+//     }
+// });
 
 //Camera Access and Photo Capture
 
@@ -36,38 +38,65 @@ async function startCamera() {
     }
 }
 
+// function capturePhoto() {
+//     const video = document.getElementById('video');
+//     const canvas = document.getElementById('canvas');
+//     const context = canvas.getContext('2d');
+//     const profileImage = document.getElementById('profile-image');
+//     const imageName = document.getElementById('image-name');
+//     context.drawImage(video, 0, 0, canvas.width, canvas.height);
+//     const imageUrl = canvas.toDataURL('image/png');
+
+//     const randomName = 'profile-' + Math.random().toString(36).substr(2, 9) + '.png';
+
+//     profileImage.src = imageUrl;
+
+//     imageName.textContent = `${randomName}`;
+
+//     const stream = video.srcObject;
+//     if (stream) {
+//         const tracks = stream.getTracks();
+//         tracks.forEach(track => track.stop());
+//     }
+//     video.style.display = 'none';
+//     canvas.style.display = 'none';
+//     document.getElementById('capture').style.display = 'none';
+// }
+
+
 function capturePhoto() {
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
     const profileImage = document.getElementById('profile-image');
     const imageName = document.getElementById('image-name');
+    const capturedPhotoInput = document.getElementById('captured-photo');
 
-    // Draw the current video frame to the canvas
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
     const imageUrl = canvas.toDataURL('image/png');
-
-    // Generate a random file name
-    const randomName = 'profile-' + Math.random().toString(36).substr(2, 9) + '.png';
-
-    // Set the image source to the canvas data URL
     profileImage.src = imageUrl;
+    imageName.textContent = 'Captured Image';
 
-    // Update the image name display
-    imageName.textContent = `${randomName}`;
+    // Store base64 image in hidden input
+    capturedPhotoInput.value = imageUrl;
 
-    // Stop the video stream
     const stream = video.srcObject;
     if (stream) {
         const tracks = stream.getTracks();
         tracks.forEach(track => track.stop());
     }
 
-    // Hide video and canvas elements
     video.style.display = 'none';
     canvas.style.display = 'none';
-    document.getElementById('capture').style.display = 'none'; // Hide the capture button
+    document.getElementById('capture').style.display = 'none';
 }
+
+
+
+
 
 // Image Upload Preview
 
@@ -100,38 +129,68 @@ function uploadPhoto() {
 
 // Personal Info to Address Navigation through btn and tab
 
+// document.addEventListener('DOMContentLoaded', function () {
+//     const form = document.getElementById('personal-info-form');
+//     const addressTabButton = document.getElementById('nav-address-tab');
+//     const saveNextButton = document.getElementById('save-next-btn');
+
+//     function updateTabButtonState() {
+//         addressTabButton.disabled = !form.checkValidity();
+//     }
+//     function handleSaveNextClick() {
+//         if (form.checkValidity()) {
+//             const addressTab = new bootstrap.Tab(document.getElementById('nav-address-tab'));
+//             addressTab.show();
+//         } else {
+//             form.reportValidity();
+//         }
+//     }
+//     form.addEventListener('input', updateTabButtonState);
+//     saveNextButton.addEventListener('click', handleSaveNextClick);
+//     updateTabButtonState();
+// });
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('personal-info-form');
     const addressTabButton = document.getElementById('nav-address-tab');
     const saveNextButton = document.getElementById('save-next-btn');
-
     function updateTabButtonState() {
         addressTabButton.disabled = !form.checkValidity();
     }
-
     function handleSaveNextClick() {
         if (form.checkValidity()) {
-            // If all fields are filled, navigate to Address tab
-            const addressTab = new bootstrap.Tab(document.getElementById('nav-address-tab'));
-            addressTab.show();
+            var formData = new FormData(form);
+            $.ajax({
+                type: "POST",
+                url: "personalinfo.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    const addressTab = new bootstrap.Tab(document.getElementById('nav-address-tab'));
+                    addressTab.show();
+                    var t = new FormData(this);
+                    // console.log(e), $("#personal-info-form")[0].reset();
+                    var t = document.getElementById("liveToast");
+                    new bootstrap.Toast(t).show();
+                },
+                error: function (e, t, n) {
+                    console.error(e.responseText);
+                    alert("Error submitting the form. Please try again later.");
+                },
+            });
         } else {
-            // If not all fields are filled, show validation errors
             form.reportValidity();
         }
     }
-
-    // Event listener for input to update button state
     form.addEventListener('input', updateTabButtonState);
-
-    // Event listener for the save-next button
     saveNextButton.addEventListener('click', handleSaveNextClick);
-
-    // Initial update of button state on page load
     updateTabButtonState();
 });
 
-//Address to education through tab and btn
 
+
+//Address to education through tab and btn
 document.addEventListener('DOMContentLoaded', function () {
     const permanentAddressForm = document.getElementById('permanent-address-form');
     const copyAddressCheckbox = document.getElementById('copy-address'); // Checkbox to copy the address
@@ -177,9 +236,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle navigation to the Education tab
     saveNextBtns.addEventListener('click', function () {
         if (checkAllFormsValidity()) {
-            // If all fields are filled in both forms, navigate to the Education tab
-            const educationTab = new bootstrap.Tab(educationTabButton);
-            educationTab.show();
+            var formData = new FormData(permanentAddressForm);
+            $.ajax({
+                type: "POST",
+                url: "address.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    const educationTab = new bootstrap.Tab(educationTabButton);
+                    educationTab.show();
+                    var t = new FormData(this);
+                    // console.log(e), $("#permanent-address-form")[0].reset();
+                    var t = document.getElementById("liveToast");
+                    new bootstrap.Toast(t).show();
+                },
+                error: function (e, t, n) {
+                    console.error(e.responseText);
+                    alert("Error submitting the form. Please try again later.");
+                },
+            });
         } else {
             // If not all fields are filled, show validation errors
             permanentAddressForm.reportValidity();
@@ -232,7 +308,6 @@ permanentAddressFields.forEach(field => {
 });
 
 // Education to Experience Navigation
-
 document.addEventListener('DOMContentLoaded', function () {
     const educationForm = document.getElementById('education-form');
     const experienceTabButton = document.getElementById('nav-experience-tab');
@@ -257,66 +332,81 @@ document.addEventListener('DOMContentLoaded', function () {
             return true;
         });
     }
-
     // Function to update the state of the Experience tab button
     function updateTabButtonState() {
         // Enable the Experience tab button only if all other sections are complete
         experienceTabButton.disabled = !areOtherSectionsComplete();
     }
-
     // Function to handle the button click and navigate to the Experience tab
     function handleSaveNextButtonClick() {
         if (areOtherSectionsComplete()) {
-            // If all fields are filled in the relevant forms, navigate to the Experience tab
-            const experienceTab = new bootstrap.Tab(experienceTabButton);
-            experienceTab.show();
+            var formData = new FormData(educationForm);
+            $.ajax({
+                type: "POST",
+                url: "education.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    const experienceTab = new bootstrap.Tab(experienceTabButton);
+                    experienceTab.show();
+                    var t = new FormData(this);
+                    // console.log(e), $("#educationform")[0].reset();
+                    var t = document.getElementById("liveToast");
+                    new bootstrap.Toast(t).show();
+                },
+                error: function (e, t, n) {
+                    console.error(e.responseText);
+                    alert("Error submitting the form. Please try again later.");
+                },
+            });
         } else {
-            // If not all fields are filled, show validation errors
             educationForm.reportValidity();
         }
     }
-
-    // Event listeners
     educationForm.addEventListener('input', updateTabButtonState);
     saveNextButton.addEventListener('click', handleSaveNextButtonClick);
-
-    // Initial check to set the correct state of the Experience tab button
     updateTabButtonState();
 });
+
 
 //Experience to document Navigation
-
 document.addEventListener('DOMContentLoaded', function () {
     const experienceForm = document.getElementById('experience-form');
-    const otherDetailsTabButton = document.getElementById('nav-document-tab');
-
-    function updateTabButtonState() {
-        const isValid = experienceForm.checkValidity();
-        otherDetailsTabButton.disabled = !isValid;
-    }
-
-    experienceForm.addEventListener('input', updateTabButtonState);
-    updateTabButtonState();
+    // const otherDetailsTabButton = document.getElementById('nav-document-tab');
+    // function updateTabButtonState() {
+    //     const isValid = experienceForm.checkValidity();
+    //     otherDetailsTabButton.disabled = !isValid;
+    // }
+    // experienceForm.addEventListener('input', updateTabButtonState);
+    // updateTabButtonState();
 });
 
-//REVIEW TO CHECK IF EXPERIENCE AND PG IS UPLOADED OR NOT 
 
+// Add event listener to the Save & Next button
+document.getElementById('save-next-btnsss').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent form submission if necessary
+
+    // Programmatically trigger the Document tab
+    var documentTab = document.getElementById('nav-document-tab');
+    if (documentTab) {
+        documentTab.click(); // Simulate a click on the Document tab to navigate to it
+    }
+});
+//REVIEW TO CHECK IF EXPERIENCE AND PG IS UPLOADED OR NOT 
 document.addEventListener('DOMContentLoaded', function () {
 
     // Function to check if the Post Graduation field is filled
     function isPostGradFieldFilled() {
         return document.getElementById('pg-university').value.trim() !== '';
     }
-
     // Function to check if the Experience field is filled
     function isExperienceFieldFilled() {
         return document.getElementById('company1-name').value.trim() !== '';
     }
-
     // Function to add an error message below the input field
     function showError(elementId, message) {
         const element = document.getElementById(elementId);
-
         if (element) {
             // Scroll the element into view
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -326,7 +416,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (existingError) {
                 existingError.remove();
             }
-
             // Create and insert the error message
             const errorElement = document.createElement('div');
             errorElement.className = 'error-message';
@@ -340,6 +429,40 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to clear all previous error messages
     function clearErrors() {
         document.querySelectorAll('.error-message').forEach(el => el.remove());
+    }
+    //experience ajax code for submit
+    $(document).ready(function () {
+        $("#experience-form").submit(function (e) {
+            // e.preventDefault();
+            var t = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "experience.php",
+                data: t,
+                success: function (e) {
+                    console.log(e);
+                    // $("#experience-form")[0].reset();
+                    var t = document.getElementById("liveToast");
+                    new bootstrap.Toast(t).show();
+                },
+                error: function (e, t, n) {
+                    console.error(e.responseText), alert("Error submitting the form. Please try again later.");
+                },
+            });
+        })
+    });
+
+    //Function to check if Post Graduation fields are filled
+    function hasPostGradFields() {
+        return document.getElementById('pg-university').value || // Example university field
+            document.getElementById('pg-year').value;      // Example degree field
+    }
+
+    // Function to check if any Experience fields are filled
+    function hasExperienceFields() {
+        return document.getElementById('company1-name').value ||
+            document.getElementById('company2-name').value ||
+            document.getElementById('company3-name').value;
     }
 
     // Function to validate the documents
@@ -371,23 +494,46 @@ document.addEventListener('DOMContentLoaded', function () {
                 isValid = false;
             }
         }
-
         return isValid;
     }
 
     // Add event listener to the submit button
     document.querySelector('.submit-btn').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
         if (validateDocuments()) {
-            // Redirect to the new page if validation is successful
-            window.location.href = 'all-details.html';
+            var formData = new FormData(document.getElementById("documentation-form")); // Get the correct form
+
+            $.ajax({
+                type: "POST",
+                url: "document.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    console.log(result);
+                    if (result.trim() === "success") {
+                        window.location.href = 'all-details.php';
+                    } else {
+                        // alert("Error submitting the form. Please try again later.");
+                    }
+                    // $("#documentation-form")[0].reset(); // Reset the form after submission
+                    var toastElement = document.getElementById("liveToast");
+                    new bootstrap.Toast(toastElement).show();
+                },
+                error: function (e) {
+                    console.error(e.responseText);
+                    alert("Error submitting the form. Please try again later.");
+                }
+            });
         } else {
-            event.preventDefault(); // Prevent form submission if validation fails
+            alert("Please fill in all the required fields.");
         }
     });
+
 });
 
 //FOR CHECKING WHEN CLICK BACK ALL WILL BE ENABLED 
-
 document.addEventListener("DOMContentLoaded", function () {
     const personalTabButton = document.getElementById('nav-personal-tab');
     const addressTabButton = document.getElementById('nav-address-tab');
@@ -531,7 +677,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('emergencyContact').addEventListener('input', validateOnInput);
     document.getElementById('aadharNumber').addEventListener('input', validateOnInput);
     document.getElementById('panNumber').addEventListener('input', validateOnInput);
-    document.querySelector('input[type="email"]').addEventListener('input', validateOnInput);
+
 
     // Function to handle form validation on submit
     function validateForm() {
@@ -539,7 +685,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const emergencyContactnumber = document.getElementById('emergencyContact').value.trim();
         const aadhaarNumber = document.getElementById('aadharNumber').value.trim();
         const panNumber = document.getElementById('panNumber').value.trim();
-        const email = document.querySelector('input[type="email"]').value.trim();
+        // const email = document.querySelector('input[type="email"]').value.trim();
         let isValid = true;
 
         // Validate Phone Number
