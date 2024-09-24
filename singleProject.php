@@ -257,21 +257,19 @@
                                         <div class="form-group col-md-12 m-t-10">
                                             <label>Details</label>
                                             <?php if ($em_role == '1') { ?>
-                                                <!-- <textarea class="form-control form-control-line edit"
-                                                    value="<?php echo $row["pro_description"]; ?>"></textarea> -->
-                                                <input type="text" class="form-control form-control-line edit"
-                                                    value="<?php echo $row["pro_description"]; ?>">
+                                                <textarea class="form-control form-control-line col-6 edit" rows="6"
+                                                    cols="80"><?php echo $row["pro_description"]; ?></textarea>
                                             <?php } else { ?>
                                                 <p class="form-control form-control-line">
-                                                    <?php echo $row["pro_description"]; ?>
-                                                </p>
+                                                    <?php echo $row["pro_description"]; ?></p>
                                             <?php } ?>
                                             <?php if ($em_role == '1') { ?>
                                                 <textarea class='txtedit'
                                                     id='pro_description-<?php echo $row["id"]; ?>-project'
-                                                    style="display:none;"><?php echo $row["pro_description"]; ?></textarea>
+                                                    style="display:none; width:100%; height:150px;"><?php echo $row["pro_description"]; ?></textarea>
                                             <?php } ?>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

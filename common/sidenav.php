@@ -90,23 +90,10 @@
                     </div>
                 <?php } ?>
                 <?php if ($em_role == '1' || $em_role == '3') { ?>
-                    <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Payroll"
-                        aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-person-walking-luggage"></i></div>
-                        Payroll
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a> -->
                     <a class="nav-link" href="payroll.php">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Payroll
                     </a>
-                    <!-- <div class="collapse" id="Payroll" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="payrollList.php"> Payroll List </a>
-                            <a class="nav-link" href="company.php"> Generate Payslip</a>
-                            <a class="nav-link" href="companyPersons.php"> Payslip Report</a>
-                        </nav>
-                    </div> -->
                 <?php } ?>
                 <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#ProjectLayouts"
@@ -148,50 +135,59 @@
                     </div>
                 <?php } ?>
                 <?php if ($em_role == '1') { ?>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Internship"
+                        aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
+                        Internship
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="Internship" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="intern_request.php">Intern Request</a>
+                            <a class="nav-link" href="internship.php">Internship Student</a>
+                        </nav>
+                    </div>
+                <?php } ?>
+                <?php if ($em_role == '1') { ?>
                     <a class="nav-link" href="leads.php">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
                         Leads
                     </a>
                 <?php } ?>
-                <!-- <a class="nav-link" href="tasks.php">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
-                    Tasks
-                </a> -->
             </div>
         </div>
-
     </nav>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Get the current URL
-    var currentUrl = window.location.href;
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the current URL
+        var currentUrl = window.location.href;
 
-    // Get all dropdown links
-    var dropdowns = document.querySelectorAll('.collapse');
+        // Get all dropdown links
+        var dropdowns = document.querySelectorAll('.collapse');
 
-    // Loop through each dropdown
-    dropdowns.forEach(function(dropdown) {
-        // Get all links inside the dropdown
-        var links = dropdown.querySelectorAll('a.nav-link');
+        // Loop through each dropdown
+        dropdowns.forEach(function (dropdown) {
+            // Get all links inside the dropdown
+            var links = dropdown.querySelectorAll('a.nav-link');
 
-        links.forEach(function(link) {
-            // Check if the link's href matches the current URL
-            if (link.href === currentUrl) {
-                // If a match is found, add the 'show' class to keep the dropdown open
-                dropdown.classList.add('show');
-                // Also add 'active' class to the link
-                link.classList.add('active');
-                
-                // Ensure the parent 'collapsed' class is set properly for the dropdown toggle
-                var parentToggle = dropdown.previousElementSibling;
-                if (parentToggle.classList.contains('collapsed')) {
-                    parentToggle.setAttribute('aria-expanded', 'true');
-                    parentToggle.classList.remove('collapsed');
+            links.forEach(function (link) {
+                // Check if the link's href matches the current URL
+                if (link.href === currentUrl) {
+                    // If a match is found, add the 'show' class to keep the dropdown open
+                    dropdown.classList.add('show');
+                    // Also add 'active' class to the link
+                    link.classList.add('active');
+
+                    // Ensure the parent 'collapsed' class is set properly for the dropdown toggle
+                    var parentToggle = dropdown.previousElementSibling;
+                    if (parentToggle.classList.contains('collapsed')) {
+                        parentToggle.setAttribute('aria-expanded', 'true');
+                        parentToggle.classList.remove('collapsed');
+                    }
                 }
-            }
+            });
         });
     });
-});
 
 </script>
