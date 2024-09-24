@@ -21,6 +21,17 @@
     <div id="layoutSidenav">
         <!-- start Side Navbar -->
         <?php include 'common/sidenav.php' ?>
+        <?php
+        include "common/conn.php";
+        $sql10 = "SELECT * FROM employee WHERE id=$userid";
+        $result10 = $conn->query($sql10);
+        if ($result10->num_rows > 0) {
+            $row10 = $result10->fetch_assoc();
+            $name = $row10["full_name"];
+            $dept = $row["dep_id"];
+            $em_code = $row["em_code"];
+        }
+        ?>
         <!-- end Side Navbar -->
         <div id="layoutSidenav_content">
             <main>
@@ -49,7 +60,16 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php"; // Make sure this file exists and contains database connection code
-                                    $sql = "SELECT * FROM project";
+                                    if ($em_role == '1' || $em_role == '2' || $em_role == '3') {
+                                        $sql = "SELECT * FROM project";
+                                    } else {
+                                        $sql = "SELECT p.*, 
+                                                GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users
+                                                FROM project p
+                                                LEFT JOIN assign_task at ON p.id = at.project_id
+                                                WHERE FIND_IN_SET('$em_code', at.assign_user) > 0
+                                                GROUP BY p.id";
+                                    }
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         $slno = 1;

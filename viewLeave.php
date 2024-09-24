@@ -57,7 +57,7 @@ session_start(); {
                                         <th>Employee id</th>
                                         <th>Leave type</th>
                                         <th>Start Date</th>
-                                        <th>End Date</th>
+                                        <th>Join Date</th>
                                         <th>Days</th>
                                         <th>Reason</th>
                                         <th>Leave Report</th>
@@ -132,54 +132,45 @@ session_start(); {
                                                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                                             <div class="btn-group">
                                                                 <?php
-                                                                $leave_status = $row['leave_status'];
-                                                                if ($leave_status == '0' || $leave_status == '1' || $leave_status == '2') { ?>
-                                                                    <button class="btn btn-success dropdown-toggle" type="button"
-                                                                        id="dropdownMenuButton_<?php echo $row['id']; ?>"
+                                                                    $leave_status = $row['leave_status'];
+                                                                    $leave_start_date = $row['start_date'];
+                                                                    $current_date = date('Y-m-d');
+
+                                                                    if ($leave_status == '0' || $leave_status == '1' || $leave_status == '2') { ?>
+                                                                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton_<?php echo $row['id']; ?>"
                                                                         data-bs-toggle="dropdown" aria-expanded="false">
                                                                         <?php
-                                                                        $leave_status = $row['leave_status'];
                                                                         echo ($leave_status == 0) ? "Pending" :
                                                                             (($leave_status == 1) ? "Approved" :
-                                                                                (($leave_status == 2) ? "Not Approved" : "Cancel"));
+                                                                                (($leave_status == 2) ? "Not Approved" : "Cancelled"));
                                                                         ?>
                                                                     </button>
                                                                 <?php } ?>
+                                                                
                                                                 <?php if ($leave_status == '3') { ?>
                                                                     <button class="btn btn-danger" type="button">Cancelled</button>
                                                                 <?php } ?>
+                                                                
                                                                 <?php if ($leave_status == '0') { ?>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
+                                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
                                                                         <li>
                                                                             <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
-                                                                                <button class="dropdown-item" type="submit"
-                                                                                    name="status_update" value="1">Approved</button>
+                                                                                <button class="dropdown-item" type="submit" name="status_update" value="1">Approved</button>
                                                                             <?php } ?>
                                                                         </li>
                                                                         <li>
                                                                             <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
-                                                                                <button class="dropdown-item" type="submit"
-                                                                                    name="status_update" value="2">Not Approved</button>
+                                                                                <button class="dropdown-item" type="submit" name="status_update" value="2">Not Approved</button>
                                                                             <?php } ?>
                                                                         </li>
                                                                         <li>
-                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
-                                                                                <button class="dropdown-item" type="submit"
-                                                                                    name="status_update" value="3">Cancel</button>
+                                                                                <?php if (($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') && ($current_date < $leave_start_date)) { ?>
+                                                                                <button class="dropdown-item" type="submit" name="status_update" value="3">Cancel</button>
+                                                                            <?php } else { ?>
+                                                                                <button class="dropdown-item" type="button" disabled>Cancel</button>
                                                                             <?php } ?>
                                                                         </li>
-                                                                    </ul>
-                                                                <?php } ?>
-                                                                <?php if ($leave_status == '1' || $leave_status == '2') { ?>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuButton_<?php echo $row['id']; ?>">
-                                                                        <li>
-                                                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
-                                                                                <button class="dropdown-item" type="submit"
-                                                                                    name="status_update" value="3">Cancel</button>
-                                                                            <?php } ?>
-                                                                        </li>
+
                                                                     </ul>
                                                                 <?php } ?>
                                                                 <input type="hidden" name="idd" value="<?php echo $row['id']; ?>">
