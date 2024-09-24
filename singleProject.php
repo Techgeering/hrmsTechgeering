@@ -224,6 +224,9 @@
                                                     </option>
                                                     <option value="running" <?php if ($row["pro_status"] == "running")
                                                         echo 'selected="selected"'; ?>>running</option>
+
+                                                    <option value="hold" <?php if ($row["pro_status"] == "Hold")
+                                                        echo 'selected="selected"'; ?>>hold</option>
                                                 </select>
                                             <?php } else { ?>
                                                 <p class="form-control form-control-line">
