@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2024 at 03:28 PM
+-- Generation Time: Sep 25, 2024 at 06:54 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -49,7 +49,8 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`id`, `pro_id`, `assign_to`, `particulars`, `tex_type`, `gst`, `deposite`, `withdraw`, `balance`, `balance_T`, `balance_WT`, `date`, `date_time`) VALUES
 (1, 0, '', 'extra expences', 'GST', '12', '100', '', '100', '100', '', '2024-08-16', '2024-08-16 19:12:29'),
-(2, 9, '', 'gnnjhgnjg', 'GST', '12%', '1000', '', '1100', '1100', '', '2024-09-15', '0000-00-00 00:00:00');
+(2, 9, '', 'gnnjhgnjg', 'GST', '12%', '1000', '', '1100', '1100', '', '2024-09-15', '0000-00-00 00:00:00'),
+(3, 1, ' Monalisa Das', 'fghbjn', 'GST', '10', '2000', '', '2100', '2100', '', '2024-09-05', '2024-09-05 11:38:30');
 
 -- --------------------------------------------------------
 
@@ -265,12 +266,12 @@ CREATE TABLE `assign_task` (
 --
 
 INSERT INTO `assign_task` (`id`, `task_id`, `project_id`, `assign_user`, `user_type`) VALUES
-(1, 15, 1, 'TS0923010', 'Team Head'),
-(2, 15, 1, 'TS0923006', 'Collaborators'),
-(3, 16, 1, 'TS0923010', 'Team Head'),
-(4, 16, 1, 'TS0923006,TESS0012', 'Collaborators'),
-(5, 17, 1, 'TSS0098', 'Team Head'),
-(6, 17, 1, 'TS0923006', 'Collaborators');
+(1, 1, 1, 'TSS0098', 'Team Head'),
+(2, 1, 1, ',TS0923006', 'Collaborators'),
+(3, 2, 1, 'TS0923010', 'Team Head'),
+(4, 2, 1, 'TS0923006', 'Collaborators'),
+(5, 3, 6, 'TS0923010', 'Team Head'),
+(6, 3, 6, 'TESS0012', 'Collaborators');
 
 -- --------------------------------------------------------
 
@@ -654,7 +655,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `em_code`, `des_id`, `dep_id`, `full_name`, `father_name`, `mother_name`, `em_email`, `prof_email`, `marital_status`, `em_password`, `em_role`, `status`, `em_gender`, `em_phone`, `em_wahtsapp`, `em_birthday`, `em_blood_group`, `em_joining_date`, `last_company_date`, `em_contact_end`, `em_image`, `em_aadher`, `em_pan`, `emergency_contact`) VALUES
-(1, 'TS0923006', 2, 9, 'Monalisa Das', 'Mohan Charan Das', 'NA', 'monalisa@123gmail.com', 'monalisa@123gmail.com', 'Single', '$2y$10$Zu4eSe2kVWLi7fCdYC/0RuyX.lEJqV.csOiu8zXT6ZmoqnIgrE3Ya', 4, 'ACTIVE', 'Female', '9985622020', '9985622020', '2024-09-12', 'O+', '2024-09-26', '0000-00-00', NULL, 'assets/uploads/employee/66e4143c70c7a.png', '8845952622', 'RE515112515T', 0),
+(1, 'TS0923006', 2, 9, 'Monalisa Das', 'Mohan Charan Das', 'NA', 'monalisa@123gmail.com', 'monalisa@1234gmail.com', 'Single', '$2y$10$Zu4eSe2kVWLi7fCdYC/0RuyX.lEJqV.csOiu8zXT6ZmoqnIgrE3Ya', 4, 'ACTIVE', 'Female', '9985622020', '9985622020', '2024-09-12', 'O+', '2024-09-26', '0000-00-00', NULL, 'assets/uploads/employee/66e4143c70c7a.png', '8845952622', 'RE515112515T', 0),
 (2, 'TS0923008', 1, 6, 'Roni Mohapatra', 'Rabidra Mohapatra', 'Rutu Mohapatra', 'roni12@gmail.com', 'roni12@gmail.com', 'Single', '$2y$10$3a2BnvViljChdi8rLBOfdea51tlKzvnDeEBNxT5auHvqGTfu83Fpa', 1, 'ACTIVE', 'Female', '9987451510', '9987451510', '2024-09-27', 'A+', '2024-09-12', '0000-00-00', NULL, 'assets/uploads/employee/66dec2286475c.jpeg', '4785102020', '51564sxnsxhj', 2147483647),
 (3, 'TS0923010', 3, 9, 'Sagarika Das', 'Scfdsc Fgf', 'Grrfg Fgfg', 'sddb@gmail.com', 'sddb@gmail.com', 'Single', '$2y$10$Cv5mae6UPVj1/Aw9JPyY3.Q5cC3hdyN3VYOx5xjJ0UiqubNMCgNeu', 2, 'ACTIVE', 'Female', '9987451620', '9987451620', '2024-09-16', 'B+', '2024-09-17', '2024-09-25', NULL, 'assets/uploads/employee/66e405f815181.jpeg', 'dd564646556df', 'fbfb545645565', 2147483647),
 (4, '	TS0923009', 4, 9, 'Rutu Mohanty', 'Dfd Dgdg', 'Fgf Fgfggf', 'fdvgdj@gmail.com', 'fdvgdj@gmail.com', 'Single', '$2y$10$kFlz0awyDT889Pb/.sxkW.DcM/E/pC1xFEfO9kYo.pV6gmzC3HNxa', 3, 'ACTIVE', 'Female', '8895746213', '8895746213', '2024-09-28', 'B-', '2024-09-25', '2024-09-28', NULL, '', 'fgfg548545156', 'ghgh4587965', 2147483647),
@@ -759,10 +760,13 @@ CREATE TABLE `emp_form` (
   `emp_form_prepost` varchar(20) NOT NULL,
   `emp_form_prepolice` varchar(20) NOT NULL,
   `emp_form_c10school` varchar(250) NOT NULL,
+  `emp_form_c10location` varchar(50) NOT NULL,
   `emp_form_c10board` varchar(100) NOT NULL,
   `emp_form_c10result` varchar(5) NOT NULL,
   `emp_form_c10yearpass` varchar(5) NOT NULL,
   `emp_form_c12school` varchar(250) NOT NULL,
+  `emp_form_c12location` varchar(70) NOT NULL,
+  `emp_form_c12type` varchar(70) NOT NULL,
   `emp_form_c12board` varchar(100) NOT NULL,
   `emp_form_c12result` varchar(5) NOT NULL,
   `emp_form_c12yearpass` varchar(5) NOT NULL,
@@ -771,11 +775,13 @@ CREATE TABLE `emp_form` (
   `emp_form_grad_univ` varchar(100) NOT NULL,
   `emp_form_grad_res` varchar(5) NOT NULL,
   `emp_form_grad_yearpass` varchar(5) NOT NULL,
+  `emp_form_grad_location` varchar(100) NOT NULL,
   `emp_form_pgrad_type` varchar(100) NOT NULL,
   `emp_form_pgrad_insti` varchar(250) NOT NULL,
   `emp_form_pgrad_univ` varchar(100) NOT NULL,
   `emp_form_pgrad_result` varchar(5) NOT NULL,
   `emp_form_pgrad_yearpass` varchar(5) NOT NULL,
+  `emp_form_pgrad_location` varchar(100) NOT NULL,
   `emp_form_c10_doc` varchar(100) NOT NULL,
   `emp_form_c12_doc` varchar(100) NOT NULL,
   `emp_form_grad_doc` varchar(100) NOT NULL,
@@ -784,6 +790,7 @@ CREATE TABLE `emp_form` (
   `emp_form_pan_doc` varchar(100) NOT NULL,
   `emp_form_bg_doc` varchar(100) NOT NULL,
   `emp_form_other_doc` varchar(100) NOT NULL,
+  `emp_form_sign` varchar(40) NOT NULL,
   `emp_form_c12_stream` varchar(100) NOT NULL,
   `emp_form_grad_stream` varchar(100) NOT NULL,
   `emp_form_pgrad_stream` varchar(100) NOT NULL,
@@ -792,16 +799,33 @@ CREATE TABLE `emp_form` (
   `emp_form_ip` varchar(100) NOT NULL,
   `emp_form_curloc` varchar(100) NOT NULL,
   `emp_form_livepic` varchar(100) NOT NULL,
-  `emp_form_passpic` varchar(100) NOT NULL
+  `emp_form_passpic` varchar(100) NOT NULL,
+  `emp_form_cmpname1` varchar(70) NOT NULL,
+  `emp_form_position1` varchar(50) NOT NULL,
+  `emp_form_address1` longtext NOT NULL,
+  `emp_form_from1` varchar(20) NOT NULL,
+  `emp_form_to1` varchar(20) NOT NULL,
+  `emp_form_salary1` varchar(50) NOT NULL,
+  `emp_form_cmpname2` varchar(50) NOT NULL,
+  `emp_form_position2` varchar(50) NOT NULL,
+  `emp_form_address2` longtext NOT NULL,
+  `emp_form_from2` varchar(20) NOT NULL,
+  `emp_form_to2` varchar(20) NOT NULL,
+  `emp_form_salary2` varchar(30) NOT NULL,
+  `emp_form_cmpname3` varchar(50) NOT NULL,
+  `emp_form_position3` varchar(50) NOT NULL,
+  `emp_form_address3` longtext NOT NULL,
+  `emp_form_from3` varchar(10) NOT NULL,
+  `emp_form_to3` varchar(10) NOT NULL,
+  `emp_form_salary3` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `emp_form`
 --
 
-INSERT INTO `emp_form` (`emp_form_id`, `emp_form_name`, `emp_form_fathername`, `emp_form_mothername`, `emp_form_dob`, `emp_form_email`, `emp_form_phone`, `emp_form_bg`, `emp_form_gender`, `emp_form_marital`, `emp_form_wpnum`, `emp_form_adharnum`, `emp_form_pan`, `emp_form_emernum`, `emp_form_emerrel`, `emp_form_image`, `emp_form_adrs`, `emp_form_city`, `emp_form_dist`, `emp_form_state`, `emp_form_post`, `emp_form_police`, `emp_form_country`, `emp_form_pin`, `emp_form_preadrs`, `emp_form_precity`, `emp_form_predist`, `emp_form_prestate`, `emp_form_precountry`, `emp_form_prepin`, `emp_form_prepost`, `emp_form_prepolice`, `emp_form_c10school`, `emp_form_c10board`, `emp_form_c10result`, `emp_form_c10yearpass`, `emp_form_c12school`, `emp_form_c12board`, `emp_form_c12result`, `emp_form_c12yearpass`, `emp_form_grad_type`, `emp_form_grad_insti`, `emp_form_grad_univ`, `emp_form_grad_res`, `emp_form_grad_yearpass`, `emp_form_pgrad_type`, `emp_form_pgrad_insti`, `emp_form_pgrad_univ`, `emp_form_pgrad_result`, `emp_form_pgrad_yearpass`, `emp_form_c10_doc`, `emp_form_c12_doc`, `emp_form_grad_doc`, `emp_form_pgrad_doc`, `emp_form_adhar_doc`, `emp_form_pan_doc`, `emp_form_bg_doc`, `emp_form_other_doc`, `emp_form_c12_stream`, `emp_form_grad_stream`, `emp_form_pgrad_stream`, `emp_form_dateofformsub`, `emp_form_stat`, `emp_form_ip`, `emp_form_curloc`, `emp_form_livepic`, `emp_form_passpic`) VALUES
-(1, '', 'Scfdsc Fgf', 'Fgf Fgfggf', '', '', '', 'A-', 'Male', 'Married', '4524254254', '574547574574', 'FGF7452475', '4245242424', 'bhnbhn', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, '', '', '', ''),
-(2, '', 'dsvf', 'dfgd', '', '', '', 'A+', 'Male', 'Single', '5245248247', '525424247524', 'DVDVD42542', '4752475475', 'gvbgvg', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, '', '', '', '');
+INSERT INTO `emp_form` (`emp_form_id`, `emp_form_name`, `emp_form_fathername`, `emp_form_mothername`, `emp_form_dob`, `emp_form_email`, `emp_form_phone`, `emp_form_bg`, `emp_form_gender`, `emp_form_marital`, `emp_form_wpnum`, `emp_form_adharnum`, `emp_form_pan`, `emp_form_emernum`, `emp_form_emerrel`, `emp_form_image`, `emp_form_adrs`, `emp_form_city`, `emp_form_dist`, `emp_form_state`, `emp_form_post`, `emp_form_police`, `emp_form_country`, `emp_form_pin`, `emp_form_preadrs`, `emp_form_precity`, `emp_form_predist`, `emp_form_prestate`, `emp_form_precountry`, `emp_form_prepin`, `emp_form_prepost`, `emp_form_prepolice`, `emp_form_c10school`, `emp_form_c10location`, `emp_form_c10board`, `emp_form_c10result`, `emp_form_c10yearpass`, `emp_form_c12school`, `emp_form_c12location`, `emp_form_c12type`, `emp_form_c12board`, `emp_form_c12result`, `emp_form_c12yearpass`, `emp_form_grad_type`, `emp_form_grad_insti`, `emp_form_grad_univ`, `emp_form_grad_res`, `emp_form_grad_yearpass`, `emp_form_grad_location`, `emp_form_pgrad_type`, `emp_form_pgrad_insti`, `emp_form_pgrad_univ`, `emp_form_pgrad_result`, `emp_form_pgrad_yearpass`, `emp_form_pgrad_location`, `emp_form_c10_doc`, `emp_form_c12_doc`, `emp_form_grad_doc`, `emp_form_pgrad_doc`, `emp_form_adhar_doc`, `emp_form_pan_doc`, `emp_form_bg_doc`, `emp_form_other_doc`, `emp_form_sign`, `emp_form_c12_stream`, `emp_form_grad_stream`, `emp_form_pgrad_stream`, `emp_form_dateofformsub`, `emp_form_stat`, `emp_form_ip`, `emp_form_curloc`, `emp_form_livepic`, `emp_form_passpic`, `emp_form_cmpname1`, `emp_form_position1`, `emp_form_address1`, `emp_form_from1`, `emp_form_to1`, `emp_form_salary1`, `emp_form_cmpname2`, `emp_form_position2`, `emp_form_address2`, `emp_form_from2`, `emp_form_to2`, `emp_form_salary2`, `emp_form_cmpname3`, `emp_form_position3`, `emp_form_address3`, `emp_form_from3`, `emp_form_to3`, `emp_form_salary3`) VALUES
+(1, 'hbhjgh', 'ghghn', 'vnhvn', '23.03.2000', 'monalisa@techgeering.com', '9938627540', 'A-', 'Female', 'Single', '5459645964', '529659659656', 'FHG8586858', '5222828868', 'hjnhjnh', '66f14370f0ce9.jpeg', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -829,8 +853,11 @@ CREATE TABLE `emp_leave` (
 
 INSERT INTO `emp_leave` (`id`, `em_id`, `typeid`, `start_date`, `end_date`, `leave_duration`, `duration_hour`, `apply_date`, `reason`, `supportingdocument`, `leave_status`) VALUES
 (1, 'TE 0030', 1, '2024-09-14', '2024-09-22', '8', 55, '13-09-2024', 'cbcfbg', 'assets/uploads/employee/Ph.D Open Defence Viva Voce of Ms Rasmita Kumari Nayak,  18DS001164, Electro', 3),
-(2, 'TE0021', 4, '2024-09-28', '2024-09-29', '1', 5, '13-09-2024', 'gngn', 'assets/uploads/employee/AdminLTE 3  Dashboard.pdf', 1),
-(3, 'TS0923006', 1, '2024-09-21', '2024-09-22', '1', 5, '13-09-2024', 'rgtyh', 'assets/uploads/employee/gallery8.png', 0);
+(3, 'TS0923006', 1, '2024-09-21', '2024-09-22', '1', 5, '13-09-2024', 'rgtyh', 'assets/uploads/employee/gallery8.png', 0),
+(4, 'TS0923008', 1, '2024-09-06', '2024-09-21', '15', 109, '23-09-2024', 'my brother&#039;s', '', 0),
+(5, 'TESS0012', 1, '2024-09-11', '2024-09-19', '8', 59, '23-09-2024', 'dgvdvg', '', 0),
+(6, 'TESS0012', 1, '2024-09-25', '2024-09-28', '3', 27, '24-09-2024', 'fdvfdv', '', 3),
+(7, 'TESS0012', 3, '2024-09-25', '2024-09-27', '2', 18, '24-09-2024', 'fgbfgb', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1008,6 +1035,67 @@ INSERT INTO `holiday` (`id`, `holiday_name`, `from_date`, `to_date`, `number_of_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `internship`
+--
+
+CREATE TABLE `internship` (
+  `id` int(11) NOT NULL,
+  `intern_name` varchar(20) NOT NULL,
+  `father_name` varchar(20) NOT NULL,
+  `mother_name` varchar(20) NOT NULL,
+  `dob` varchar(20) NOT NULL,
+  `gender` varchar(20) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `intern_email` varchar(30) NOT NULL,
+  `intern_add` varchar(30) NOT NULL,
+  `valid_govt_no` varchar(20) NOT NULL,
+  `id_type` varchar(20) NOT NULL,
+  `college_id` varchar(20) NOT NULL,
+  `edu_qualification` varchar(70) NOT NULL,
+  `clg_name` varchar(50) NOT NULL,
+  `internship_on` varchar(40) NOT NULL,
+  `intern_image` varchar(70) NOT NULL,
+  `intern_doc` varchar(70) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `internship`
+--
+
+INSERT INTO `internship` (`id`, `intern_name`, `father_name`, `mother_name`, `dob`, `gender`, `phone`, `intern_email`, `intern_add`, `valid_govt_no`, `id_type`, `college_id`, `edu_qualification`, `clg_name`, `internship_on`, `intern_image`, `intern_doc`) VALUES
+(1, 'Fdvdfv', 'Dfb', 'Fdbdb', '2024-09-28', 'Female', 'fdvfdv', 'fbf@gmail.com', 'fhfhh', '547545775', 'adhaar', '74274275775', 'fdgbdg', 'fvfdvgfdf', 'fbhfg', '66f2b0bf6e9a3.jpeg', ''),
+(2, 'Bfcbfb', 'Gfbhffg', 'Hffghf', '2024-09-29', 'Female', '4112472472542', 'gfhng@gmail.com', 'fgbftgbft', 'gnh4524524', 'adhaar', '424247257452', 'gfbbgfb', 'gnbgfng', 'gnngfn', '66f38bb75bcce.png', '66f38bb75c666.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `intern_request`
+--
+
+CREATE TABLE `intern_request` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `mob_num` varchar(10) NOT NULL,
+  `wp_num` varchar(20) NOT NULL,
+  `clg_name` varchar(40) NOT NULL,
+  `address` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `intern_request`
+--
+
+INSERT INTO `intern_request` (`id`, `name`, `email`, `mob_num`, `wp_num`, `clg_name`, `address`) VALUES
+(1, 'gfbgf', 'gfhfg', 'fg', '', 'bfgn', 'fnfvg'),
+(2, 'fbfb', 'fbfbf', 'bfbf', '', 'bfbg', 'fbfb'),
+(3, '', 'bf', 'fbg', '', 'bgfbg', 'fbbg'),
+(4, 'Fvfv', 'gnggf', '8524254247', '', 'ngfngf', 'nngf'),
+(5, 'Gbgbg', 'bfgb@gmail.com', '5456456464', '454854584485', 'dcfdcj', 'vdivjd');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `leads`
 --
 
@@ -1034,7 +1122,8 @@ CREATE TABLE `leads` (
 --
 
 INSERT INTO `leads` (`id`, `lead_name`, `companyname`, `phone_no`, `email_id`, `city`, `state`, `country`, `source`, `status`, `interested_in`, `business_type`, `lead_date`, `lastfollowupdate`, `nextfollowupdate`) VALUES
-(1, 'rsdfrdf', 'dfefvfe', '9944512368', 'monalisadas1964@gmail.com', 'fdgvfgbf', 'Nagalandd', 'gfbfhf', 'ghgfh', 1, 'gfbh', 'ghbgfh', '2024-09-02 12:19:52', '2024-09-02 12:39:02', '2024-09-05 16:08:00');
+(1, 'rsdfrdf', 'dfefvfe', '9944512368', 'monalisadas1964@gmail.com', 'fdgvfgbf', 'Nagalandd', 'gfbfhf', 'ghgfh', 1, 'gfbh', 'ghbgfh', '2024-09-02 12:19:52', '2024-09-02 12:39:02', '2024-09-05 16:08:00'),
+(2, 'fgbbf', 'bgfb', '5245225412', 'monalisa@123gmail.com', 'ghf', 'gnhgn', 'gjnh', 'fghjf', 1, 'fhn', 'fghf', '2024-09-23 14:41:35', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1094,7 +1183,8 @@ INSERT INTO `leave_apply_approve` (`id`, `leaveapp_id`, `approved_by`, `datetime
 (11, 2, 1, '2024-09-02 11:32:16'),
 (12, 2, 1, '2024-09-04 12:04:56'),
 (13, 1, 4, '2024-09-13 07:26:06'),
-(14, 2, 2, '2024-09-13 13:34:44');
+(14, 2, 2, '2024-09-13 13:34:44'),
+(15, 6, 4, '2024-09-24 06:44:09');
 
 -- --------------------------------------------------------
 
@@ -1115,7 +1205,6 @@ CREATE TABLE `leave_types` (
 
 INSERT INTO `leave_types` (`type_id`, `name`, `leave_day`, `status`) VALUES
 (1, 'Casual Leave', '21', 1),
-(2, 'Sick Leave', '15', 1),
 (3, 'Maternity Leave', '90', 1),
 (4, 'Paternal Leave', '7', 0),
 (5, 'Earned leave', '3', 0),
@@ -1211,7 +1300,18 @@ INSERT INTO `login_history` (`id`, `emp_tbl_id`, `emp_id`, `ip_v6_address`, `ip_
 (2, 1, 'TS0923006', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 05:39:33', '2024-09-19 05:39:38', '00:00:05', '2024-09-19 11:09:33', '2024-09-19 11:09:38'),
 (3, 2, 'TS0923008', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 05:39:59', '2024-09-19 10:17:04', '04:37:05', '2024-09-19 11:09:59', '2024-09-19 15:47:04'),
 (4, 1, 'TS0923006', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 10:17:26', '2024-09-19 10:18:12', '00:00:46', '2024-09-19 15:47:26', '2024-09-19 15:48:12'),
-(5, 2, 'TS0923008', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 10:18:32', NULL, NULL, '2024-09-19 15:48:32', '2024-09-19 15:48:32');
+(5, 2, 'TS0923008', '::1', '117.217.55.52', 'Laptop', 'Location details not available', '2024-09-19 10:18:32', NULL, NULL, '2024-09-19 15:48:32', '2024-09-19 15:48:32'),
+(6, 2, 'TS0923008', '::1', '223.231.194.67', 'Laptop', 'City: Bhubaneswar, Region: Odisha, Country: India, Lat: 20.2706, Lon: 85.8334', '2024-09-20 16:42:37', '2024-09-20 17:35:19', '00:52:42', '2024-09-20 22:12:37', '2024-09-20 23:05:19'),
+(7, 1, 'TS0923006', '::1', '223.231.194.67', 'Laptop', 'City: Bhubaneswar, Region: Odisha, Country: India, Lat: 20.2706, Lon: 85.8334', '2024-09-20 17:35:48', NULL, NULL, '2024-09-20 23:05:48', '2024-09-20 23:05:48'),
+(8, 2, 'TS0923008', '::1', '117.198.23.11', 'Laptop', 'Location details not available', '2024-09-23 11:07:22', '2024-09-23 12:01:57', '00:54:35', '2024-09-23 16:37:22', '2024-09-23 17:31:57'),
+(9, 5, 'TESS0012', '::1', '117.198.23.11', 'Laptop', 'Location details not available', '2024-09-23 12:03:40', '2024-09-23 12:12:35', '00:08:55', '2024-09-23 17:33:40', '2024-09-23 17:42:35'),
+(10, 2, 'TS0923008', '::1', '117.198.23.11', 'Laptop', 'Location details not available', '2024-09-23 12:09:03', '2024-09-23 12:12:16', '00:03:13', '2024-09-23 17:39:03', '2024-09-23 17:42:16'),
+(11, 5, 'TESS0012', '::1', '117.198.23.11', 'Laptop', 'Location details not available', '2024-09-23 12:13:17', '2024-09-23 12:13:25', '00:00:08', '2024-09-23 17:43:17', '2024-09-23 17:43:25'),
+(12, 2, 'TS0923008', '::1', '117.198.23.11', 'Laptop', 'Location details not available', '2024-09-23 12:13:50', NULL, NULL, '2024-09-23 17:43:50', '2024-09-23 17:43:50'),
+(13, 5, 'TESS0012', '::1', '117.198.23.11', 'Laptop', 'Location details not available', '2024-09-23 12:14:12', NULL, NULL, '2024-09-23 17:44:12', '2024-09-23 17:44:12'),
+(14, 2, 'TS0923008', '::1', '117.198.18.118', 'Laptop', 'Location details not available', '2024-09-24 04:05:32', NULL, NULL, '2024-09-24 09:35:32', '2024-09-24 09:35:32'),
+(15, 5, 'TESS0012', '::1', '117.198.18.118', 'Laptop', 'Location details not available', '2024-09-24 04:27:02', NULL, NULL, '2024-09-24 09:57:02', '2024-09-24 09:57:02'),
+(16, 2, 'TS0923008', '::1', '117.217.54.240', 'Laptop', 'Location details not available', '2024-09-25 03:51:34', NULL, NULL, '2024-09-25 09:21:34', '2024-09-25 09:21:34');
 
 -- --------------------------------------------------------
 
@@ -1354,7 +1454,7 @@ CREATE TABLE `project` (
   `pro_end_date` varchar(128) DEFAULT NULL,
   `pro_description` varchar(1024) DEFAULT NULL,
   `pro_summary` varchar(512) DEFAULT NULL,
-  `pro_status` enum('upcoming','complete','running') NOT NULL DEFAULT 'running',
+  `pro_status` enum('upcoming','complete','running','hold') NOT NULL DEFAULT 'running',
   `progress` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -1363,15 +1463,13 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id`, `pro_name`, `pro_start_date`, `pro_end_date`, `pro_description`, `pro_summary`, `pro_status`, `progress`) VALUES
-(1, 'Project X23ttt', '2024-09-13', '2024-09-14', 'This is just a demo project vvvv!', 'This is just a demo project rtff!', 'running', NULL),
+(1, 'Project X23', '2024-09-13', '2024-09-14', 'In addition to prompts and writing advice, Vol. 8 includes an added accountability angle. It can be hard to commit to a regular writing practice, but we’re here to help! Using Google Classroom, participants will turn in one page of writing per week and will receive an email from us acknowledging that they have completed their writing for that week. At the program’s end, participants will receive an email letting them know how many weeks they submitted work. Writing will not be read and no feedback will be provided, but we will help you stay on track and celebrate your success!A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long dfdgdgdgdgdggdgfdgdggdgg fgvgvfgfgf  vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv', 'This is just a demo project rtff!', 'hold', NULL),
 (2, 'Multi User Chat System', 'NA', 'April 14, 2022', ' You are required to develop a system that supports multi-user chatting with the help of top level technologies.', 'Development of Multi-User Chatting System', 'running', NULL),
 (3, 'Image Enhancement Software', 'Dec 10, 2021', 'Mar 20, 2022', 'You are required to develop of computer based software where end users can receive quality results on image enhancement. This particular project requires large number of technologies with proper use and its features.', 'Development of Image Enhancement Software', 'running', NULL),
 (4, 'aaaaaCustomer support service operation', '2024-07-18', '2024-07-26', 'sfcvfgdvgYou are required to develop a customer support service based operation using DotNet (.Net)', 'fvggvfgfrDevelop a customer support service operation', 'complete', NULL),
 (5, 'Real Estate Site', 'Dec 29, 2021', 'Mar 21, 2022', ' You are required to develop a real estate website using React, Nodejs.', 'Develop a real-estate website', 'running', NULL),
 (6, 'Graphics Illustration', 'Jan 2, 2022', 'Jan 10, 2022', 'You are required to make a graphic illustration for XYZ company. ', 'Make a graphic illustration for ....', 'running', NULL),
-(7, 'gfhfgfh', '2024-09-20', '2024-09-13', 'fghbftghfth', 'fhgfhf', 'complete', NULL),
-(8, 'aaa', '2024-09-22', '2024-09-15', 'gfbgfnhgf', 'gfbhgfbh', 'running', NULL),
-(9, 'aabbb', '2024-09-20', '2024-09-07', 'ghbgh', 'tfhtfh', 'running', NULL);
+(7, 'gfhfgfh', '2024-09-20', '2024-09-13', 'fghbftghfth', 'fhgfhf', 'complete', NULL);
 
 -- --------------------------------------------------------
 
@@ -1413,7 +1511,8 @@ INSERT INTO `project_file` (`id`, `pro_id`, `file_details`, `file_url`, `assigne
 (19, 3, 'dddddddddfdgfghff', '66a216e6e6bb7.pdf', 'aaMichael'),
 (20, 9, 'fgfgf', '66d7f5a80fd8a.pdf', 'Monalisa Das'),
 (21, 9, 'hgfhf', '66d7fdce227da.pdf', 'Monalisa Das'),
-(22, 1, 'rthytrfh', '66e2b823c501e.pdf', 'Monalisa Das');
+(22, 1, 'rthytrfh', '66e2b823c501e.pdf', 'Monalisa Das'),
+(23, 7, 'dsfcdv', '', 'Monalisa Das');
 
 -- --------------------------------------------------------
 
@@ -1471,7 +1570,7 @@ INSERT INTO `pro_notes` (`id`, `assign_to`, `pro_id`, `details`, `pro_status`) V
 (6, 'Monalisa Das', 1, 'sscfbvcfbfcb', 'Complete'),
 (7, 'Monalisa Das', 9, 'cv dc vdv', '1'),
 (8, 'Monalisa Das', 1, 'sdzsfgfhf', 'Started'),
-(9, 'Dibyanshu Das', 1, 'dsfdssdsds', 'Cancel');
+(9, 'Dibyanshu Das', 1, 'dsfdssdsds', 'Complete');
 
 -- --------------------------------------------------------
 
@@ -1501,23 +1600,9 @@ CREATE TABLE `pro_task` (
 --
 
 INSERT INTO `pro_task` (`id`, `pro_id`, `task_title`, `start_date`, `end_date`, `image`, `description`, `task_type`, `status`, `location`, `return_date`, `total_days`, `create_date`, `approve_status`) VALUES
-(1, 1, 'aaaaaaa', '2024-09-13', '2024-09-13', NULL, 'aaaaaaaaaaaa', 'Field', 'Started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(2, 1, 'bbbbbbb', '2024-09-13', '2024-09-13', NULL, 'bbbbbbbbbb', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
-(3, 1, 'cccccccccc', '2024-09-13', '2024-09-13', NULL, 'cccccccccccccc', 'Field', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
-(4, 1, 'dfcd', '2024-09-14', '2024-09-15', NULL, 'ddf', 'Office', 'complete', NULL, NULL, NULL, NULL, 'Not Approve'),
-(5, 1, 'ghg', '2024-09-14', '2024-09-13', NULL, 'fbhfgbgf', 'Office', 'testing', NULL, NULL, NULL, NULL, 'Not Approve'),
-(6, 1, 'sdcfds', '2024-09-19', '2024-09-27', NULL, 'cgbngvn', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(7, 1, 'rdfg', '2024-09-07', '2024-09-22', NULL, 'fbvfcbv', 'Office', 'Testing', NULL, NULL, NULL, NULL, 'Not Approve'),
-(8, 1, 'erffr', '2024-09-05', '2024-09-22', NULL, 'sdsssd', 'Field', 'Not Started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(9, 1, 'gfhffg', '2024-09-06', '2024-09-15', NULL, 'rfrtggr', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(10, 1, 'dvvvvvv', '2024-09-14', '2024-09-12', NULL, 'fcvdvfgdf', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(11, 1, 'aaaa', '2024-09-14', '2024-09-15', NULL, 'fdvfdv', 'Office', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(12, 1, 'gbg', '2024-09-13', '2024-09-20', NULL, 'dc', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(13, 1, 'fdfdfd', '2024-09-14', '2024-09-14', NULL, 'dfv', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(14, 1, 'efs', '2024-09-15', '2024-09-14', NULL, 'grf', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(15, 1, 'gfggt', '2024-09-20', '2024-09-21', NULL, 'fgbhfg', 'Field', 'Not Started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(16, 1, 'dddd', '2024-09-13', '2024-09-21', NULL, 'fdvfdf', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve'),
-(17, 1, 'asds', '2024-09-14', '2024-09-15', NULL, 'fgbfbb', 'Office', 'Done', NULL, NULL, NULL, NULL, 'Not Approve');
+(1, 1, 'jhjhnjass', '2024-09-05', '2024-09-28', NULL, 'fgfgc', 'Office', 'Testing', NULL, NULL, NULL, NULL, 'Not Approve'),
+(2, 1, 'fgfthf', '2024-09-21', '2024-09-21', NULL, 'ghfh', 'Field', 'Done', NULL, NULL, NULL, NULL, 'Not Approve'),
+(3, 6, 'ghfgh', '2024-09-13', '2024-09-19', NULL, 'fhghgf', 'Field', 'not started', NULL, NULL, NULL, NULL, 'Not Approve');
 
 -- --------------------------------------------------------
 
@@ -1848,6 +1933,18 @@ ALTER TABLE `holiday`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `internship`
+--
+ALTER TABLE `internship`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `intern_request`
+--
+ALTER TABLE `intern_request`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `leads`
 --
 ALTER TABLE `leads`
@@ -1993,7 +2090,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `addition`
@@ -2113,13 +2210,13 @@ ALTER TABLE `emp_experience`
 -- AUTO_INCREMENT for table `emp_form`
 --
 ALTER TABLE `emp_form`
-  MODIFY `emp_form_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `emp_form_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `emp_leave`
 --
 ALTER TABLE `emp_leave`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `emp_penalty`
@@ -2164,10 +2261,22 @@ ALTER TABLE `holiday`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `internship`
+--
+ALTER TABLE `internship`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `intern_request`
+--
+ALTER TABLE `intern_request`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `lead_follow`
@@ -2179,7 +2288,7 @@ ALTER TABLE `lead_follow`
 -- AUTO_INCREMENT for table `leave_apply_approve`
 --
 ALTER TABLE `leave_apply_approve`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `leave_types`
@@ -2203,7 +2312,7 @@ ALTER TABLE `loan_installment`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `logistic_asset`
@@ -2239,7 +2348,7 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT for table `project_file`
 --
 ALTER TABLE `project_file`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `pro_expenses`
@@ -2257,7 +2366,7 @@ ALTER TABLE `pro_notes`
 -- AUTO_INCREMENT for table `pro_task`
 --
 ALTER TABLE `pro_task`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pro_task_assets`

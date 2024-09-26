@@ -124,15 +124,14 @@
                                         required>
                                 </div>
                                 <div class="mb-2">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                                </div>
+                                <div class="mb-2">
                                     <label for="ProjectEndDate" class="form-label">Project End Date</label>
                                     <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate"
                                         required>
 
-                                </div>
-
-                                <div class="mb-2">
-                                    <label for="startDate" class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" name="startDate" required>
                                 </div>
                                 <div class="mb-2">
                                     <label for="Summary" class="form-label">Summary</label>
@@ -151,6 +150,20 @@
                                         <option value="complete">Complete</option>
                                         <option value="running">Running</option>
                                     </select>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Details" class="form-label">Project Image</label>
+                                    <input type="file" class="form-control" id="images" name="imagess">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="Summary" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="emaill" name="email" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Summary" class="form-label">Mobile Number</label>
+                                    <input type="text" class="form-control" id="mobb" name="mob" required>
                                 </div>
                             </div>
                         </div>
@@ -173,6 +186,34 @@
     <?php
     include "common/conn.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+        function handleFileUpload($fieldName, $uploadDir)
+        {
+            global $conn;
+            $image_name = $_FILES[$fieldName]['name'];
+            $image_size = $_FILES[$fieldName]['size'];
+            $image_tmp = $_FILES[$fieldName]['tmp_name'];
+            $file_type = pathinfo($image_name, PATHINFO_EXTENSION);
+            $new_file_name = uniqid() . '.' . $file_type;
+
+            // Ensure upload directory exists
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true); // Ensure directory is writable
+            }
+
+            $target_file = $uploadDir . $new_file_name;
+
+            if (move_uploaded_file($image_tmp, $target_file)) {
+                return $new_file_name; // Return the generated file name if upload succeeds
+            } else {
+                return null; // Return null if upload fails
+            }
+        }
+
+        // File upload directory for images
+        $upload_dir = "assets/uploads/project/";
+
+        // Handle image upload
+        $new_file_name1 = handleFileUpload('imagess', $upload_dir);
         // Retrieve form data
         $ProjectTitle = $_POST['ProjectTitle'];
         $startDate = $_POST['startDate'];
@@ -180,9 +221,11 @@
         $Details = $_POST['Details'];
         $Summary = $_POST['Summary'];
         $Status = $_POST['Status'];
+        $email = $_POST['email'];
+        $mob = $_POST['mob'];
         // Insert data into database
-        $sql = "INSERT INTO project (pro_name, pro_start_date, pro_end_date, pro_description, pro_summary, pro_status) 
-                VALUES ('$ProjectTitle', '$startDate', '$ProjectEndDate', '$Details', '$Summary', '$Status')";
+        $sql = "INSERT INTO project (pro_name, pro_start_date, pro_end_date, pro_description, pro_summary, pro_status, pro_email, pro_mobile, pro_image) 
+                VALUES ('$ProjectTitle', '$startDate', '$ProjectEndDate', '$Details', '$Summary', '$Status', '$email', '$mob', '$new_file_name1')";
 
         if (mysqli_query($conn, $sql)) {
             echo " <script>alert('success')</script>";

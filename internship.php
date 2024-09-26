@@ -42,6 +42,7 @@
                                         <th>Phone Number</th>
                                         <th>Internship On</th>
                                         <th>View Details</th>
+                                        <th>Application Document</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,6 +53,7 @@
                                     $slno = 1;
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
+                                            $intern_id = base64_encode($row['id']);
                                             $id = $row['id'];
                                             ?>
                                             <tr>
@@ -69,6 +71,13 @@
                                                         data-bs-target="#paragraphmodal_<?php echo $id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                </td>
+                                                <td>
+                                                    <?php if (!empty($row['intern_doc'])): ?>
+                                                        <a href="internpdf.php?id=<?php echo $intern_id; ?>" target="_blank">
+                                                            <i class="fas fa-file-pdf"></i>
+                                                        </a>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                             <div class="modal fade" id="paragraphmodal_<?php echo $id; ?>" tabindex="-1"
@@ -105,9 +114,16 @@
                                                                     <strong>Address:</strong>
                                                                     <?php echo $row["intern_add"]; ?>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div
+                                                                    class="col-md-6 d-flex justify-content-between align-items-center">
                                                                     <strong>Valid Govt. Id No.:</strong>
                                                                     <?php echo $row["valid_govt_no"]; ?>
+                                                                    <?php if (!empty($row['intern_doc'])): ?>
+                                                                        <a href="assets/uploads/intern/<?php echo $row['intern_doc']; ?>"
+                                                                            target="_blank">
+                                                                            <i class="fa-solid fa-file-pdf"></i>
+                                                                        </a>
+                                                                    <?php endif; ?>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <strong>Id Type:</strong>
@@ -151,6 +167,7 @@
                                         <th>Phone Number</th>
                                         <th>Internship On</th>
                                         <th>View Details</th>
+                                        <th>View Document</th>
                                     </tr>
                                 </tfoot>
                             </table>

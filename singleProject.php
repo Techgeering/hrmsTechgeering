@@ -135,7 +135,6 @@
                         <div class="row">
                             <?php if ($em_role == '1') { ?>
                                 <div class="col-md-4">
-
                                     <div class="card">
                                         <div class="card-body text-center">
                                             <img src="assets/uploads/employee/6614b390d974e.jpg" class="img-circle"
@@ -261,7 +260,8 @@
                                                     cols="80"><?php echo $row["pro_description"]; ?></textarea>
                                             <?php } else { ?>
                                                 <p class="form-control form-control-line">
-                                                    <?php echo $row["pro_description"]; ?></p>
+                                                    <?php echo $row["pro_description"]; ?>
+                                                </p>
                                             <?php } ?>
                                             <?php if ($em_role == '1') { ?>
                                                 <textarea class='txtedit'

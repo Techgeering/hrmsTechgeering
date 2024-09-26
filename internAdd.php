@@ -62,8 +62,14 @@
                                             <input type="date" class="form-control" id="dob" name="dob" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="maritalstatus">Current Educational Qualification</label>
-                                            <input type="text" class="form-control" id="currntedu" name="currntedu">
+                                            <label for="department">Id Type</label>
+                                            <select name="idtype" id="idtype" class="form-control" required>
+                                                <option value="">Select Id</option>
+                                                <option value="adhaar">Adhaar</option>
+                                                <option value="pan card">Pan</option>
+                                                <option value="driving licence">Driving Licence</option>
+                                                <option value="other">Other</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -81,22 +87,16 @@
                                                 required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="department">Id Type</label>
-                                            <select name="idtype" id="idtype" class="form-control" required>
-                                                <option value="">Select Id</option>
-                                                <option value="adhaar">Adhaar</option>
-                                                <option value="pan card">Pan</option>
-                                                <option value="driving licence">Driving Licence</option>
-                                                <option value="other">Other</option>
-                                            </select>
+                                            <label for="maritalstatus">Current Educational Qualification</label>
+                                            <input type="text" class="form-control" id="currntedu" name="currntedu">
                                         </div>
                                         <div class="form-group">
                                             <label for="professionalEmail">College Name</label>
                                             <input type="text" class="form-control" id="clgname" name="clgname">
                                         </div>
                                         <div class="form-group">
-                                            <label for="emergencycontact">Internship On</label>
-                                            <input type="text" class="form-control" id="internship" name="internship">
+                                            <label for="govtid">Govt Id Number</label>
+                                            <input type="text" class="form-control" id="govtid" name="govtid">
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -111,8 +111,8 @@
                                                 required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="govtid">Govt Id Number</label>
-                                            <input type="text" class="form-control" id="govtid" name="govtid">
+                                            <label for="emergencycontact">Internship On</label>
+                                            <input type="text" class="form-control" id="internship" name="internship">
                                         </div>
                                         <div class="form-group">
                                             <label for="clgid">College Id Number</label>
@@ -120,7 +120,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="clgid">Document</label>
-                                            <input type="file" class="form-control" id="clgid" name="clgid">
+                                            <input type="file" class="form-control" id="docc" name="doc">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -146,7 +146,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <?php
     include "common/conn.php";
+
     if (isset($_POST['submit'])) {
+        // Function to handle file uploads
         function handleFileUpload($fieldName, $uploadDir)
         {
             global $conn;
@@ -160,6 +162,7 @@
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true); // Ensure directory is writable
             }
+
             $target_file = $uploadDir . $new_file_name;
 
             if (move_uploaded_file($image_tmp, $target_file)) {
@@ -168,11 +171,37 @@
                 return null; // Return null if upload fails
             }
         }
-        // File upload directory
+
+        // File upload directory for images
         $upload_dir = "assets/uploads/intern/";
 
+        // Handle image upload
         $new_file_name1 = handleFileUpload('imagess', $upload_dir);
 
+        // Handle PDF upload if exists
+        if (isset($_FILES['doc'])) {
+            $pdf1File = $_FILES['doc'];
+            $pdf1FileName = $pdf1File['name'];
+            $pdf1FileTmp = $pdf1File['tmp_name'];
+
+            if ($pdf1FileName) {
+                $pdf1FileType = pathinfo($pdf1FileName, PATHINFO_EXTENSION);
+                $pdf1NewFileName = uniqid() . '.' . $pdf1FileType;
+                $pdf1UploadDir = "assets/uploads/intern/";
+
+                // Ensure upload directory for PDFs exists
+                if (!is_dir($pdf1UploadDir)) {
+                    mkdir($pdf1UploadDir, 0777, true);
+                }
+
+                $pdf1TargetFile = $pdf1UploadDir . $pdf1NewFileName;
+
+                // Move the PDF file to the directory
+                move_uploaded_file($pdf1FileTmp, $pdf1TargetFile);
+            }
+        }
+
+        // Get form data
         $name = $_POST["name"];
         $fathername = $_POST["fathername"];
         $address = htmlspecialchars($_POST["address"]);
@@ -188,7 +217,9 @@
         $govtid = $_POST["govtid"];
         $clgid = $_POST["clgid"];
 
-        $sql = "INSERT INTO internship (intern_name, father_name, intern_add, intern_email, clg_name, gender, phone, mother_name, id_type, dob, edu_qualification, internship_on, valid_govt_no, college_id, intern_image) VALUES ('$name','$fathername','$address','$emailid','$clgname','$gender','$mobilenumber','$mothername','$idtype','$dob','$currntedu','$internship','$govtid','$clgid','$new_file_name1')";
+        $sql = "INSERT INTO internship (intern_name, father_name, intern_add, intern_email, clg_name, gender, phone, mother_name, id_type, dob, edu_qualification, internship_on, valid_govt_no, college_id, intern_image, intern_doc) 
+            VALUES ('$name','$fathername','$address','$emailid','$clgname','$gender','$mobilenumber','$mothername','$idtype','$dob','$currntedu','$internship','$govtid','$clgid','$new_file_name1','$pdf1NewFileName')";
+
         if ($conn->query($sql) === true) {
             echo "<script>window.location.href='internship.php';</script>";
         } else {
@@ -197,6 +228,7 @@
         $conn->close();
     }
     ?>
+
 </body>
 
 </html>
