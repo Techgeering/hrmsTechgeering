@@ -131,11 +131,49 @@
                                     <label for="ProjectEndDate" class="form-label">Project End Date</label>
                                     <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate"
                                         required>
-
                                 </div>
                                 <div class="mb-2">
-                                    <label for="Summary" class="form-label">Summary</label>
-                                    <input type="text" class="form-control" id="Summary" name="Summary" required>
+                                    <label for="stateDropdown">State</label>
+                                    <select class="form-control" id="stateDropdown" name="state"
+                                        onchange="calculateGST()">
+                                        <option value="">Select State</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                        <option value="Assam">Assam</option>
+                                        <option value="Bihar">Bihar</option>
+                                        <option value="Chhattisgarh">Chhattisgarh</option>
+                                        <option value="Goa">Goa</option>
+                                        <option value="Gujarat">Gujarat</option>
+                                        <option value="Haryana">Haryana</option>
+                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                        <option value="Jharkhand">Jharkhand</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Manipur">Manipur</option>
+                                        <option value="Meghalaya">Meghalaya</option>
+                                        <option value="Mizoram">Mizoram</option>
+                                        <option value="Nagaland">Nagaland</option>
+                                        <option value="odisha">Odisha</option>
+                                        <option value="Punjab">Punjab</option>
+                                        <option value="Rajasthan">Rajasthan</option>
+                                        <option value="Sikkim">Sikkim</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        <option value="Telangana">Telangana</option>
+                                        <option value="Tripura">Tripura</option>
+                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                        <option value="Uttarakhand">Uttarakhand</option>
+                                        <option value="West Bengal">West Bengal</option>
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Summary" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="emaill" name="email" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Summary" class="form-label">Mobile Number</label>
+                                    <input type="text" class="form-control" id="mobb" name="mob" required>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -155,16 +193,20 @@
                                     <label for="Details" class="form-label">Project Image</label>
                                     <input type="file" class="form-control" id="images" name="imagess">
                                 </div>
+                                <!-- <div class="mb-2">
+                                    <label for="Details" class="form-label">Project Address</label>
+                                    <input type="text" class="form-control" id="adds" name="adds1">
+                                </div> -->
+                                <div class="mb-2">
+                                    <label for="Details" class="form-label">GST Number</label>
+                                    <input type="text" class="form-control" id="gstt" name="gst">
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <div class="mb-2">
-                                    <label for="Summary" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="emaill" name="email" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="Summary" class="form-label">Mobile Number</label>
-                                    <input type="text" class="form-control" id="mobb" name="mob" required>
-                                </div>
+                            <div class="col-12">
+
+                                <label for="Details" class="form-label">Project Address</label>
+                                <input type="text" class="form-control" id="adds" name="adds1">
+
                             </div>
                         </div>
                     </div>
@@ -223,9 +265,12 @@
         $Status = $_POST['Status'];
         $email = $_POST['email'];
         $mob = $_POST['mob'];
+        $add = $_POST['adds1'];
+        $gst = $_POST['gst'];
+        $state = $_POST['state'];
         // Insert data into database
-        $sql = "INSERT INTO project (pro_name, pro_start_date, pro_end_date, pro_description, pro_summary, pro_status, pro_email, pro_mobile, pro_image) 
-                VALUES ('$ProjectTitle', '$startDate', '$ProjectEndDate', '$Details', '$Summary', '$Status', '$email', '$mob', '$new_file_name1')";
+        $sql = "INSERT INTO project (pro_name, pro_start_date, pro_end_date, pro_description, pro_summary, pro_status, pro_email, pro_mobile, pro_image, pro_address, pro_gstno, state) 
+                VALUES ('$ProjectTitle', '$startDate', '$ProjectEndDate', '$Details', '$Summary', '$Status', '$email', '$mob', '$new_file_name1','$add','$gst','$state')";
 
         if (mysqli_query($conn, $sql)) {
             echo " <script>alert('success')</script>";

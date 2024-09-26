@@ -131,6 +131,7 @@
                             <a class="nav-link" href="allbalance.php">Balance Sheet</a>
                             <a class="nav-link" href="expenditure.php">Expenditure</a>
                             <a class="nav-link" href="expenditure_calculator.php">Expenditure Calculator</a>
+                            <a class="nav-link" href="billing.php">Billing</a>
                         </nav>
                     </div>
                 <?php } ?>

@@ -139,17 +139,21 @@
                                         <div class="card-body text-center">
                                             <img src="assets/uploads/employee/6614b390d974e.jpg" class="img-circle"
                                                 width="150">
-                                            <h4 class="card-title m-t-10">ccccc</h4>
-                                            <h6 class="card-subtitle">ccccc</h6>
+                                            <!-- <h4 class="card-title m-t-10">ccccc</h4>
+                                            <h6 class="card-subtitle">ccccc</h6> -->
                                         </div>
                                         <div>
                                             <hr>
                                         </div>
                                         <div class="card-body">
                                             <small class="text-muted">Email address </small>
-                                            <h6>ffff</h6>
+                                            <h6><?php echo $row["pro_email"]; ?></h6>
                                             <small class="text-muted p-t-30 db">Phone</small>
-                                            <h6>ffff</h6>
+                                            <h6><?php echo $row["pro_mobile"]; ?></h6>
+                                            <small class="text-muted p-t-30 db">GST Number</small>
+                                            <h6><?php echo $row["pro_gstno"]; ?></h6>
+                                            <small class="text-muted p-t-30 db">Address</small>
+                                            <h6><?php echo $row["pro_address"]; ?></h6>
                                         </div>
                                     </div>
                                 </div>
