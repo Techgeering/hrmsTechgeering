@@ -61,7 +61,15 @@
                                     <?php
                                     include "common/conn.php"; // Make sure this file exists and contains database connection code
                                     if ($em_role == '1' || $em_role == '2' || $em_role == '3') {
-                                        $sql = "SELECT * FROM project";
+                                        // $sql = "SELECT * FROM project";
+                                        $sql = "SELECT * FROM project 
+                                                    ORDER BY 
+                                                        CASE 
+                                                            WHEN pro_status = 'running' THEN 1
+                                                            WHEN pro_status = 'upcoming' THEN 2
+                                                            WHEN pro_status = 'complete' THEN 3
+                                                            ELSE 4 
+                                                        END";
                                     } else {
                                         $sql = "SELECT p.*, 
                                                 GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users

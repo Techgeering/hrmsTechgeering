@@ -150,25 +150,38 @@
                                         </div>
                                         <div class="card-body">
                                             <small class="text-muted">Email address </small>
-                                            <h6 class="edit"><?php echo $row["pro_email"]; ?></h6>
-                                            <input type="text" class='txtedit' value='<?php echo $row["pro_email"]; ?>'
+                                            <h6 class="edit">
+                                                <?php echo !empty($row["pro_email"]) ? $row["pro_email"] : 'N/A'; ?>
+                                            </h6>
+                                            <input type="text" class='txtedit'
+                                                value='<?php echo !empty($row["pro_email"]) ? $row["pro_email"] : 'N/A'; ?>'
                                                 id='pro_email-<?php echo $row["id"]; ?>-project' style="display:none;">
                                             </input>
                                             <small class="text-muted p-t-30 db">Phone</small>
-                                            <h6 class="edit"><?php echo $row["pro_mobile"]; ?></h6>
-                                            <input type="text" class='txtedit' value='<?php echo $row["pro_mobile"]; ?>'
+                                            <h6 class="edit">
+                                                <?php echo !empty($row["pro_mobile"]) ? $row["pro_mobile"] : 'N/A'; ?>
+                                            </h6>
+                                            <input type="text" class='txtedit'
+                                                value='<?php echo !empty($row["pro_mobile"]) ? $row["pro_mobile"] : 'N/A'; ?>'
                                                 id='pro_mobile-<?php echo $row["id"]; ?>-project' style="display:none;">
                                             </input>
                                             <small class="text-muted p-t-30 db">GST Number</small>
-                                            <h6 class="edit"><?php echo $row["pro_gstno"]; ?></h6>
-                                            <input type="text" class='txtedit' value='<?php echo $row["pro_gstno"]; ?>'
+                                            <h6 class="edit">
+                                                <?php echo !empty($row["pro_gstno"]) ? $row["pro_gstno"] : 'N/A'; ?>
+                                            </h6>
+                                            <input type="text" class='txtedit'
+                                                value='<?php echo !empty($row["pro_gstno"]) ? $row["pro_gstno"] : 'N/A'; ?>'
                                                 id='pro_gstno-<?php echo $row["id"]; ?>-project' style="display:none;">
                                             </input>
                                             <small class="text-muted p-t-30 db">Address</small>
-                                            <h6 class="edit"><?php echo $row["pro_address"]; ?></h6>
-                                            <input type="text" class='txtedit' value='<?php echo $row["pro_address"]; ?>'
+                                            <h6 class="edit">
+                                                <?php echo !empty($row["pro_address"]) ? $row["pro_address"] : 'N/A'; ?>
+                                            </h6>
+                                            <input type="text" class='txtedit'
+                                                value='<?php echo !empty($row["pro_address"]) ? $row["pro_address"] : 'N/A'; ?>'
                                                 id='pro_address-<?php echo $row["id"]; ?>-project' style="display:none;">
                                             </input>
+
                                         </div>
                                     </div>
                                 </div>
