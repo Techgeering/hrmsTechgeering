@@ -63,11 +63,6 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-
-                                    <div class="col-3">
-                                        <label>Invoice Number</label>
-                                        <input type="text" class="form-control" id="invoicee" name="invoicccc">
-                                    </div>
                                 </div>
 
                                 <div id="form-container">
@@ -113,29 +108,39 @@
         $date1 = $_POST["date1"];
         $gst1 = $_POST["gst1"];
         $pro_value = $_POST["pro_value"];
-        $invoicccc = $_POST["invoicccc"];
+        // $invoicccc = $_POST["invoicccc"];
         $descriptions = $_POST["des1"];
         $services = $_POST["service"];
         $hsns = $_POST["hsn1"];
         $totalamounts = $_POST["totalamount1"];
 
-        $sql = "INSERT INTO project_invoice (date, pro_gst, project_id, invoice_number) VALUES ('$date1','$gst1','$pro_value','$invoicccc')";
+        $sql = "INSERT INTO project_invoice (date, pro_gst, project_id) VALUES ('$date1','$gst1','$pro_value')";
         if ($conn->query($sql) === true) {
+            $last_id = $conn->insert_id;
+            $monthNumber = date('m');
+            $year = date('Y');
+            $invoicccc = $year . $monthNumber . $last_id;
 
-            foreach ($descriptions as $index => $description) {
-                $invoice = $invoicccc;
-                $service = mysqli_real_escape_string($conn, $services[$index]);
-                $hsn = mysqli_real_escape_string($conn, $hsns[$index]);
-                $totalamount = mysqli_real_escape_string($conn, $totalamounts[$index]);
-                // Insert product data into the database
-                $sql = "INSERT INTO invoice_details 
+            $sql2 = "UPDATE project_invoice SET invoice_number='$invoicccc'  WHERE id = '$last_id'";
+            if ($conn->query($sql2) === true) {
+
+                foreach ($descriptions as $index => $description) {
+                    $invoice = $invoicccc;
+                    $service = mysqli_real_escape_string($conn, $services[$index]);
+                    $hsn = mysqli_real_escape_string($conn, $hsns[$index]);
+                    $totalamount = mysqli_real_escape_string($conn, $totalamounts[$index]);
+                    // Insert product data into the database
+                    $sql1 = "INSERT INTO invoice_details 
                 (invoice_number, description, service, hsn_num, total_amount) VALUES ('$invoice', '$description', '$service', '$hsn', '$totalamount')";
 
-                if ($conn->query($sql) !== true) {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
+                    if ($conn->query($sql1) !== true) {
+                        echo "Error: " . $sql1 . "<br>" . $conn->error;
+                    }
                 }
+                echo "<script>window.location.href='billing.php';</script>";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
             }
-            echo "<script>window.location.href='billing.php';</script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

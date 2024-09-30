@@ -93,9 +93,10 @@
         <?php
         include 'common/conn.php';
         // $proId = 2;
-        $proId = $_GET["id"];
+        // $proId = $_GET["id"];
+        $proId = isset($_GET['id']) ? $_GET['id'] : NULL;
         $proId = base64_decode($proId);
-        $sql = "SELECT * FROM project WHERE id =$proId";
+        $sql = "SELECT * FROM project WHERE id ='$proId'";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
         ?>
@@ -137,23 +138,37 @@
                                 <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-body text-center">
-                                            <img src="assets/uploads/employee/6614b390d974e.jpg" class="img-circle"
-                                                width="150">
-                                            <!-- <h4 class="card-title m-t-10">ccccc</h4>
-                                            <h6 class="card-subtitle">ccccc</h6> -->
+                                            <img src="<?php echo $row["pro_image"];
+                                            ?>" class="img-circle" width="150">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModalCenter">
+                                                <i class="fas fa-pencil-alt edit-icon">Edit image</i>
+                                            </button>
                                         </div>
                                         <div>
                                             <hr>
                                         </div>
                                         <div class="card-body">
                                             <small class="text-muted">Email address </small>
-                                            <h6><?php echo $row["pro_email"]; ?></h6>
+                                            <h6 class="edit"><?php echo $row["pro_email"]; ?></h6>
+                                            <input type="text" class='txtedit' value='<?php echo $row["pro_email"]; ?>'
+                                                id='pro_email-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                            </input>
                                             <small class="text-muted p-t-30 db">Phone</small>
-                                            <h6><?php echo $row["pro_mobile"]; ?></h6>
+                                            <h6 class="edit"><?php echo $row["pro_mobile"]; ?></h6>
+                                            <input type="text" class='txtedit' value='<?php echo $row["pro_mobile"]; ?>'
+                                                id='pro_mobile-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                            </input>
                                             <small class="text-muted p-t-30 db">GST Number</small>
-                                            <h6><?php echo $row["pro_gstno"]; ?></h6>
+                                            <h6 class="edit"><?php echo $row["pro_gstno"]; ?></h6>
+                                            <input type="text" class='txtedit' value='<?php echo $row["pro_gstno"]; ?>'
+                                                id='pro_gstno-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                            </input>
                                             <small class="text-muted p-t-30 db">Address</small>
-                                            <h6><?php echo $row["pro_address"]; ?></h6>
+                                            <h6 class="edit"><?php echo $row["pro_address"]; ?></h6>
+                                            <input type="text" class='txtedit' value='<?php echo $row["pro_address"]; ?>'
+                                                id='pro_address-<?php echo $row["id"]; ?>-project' style="display:none;">
+                                            </input>
                                         </div>
                                     </div>
                                 </div>
@@ -553,11 +568,33 @@
                                                             $result17 = $conn->query($sql17);
                                                             $row17 = $result17->fetch_assoc();
                                                             ?>
-                                                            <div class="modal-body">
+                                                            <!-- <div class="modal-body">
                                                                 <div class="row g-3">
                                                                     <div class="col-md-12">
                                                                         <strong>Project Description:</strong>
                                                                         <?php echo $row17["description"]; ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+                                                            <div class="modal-body">
+                                                                <div class="row g-3">
+                                                                    <div class="col-md-12">
+                                                                        <strong>Project Description:</strong>
+                                                                        <?php if ($em_role == '1') { ?>
+                                                                            <textarea
+                                                                                class="form-control form-control-line col-6 edit"
+                                                                                rows="6"
+                                                                                cols="80"><?php echo $row17["description"]; ?></textarea>
+                                                                        <?php } else { ?>
+                                                                            <p class="form-control form-control-line">
+                                                                                <?php echo $row17["description"]; ?>
+                                                                            </p>
+                                                                        <?php } ?>
+                                                                        <?php if ($em_role == '1') { ?>
+                                                                            <textarea class='txtedit'
+                                                                                id='description-<?php echo $row17["id"]; ?>-pro_task'
+                                                                                style="display:none; width:100%; height:150px;"><?php echo $row17["description"]; ?></textarea>
+                                                                        <?php } ?>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -855,7 +892,21 @@
                                                                 <div class="row g-3">
                                                                     <div class="col-md-12">
                                                                         <strong>Project Description:</strong>
-                                                                        <?php echo $row18["description"]; ?>
+                                                                        <?php if ($em_role == '1') { ?>
+                                                                            <textarea
+                                                                                class="form-control form-control-line col-6 edit"
+                                                                                rows="6"
+                                                                                cols="80"><?php echo $row18["description"]; ?></textarea>
+                                                                        <?php } else { ?>
+                                                                            <p class="form-control form-control-line">
+                                                                                <?php echo $row18["description"]; ?>
+                                                                            </p>
+                                                                        <?php } ?>
+                                                                        <?php if ($em_role == '1') { ?>
+                                                                            <textarea class='txtedit'
+                                                                                id='description-<?php echo $row18["id"]; ?>-pro_task'
+                                                                                style="display:none; width:100%; height:150px;"><?php echo $row18["description"]; ?></textarea>
+                                                                        <?php } ?>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1275,7 +1326,6 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
-
     <?php
     include "common/conn.php";
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_update']) && isset($_POST['idd'])) {
@@ -1293,6 +1343,7 @@
         $conn->close();
     }
     ?>
+
 
     <!-- task modal -->
     <div class="modal fade" id="addDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
@@ -1670,6 +1721,83 @@
             </div>
         </div>
     </div>
+
+
+    <!-- modal for change image -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Profile</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="myform" action="<?php $_SERVER['PHP_SELF']; ?>" method='post'
+                    enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputfile"></label>
+                                <input type="hidden" value="<?php echo $row["id"]; ?>" name="id7" id="id7">
+                                <div class="form-group col-12">
+                                    <label for="image">Project Image</label>
+                                    <input type="file" class="form-control" placeholder="" name="image" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="update3" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <?php
+    if (isset($_POST['update3'])) {
+        include "common/conn.php";
+        $id = $_POST["id7"];
+        $image_name = $_FILES['image']['name'];
+        $image_size = $_FILES['image']['size'];
+        $image_tmp = $_FILES['image']['tmp_name'];
+        $image_error = $_FILES['image']['error'];
+        $file_type = pathinfo($image_name, PATHINFO_EXTENSION);
+        $new_file_name = uniqid() . '.' . $file_type;
+
+        $upload_dir = "assets/uploads/project";
+
+        // Check if the directory exists, and create it if not
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+        $target_file = $upload_dir . '/' . $new_file_name;
+        // Check for file upload errors
+        if ($image_error === 0) {
+            if (move_uploaded_file($image_tmp, $target_file)) {
+                echo "<script>alert('Image uploaded successfully');</script>";
+            } else {
+                echo "<script>alert('Image not uploaded');</script>";
+            }
+
+            // Update the database with the new image path
+            $sql34 = "UPDATE project SET pro_image='assets/uploads/project/$new_file_name' WHERE id='$id'";
+            if ($conn->query($sql34) === true) {
+                echo "<script>window.location.href='singleProject.php';</script>";
+            } else {
+                echo "<script>alert('Database update failed: " . $conn->error . "');</script>";
+            }
+        } else {
+            echo "<script>alert('Error during image upload');</script>";
+        }
+
+        $conn->close();
+    }
+    ?>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

@@ -63,6 +63,7 @@ if ($row = $result->fetch_assoc()) {
         unset($_SESSION["login_history_id"]); // Clear the login history ID from the session
 
         // Redirect to login page
+        echo '<script>localStorage.clear();</script>';
         echo '<script>window.location.href = "login.php";</script>';
     } else {
         // Handle update failure

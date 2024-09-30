@@ -41,18 +41,24 @@
                                     placeholder="User Id" />
                                  <label for="inputEmail">User Id</label>
                               </div>
-                              <div class="form-floating mb-3">
+                              <div class="form-floating mb-3 position-relative">
                                  <input class="form-control" name="password" id="inputPassword" type="password"
                                     placeholder="Password" />
                                  <label for="inputPassword">Password</label>
+                                 <button type="button" class="btn btn-light position-absolute"
+                                    style="right: 10px; top: 50%; transform: translateY(-50%);"
+                                    onclick="togglePassword()">
+                                    <i id="eyeIcon" class="fa fa-eye"></i>
+                                 </button>
                               </div>
                               <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                 <!-- <div class="small">
-                                    <input class="form-check-input" id="inputRememberPassword" type="checkbox"
-                                       value="" />
+                                 <div class="small">
+                                    <input class="form-check-input" id="inputRememberPassword" name="rememberme"
+                                       type="checkbox" <?php if (isset($_COOKIE['remember_username']))
+                                          echo 'checked'; ?> />
                                     <label class="form-check-label" for="inputRememberPassword">Remember
                                        Password</label>
-                                 </div> -->
+                                 </div>
                                  <input type="submit" class="btn btn-primary" name="login" value="Login">
                               </div>
                            </form>
@@ -95,6 +101,26 @@
             $_SESSION["username"] = "$emp_tbl_id";
             $_SESSION["em_role"] = "$em_role";
             $_SESSION["emp_id"] = "$emp_id";
+
+
+
+            if (isset($_POST['rememberme'])) {
+               // Set cookie for persistent login
+               setcookie('remember_username', $emp_tbl_id, time() + (86400 * 30), "/"); // 30 days expiration
+               setcookie('em_role', $em_role, time() + (86400 * 30), "/");
+               setcookie('emp_id', $emp_id, time() + (86400 * 30), "/");
+
+               // Set session storage for current session
+               echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
+               echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
+               echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
+            } else {
+               // Set session storage for current session only
+               echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
+               echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
+               echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
+            }
+
 
             // Fetch the IP addresses
             $ip_v6_address = $_SERVER['REMOTE_ADDR'];
@@ -164,6 +190,23 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"></script>
    <script src="assets/js/scripts.js"></script>
+   <!-- for password hide and show -->
+   <script>
+      function togglePassword() {
+         const passwordInput = document.getElementById('inputPassword');
+         const eyeIcon = document.getElementById('eyeIcon');
+
+         if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+         } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+         }
+      }
+   </script>
 </body>
 
 </html>

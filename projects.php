@@ -97,7 +97,6 @@
                                     ?>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -123,14 +122,29 @@
                                     <input type="text" class="form-control" id="ProjectTitle" name="ProjectTitle"
                                         required>
                                 </div>
+                                <!-- <div class="mb-2">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="ProjectEndDate" class="form-label">Project End Date</label>
+                                    <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate">
+                                </div> -->
                                 <div class="mb-2">
                                     <label for="startDate" class="form-label">Start Date</label>
                                     <input type="date" class="form-control" id="startDate" name="startDate" required>
                                 </div>
                                 <div class="mb-2">
                                     <label for="ProjectEndDate" class="form-label">Project End Date</label>
-                                    <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate"
-                                        required>
+                                    <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="ProjectEndDate" class="form-label">Project End Date</label>
+                                    <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate">
                                 </div>
                                 <div class="mb-2">
                                     <label for="stateDropdown">State</label>
@@ -169,17 +183,18 @@
                                 </div>
                                 <div class="mb-2">
                                     <label for="Summary" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="emaill" name="email" required>
+                                    <input type="email" class="form-control" id="emaill" name="email">
                                 </div>
                                 <div class="mb-2">
                                     <label for="Summary" class="form-label">Mobile Number</label>
-                                    <input type="text" class="form-control" id="mobb" name="mob" required>
+                                    <input type="text" class="form-control" id="mobb" name="mob">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="Details" class="form-label">Details</label>
-                                    <textarea class="form-control" id="Details" name="Details" rows="7"></textarea>
+                                    <textarea class="form-control" id="Details" name="Details" rows="7"
+                                        required></textarea>
                                 </div>
                                 <div class="mb-2">
                                     <label for="Status" class="form-label">Status</label>
@@ -277,11 +292,18 @@
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
-
-        // Close connection
         mysqli_close($conn);
     }
     ?>
 </body>
 
 </html>
+<!-- disable the previous date -->
+<script>
+    document.getElementById('startDate').addEventListener('change', function () {
+        var startDate = this.value;
+        var endDateField = document.getElementById('ProjectEndDate');
+        endDateField.value = ''; // Clear the end date field if it was previously filled
+        endDateField.setAttribute('min', startDate); // Set the minimum allowed date for ProjectEndDate
+    });
+</script>

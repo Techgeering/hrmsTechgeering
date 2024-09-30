@@ -1,6 +1,20 @@
 <?php
 session_start();
 include "common/conn.php";
+
+// Check if user ID and designation are set in session or session storage
+if (!isset($_SESSION['username']) && isset($_COOKIE['remember_username'])) {
+    // Retrieve login information from cookies
+    $_SESSION['username'] = $_COOKIE['remember_username'];
+    $_SESSION['em_role'] = $_COOKIE['em_role'];
+}
+
+// Check if user ID and designation are set in session
+if (!isset($_SESSION['username']) || !isset($_SESSION['em_role'])) {
+    header("location: login.php"); // Redirect to login page if session variables are not set
+    exit(); // Terminate script execution after redirection
+}
+
 $userid = $_SESSION['username'];
 $em_role = $_SESSION['em_role'];
 if ($userid === NULL) {
