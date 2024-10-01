@@ -12,7 +12,14 @@ date_default_timezone_set('Asia/Kolkata');
 
 // Capture the current time for logout
 $logout_time = date("Y-m-d H:i:s");
+unset($_SESSION["username"]);
+unset($_SESSION["em_role"]);
+unset($_SESSION["emp_id"]);
 
+// Clear cookies
+setcookie('remember_username', '', time() - 3600, "/");
+setcookie('em_role', '', time() - 3600, "/");
+setcookie('emp_id', '', time() - 3600, "/");
 // Ensure the login history ID is available in the session
 if (!isset($_SESSION['login_history_id'])) {
     die('Login history ID not set in session.');
@@ -63,8 +70,11 @@ if ($row = $result->fetch_assoc()) {
         unset($_SESSION["login_history_id"]); // Clear the login history ID from the session
 
         // Redirect to login page
-        echo '<script>localStorage.clear();</script>';
-        echo '<script>window.location.href = "login.php";</script>';
+        echo "<script>
+    localStorage.clear();
+    sessionStorage.clear(); // Optional, in case you want to clear sessionStorage too
+    window.location.href = 'login.php'; // Redirect to login or another page
+</script>";
     } else {
         // Handle update failure
         echo 'Error updating logout time: ' . htmlspecialchars($stmt->error);

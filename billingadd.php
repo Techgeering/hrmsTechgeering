@@ -49,19 +49,16 @@
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <label for="subcategoryDropdown">Project Name:</label>
-                                        <select class="form-control" name="pro_value" required>
-                                            <option value="">Select Project</option>
-                                            <?php
-                                            $sql2 = "SELECT * FROM project";
-                                            $result2 = $conn->query($sql2);
-                                            while ($row2 = $result2->fetch_assoc()) {
-                                                ?>
-                                                <option value="<?php echo $row2["id"]; ?>">
-                                                    <?php echo $row2["pro_name"]; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
+                                        <label for="projectInput">Project Name:</label>
+                                        <input type="text" id="projectInput" class="form-control"
+                                            placeholder="Enter project name" autocomplete="off">
+
+                                        <div id="projectSuggestions" class="dropdown-menu"
+                                            style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; position: absolute; z-index: 1000;">
+                                        </div>
+
+                                        <!-- Hidden input to store project ID -->
+                                        <input type="hidden" id="projectId" name="pro_value">
                                     </div>
                                 </div>
 
@@ -75,16 +72,17 @@
                                             </div>
                                             <div class="col-2">
                                                 <label>Service</label>
-                                                <input type="text" class="form-control" id="service" name="service[]">
+                                                <input type="text" class="form-control" placeholder="Enter service name"
+                                                    name="service[]" oninput="showSuggestions(this.value, this)">
+                                                <div class="suggestion-dropdown" style="display:none;"></div>
                                             </div>
                                             <div class="col-2">
                                                 <label>HSN</label>
-                                                <input type="text" class="form-control" id="hsn" name="hsn1[]">
+                                                <input type="text" class="form-control" name="hsn1[]" readonly>
                                             </div>
                                             <div class="col-2">
                                                 <label>Total Amount</label>
-                                                <input type="text" class="form-control" id="totalamount"
-                                                    name="totalamount1[]">
+                                                <input type="text" class="form-control" name="totalamount1[]">
                                             </div>
                                             <div class="col-2 mt-4">
                                                 <button type="button" class="btn btn-danger remove-product">-</button>
@@ -154,14 +152,105 @@
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <!-- for project name suggetions -->
     <script>
+        document.getElementById('projectInput').addEventListener('input', function () {
+            const selectedProject = this.value;
+            const suggestionsContainer = document.getElementById('projectSuggestions');
+            if (selectedProject) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'get_projects.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onload = function () {
+                    if (this.status === 200) {
+                        const projects = JSON.parse(this.responseText);
+                        suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+
+                        if (projects.length > 0) {
+                            projects.forEach(project => {
+                                // Create a suggestion item
+                                const suggestionItem = document.createElement('div');
+                                suggestionItem.textContent = project.pro_name; // Adjust this according to your data
+                                suggestionItem.className = 'dropdown-item';
+                                suggestionItem.style.cursor = 'pointer';
+
+                                // When a suggestion is clicked
+                                suggestionItem.addEventListener('click', function () {
+                                    document.getElementById('projectInput').value = project.pro_name;
+                                    document.getElementById('projectId').value = project.id; // Store the project ID
+                                    suggestionsContainer.style.display = 'none'; // Hide suggestions
+                                });
+
+                                suggestionsContainer.appendChild(suggestionItem);
+                            });
+                            suggestionsContainer.style.display = 'block'; // Show suggestions
+                        } else {
+                            suggestionsContainer.style.display = 'none'; // Hide if no suggestions
+                        }
+                    }
+                };
+                xhr.send('pro_name=' + encodeURIComponent(selectedProject));
+            } else {
+                suggestionsContainer.style.display = 'none'; // Hide if input is empty
+            }
+        });
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!document.getElementById('projectInput').contains(e.target)) {
+                document.getElementById('projectSuggestions').style.display = 'none';
+            }
+        });
+    </script>
+    <!-- for service name and it's hsn number -->
+    <script>
+        function showSuggestions(value, inputElement) {
+            const suggestions = inputElement.parentElement.querySelector(".suggestion-dropdown");
+            suggestions.innerHTML = ""; // Clear previous suggestions
+
+            if (value.length > 0) {
+                // Make AJAX call to fetch services
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET", `get_service.php?term=${encodeURIComponent(value)}`, true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        const services = JSON.parse(xhr.responseText);
+                        services.forEach(service => {
+                            const suggestionDiv = document.createElement("div");
+                            suggestionDiv.textContent = service.service_name;
+                            suggestionDiv.onclick = () => selectService(service, inputElement);
+                            suggestions.appendChild(suggestionDiv);
+                        });
+
+                        if (services.length > 0) {
+                            suggestions.style.display = "block"; // Show dropdown
+                        } else {
+                            suggestions.style.display = "none"; // Hide dropdown if no matches
+                        }
+                    } else {
+                        console.error("Error fetching services: " + xhr.statusText);
+                    }
+                };
+                xhr.send();
+            } else {
+                suggestions.style.display = "none"; // Hide dropdown if input is empty
+            }
+        }
+
+        function selectService(service, inputElement) {
+            const hsnInput = inputElement.parentElement.nextElementSibling.querySelector("input");
+            inputElement.value = service.service_name;
+            hsnInput.value = service.hsn_num; // Use the correct property for HSN
+            inputElement.parentElement.querySelector(".suggestion-dropdown").style.display = "none"; // Hide dropdown after selection
+        }
+
         $(document).ready(function () {
             // Clone product form group
             $(document).on('click', '.add-product', function () {
                 console.log('Add button clicked'); // Debugging message
                 var productGroup = $('.product-group').first().clone(); // Clone the first group
                 productGroup.find('input').val(''); // Clear input values in the cloned group
-                productGroup.find('select').prop('selectedIndex', 0); // Reset dropdowns
+                productGroup.find('.suggestion-dropdown').hide(); // Hide suggestions dropdown in the cloned group
                 $('#form-container').append(productGroup); // Append cloned group to the form container
                 console.log('Product group added'); // Debugging message
             });

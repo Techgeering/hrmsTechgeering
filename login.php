@@ -104,23 +104,23 @@
 
 
 
-            if (isset($_POST['rememberme'])) {
-               // Set cookie for persistent login
-               setcookie('remember_username', $emp_tbl_id, time() + (86400 * 30), "/"); // 30 days expiration
-               setcookie('em_role', $em_role, time() + (86400 * 30), "/");
-               setcookie('emp_id', $emp_id, time() + (86400 * 30), "/");
-
-               // Set session storage for current session
-               echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
-               echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
-               echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
-            } else {
-               // Set session storage for current session only
-               echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
-               echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
-               echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
-            }
-
+            // if (isset($_POST['rememberme'])) {
+            //    // Set cookie for persistent login
+            //    setcookie('remember_username', $emp_tbl_id, time() + (86400 * 30), "/"); // 30 days expiration
+            //    setcookie('em_role', $em_role, time() + (86400 * 30), "/");
+            //    setcookie('emp_id', $emp_id, time() + (86400 * 30), "/");
+   
+            //    // Set session storage for current session
+            //    echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
+            //    echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
+            //    echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
+            // } else {
+            //    // Set session storage for current session only
+            //    echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
+            //    echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
+            //    echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
+            // }
+   
 
             // Fetch the IP addresses
             $ip_v6_address = $_SERVER['REMOTE_ADDR'];
@@ -149,6 +149,27 @@
 
             // Store the login history ID in the session
             $_SESSION["login_history_id"] = $login_history_id;
+
+
+            if (isset($_POST['rememberme'])) {
+               // Set cookie for persistent login
+               setcookie('remember_username', $emp_tbl_id, time() + (86400 * 30), "/"); // 30 days expiration
+               setcookie('em_role', $em_role, time() + (86400 * 30), "/");
+               setcookie('emp_id', $emp_id, time() + (86400 * 30), "/");
+               setcookie('login_history_id', $login_history_id, time() + (86400 * 30), "/");
+
+               // Set session storage for current session
+               echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
+               echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
+               echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
+               echo "<script>sessionStorage.setItem('login_history_id', '$login_history_id');</script>";
+            } else {
+               // Set session storage for current session only
+               echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
+               echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
+               echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
+               echo "<script>sessionStorage.setItem('login_history_id', '$login_history_id');</script>";
+            }
 
             // Redirect the user to index.php
             echo "<script>window.location.href='index.php';</script>";

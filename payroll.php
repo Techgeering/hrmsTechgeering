@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,6 +13,7 @@
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
@@ -61,30 +63,32 @@
                                     $slno = 1;
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $slno++; ?></td>
-                                        <td><?php echo $row["emp_id"]; ?></td>
-                                        <td><?php echo $row["full_name"]; ?></td>
-                                        <td><?php echo $row["month"] . '/' . $row["year"]; ?></td>
-                                        <td><?php echo $row["basic"]; ?></td>
-                                        <td><?php echo $row["house_rent"]; ?></td>
-                                        <td><?php echo $row["medical"]; ?></td>
-                                        <td><?php echo $row["transporting"]; ?></td>
-                                        <td><?php echo $row["bonus"]; ?></td>
-                                        <td><?php echo $row["bima"]; ?></td>
-                                        <td><?php echo $row["provident_fund"]; ?></td>
-                                        <td><?php echo $row["tax"]; ?></td>
-                                        <td><?php echo $row["loan"]; ?></td>
-                                        <td><?php echo $row["other_diduction"]; ?></td>
-                                        <td><?php 
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $slno++; ?></td>
+                                                <td><?php echo $row["emp_id"]; ?></td>
+                                                <td><?php echo $row["full_name"]; ?></td>
+                                                <td><?php echo $row["month"] . '/' . $row["year"]; ?></td>
+                                                <td><?php echo $row["basic"]; ?></td>
+                                                <td><?php echo $row["house_rent"]; ?></td>
+                                                <td><?php echo $row["medical"]; ?></td>
+                                                <td><?php echo $row["transporting"]; ?></td>
+                                                <td><?php echo $row["bonus"]; ?></td>
+                                                <td><?php echo $row["bima"]; ?></td>
+                                                <td><?php echo $row["provident_fund"]; ?></td>
+                                                <td><?php echo $row["tax"]; ?></td>
+                                                <td><?php echo $row["loan"]; ?></td>
+                                                <td><?php echo $row["other_diduction"]; ?></td>
+                                                <td>
+                                                    <?php
                                                     $earn = $row["basic"] + $row["house_rent"] + $row["medical"] + $row["transporting"] + $row["bonus"];
                                                     $deduct = $row["bima"] + $row["provident_fund"] + $row["tax"] + $row["loan"] + $row["other_diduction"];
                                                     $netSalary = $earn - $deduct;
                                                     echo $netSalary;
-                                                ?></td>
-                                    </tr>
-                                    <?php
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                            <?php
                                         }
                                     } else {
                                         echo "<tr><td colspan='15'>No records found</td></tr>";
@@ -125,21 +129,21 @@
                                         $result2 = $conn->query($sql2);
                                         while ($row2 = $result2->fetch_assoc()) {
                                             ?>
-                                        <option value="<?php echo $row2["em_code"]; ?>"
-                                            data-empname="<?php echo $row2["full_name"]; ?>"
-                                            data-basic="<?php echo $row2["basic"]; ?>"
-                                            data-medical="<?php echo $row2["medical"]; ?>"
-                                            data-house_rent="<?php echo $row2["house_rent"]; ?>"
-                                            data-transporting="<?php echo $row2["transporting"]; ?>"
-                                            data-bonus="<?php echo $row2["bonus"]; ?>"
-                                            data-bima="<?php echo $row2["bima"]; ?>"
-                                            data-tax="<?php echo $row2["tax"]; ?>"
-                                            data-provident_fund="<?php echo $row2["provident_fund"]; ?>"
-                                            data-loan="<?php echo $row2["loan"]; ?>"
-                                            data-other="<?php echo $row2["other_diduction"]; ?>">
-                                            <?php echo $row2["em_code"];
+                                            <option value="<?php echo $row2["em_code"]; ?>"
+                                                data-empname="<?php echo $row2["full_name"]; ?>"
+                                                data-basic="<?php echo $row2["basic"]; ?>"
+                                                data-medical="<?php echo $row2["medical"]; ?>"
+                                                data-house_rent="<?php echo $row2["house_rent"]; ?>"
+                                                data-transporting="<?php echo $row2["transporting"]; ?>"
+                                                data-bonus="<?php echo $row2["bonus"]; ?>"
+                                                data-bima="<?php echo $row2["bima"]; ?>"
+                                                data-tax="<?php echo $row2["tax"]; ?>"
+                                                data-provident_fund="<?php echo $row2["provident_fund"]; ?>"
+                                                data-loan="<?php echo $row2["loan"]; ?>"
+                                                data-other="<?php echo $row2["other_diduction"]; ?>">
+                                                <?php echo $row2["em_code"];
                                                 ?>
-                                        </option>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -284,39 +288,39 @@
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('#empid').on('change', function() {
-            var empName = $(this).find(':selected').data('empname');
-            var basic = $(this).find(':selected').data('basic');
-            var medical = $(this).find(':selected').data('medical');
-            var house_rent = $(this).find(':selected').data('house_rent');
-            var transporting = $(this).find(':selected').data('transporting');
-            var bima = $(this).find(':selected').data('bima');
-            var tax = $(this).find(':selected').data('tax');
-            var provident_fund = $(this).find(':selected').data('provident_fund');
-            var loan = $(this).find(':selected').data('loan');
-            var bonus = $(this).find(':selected').data('bonus');
-            var other = $(this).find(':selected').data('other');
-            $('#empname1').val(empName);
-            $('#basic1').val(basic);
-            $('#houserent1').val(house_rent);
-            $('#medical1').val(medical);
-            $('#conveyance1').val(transporting);
-            $('#bonus1').val(bonus);
-            $('#insurance1').val(bima);
-            $('#providentfund1').val(provident_fund);
-            $('#tax1').val(tax);
-            $('#loans1').val(loan);
-            $('#other1').val(other);
+        $(document).ready(function () {
+            $('#empid').on('change', function () {
+                var empName = $(this).find(':selected').data('empname');
+                var basic = $(this).find(':selected').data('basic');
+                var medical = $(this).find(':selected').data('medical');
+                var house_rent = $(this).find(':selected').data('house_rent');
+                var transporting = $(this).find(':selected').data('transporting');
+                var bima = $(this).find(':selected').data('bima');
+                var tax = $(this).find(':selected').data('tax');
+                var provident_fund = $(this).find(':selected').data('provident_fund');
+                var loan = $(this).find(':selected').data('loan');
+                var bonus = $(this).find(':selected').data('bonus');
+                var other = $(this).find(':selected').data('other');
+                $('#empname1').val(empName);
+                $('#basic1').val(basic);
+                $('#houserent1').val(house_rent);
+                $('#medical1').val(medical);
+                $('#conveyance1').val(transporting);
+                $('#bonus1').val(bonus);
+                $('#insurance1').val(bima);
+                $('#providentfund1').val(provident_fund);
+                $('#tax1').val(tax);
+                $('#loans1').val(loan);
+                $('#other1').val(other);
+            });
         });
-    });
-    var currentMonth = new Date().getMonth();
-    var months = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-    var previousMonth = currentMonth - 1;
-    document.getElementById('month1').value = months[previousMonth];
+        var currentMonth = new Date().getMonth();
+        var months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        var previousMonth = currentMonth - 1;
+        document.getElementById('month1').value = months[previousMonth];
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
@@ -325,4 +329,5 @@
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
 </body>
+
 </html>

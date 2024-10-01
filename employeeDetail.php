@@ -49,6 +49,7 @@
             animation: fadeEffect 1s;
         }
 
+
         /* Go from zero to full opacity */
         @keyframes fadeEffect {
             from {
@@ -103,6 +104,7 @@
                         <button class="tablinks" onclick="openDilog(event, 'Document')">Document</button>
                         <button class="tablinks" onclick="openDilog(event, 'Salary')">Salary</button>
                         <button class="tablinks" onclick="openDilog(event, 'Leave')">Leave</button>
+                        <button class="tablinks" onclick="openDilog(event, 'Earnings')">Earnings</button>
                         <button class="tablinks" onclick="openDilog(event, 'Password')"> Change Password</button>
                     </div>
                     <div id="PersonalInfo" class="tabcontent">
@@ -1441,6 +1443,54 @@
                             </div>
                         </div>
                     </div>
+                    <div id="Earnings" class="tabcontent">
+                        <div class="card p-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                    data-bs-target="#addpayroll">
+                                    <i class="fa-solid fa-plus"></i>Earnings
+                                </button>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Sl</th>
+                                        <th class="text-center">Basic</th>
+                                        <th class="text-center">House Rent</th>
+                                        <th class="text-center">Medical</th>
+                                        <th class="text-center">Conveyance</th>
+                                        <th class="text-center">Performance Bonus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include "common/conn.php";
+                                    $sql_payroll = "SELECT * FROM earnings ORDER BY id DESC";
+                                    $result = $conn->query($sql_payroll);
+                                    if ($result->num_rows > 0) {
+                                        $slno = 1;
+                                        while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $slno; ?></th>
+                                                <td class="text-center"><?php echo $row["basic"]; ?></td>
+                                                <td class="text-center"><?php echo $row["house_rent"]; ?></td>
+                                                <td class="text-center"><?php echo $row["medical"]; ?></td>
+                                                <td class="text-center"><?php echo $row["travel"]; ?></td>
+                                                <td class="text-center"><?php echo $row["perform_bonus"]; ?></td>
+                                            </tr>
+                                            <?php
+                                            $slno++;
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>0 results</td></tr>";
+                                    }
+                                    $conn->close();
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div id="Password" class="tabcontent">
                         <div class="card-body">
                             <form class="row" action="<?php $_SERVER['PHP_SELF']; ?>" method="post"
@@ -1481,6 +1531,127 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
+
+    <!-- payroll modal -->
+    <div class="modal fade" id="addpayroll" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Earnings</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" id="notes_file_form">
+                    <input type="hidden" class="form-control" name="project_name" value="<?php echo $proId; ?>">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="basic1" class="form-label">Basic</label>
+                                    <input type="text" class="form-control" id="basic1" name="basic"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="houserent1" class="form-label">House Rent</label>
+                                    <input type="text" class="form-control" id="houserent1" name="houserent"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="medical1" class="form-label">Medical</label>
+                                    <input type="text" class="form-control" id="medical1" name="medical"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <label for="travel1" class="form-label">Travel</label>
+                                    <input type="text" class="form-control" id="travel1" name="travel"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <label for="performancebonus1" class="form-label">Performance Bonus</label>
+                                    <input type="text" class="form-control" id="performancebonus1"
+                                        name="performancebonus"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <label for="grossearnings" class="form-label">Gross Earnings</label>
+                                    <input type="text" class="form-control" id="grossearnings" name="grossearnings"
+                                        readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="add_earn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <?php
+    if (isset($_POST['add_earn'])) {
+        include "common/conn.php";
+        $basic = $_POST["basic"];
+        $houserent = $_POST["houserent"];
+        $medical = $_POST["medical"];
+        $travel = $_POST["travel"];
+        $performancebonus = $_POST["performancebonus"];
+        $sqlearn = "INSERT INTO earnings (emp_id, basic, house_rent, medical, travel, perform_bonus) VALUES ('$empId','$basic','$houserent','$medical', '$travel','$performancebonus')";
+        if ($conn->query($sqlearn) === true) {
+            $last_id = $conn->insert_id;
+
+            $sqlearn1 = "UPDATE earnings SET status='0' WHERE emp_id = '$empId'";
+            if ($conn->query($sqlearn1) === true) {
+
+                $sqlearn2 = "UPDATE earnings SET status='1' WHERE id = '$last_id'";
+                if ($conn->query($sqlearn2) === true) {
+                    echo "<script>alert('Form submitted successfully');</script>";
+                } else {
+                    $conn->error;
+                }
+
+            } else {
+                $conn->error;
+            }
+
+
+        } else {
+            $conn->error;
+        }
+        $conn->close();
+    }
+    ?>
+    <script>
+        function calculateGrossEarnings() {
+            // Get values from all the input fields
+            let basic = parseFloat(document.getElementById('basic1').value) || 0;
+            let houserent = parseFloat(document.getElementById('houserent1').value) || 0;
+            let medical = parseFloat(document.getElementById('medical1').value) || 0;
+            let travel = parseFloat(document.getElementById('travel1').value) || 0;
+            let performancebonus = parseFloat(document.getElementById('performancebonus1').value) || 0;
+
+            // Calculate the total gross earnings
+            let grossEarnings = basic + houserent + medical + travel + performancebonus;
+
+            // Set the result in the Gross Earnings field
+            document.getElementById('grossearnings').value = grossEarnings.toFixed(2);
+        }
+    </script>
     <!-- modal for emp id -->
     <div class="modal fade" id="exampleModalcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">

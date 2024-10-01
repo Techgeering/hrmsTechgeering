@@ -83,10 +83,10 @@ $pdf->Ln(20);
 
 // New table heading
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(20, 10, 'Sl. No', 1);
-$pdf->Cell(78, 10, 'Description', 1);
-$pdf->Cell(30, 10, 'HSN/SAC', 1);
-$pdf->Cell(22, 10, 'Amount', 1);
+$pdf->Cell(30, 10, 'Sl. No', 1);
+$pdf->Cell(88, 10, 'Description', 1);
+$pdf->Cell(40, 10, 'HSN/SAC', 1);
+$pdf->Cell(33, 10, 'Amount', 1);
 $pdf->Ln();
 
 // Sample Table Data for Sl. No and Description
@@ -101,20 +101,20 @@ while ($row2 = $result2->fetch_assoc()) {
     $totalAmount += (float) $row2['total_amount']; // Corrected to $row2['total_amount']
 
     // Dynamic serial number and cell data
-    $pdf->Cell(20, 10, $slNo, 1); // Sl. No
-    $pdf->Cell(78, 10, $row2["description"], 1);
-    $pdf->Cell(30, 10, $row2["hsn_num"], 1);
-    $pdf->Cell(22, 10, number_format($row2["total_amount"], 2, '.', ''), 1);
+    $pdf->Cell(30, 10, $slNo, 1); // Sl. No
+    $pdf->Cell(88, 10, $row2["description"], 1);
+    $pdf->Cell(40, 10, $row2["hsn_num"], 1);
+    $pdf->Cell(33, 10, number_format($row2["total_amount"], 2, '.', ''), 1);
 
     $pdf->Ln(); // Line break
     $slNo++; // Increment serial number for each row
 }
 
 // Display total amount
-$pdf->Cell(20, 10, NULL, 0); // Empty Sl. No column
-$pdf->Cell(78, 10, 'Total', 1);
-$pdf->Cell(30, 10, NULL, 0); // Empty HSN number column
-$pdf->Cell(22, 10, number_format($totalAmount, 2, '.', ''), 1); // Display total amount
+$pdf->Cell(30, 10, NULL, 0); // Empty Sl. No column
+$pdf->Cell(88, 10, 'Total', 1);
+$pdf->Cell(40, 10, NULL, 0); // Empty HSN number column
+$pdf->Cell(33, 10, number_format($totalAmount, 2, '.', ''), 1); // Display total amount
 
 
 function convertToWords($number)
@@ -230,34 +230,38 @@ if ($state == 'odisha') {
 
 $amountInWords = convertToWords($price);
 
-$pdf->Ln();
-$pdf->Cell(20, 10, NULL, 0); // Sl. No
-$pdf->Cell(78, 10, NULL, 0);
-$pdf->Cell(30, 10, 'IGST @' . $igst . ' %', 1);
-$pdf->Cell(22, 10, number_format($igstt, 2, '.', ''), 1);
+if ($igst > 0) {
+    $pdf->Ln();
+    $pdf->Cell(30, 10, NULL, 0); // Sl. No
+    $pdf->Cell(88, 10, NULL, 0);
+    $pdf->Cell(40, 10, 'IGST @' . $igst . ' %', 1);
+    $pdf->Cell(33, 10, number_format($igstt, 2, '.', ''), 1);
+}
+
+if ($cgst > 0) {
+    $pdf->Ln();
+    $pdf->Cell(30, 10, NULL, 0); // Sl. No
+    $pdf->Cell(88, 10, NULL, 0);
+    $pdf->Cell(40, 10, 'CGST @' . $cgst . ' %', 1);
+    $pdf->Cell(33, 10, number_format($cgstt, 2), 1);
+}
+
+if ($sgst > 0) {
+    $pdf->Ln();
+    $pdf->Cell(30, 10, NULL, 0); // Sl. No
+    $pdf->Cell(88, 10, NULL, 0);
+    $pdf->Cell(40, 10, 'SGST @' . $sgst . ' %', 1);
+    $pdf->Cell(33, 10, number_format($sgstt, 2), 1);
+}
 
 $pdf->Ln();
-$pdf->Cell(20, 10, NULL, 0); // Sl. No
-$pdf->Cell(78, 10, NULL, 0);
-// $pdf->Cell(30, 10, 'CGST', 1);
-$pdf->Cell(30, 10, 'CGST @' . $cgst . ' %', 1);
-$pdf->Cell(22, 10, number_format($cgstt, 2), 1);
-
-$pdf->Ln();
-$pdf->Cell(20, 10, NULL, 0); // Sl. No
-$pdf->Cell(78, 10, NULL, 0);
-// $pdf->Cell(30, 10, 'SGST', 1);
-$pdf->Cell(30, 10, 'SGST @' . $sgst . ' %', 1);
-$pdf->Cell(22, 10, number_format($sgstt, 2), 1);
-
-$pdf->Ln();
-$pdf->Cell(20, 10, NULL, 0); // Sl. No
-$pdf->Cell(78, 10, NULL, 0);
-$pdf->Cell(30, 10, 'Grand Total', 2);
-$pdf->Cell(22, 10, number_format($price, 2), 1);
+$pdf->Cell(30, 10, NULL, 0); // Sl. No
+$pdf->Cell(88, 10, NULL, 0);
+$pdf->Cell(40, 10, 'Grand Total', 2);
+$pdf->Cell(33, 10, number_format($price, 2), 1);
 
 
-$pdf->Ln(-22);
+$pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 10, 'Total Amount in Word :', 0, 1, 'L');
 $pdf->SetFont('Arial', 'I', 12);

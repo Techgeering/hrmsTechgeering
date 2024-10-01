@@ -1,9 +1,3 @@
-<?php
-session_start(); {
-    $em_role = $_SESSION["em_role"];
-    $emp_id = $_SESSION["emp_id"];
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 

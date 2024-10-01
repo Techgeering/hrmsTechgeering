@@ -7,6 +7,7 @@ if (!isset($_SESSION['username']) && isset($_COOKIE['remember_username'])) {
     // Retrieve login information from cookies
     $_SESSION['username'] = $_COOKIE['remember_username'];
     $_SESSION['em_role'] = $_COOKIE['em_role'];
+    $_SESSION['login_history_id'] = $_COOKIE['login_history_id'];
 }
 
 // Check if user ID and designation are set in session

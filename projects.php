@@ -66,9 +66,11 @@
                                                     ORDER BY 
                                                         CASE 
                                                             WHEN pro_status = 'running' THEN 1
-                                                            WHEN pro_status = 'upcoming' THEN 2
-                                                            WHEN pro_status = 'complete' THEN 3
-                                                            ELSE 4 
+                                                            WHEN pro_status = 'notstarted' THEN 2
+                                                            WHEN pro_status = 'hold' THEN 3
+                                                            WHEN pro_status = 'testing' THEN 4
+                                                            WHEN pro_status = 'complete' THEN 5
+                                                            ELSE 6 
                                                         END";
                                     } else {
                                         $sql = "SELECT p.*, 
@@ -129,22 +131,6 @@
                                     <label for="ProjectTitle" class="form-label">Project Title</label>
                                     <input type="text" class="form-control" id="ProjectTitle" name="ProjectTitle"
                                         required>
-                                </div>
-                                <!-- <div class="mb-2">
-                                    <label for="startDate" class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" name="startDate" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="ProjectEndDate" class="form-label">Project End Date</label>
-                                    <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate">
-                                </div> -->
-                                <div class="mb-2">
-                                    <label for="startDate" class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" name="startDate" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="ProjectEndDate" class="form-label">Project End Date</label>
-                                    <input type="date" class="form-control" name="ProjectEndDate" id="ProjectEndDate">
                                 </div>
                                 <div class="mb-2">
                                     <label for="startDate" class="form-label">Start Date</label>
@@ -207,19 +193,17 @@
                                 <div class="mb-2">
                                     <label for="Status" class="form-label">Status</label>
                                     <select class="form-control" id="Status" name="Status">
-                                        <option value="upcoming">Upcoming</option>
-                                        <option value="complete">Complete</option>
                                         <option value="running">Running</option>
+                                        <option value="notstarted">Not Started</option>
+                                        <option value="hold">Hold</option>
+                                        <option value="testing">Testing</option>
+                                        <option value="complete">Complete</option>
                                     </select>
                                 </div>
                                 <div class="mb-2">
                                     <label for="Details" class="form-label">Project Image</label>
                                     <input type="file" class="form-control" id="images" name="imagess">
                                 </div>
-                                <!-- <div class="mb-2">
-                                    <label for="Details" class="form-label">Project Address</label>
-                                    <input type="text" class="form-control" id="adds" name="adds1">
-                                </div> -->
                                 <div class="mb-2">
                                     <label for="Details" class="form-label">GST Number</label>
                                     <input type="text" class="form-control" id="gstt" name="gst">
