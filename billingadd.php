@@ -56,7 +56,6 @@
                                         <div id="projectSuggestions" class="dropdown-menu"
                                             style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; position: absolute; z-index: 1000;">
                                         </div>
-
                                         <!-- Hidden input to store project ID -->
                                         <input type="hidden" id="projectId" name="pro_value">
                                     </div>
