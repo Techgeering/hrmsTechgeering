@@ -1547,17 +1547,18 @@
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="basic1" class="form-label">Basic</label>
-                                    <input type="text" class="form-control" id="basic1" name="basic"
-                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
-                                        required>
+                                    <input type="text" class="form-control" id="basic1" name="basic" oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); 
+                                    this.value = this.value.replace(/[^0-9]/g, ''); 
+                                    this.setCustomValidity(''); 
+                                    this.checkValidity(); 
+                                    calculateGrossEarnings(); 
+                                    updateHouseRent()">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="houserent1" class="form-label">House Rent</label>
-                                    <input type="text" class="form-control" id="houserent1" name="houserent"
-                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
-                                        required>
+                                    <input type="text" class="form-control" id="houserent1" name="houserent" readonly>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -1565,24 +1566,21 @@
                                     <label for="medical1" class="form-label">Medical</label>
                                     <input type="text" class="form-control" id="medical1" name="medical"
                                         oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
-                                        required>
+                                        readonly>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="travel1" class="form-label">Travel</label>
-                                    <input type="text" class="form-control" id="travel1" name="travel"
-                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
-                                        required>
+                                    <input type="text" class="form-control" id="travel1" name="travel" value="0"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-2">
                                     <label for="performancebonus1" class="form-label">Performance Bonus</label>
                                     <input type="text" class="form-control" id="performancebonus1"
-                                        name="performancebonus"
-                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
-                                        required>
+                                        name="performancebonus" oninput="validatePerformanceBonus(this)">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -1628,30 +1626,13 @@
             } else {
                 $conn->error;
             }
-
-
         } else {
             $conn->error;
         }
         $conn->close();
     }
     ?>
-    <script>
-        function calculateGrossEarnings() {
-            // Get values from all the input fields
-            let basic = parseFloat(document.getElementById('basic1').value) || 0;
-            let houserent = parseFloat(document.getElementById('houserent1').value) || 0;
-            let medical = parseFloat(document.getElementById('medical1').value) || 0;
-            let travel = parseFloat(document.getElementById('travel1').value) || 0;
-            let performancebonus = parseFloat(document.getElementById('performancebonus1').value) || 0;
 
-            // Calculate the total gross earnings
-            let grossEarnings = basic + houserent + medical + travel + performancebonus;
-
-            // Set the result in the Gross Earnings field
-            document.getElementById('grossearnings').value = grossEarnings.toFixed(2);
-        }
-    </script>
     <!-- modal for emp id -->
     <div class="modal fade" id="exampleModalcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
@@ -2086,6 +2067,54 @@
         function previewImage(event) {
             const image = document.getElementById('image45');
             image.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+    <!-- for % calculation -->
+    <script>
+        function updateHouseRent() {
+            const basicValue = document.getElementById('basic1').value;
+            if (basicValue) {
+                const houseRentValue = (parseFloat(basicValue) / 100 * 18).toFixed(2);
+                const medicalValue = (parseFloat(basicValue) / 100 * 10).toFixed(2);
+                document.getElementById('houserent1').value = houseRentValue;
+                document.getElementById('medical1').value = medicalValue; medical
+            } else {
+                document.getElementById('houserent1').value = '';
+                document.getElementById('medical1').value = '';
+            }
+        }
+    </script>
+    <!-- addition all values -->
+    <script>
+        function calculateGrossEarnings() {
+            let basic = parseFloat(document.getElementById('basic1').value) || 0;
+            let houserent = parseFloat(document.getElementById('houserent1').value) || 0;
+            let medical = parseFloat(document.getElementById('medical1').value) || 0;
+            let travel = parseFloat(document.getElementById('travel1').value) || 0;
+            let performancebonus = parseFloat(document.getElementById('performancebonus1').value) || 0;
+            let grossEarnings = basic + houserent + medical + travel + performancebonus;
+            document.getElementById('grossearnings').value = grossEarnings.toFixed(2);
+        }
+    </script>
+    <script>
+        function validatePerformanceBonus(input) {
+            // Allow only numbers and limit length to 15
+            input.value = input.value.replace(/[^0-9]/g, '').slice(0, 15);
+
+            // Convert the value to a number and check if it exceeds 10,000
+            const value = Number(input.value);
+
+            if (value > 10000) {
+                input.setCustomValidity('Performance Bonus cannot exceed 10,000.');
+            } else {
+                input.setCustomValidity(''); // Clear the custom validity message
+            }
+
+            // Check validity
+            input.checkValidity();
+
+            // Call the calculateGrossEarnings function
+            calculateGrossEarnings();
         }
     </script>
 </body>
