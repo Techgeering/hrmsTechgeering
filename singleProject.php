@@ -540,20 +540,17 @@
                                                         <select class='txtedit'
                                                             id='status-<?php echo $row1["pro_task_id"]; ?>-pro_task'
                                                             style="display:none;">
-                                                            <option value="Not Started" <?php if ($row1["status"] == "Not Started")
-                                                                echo 'selected="selected"'; ?>>Not Started
-                                                            </option>
                                                             <option value="Started" <?php if ($row1["status"] == "Started")
                                                                 echo 'selected="selected"'; ?>>Started
-                                                            </option>
-                                                            <option value="Complete" <?php if ($row1["status"] == "Complete")
-                                                                echo 'selected="selected"'; ?>>Complete
                                                             </option>
                                                             <option value="Testing" <?php if ($row1["status"] == "Testing")
                                                                 echo 'selected="selected"'; ?>>Testing
                                                             </option>
                                                             <option value="Done" <?php if ($row1["status"] == "Done")
                                                                 echo 'selected="selected"'; ?>>Done
+                                                            </option>
+                                                            <option value="Complete" <?php if ($row1["status"] == "Complete")
+                                                                echo 'selected="selected"'; ?>>Complete
                                                             </option>
                                                             <option value="Cancel" <?php if ($row1["status"] == "Cancel")
                                                                 echo 'selected="selected"'; ?>>Cancel
@@ -860,20 +857,17 @@
                                                         <select class='txtedit'
                                                             id='status-<?php echo $row2["pro_task_id"]; ?>-pro_task'
                                                             style="display:none;">
-                                                            <option value="Not Started" <?php if ($row2["status"] == "Not Started")
-                                                                echo 'selected="selected"'; ?>>Not Started
-                                                            </option>
                                                             <option value="Started" <?php if ($row2["status"] == "Started")
                                                                 echo 'selected="selected"'; ?>>Started
-                                                            </option>
-                                                            <option value="Complete" <?php if ($row2["status"] == "Complete")
-                                                                echo 'selected="selected"'; ?>>Complete
                                                             </option>
                                                             <option value="Testing" <?php if ($row2["status"] == "Testing")
                                                                 echo 'selected="selected"'; ?>>Testing
                                                             </option>
                                                             <option value="Done" <?php if ($row2["status"] == "Done")
                                                                 echo 'selected="selected"'; ?>>Done
+                                                            </option>
+                                                            <option value="Complete" <?php if ($row2["status"] == "Complete")
+                                                                echo 'selected="selected"'; ?>>Complete
                                                             </option>
                                                             <option value="Cancel" <?php if ($row2["status"] == "Cancel")
                                                                 echo 'selected="selected"'; ?>>Cancel
@@ -1441,11 +1435,10 @@
                             </div>
                             <div class="col-6">
                                 <h6>Status</h6>
-                                <input type="radio" name="Status" value="not started">Not Started
-                                <input type="radio" name="Status" value="running">Running
-                                <input type="radio" name="Status" value="complete">Complete
+                                <input type="radio" name="Status" value="started">Started
                                 <input type="radio" name="Status" value="testing">Testing
                                 <input type="radio" name="Status" value="done">Done
+                                <input type="radio" name="Status" value="complete">Complete
                                 <input type="radio" name="Status" value="cancel">Cancel
                                 <span class="checkmark"></span>
                             </div>

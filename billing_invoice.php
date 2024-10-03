@@ -82,12 +82,15 @@ $pdf->Ln(20);
 
 
 // New table heading
-$pdf->SetFont('Arial', 'B', 10);
+$pdf->SetFont('Arial', 'B', 10); // Bold font for Sl. No
 $pdf->Cell(30, 10, 'Sl. No', 1);
+
+$pdf->SetFont('Arial', '', 10); // Regular font for the rest
 $pdf->Cell(88, 10, 'Description of goods/services', 1);
 $pdf->Cell(40, 10, 'HSN/SAC', 1);
 $pdf->Cell(33, 10, 'Total Charges', 1);
 $pdf->Ln();
+
 
 // Sample Table Data for Sl. No and Description
 $tableData = array();
@@ -112,8 +115,10 @@ while ($row2 = $result2->fetch_assoc()) {
 
 // Display total amount
 // $pdf->Cell(30, 10, NULL, 0); // Empty Sl. No column
-$pdf->Cell(158, 10, 'Bill Amount', 1);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(158, 10, 'Bill Amount', 1, 0, 'R');
 // $pdf->Cell(40, 10, NULL, 0); // Empty HSN number column
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(33, 10, number_format($totalAmount, 2, '.', ''), 1); // Display total amount
 
 
@@ -232,32 +237,37 @@ $amountInWords = convertToWords($price);
 
 if ($igst > 0) {
     $pdf->Ln();
-    $pdf->Cell(30, 10, NULL, 0); // Sl. No
-    $pdf->Cell(88, 10, NULL, 0);
-    $pdf->Cell(40, 10, 'IGST @' . $igst . ' %', 1);
+    // $pdf->Cell(30, 10, NULL, 0); // Sl. No
+    // $pdf->Cell(88, 10, NULL, 0);
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(158, 10, 'IGST @' . $igst . ' %', 1, 0, 'R');
     $pdf->Cell(33, 10, number_format($igstt, 2, '.', ''), 1);
 }
 
 if ($cgst > 0) {
     $pdf->Ln();
-    $pdf->Cell(30, 10, NULL, 0); // Sl. No
-    $pdf->Cell(88, 10, NULL, 0);
-    $pdf->Cell(40, 10, 'CGST @' . $cgst . ' %', 1);
+    // $pdf->Cell(30, 10, NULL, 0); // Sl. No
+    // $pdf->Cell(88, 10, NULL, 0);
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(158, 10, 'CGST @' . $cgst . ' %', 1, 0, 'R');
     $pdf->Cell(33, 10, number_format($cgstt, 2), 1);
 }
 
 if ($sgst > 0) {
     $pdf->Ln();
-    $pdf->Cell(30, 10, NULL, 0); // Sl. No
-    $pdf->Cell(88, 10, NULL, 0);
-    $pdf->Cell(40, 10, 'SGST @' . $sgst . ' %', 1);
+    // $pdf->Cell(30, 10, NULL, 0); // Sl. No
+    // $pdf->Cell(88, 10, NULL, 0);
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(158, 10, 'SGST @' . $sgst . ' %', 1, 0, 'R');
     $pdf->Cell(33, 10, number_format($sgstt, 2), 1);
 }
 
 $pdf->Ln();
 $pdf->Cell(30, 10, NULL, 0); // Sl. No
 $pdf->Cell(88, 10, NULL, 0);
-$pdf->Cell(40, 10, 'Total Bill Amount', 2);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(40, 10, 'Total Bill Amount', 2, 0, 'R');
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(33, 10, number_format($price, 2), 1);
 
 

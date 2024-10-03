@@ -60,31 +60,31 @@
                                         <!-- Hidden input to store project ID -->
                                         <input type="hidden" id="projectId" name="pro_value">
                                     </div>
+                                    <div class="col-3">
+                                        <label>Description</label>
+                                        <input type="text" class="form-control" id="dess" name="des1[]">
+                                    </div>
                                 </div>
 
                                 <div id="form-container">
                                     <!-- Product Group - First Group to Clone -->
                                     <div class="product-group">
                                         <div class="row">
-                                            <div class="col-4">
-                                                <label>Description</label>
-                                                <input type="text" class="form-control" id="dess" name="des1[]">
-                                            </div>
-                                            <div class="col-2">
+                                            <div class="col-3">
                                                 <label>Service</label>
                                                 <input type="text" class="form-control" placeholder="Enter service name"
                                                     name="service[]" oninput="showSuggestions(this.value, this)">
                                                 <div class="suggestion-dropdown" style="display:none;"></div>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-3">
                                                 <label>HSN</label>
                                                 <input type="text" class="form-control" name="hsn1[]" readonly>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-3">
                                                 <label>Total Amount</label>
                                                 <input type="text" class="form-control" name="totalamount1[]">
                                             </div>
-                                            <div class="col-2 mt-4">
+                                            <div class="col-3 mt-4">
                                                 <button type="button" class="btn btn-danger remove-product">-</button>
                                                 <button type="button" class="btn btn-success add-product">+</button>
                                             </div>
