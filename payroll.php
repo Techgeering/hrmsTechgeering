@@ -21,6 +21,7 @@
     <div id="layoutSidenav">
         <!-- start Side Navbar -->
         <?php include 'common/sidenav.php' ?>
+
         <!-- end Side Navbar -->
         <div id="layoutSidenav_content">
             <main>
@@ -38,23 +39,51 @@
                                     <tr>
                                         <th>Sl No</th>
                                         <th>Employee Id</th>
-                                        <th>Employee Name</th>
                                         <th>Month-Year</th>
                                         <th>Basic</th>
                                         <th>House Rent</th>
                                         <th>Medical</th>
                                         <th>Conveyance</th>
                                         <th>Performance Bonus</th>
+                                        <th>Professional Tax</th>
+                                        <th>provident_fund</th>
+                                        <th>TDS</th>
                                         <th>Insurance</th>
-                                        <th>Provident Fund</th>
-                                        <th>Tax</th>
-                                        <th>Loans</th>
-                                        <th>Others</th>
-                                        <th>Salary Paid</th>
+                                        <th>Other Deduction</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    <?php
+                                    include "common/conn.php";
+                                    $sql44 = "SELECT * FROM pay_salary";
+                                    $result44 = $conn->query($sql44);
+                                    $slno = 1;
+                                    if ($result44->num_rows > 0) {
+                                        while ($row44 = $result44->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $slno; ?></td>
+                                                <td><?php echo $row44["emp_id"]; ?></td>
+                                                <td><?php echo $row44["month"] . '/' . $row44["year"]; ?></td>
+                                                <td><?php echo $row44["basic"]; ?></td>
+                                                <td><?php echo $row44["house_rent"]; ?></td>
+                                                <td><?php echo $row44["medical"]; ?></td>
+                                                <td><?php echo $row44["transporting"]; ?></td>
+                                                <td><?php echo $row44["performance_bonus"]; ?></td>
+                                                <td><?php echo $row44["tax"]; ?></td>
+                                                <td><?php echo $row44["provident_fund"]; ?></td>
+                                                <td><?php echo $row44["tds"]; ?></td>
+                                                <td><?php echo $row44["bima"]; ?></td>
+                                                <td><?php echo $row44["other_diduction"]; ?></td>
+                                            </tr>
+                                            <?php
+                                            $slno++;
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    // $conn->close();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -107,8 +136,52 @@
                                         value="<?php echo date('Y'); ?>" readonly>
                                 </div>
                             </div>
+                            <h5>Earnings:-</h5>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="mb-2">
+                                        <label for="insurance" class="form-label">Basic</label>
+                                        <input type="text" name="Basic" id="Basic" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-2">
+                                        <label for="insurance" class="form-label">House Rent</label>
+                                        <input type="text" name="Houserent" id="Houserent" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-2">
+                                        <label for="insurance" class="form-label">Medical</label>
+                                        <input type="text" name="Medical" id="Medical" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-2">
+                                        <label for="insurance" class="form-label">Travel</label>
+                                        <input type="text" name="Travel" id="Travel" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="mb-2">
+                                        <label for="insurance" class="form-label">Performance Bonus</label>
+                                        <input type="text" name="Performance" id="Performance" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <label for="insurance" class="form-label">Gross Total Earnings</label>
+                                    <input type="text" name="Gross" id="Gross" class="form-control">
+                                </div>
+                                <div class="col-4">
+                                    <label for="insurance" class="form-label">Gross Annual Earnings</label>
+                                    <input type="text" name="Grossannual" id="Grossannual" class="form-control">
+                                </div>
+                            </div>
+                            <h5>Deduction:-</h5>
                             <div class="col-12">
-                                <table class="table table-bordered mt-3">
+                                <!-- <table id="payrollTable" class="table table-bordered mt-3">
                                     <thead>
                                         <tr>
                                             <th>Basic</th>
@@ -117,6 +190,7 @@
                                             <th>Travel Allownce</th>
                                             <th>Performance Bonus</th>
                                             <th>Gross Total Earnings</th>
+                                            <th>Gross Annual Earnings</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -127,9 +201,56 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="mb-2">
+                                            <label for="year" class="form-label">Professional Tax</label>
+                                            <input type="text" class="form-control" name="ptax" id="ptaxx"
+                                                oninput="calculateGrossDeduction()" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mb-2">
+                                            <label for="year" class="form-label">EPF</label>
+                                            <input type="text" class="form-control" name="Epf" id="Epf"
+                                                oninput="calculateGrossDeduction()">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mb-2">
+                                            <label for="year" class="form-label">TDS</label>
+                                            <input type="text" class="form-control" name="tds" id="Tds" value="0"
+                                                oninput="calculateGrossDeduction()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="mb-2">
+                                            <label for="insurance" class="form-label">Insurance</label>
+                                            <input type="text" class="form-control" name="insurance" id="Insurance"
+                                                value="0" oninput="calculateGrossDeduction()">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mb-2">
+                                            <label for="other" class="form-label">Other Deduction</label>
+                                            <input type="text" class="form-control" name="other" id="Other"
+                                                oninput="calculateGrossDeduction()">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mb-2">
+                                            <label for="gross" class="form-label">Gross Total Deduction</label>
+                                            <input type="text" class="form-control" name="gross" id="grossdeduction"
+                                                oninput="calculateGrossDeduction()" readonly>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -141,6 +262,32 @@
             </div>
         </div>
     </div>
+    <?php
+    if (isset($_POST['submitpayroll'])) {
+        include 'common/conn.php';
+        $empid = $_POST["value"];
+        $month = $_POST["month"];
+        $year = $_POST["year"];
+        $Basic = $_POST["Basic"];
+        $Houserent = $_POST["Houserent"];
+        $Medical = $_POST["Medical"];
+        $Travel = $_POST["Travel"];
+        $Performance = $_POST["Performance"];
+        $ptax = $_POST["ptax"];
+        $Epf = $_POST["Epf"];
+        $tds = $_POST["tds"];
+        $insurance = $_POST["insurance"];
+        $other = $_POST["other"];
+
+        $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other')";
+        if ($conn->query($sql11) === true) {
+            echo "<script>window.location.href='payroll.php';</script>";
+        } else {
+            echo "Error: " . $sql11 . "<br>" . $conn->error;
+        }
+        $conn->close();
+    }
+    ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -152,20 +299,56 @@
                         type: "POST",
                         data: { emp_id: emp_id },
                         success: function (data) {
-                            $('tbody').html(data);
+                            var parsedData = JSON.parse(data);
+                            // Update table data
+                            $('#payrollTable tbody').html(parsedData.tableData);
+                            // Update input fields
+                            $('#Basic').val(parsedData.basic);
+                            $('#Houserent').val(parsedData.house_rent);
+                            $('#Medical').val(parsedData.medical);
+                            $('#Travel').val(parsedData.travel);
+                            $('#Performance').val(parsedData.perform_bonus);
+                            $('#Gross').val(parsedData.total);
+                            $('#Grossannual').val(parsedData.grosstotalearning);
+                            $('#Epf').val(parsedData.epf);
+                            $('#Other').val(parsedData.other);
+                            $('#empid').val(parsedData.empidd);
+                            $('#ptaxx').val(parsedData.ptax);
                         }
                     });
                 }
             });
         });
     </script>
+
     <script>
-        function calculateEPF() {
-            var grossTotalEarnings = parseFloat(document.getElementById("loans1").value) || 0;
-            var epf = (grossTotalEarnings / 100) * 12;
-            document.getElementById("epf").value = epf.toFixed(2);
+        function calculateGrossDeduction() {
+            const ptaxx = parseFloat(document.getElementById('ptaxx').value) || 0;
+            const Epf = parseFloat(document.getElementById('Epf').value) || 0;
+            const Tds = parseFloat(document.getElementById('Tds').value) || 0;
+            const Insurance = parseFloat(document.getElementById('Insurance').value) || 0;
+            const Other = parseFloat(document.getElementById('Other').value) || 0;
+
+            // Calculate gross deduction
+            const grossDeduction = ptaxx + Epf + Tds + Insurance + Other;
+
+            // Set the value of the gross deduction field, format it to 2 decimal places
+            document.getElementById('grossdeduction').value = ptaxx.toFixed(2);
         }
+
+        // Call calculateGrossDeduction on page load to initialize values
+        document.addEventListener("DOMContentLoaded", function () {
+            calculateGrossDeduction();
+        });
+
+        // Ensure calculation is done when input values are changed
+        document.querySelectorAll('input , select').forEach(input => {
+            input.addEventListener('input', function () {
+                calculateGrossDeduction();
+            });
+        });
     </script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

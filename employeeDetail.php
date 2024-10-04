@@ -1558,15 +1558,15 @@
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="houserent1" class="form-label">House Rent</label>
-                                    <input type="text" class="form-control" id="houserent1" name="houserent" readonly>
+                                    <input type="text" class="form-control" id="houserent1" name="houserent"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="medical1" class="form-label">Medical</label>
                                     <input type="text" class="form-control" id="medical1" name="medical"
-                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()"
-                                        readonly>
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()">
                                 </div>
                             </div>
                             <div class="col-6">

@@ -52,7 +52,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    include "common/conn.php"; // Make sure this file exists and contains database connection code
+                                    include "common/conn.php";
                                     $sql = "SELECT * FROM leads";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
