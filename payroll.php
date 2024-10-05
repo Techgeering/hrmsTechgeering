@@ -50,6 +50,9 @@
                                         <th>TDS</th>
                                         <th>Insurance</th>
                                         <th>Other Deduction</th>
+                                        <th>Total Earnings</th>
+                                        <th>Total Deduction</th>
+                                        <th>Net Pay</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,6 +78,9 @@
                                                 <td><?php echo $row44["tds"]; ?></td>
                                                 <td><?php echo $row44["bima"]; ?></td>
                                                 <td><?php echo $row44["other_diduction"]; ?></td>
+                                                <td><?php echo $row44["total_earnings"]; ?></td>
+                                                <td><?php echo $row44["total_deduction"]; ?></td>
+                                                <td><?php echo $row44["net_pay"]; ?></td>
                                             </tr>
                                             <?php
                                             $slno++;
@@ -141,25 +147,29 @@
                                 <div class="col-3">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Basic</label>
-                                        <input type="text" name="Basic" id="Basic" class="form-control">
+                                        <input type="text" name="Basic" id="Basic" class="form-control"
+                                            oninput="calculateGrossEarnings()">
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">House Rent</label>
-                                        <input type="text" name="Houserent" id="Houserent" class="form-control">
+                                        <input type="text" name="Houserent" id="Houserent" class="form-control"
+                                            oninput="calculateGrossEarnings()">
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Medical</label>
-                                        <input type="text" name="Medical" id="Medical" class="form-control">
+                                        <input type="text" name="Medical" id="Medical" class="form-control"
+                                            oninput="calculateGrossEarnings()">
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Travel</label>
-                                        <input type="text" name="Travel" id="Travel" class="form-control">
+                                        <input type="text" name="Travel" id="Travel" class="form-control"
+                                            oninput="calculateGrossEarnings()">
                                     </div>
                                 </div>
                             </div>
@@ -167,12 +177,14 @@
                                 <div class="col-4">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Performance Bonus</label>
-                                        <input type="text" name="Performance" id="Performance" class="form-control">
+                                        <input type="text" name="Performance" id="Performance" class="form-control"
+                                            oninput="calculateGrossEarnings()">
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <label for="insurance" class="form-label">Gross Total Earnings</label>
-                                    <input type="text" name="Gross" id="Gross" class="form-control">
+                                    <input type="text" name="Gross" id="Gross" class="form-control"
+                                        oninput="calculateGrossEarnings()">
                                 </div>
                                 <div class="col-4">
                                     <label for="insurance" class="form-label">Gross Annual Earnings</label>
@@ -246,7 +258,16 @@
                                     <div class="col-4">
                                         <div class="mb-2">
                                             <label for="gross" class="form-label">Gross Total Deduction</label>
-                                            <input type="text" class="form-control" name="gross" id="grossdeduction"
+                                            <input type="text" class="form-control" name="grossdeduction"
+                                                id="grossdeduction" oninput="calculateGrossDeduction()" readonly>
+                                        </div>
+                                    </div>
+                                    <h5>Net Pay:-</h5>
+                                    <div class="col-12">
+                                        <div class="mb-2">
+                                            <label for="gross" class="form-label">Net Pay(Gross Total Earnings - Gross
+                                                Total Deduction)</label>
+                                            <input type="text" class="form-control" name="netpay" id="netpay"
                                                 oninput="calculateGrossDeduction()" readonly>
                                         </div>
                                     </div>
@@ -278,8 +299,11 @@
         $tds = $_POST["tds"];
         $insurance = $_POST["insurance"];
         $other = $_POST["other"];
+        $total_earings = $_POST["Gross"];
+        $total_deduction = $_POST["grossdeduction"];
+        $netpay = $_POST["netpay"];
 
-        $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other')";
+        $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay')";
         if ($conn->query($sql11) === true) {
             echo "<script>window.location.href='payroll.php';</script>";
         } else {
@@ -303,52 +327,48 @@
                             // Update table data
                             $('#payrollTable tbody').html(parsedData.tableData);
                             // Update input fields
-                            $('#Basic').val(parsedData.basic);
-                            $('#Houserent').val(parsedData.house_rent);
-                            $('#Medical').val(parsedData.medical);
-                            $('#Travel').val(parsedData.travel);
-                            $('#Performance').val(parsedData.perform_bonus);
-                            $('#Gross').val(parsedData.total);
-                            $('#Grossannual').val(parsedData.grosstotalearning);
-                            $('#Epf').val(parsedData.epf);
-                            $('#Other').val(parsedData.other);
+                            $('#Basic').val(parseFloat(parsedData.basic).toFixed(2));
+                            // $('#Houserent').val(parsedData.house_rent);
+                            $('#Houserent').val(parseFloat(parsedData.house_rent).toFixed(2));
+                            $('#Medical').val(parseFloat(parsedData.medical).toFixed(2));
+                            $('#Travel').val(parseFloat(parsedData.travel).toFixed(2));
+                            $('#Performance').val(parseFloat(parsedData.perform_bonus).toFixed(2));
+                            $('#Gross').val(parseFloat(parsedData.total).toFixed(2));
+                            $('#Grossannual').val(parseFloat(parsedData.annual).toFixed(2));
+                            $('#Epf').val(parseFloat(parsedData.epf).toFixed(2));
+                            $('#Other').val(parseFloat(parsedData.other).toFixed(2));
                             $('#empid').val(parsedData.empidd);
-                            $('#ptaxx').val(parsedData.ptax);
+                            $('#ptaxx').val(parseFloat(parsedData.ptax).toFixed(2));
+                            $('#grossdeduction').val(parseFloat(parsedData.total_deduction).toFixed(2));
+                            $('#netpay').val(parseFloat(parsedData.netpay).toFixed(2));
                         }
                     });
                 }
             });
         });
     </script>
-
+    <!-- addition all earnings -->
     <script>
-        function calculateGrossDeduction() {
-            const ptaxx = parseFloat(document.getElementById('ptaxx').value) || 0;
-            const Epf = parseFloat(document.getElementById('Epf').value) || 0;
-            const Tds = parseFloat(document.getElementById('Tds').value) || 0;
-            const Insurance = parseFloat(document.getElementById('Insurance').value) || 0;
-            const Other = parseFloat(document.getElementById('Other').value) || 0;
-
-            // Calculate gross deduction
-            const grossDeduction = ptaxx + Epf + Tds + Insurance + Other;
-
-            // Set the value of the gross deduction field, format it to 2 decimal places
-            document.getElementById('grossdeduction').value = ptaxx.toFixed(2);
+        function calculateGrossEarnings() {
+            let basic = parseFloat(document.getElementById('Basic').value) || 0;
+            let houserent = parseFloat(document.getElementById('Houserent').value) || 0;
+            let medical = parseFloat(document.getElementById('Medical').value) || 0;
+            let travel = parseFloat(document.getElementById('Travel').value) || 0;
+            let performancebonus = parseFloat(document.getElementById('Performance').value) || 0;
+            let grossEarnings = basic + houserent + medical + travel + performancebonus;
+            document.getElementById('Gross').value = grossEarnings.toFixed(2);
         }
 
-        // Call calculateGrossDeduction on page load to initialize values
-        document.addEventListener("DOMContentLoaded", function () {
-            calculateGrossDeduction();
-        });
-
-        // Ensure calculation is done when input values are changed
-        document.querySelectorAll('input , select').forEach(input => {
-            input.addEventListener('input', function () {
-                calculateGrossDeduction();
-            });
-        });
+        function calculateGrossDeduction() {
+            let tax = parseFloat(document.getElementById('ptaxx').value) || 0;
+            let epf = parseFloat(document.getElementById('Epf').value) || 0;
+            let tds = parseFloat(document.getElementById('Tds').value) || 0;
+            let insurance = parseFloat(document.getElementById('Insurance').value) || 0;
+            let other = parseFloat(document.getElementById('Other').value) || 0;
+            let grossDeduction = tax + epf + tds + insurance + other;
+            document.getElementById('grossdeduction').value = grossDeduction.toFixed(2);
+        }
     </script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

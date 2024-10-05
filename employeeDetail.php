@@ -1465,7 +1465,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql_payroll = "SELECT * FROM earnings ORDER BY id DESC";
+                                    $sql_payroll = "SELECT * FROM earnings WHERE emp_id='$empId' ORDER BY id DESC";
                                     $result = $conn->query($sql_payroll);
                                     if ($result->num_rows > 0) {
                                         $slno = 1;
