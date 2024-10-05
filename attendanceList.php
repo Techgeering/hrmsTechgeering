@@ -61,11 +61,11 @@ session_start(); {
                                     <?php
                                     include "common/conn.php";
                                     if ($em_role == '4' || $em_role == '2') {
-                                        $sql = "SELECT a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
+                                        $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
                                                 FROM attendance a
                                                 JOIN employee e ON a.emp_id = e.em_code WHERE a.emp_id = '$emp_id'";
                                     } else {
-                                        $sql = "SELECT a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
+                                        $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
                                                 FROM attendance a
                                                 JOIN employee e ON a.emp_id = e.em_code";
                                     }
@@ -87,6 +87,10 @@ session_start(); {
                                                     <th>
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                         <i class="fa-solid fa-lock text-danger"></i>
+                                                        <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attendance', tbc='id',returnpage='attendanceList.php');"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                        </a>
                                                     </th>
                                                 <?php } ?>
                                             </tr>
@@ -234,7 +238,14 @@ session_start(); {
         $conn->close();
     }
     ?>
-
+    <script>
+        function confirmDelete(id, tb, tbc, returnpage) {
+            var confirmation = confirm("Are you sure you want to delete this? You won't be able to revert this!");
+            if (confirmation) {
+                window.location.href = "delete.php?delete=" + id + "&tb=" + tb + "&tbc=" + tbc + "&returnpage=" + returnpage;
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

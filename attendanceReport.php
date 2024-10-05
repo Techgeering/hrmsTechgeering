@@ -244,8 +244,8 @@ session_start(); {
 
                 if ($result1->num_rows === 0) {
                     // Insert new record
-                    $sql = "INSERT INTO attadence_report (month, emp_id, working_hour, present_hour, holiday_hour, leave_hour, payable_hour)
-                        VALUES ('$monthYear', '$empid', '$WorkingHour', '$presentHour', '$totalHolidayHours', '$totalLeaveDuration', '$payableHour')";
+                    $sql = "INSERT INTO attadence_report (month, emp_id, working_hour, present_hour, holiday_hour, leave_hour, payable_hour,adj_hour)
+                        VALUES ('$monthYear', '$empid', '$WorkingHour', '$presentHour', '$totalHolidayHours', '$totalLeaveDuration', '$payableHour','0')";
                 } else {
                     // Update existing record
                     $sql = "UPDATE attadence_report 
