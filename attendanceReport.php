@@ -85,10 +85,16 @@ session_start(); {
                                                 <td><?php echo $row4["holiday_hour"]; ?></td>
                                                 <td><?php echo $row4["leave_hour"]; ?></td>
                                                 <td>
-                                                    <p class="edit"><?php echo $row4["adj_hour"]; ?></p>
-                                                    <input type="text" class='txtedit' value='<?php echo $row4["adj_hour"]; ?>'
-                                                        id='adj_hour-<?php echo $row4["id"]; ?>-attadence_report'
-                                                        style="display:none;"></input>
+                                                    <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                                        <p class="edit"><?php echo $row4["adj_hour"]; ?></p>
+                                                        <input type="text" class='txtedit' value='<?php echo $row4["adj_hour"]; ?>'
+                                                            id='adj_hour-<?php echo $row4["id"]; ?>-attadence_report'
+                                                            style="display:none;"></input>
+                                                    <?php } else { ?>
+                                                        <h6 class="form-control form-control-line">
+                                                            <?php echo !empty($row4["adj_hour"]) ? $row4["adj_hour"] : "N/A"; ?>
+                                                        <?php } ?>
+                                                    </h6>
                                                 </td>
                                                 <td><?php echo $row4["payable_hour"]; ?></td>
                                             </tr>

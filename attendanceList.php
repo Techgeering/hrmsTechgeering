@@ -1,10 +1,3 @@
-<?php
-session_start(); {
-    $em_role = $_SESSION["em_role"];
-    $emp_id = $_SESSION["emp_id"];
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,7 +78,11 @@ session_start(); {
                                                 <th><?php echo $row["working_hour"]; ?></th>
                                                 <?php if ($em_role == '1' || $em_role == '3') { ?>
                                                     <th>
-                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                        <!-- <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i> -->
+                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
+                                                            onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>')"
+                                                            data-bs-toggle="modal" data-bs-target="#updateDept">
+                                                        </i>
                                                         <i class="fa-solid fa-lock text-danger"></i>
                                                         <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attendance', tbc='id',returnpage='attendanceList.php');"
                                                             title="Delete">
@@ -214,7 +211,6 @@ session_start(); {
                                 $insert_stmt->execute();
                             }
                         }
-
                         // Close the file and the statements
                         fclose($handle);
                         $insert_stmt->close();
@@ -238,6 +234,80 @@ session_start(); {
         $conn->close();
     }
     ?>
+    <!-- update modal -->
+    <div class="modal fade" id="updateDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Attendance</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <div class="modal-body">
+                        <input type="hidden" name="id9" id="id9">
+                        <div class="form-group">
+                            <label for="DepartmentName">Sign In</label>
+                            <input type="text" class="form-control" id="signin1" name="signin">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Sign Out</label>
+                            <input type="text" class="form-control" id="signout1" name="signout">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="updateattenlist">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <?php
+    if (isset($_POST['updateattenlist'])) {
+        include "common/conn.php";
+
+        $signin = htmlspecialchars($_POST["signin"]);
+        $signout = htmlspecialchars($_POST["signout"]);
+        $id = $_POST["id9"];
+
+        // Convert signin and signout times to DateTime objects
+        $signinDateTime = new DateTime($signin);
+        $signoutDateTime = new DateTime($signout);
+
+        // Calculate the working hours
+        $interval = $signinDateTime->diff($signoutDateTime);
+        $hours = $interval->h;
+        $minutes = $interval->i;
+
+        // Format the output for working hours
+        $working_hour = number_format($hours + ($minutes / 60), 2, '.', ''); // Format to 2 decimal places
+    
+        // Check the day of the week for maximum allowed hours
+        $dayOfWeek = $signinDateTime->format('N'); // 1 (for Monday) through 7 (for Sunday)
+    
+        // Check if working hours exceed the maximum allowed
+        if ($dayOfWeek == 6) { // Saturday
+            if ($working_hour > 5) {
+                $working_hour = 5;
+            }
+        } else { // For other days
+            if ($working_hour > 9) {
+                $working_hour = 9;
+            }
+        }
+
+        // Prepare the update statement
+        $sql1 = "UPDATE attendance SET signin_time='$signin', signout_time='$signout', working_hour='$working_hour' WHERE id='$id'";
+
+        if ($conn->query($sql1) === true) {
+            echo "<script>alert('Success')</script>";
+        } else {
+            echo $conn->error;
+        }
+        $conn->close();
+    }
+    ?>
+
     <script>
         function confirmDelete(id, tb, tbc, returnpage) {
             var confirmation = confirm("Are you sure you want to delete this? You won't be able to revert this!");
@@ -246,10 +316,9 @@ session_start(); {
             }
         }
     </script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>

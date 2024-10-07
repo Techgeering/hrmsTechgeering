@@ -35,10 +35,12 @@ if (isset($_POST['field']) && isset($_POST['value']) && isset($_POST['id'])) {
         $result4 = $conn->query($sql4);
         $row4 = $result4->fetch_assoc();
 
+        $present = $row4["present_hour"];
+        $holiday = $row4["holiday_hour"];
+        $leave = $row4["leave_hour"];
         $adj = $row4["adj_hour"];
-        $pay = $row4["payable_hour"];
 
-        $total = $adj + $pay;
+        $total = $present + $holiday + $leave + $adj;
 
         $query1 = "UPDATE $tblnm SET payable_hour='" . $total . "' WHERE id=$editid";
 
