@@ -17,7 +17,7 @@ session_start(); {
     <title>Attendance Report - Hrms Techgeering</title>
     <link rel="icon" type="image/png" href="assets/img/favicon-t.png">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link href="assets/css/styles.css?v=<?php echo time(); ?>" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -53,6 +53,7 @@ session_start(); {
                                         <th>Present Hour</th>
                                         <th>Holiday Hour</th>
                                         <th>Leave Hour</th>
+                                        <th>Adjustable Hour</th>
                                         <th>Payable Hour</th>
                                     </tr>
                                 </thead>
@@ -83,6 +84,12 @@ session_start(); {
                                                 <td><?php echo $row4["present_hour"]; ?></td>
                                                 <td><?php echo $row4["holiday_hour"]; ?></td>
                                                 <td><?php echo $row4["leave_hour"]; ?></td>
+                                                <td>
+                                                    <p class="edit"><?php echo $row4["adj_hour"]; ?></p>
+                                                    <input type="text" class='txtedit' value='<?php echo $row4["adj_hour"]; ?>'
+                                                        id='adj_hour-<?php echo $row4["id"]; ?>-attadence_report'
+                                                        style="display:none;"></input>
+                                                </td>
                                                 <td><?php echo $row4["payable_hour"]; ?></td>
                                             </tr>
                                             <?php
@@ -265,13 +272,68 @@ session_start(); {
     }
     ?>
 
+
     <!-- <p><?php //echo $row5["emp_id"] . " " . $row5["total_working_hours"]; ?></p> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.edit', function () {
+                var txtEdit = $(this).next('.txtedit');
+                var editText = $(this);
+                txtEdit.show().focus();
+                editText.hide();
+                txtEdit.focusout(function () {
+                    var field_name = txtEdit.attr('id').split("-")[0];
+                    var edit_id = txtEdit.attr('id').split("-")[1];
+                    var table_name = txtEdit.attr('id').split("-")[2];
+                    var value = txtEdit.val();
+                    console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
+                        "Value:", value);
+                    if (value !== null && value.trim() !== '') {
+                        var pattern = txtEdit.attr('pattern');
+                        if (pattern) {
+                            var regex = new RegExp(pattern);
+                            if (!regex.test(value)) {
+                                alert('Invalid pattern. Please enter a valid value.');
+                                return;
+                            }
+                        }
+                    }
+                    editText.show();
+                    editText.text(value);
+                    txtEdit.hide();
+                    $.ajax({
+                        url: 'insert_attendance.php',
+                        type: 'post',
+                        data: {
+                            field: field_name,
+                            value: value,
+                            id: edit_id,
+                            tbnm: table_name
+                        },
+                        success: function (response) {
+                            console.log("AJAX response:", response);
+                            if (response == 1) {
+                                console.log('Save Successfully');
+                            } else {
+                                console.log('Not Saved');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error:", status, error);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

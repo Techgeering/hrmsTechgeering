@@ -131,20 +131,38 @@
                                         <hr>
                                     </div>
                                     <div class="card-body"><small class="text-muted">Email address </small>
-                                        <h6 class="edit"><?php echo $row["em_email"]; ?></h6>
-                                        <input type="text" class='txtedit' value='<?php echo $row["em_email"]; ?>'
-                                            id='em_email-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <h6 class="edit"><?php echo $row["em_email"]; ?></h6>
+                                            <input type="text" class='txtedit' value='<?php echo $row["em_email"]; ?>'
+                                                id='em_email-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <h6 class="form-control form-control-line">
+                                                <?php echo !empty($row["em_email"]) ? $row["em_email"] : "N/A"; ?>
+                                            </h6>
+                                        <?php } ?>
                                         <small class="text-muted">Professional Email address </small>
-                                        <h6 class="edit"><?php echo $row["prof_email"]; ?></h6>
-                                        <input type="text" class='txtedit' value='<?php echo $row["prof_email"]; ?>'
-                                            id='prof_email-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <h6 class="edit"><?php echo $row["prof_email"]; ?></h6>
+                                            <input type="text" class='txtedit' value='<?php echo $row["prof_email"]; ?>'
+                                                id='prof_email-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <h6 class="form-control form-control-line">
+                                                <?php echo !empty($row["prof_email"]) ? $row["prof_email"] : "N/A"; ?>
+                                            </h6>
+                                        <?php } ?>
                                         <small class="text-muted p-t-30 db">Phone</small>
-                                        <h6 class="edit"><?php echo $row["em_phone"]; ?></h6>
-                                        <input type="text" class='txtedit' value='<?php echo $row["em_phone"]; ?>'
-                                            id='em_phone-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;"></input>
+                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                            <h6 class="edit"><?php echo $row["em_phone"]; ?></h6>
+                                            <input type="text" class='txtedit' value='<?php echo $row["em_phone"]; ?>'
+                                                id='em_phone-<?php echo $row["id"]; ?>-employee'
+                                                style="display:none;"></input>
+                                        <?php } else { ?>
+                                            <h6 class="form-control form-control-line">
+                                                <?php echo !empty($row["em_phone"]) ? $row["em_phone"] : "N/A"; ?>
+                                            </h6>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
