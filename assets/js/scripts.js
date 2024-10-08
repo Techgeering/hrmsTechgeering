@@ -88,9 +88,10 @@ function myfcn8(idx, filename) {
     document.getElementById("filename11").value = filename;
 }
 
-/* for pdf id get */
-function myfcn9(idx, signin1, signout1) {
+/* for attendancelist id get */
+function myfcn9(idx, signin1, signout1, date) {
     document.getElementById("id9").value = idx;
     document.getElementById("signin1").value = signin1;
     document.getElementById("signout1").value = signout1;
+    document.getElementById("date1").value = date;
 }

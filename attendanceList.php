@@ -80,7 +80,7 @@
                                                     <th>
                                                         <!-- <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i> -->
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
-                                                            onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>')"
+                                                            onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>','<?php echo $row['atten_date']; ?>')"
                                                             data-bs-toggle="modal" data-bs-target="#updateDept">
                                                         </i>
                                                         <i class="fa-solid fa-lock text-danger"></i>
@@ -229,8 +229,6 @@
         } else {
             echo 'Invalid request method.';
         }
-
-        // Close the database connection
         $conn->close();
     }
     ?>
@@ -245,6 +243,7 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <input type="hidden" name="id9" id="id9">
+                        <input type="hidden" name="date1" id="date1">
                         <div class="form-group">
                             <label for="DepartmentName">Sign In</label>
                             <input type="text" class="form-control" id="signin1" name="signin">
@@ -269,6 +268,7 @@
         $signin = htmlspecialchars($_POST["signin"]);
         $signout = htmlspecialchars($_POST["signout"]);
         $id = $_POST["id9"];
+        $date1 = $_POST["date1"];
 
         // Convert signin and signout times to DateTime objects
         $signinDateTime = new DateTime($signin);
@@ -282,8 +282,9 @@
         // Format the output for working hours
         $working_hour = number_format($hours + ($minutes / 60), 2, '.', ''); // Format to 2 decimal places
     
-        // Check the day of the week for maximum allowed hours
-        $dayOfWeek = $signinDateTime->format('N'); // 1 (for Monday) through 7 (for Sunday)
+        // Check if the date is Saturday
+        $attenDateTime = new DateTime($date1);
+        $dayOfWeek = $attenDateTime->format('N'); // 1 (for Monday) through 7 (for Sunday)
     
         // Check if working hours exceed the maximum allowed
         if ($dayOfWeek == 6) { // Saturday
@@ -307,7 +308,7 @@
         $conn->close();
     }
     ?>
-
+    <!-- attendancelist delete -->
     <script>
         function confirmDelete(id, tb, tbc, returnpage) {
             var confirmation = confirm("Are you sure you want to delete this? You won't be able to revert this!");
@@ -318,7 +319,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js?v=1.3"></script>
+    <script src="assets/js/scripts.js?v=1.4"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>

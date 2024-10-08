@@ -540,6 +540,9 @@
                                                         <select class='txtedit'
                                                             id='status-<?php echo $row1["pro_task_id"]; ?>-pro_task'
                                                             style="display:none;">
+                                                            <option value="Not Started" <?php if ($row1["status"] == "Not Started")
+                                                                echo 'selected="selected"'; ?>>Not Started
+                                                            </option>
                                                             <option value="Started" <?php if ($row1["status"] == "Started")
                                                                 echo 'selected="selected"'; ?>>Started
                                                             </option>
@@ -596,9 +599,9 @@
                                                                                 rows="6"
                                                                                 cols="80"><?php echo $row17["description"]; ?></textarea>
                                                                         <?php } else { ?>
-                                                                            <p class="form-control form-control-line">
-                                                                                <?php echo $row17["description"]; ?>
-                                                                            </p>
+                                                                            <textarea class="form-control form-control-line"
+                                                                                rows="6" cols="80"
+                                                                                readonly>                                                <?php echo htmlspecialchars($row17["description"]); ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -857,6 +860,9 @@
                                                         <select class='txtedit'
                                                             id='status-<?php echo $row2["pro_task_id"]; ?>-pro_task'
                                                             style="display:none;">
+                                                            <option value="Not Started" <?php if ($row2["status"] == "Not Started")
+                                                                echo 'selected="selected"'; ?>>Not Started
+                                                            </option>
                                                             <option value="Started" <?php if ($row2["status"] == "Started")
                                                                 echo 'selected="selected"'; ?>>Started
                                                             </option>
@@ -905,9 +911,9 @@
                                                                                 rows="6"
                                                                                 cols="80"><?php echo $row18["description"]; ?></textarea>
                                                                         <?php } else { ?>
-                                                                            <p class="form-control form-control-line">
-                                                                                <?php echo $row18["description"]; ?>
-                                                                            </p>
+                                                                            <textarea class="form-control form-control-line col-6"
+                                                                                rows="6" col="80" readonly>
+                                                                                                        <?php echo $row18["description"]; ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
