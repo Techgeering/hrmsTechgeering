@@ -599,9 +599,8 @@
                                                                                 rows="6"
                                                                                 cols="80"><?php echo $row17["description"]; ?></textarea>
                                                                         <?php } else { ?>
-                                                                            <textarea class="form-control form-control-line"
-                                                                                rows="6" cols="80"
-                                                                                readonly>                                                <?php echo htmlspecialchars($row17["description"]); ?></textarea>
+                                                                            <textarea class="form-control form-control-line" rows="6" cols="80" readonly>
+                                                                                <?php echo htmlspecialchars($row17["description"]); ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -913,7 +912,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line col-6"
                                                                                 rows="6" col="80" readonly>
-                                                                                                        <?php echo $row18["description"]; ?></textarea>
+                                                                                                                                                                                                                                                        <?php echo $row18["description"]; ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
