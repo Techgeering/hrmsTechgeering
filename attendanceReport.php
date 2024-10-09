@@ -63,11 +63,11 @@ session_start(); {
                                     if ($em_role == '4' || $em_role == '2') {
                                         $sql4 = "SELECT ar.*, e.full_name 
                                                 FROM attadence_report ar
-                                                JOIN employee e ON ar.emp_id = e.em_code WHERE ar.emp_id = '$emp_id'";
+                                                JOIN employee e ON ar.emp_id = e.em_code WHERE ar.emp_id = '$emp_id' ORDER BY month DESC";
                                     } else {
                                         $sql4 = "SELECT ar.*, e.full_name 
                                                 FROM attadence_report ar
-                                                JOIN employee e ON ar.emp_id = e.em_code";
+                                                JOIN employee e ON ar.emp_id = e.em_code ORDER BY month DESC";
                                     }
                                     $result4 = $conn->query($sql4);
 

@@ -58,7 +58,8 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql44 = "SELECT * FROM pay_salary";
+                                    // $sql44 = "SELECT * FROM pay_salary";
+                                    $sql44 = "SELECT * FROM pay_salary ORDER BY year DESC, month DESC";
                                     $result44 = $conn->query($sql44);
                                     $slno = 1;
                                     if ($result44->num_rows > 0) {

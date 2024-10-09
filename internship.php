@@ -51,7 +51,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM internship";
+                                    $sql = "SELECT * FROM internship ORDER BY id DESC";
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     if ($result->num_rows > 0) {

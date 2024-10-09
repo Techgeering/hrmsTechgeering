@@ -52,7 +52,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM employee WHERE status='ACTIVE'";
+                                    $sql = "SELECT * FROM employee WHERE status = 'ACTIVE' ORDER BY id DESC";
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     if ($result->num_rows > 0) {

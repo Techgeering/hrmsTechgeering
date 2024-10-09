@@ -73,14 +73,14 @@ session_start(); {
                                     <?php
                                     include "common/conn.php";
                                     if ($em_role == '4') {
-                                        $sql = "SELECT * FROM emp_leave WHERE em_id = '$emp_id'";
+                                        $sql = "SELECT * FROM emp_leave WHERE em_id = '$emp_id' ORDER BY apply_date DESC";
                                     } elseif ($em_role == '2') {
                                         $sql = "SELECT el.* 
                                         FROM emp_leave el
                                         JOIN employee e ON el.em_id = e.em_code
                                         WHERE e.dep_id = '$dept'";
                                     } else {
-                                        $sql = "SELECT * FROM emp_leave";
+                                        $sql = "SELECT * FROM emp_leave ORDER BY apply_date DESC";
                                     }
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
