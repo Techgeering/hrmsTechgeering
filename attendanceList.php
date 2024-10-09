@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Attendance List - Hrms Techgeering</title>
+    <title>Department - Hrms Techgeering</title>
     <link rel="icon" type="image/png" href="assets/img/favicon-t.png">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="assets/css/styles.css" rel="stylesheet" />
@@ -45,9 +45,8 @@
                                         <th>Sign In</th>
                                         <th>Sign Out</th>
                                         <th>Working Hour</th>
-                                        <?php if ($em_role == '1' || $em_role == '3') { ?>
-                                            <th>Action</th>
-                                        <?php } ?>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,11 +55,11 @@
                                     if ($em_role == '4' || $em_role == '2') {
                                         $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
                                                 FROM attendance a
-                                                JOIN employee e ON a.emp_id = e.em_code WHERE a.emp_id = '$emp_id'";
+                                                JOIN employee e ON a.emp_id = e.em_code WHERE a.emp_id = '$emp_id' ORDER BY atten_date DESC";
                                     } else {
                                         $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
                                                 FROM attendance a
-                                                JOIN employee e ON a.emp_id = e.em_code";
+                                                JOIN employee e ON a.emp_id = e.em_code ORDER BY atten_date DESC";
                                     }
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
@@ -69,27 +68,23 @@
                                             $dayOfWeek = (new DateTime($row["atten_date"]))->format('l');
                                             ?>
                                             <tr>
-                                                <th><?php echo $row["emp_id"]; ?></th>
-                                                <th><?php echo $row["full_name"]; ?></th>
+                                                <td><?php echo $row["emp_id"]; ?></td>
+                                                <td><?php echo $row["full_name"]; ?></td>
                                                 <td><?php echo $dayOfWeek; ?></td>
-                                                <th><?php echo $row["atten_date"]; ?></th>
-                                                <th><?php echo $row["signin_time"]; ?></th>
-                                                <th><?php echo $row["signout_time"]; ?></th>
-                                                <th><?php echo $row["working_hour"]; ?></th>
-                                                <?php if ($em_role == '1' || $em_role == '3') { ?>
-                                                    <th>
-                                                        <!-- <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i> -->
-                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
-                                                            onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>','<?php echo $row['atten_date']; ?>')"
-                                                            data-bs-toggle="modal" data-bs-target="#updateDept">
-                                                        </i>
-                                                        <i class="fa-solid fa-lock text-danger"></i>
-                                                        <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attendance', tbc='id',returnpage='attendanceList.php');"
-                                                            title="Delete">
-                                                            <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
-                                                        </a>
-                                                    </th>
-                                                <?php } ?>
+                                                <td><?php echo $row["atten_date"]; ?></td>
+                                                <td><?php echo $row["signin_time"]; ?></td>
+                                                <td><?php echo $row["signout_time"]; ?></td>
+                                                <td><?php echo $row["working_hour"]; ?></td>
+                                                <td>
+                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
+                                                        onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>','<?php echo $row['atten_date']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updateDept">
+                                                    </i>
+                                                </td>
+                                                <td><a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attendance', tbc='id',returnpage='attendanceList.php');"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                    </a></td>
                                             </tr>
                                             <?php
                                         }
@@ -99,6 +94,19 @@
                                     $conn->close();
                                     ?>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Employee id</th>
+                                        <th>Employee Name</th>
+                                        <th>Day</th>
+                                        <th>Date</th>
+                                        <th>Sign In</th>
+                                        <th>Sign Out</th>
+                                        <th>Working Hour</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -116,17 +124,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- <form method="post" action="<?php //echo $_SERVER['PHP_SELF']; ?>">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="DepartmentName">Department Name</label>
-                            <input type="text" class="form-control" id="DepartmentName" name="DepartmentName">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="DepartmentName">Department Name</label>
+                                <input type="text" class="form-control" id="DepartmentName" name="DepartmentName">
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                    </div>
-                </form> -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form> -->
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                     <label for="file">Choose CSV file:</label>
                     <input type="file" name="file" id="file" accept=".csv">
