@@ -12,6 +12,13 @@ if (isset($_POST['emp_id'])) {
         $epf = ($total / 100) * 12;
         $grosstotalearning = $total * 12;
 
+        if ($grosstotalearning > 700000) {
+            $tds = ($grosstotalearning / 100) * 10;
+        } else {
+            $tds = 0;
+        }
+
+
 
         $sql_leave = "SELECT * FROM attadence_report WHERE emp_id = '$emp_id'";
         $result_leave = $conn->query($sql_leave);
@@ -51,7 +58,7 @@ if (isset($_POST['emp_id'])) {
                 'total_deduction' => 0,
                 'annual' => $grosstotalearning,
                 'epf' => $epf,
-                'tds' => 0,
+                'tds' => $tds,
                 'other' => $other,
                 'empid' => $emp_id,
 

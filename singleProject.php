@@ -343,7 +343,15 @@
                                                         LEFT JOIN assign_task at ON pt.id = at.task_id WHERE pt.pro_id = $proId 
                                                         AND pt.task_type = 'Field' 
                                                         AND FIND_IN_SET('$em_code', at.assign_user) > 0
-                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                           WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
                                         } elseif ($em_role == '2') {
                                             $sql1 = "SELECT pt.id AS pro_task_id, 
                                                         (SELECT at.id FROM assign_task at WHERE at.task_id = pt.id AND at.user_type = 'Team Head') AS team_head_id,
@@ -355,7 +363,15 @@
                                                         LEFT JOIN assign_task at ON pt.id = at.task_id
                                                         WHERE pt.pro_id = $proId AND pt.task_type = 'Field' AND 
                                                         (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') = '$em_code'
-                                                        GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                                        GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                            WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
                                         } else {
                                             // General user or other roles
                                             $sql1 = "SELECT pt.id AS pro_task_id, 
@@ -367,7 +383,15 @@
                                                     FROM pro_task pt
                                                     LEFT JOIN assign_task at ON pt.id = at.task_id
                                                     WHERE pt.pro_id = $proId AND pt.task_type = 'Field'
-                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                             WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
                                         }
                                         $result1 = $conn->query($sql1);
                                         $slno = 1;
@@ -531,7 +555,6 @@
 
                                                         <?php } ?>
                                                     </td>
-
                                                     <td class="text-center">
                                                         <p class="form-control form-control-line edit"
                                                             onclick="showDropdown('status-<?php echo $row1['pro_task_id']; ?>-pro_task')">
@@ -548,9 +571,6 @@
                                                             </option>
                                                             <option value="Testing" <?php if ($row1["status"] == "Testing")
                                                                 echo 'selected="selected"'; ?>>Testing
-                                                            </option>
-                                                            <option value="Done" <?php if ($row1["status"] == "Done")
-                                                                echo 'selected="selected"'; ?>>Done
                                                             </option>
                                                             <option value="Complete" <?php if ($row1["status"] == "Complete")
                                                                 echo 'selected="selected"'; ?>>Complete
@@ -599,8 +619,9 @@
                                                                                 rows="6"
                                                                                 cols="80"><?php echo $row17["description"]; ?></textarea>
                                                                         <?php } else { ?>
-                                                                            <textarea class="form-control form-control-line" rows="6" cols="80" readonly>
-                                                                                <?php echo htmlspecialchars($row17["description"]); ?></textarea>
+                                                                            <textarea class="form-control form-control-line"
+                                                                                rows="6" cols="80" readonly>
+                                                                                                                                                                                                                                                                                                                                                                                                                                           <?php echo htmlspecialchars($row17["description"]); ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -667,7 +688,15 @@
                                                 WHERE pt.pro_id = $proId 
                                                 AND pt.task_type = 'Office' 
                                                 AND FIND_IN_SET('$em_code', at.assign_user) > 0
-                                                GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                                GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                           WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
                                         } elseif ($em_role == '2') {
                                             // Team Head role
                                             $sql2 = "SELECT pt.id AS pro_task_id, 
@@ -680,7 +709,15 @@
                                                     LEFT JOIN assign_task at ON pt.id = at.task_id
                                                     WHERE pt.pro_id = $proId AND pt.task_type = 'Office' AND 
                                                     (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') = '$em_code'
-                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                           WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
                                         } else {
                                             // General user or other roles
                                             $sql2 = "SELECT pt.id AS pro_task_id, 
@@ -692,7 +729,15 @@
                                                     FROM pro_task pt
                                                     LEFT JOIN assign_task at ON pt.id = at.task_id
                                                     WHERE pt.pro_id = $proId AND pt.task_type = 'Office'
-                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date";
+                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                           WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
                                         }
                                         $result2 = $conn->query($sql2);
                                         $slno = 1;
@@ -868,9 +913,6 @@
                                                             <option value="Testing" <?php if ($row2["status"] == "Testing")
                                                                 echo 'selected="selected"'; ?>>Testing
                                                             </option>
-                                                            <option value="Done" <?php if ($row2["status"] == "Done")
-                                                                echo 'selected="selected"'; ?>>Done
-                                                            </option>
                                                             <option value="Complete" <?php if ($row2["status"] == "Complete")
                                                                 echo 'selected="selected"'; ?>>Complete
                                                             </option>
@@ -912,7 +954,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line col-6"
                                                                                 rows="6" col="80" readonly>
-                                                                                                                                                                                                                                                        <?php echo $row18["description"]; ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?php echo $row18["description"]; ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -1355,8 +1397,6 @@
         $conn->close();
     }
     ?>
-
-
     <!-- task modal -->
     <div class="modal fade" id="addDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -1440,11 +1480,11 @@
                             </div>
                             <div class="col-6">
                                 <h6>Status</h6>
-                                <input type="radio" name="Status" value="started">Started
-                                <input type="radio" name="Status" value="testing">Testing
-                                <input type="radio" name="Status" value="done">Done
-                                <input type="radio" name="Status" value="complete">Complete
-                                <input type="radio" name="Status" value="cancel">Cancel
+                                <input type="radio" name="Status" value="Not Started">Not Started
+                                <input type="radio" name="Status" value="Started">Started
+                                <input type="radio" name="Status" value="Complete">Complete
+                                <input type="radio" name="Status" value="Complete">Complete
+                                <input type="radio" name="Status" value="Cancel">Cancel
                                 <span class="checkmark"></span>
                             </div>
                             <div class="mb-2">
@@ -1932,8 +1972,6 @@
             });
         });
     </script>
-
-
     <!-- for project files -->
     <script>
         $(document).ready(function () {

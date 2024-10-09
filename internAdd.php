@@ -103,11 +103,15 @@
                                         <div class="form-group">
                                             <label for="image">Image</label>
                                             <input type="file" class="form-control" id="image" name="imagess">
-
                                         </div>
                                         <div class="form-group">
                                             <label for="personalEmail">Email Id</label>
                                             <input type="email" class="form-control" id="emailid" name="emailid"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="personalEmail">Start Date</label>
+                                            <input type="date" class="form-control" id="startdt" name="startdt1"
                                                 required>
                                         </div>
                                         <div class="form-group">
@@ -206,6 +210,7 @@
         $fathername = $_POST["fathername"];
         $address = htmlspecialchars($_POST["address"]);
         $emailid = $_POST["emailid"];
+        $startdate = $_POST["startdt1"];
         $clgname = htmlspecialchars($_POST["clgname"]);
         $gender = $_POST["gender"];
         $mobilenumber = $_POST["mobilenumber"];
@@ -217,8 +222,8 @@
         $govtid = $_POST["govtid"];
         $clgid = $_POST["clgid"];
 
-        $sql = "INSERT INTO internship (intern_name, father_name, intern_add, intern_email, clg_name, gender, phone, mother_name, id_type, dob, edu_qualification, internship_on, valid_govt_no, college_id, intern_image, intern_doc) 
-            VALUES ('$name','$fathername','$address','$emailid','$clgname','$gender','$mobilenumber','$mothername','$idtype','$dob','$currntedu','$internship','$govtid','$clgid','$new_file_name1','$pdf1NewFileName')";
+        $sql = "INSERT INTO internship (intern_name, father_name, intern_add, intern_email, start_date, clg_name, gender, phone, mother_name, id_type, dob, edu_qualification, internship_on, valid_govt_no, college_id, intern_image, intern_doc) 
+            VALUES ('$name','$fathername','$address','$emailid','$startdate','$clgname','$gender','$mobilenumber','$mothername','$idtype','$dob','$currntedu','$internship','$govtid','$clgid','$new_file_name1','$pdf1NewFileName')";
 
         if ($conn->query($sql) === true) {
             echo "<script>window.location.href='internship.php';</script>";

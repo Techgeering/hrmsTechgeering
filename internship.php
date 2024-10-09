@@ -10,7 +10,7 @@
     <title>Department - Hrms Techgeering</title>
     <link rel="icon" type="image/png" href="assets/img/favicon-t.png">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link href="assets/css/styles.css?v=<?php echo time(); ?>" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -41,6 +41,9 @@
                                         <th>Name</th>
                                         <th>Phone Number</th>
                                         <th>Internship On</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Certificate</th>
                                         <th>View Details</th>
                                         <th>Application Document</th>
                                     </tr>
@@ -66,6 +69,20 @@
                                                 <td><?php echo $row["intern_name"]; ?></td>
                                                 <td><?php echo $row["phone"]; ?></td>
                                                 <td><?php echo $row["internship_on"]; ?></td>
+                                                <td><?php echo $row["start_date"]; ?></td>
+                                                <td>
+                                                    <p class="edit">
+                                                        <?php echo !empty($row["end_date"]) ? $row["end_date"] : "N/A"; ?>
+                                                    </p>
+                                                    <input type="date" class='txtedit' value='<?php echo $row["end_date"]; ?>'
+                                                        id='end_date-<?php echo $row["id"]; ?>-internship'
+                                                        style="display:none;"></input>
+                                                </td>
+                                                <td>
+                                                    <?php if (!empty($row["end_date"])): ?>
+                                                        <i class="fa-solid fa-certificate"></i>
+                                                    <?php endif; ?>
+                                                </td>
                                                 <td>
                                                     <a data-bs-toggle="modal"
                                                         data-bs-target="#paragraphmodal_<?php echo $id; ?>">
@@ -166,8 +183,11 @@
                                         <th>Name</th>
                                         <th>Phone Number</th>
                                         <th>Internship On</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Certificate</th>
                                         <th>View Details</th>
-                                        <th>View Document</th>
+                                        <th>Application Document</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -178,12 +198,77 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // When the '.edit' class (paragraph) is clicked
+            $(document).on('click', '.edit', function () {
+                var txtEdit = $(this).next('.txtedit'); // Get the associated input field
+                var editText = $(this); // Store the paragraph element being clicked
+
+                editText.hide(); // Hide the paragraph text
+                txtEdit.show().focus(); // Show the input field and focus on it
+
+                // Attach the focusout event after the input field is focused
+                txtEdit.one('focusout', function () {
+                    var field_name = txtEdit.attr('id').split("-")[0]; // Get field name ('end_date')
+                    var edit_id = txtEdit.attr('id').split("-")[1]; // Get the ID
+                    var table_name = txtEdit.attr('id').split("-")[2]; // Get the table name
+                    var value = txtEdit.val(); // Get the new date value
+
+                    console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name, "Value:", value);
+
+                    // Validate the input value
+                    if (value !== null && value.trim() !== '') {
+                        var pattern = txtEdit.attr('pattern');
+                        if (pattern) {
+                            var regex = new RegExp(pattern);
+                            if (!regex.test(value)) {
+                                alert('Invalid pattern. Please enter a valid value.');
+                                return;
+                            }
+                        }
+                    }
+
+                    // Show the new date in the paragraph
+                    editText.show();
+                    editText.text(value || "N/A"); // Fallback to "N/A" if empty
+                    txtEdit.hide();
+
+                    // AJAX call to save the new date to the database
+                    $.ajax({
+                        url: 'insert_internenddate.php',
+                        type: 'post',
+                        data: {
+                            field: field_name,
+                            value: value,
+                            id: edit_id,
+                            tbnm: table_name
+                        },
+                        success: function (response) {
+                            console.log("AJAX response:", response);
+                            if (response == 1) {
+                                console.log('Saved Successfully');
+                            } else {
+                                console.log('Not Saved');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error:", status, error);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>

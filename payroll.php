@@ -174,11 +174,19 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-4">
+                                <!-- <div class="col-4">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Performance Bonus</label>
                                         <input type="text" name="Performance" id="Performance" class="form-control"
                                             oninput="calculateGrossEarnings()">
+                                    </div>
+                                </div> -->
+                                <div class="col-4">
+                                    <div class="mb-2">
+                                        <label for="Performance" class="form-label">Performance Bonus</label>
+                                        <input type="text" name="Performance" id="Performance" class="form-control"
+                                            oninput="validatePerformance(this)">
+                                        <input type="hidden" id="Performance1">
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -235,7 +243,7 @@
                                     <div class="col-4">
                                         <div class="mb-2">
                                             <label for="year" class="form-label">TDS</label>
-                                            <input type="text" class="form-control" name="tds" id="Tds" value="0"
+                                            <input type="text" class="form-control" name="tds" id="Tds"
                                                 oninput="calculateGrossDeduction()">
                                         </div>
                                     </div>
@@ -293,7 +301,13 @@
         $Houserent = $_POST["Houserent"];
         $Medical = $_POST["Medical"];
         $Travel = $_POST["Travel"];
-        $Performance = $_POST["Performance"];
+        $Performance0 = $_POST["Performance"];
+        $Performance;
+        if ($Performance0 == null || $Performance0 == 0) {
+            $Performance = "0.00";
+        } else {
+            $Performance = $Performance0;
+        }
         $ptax = $_POST["ptax"];
         $Epf = $_POST["Epf"];
         $tds = $_POST["tds"];
@@ -303,14 +317,32 @@
         $total_deduction = $_POST["grossdeduction"];
         $netpay = $_POST["netpay"];
 
-        $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay')";
-        if ($conn->query($sql11) === true) {
-            echo "<script>window.location.href='payroll.php';</script>";
+        $sql1 = "SELECT month, emp_id, year
+                     FROM pay_salary 
+                     WHERE month = '$month' AND year = '$year' AND emp_id = '$empid'";
+        $result1 = $conn->query($sql1);
+
+        if ($result1->num_rows === 0) {
+
+            $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay')";
+            if ($conn->query($sql11) === true) {
+                echo "<script>window.location.href='payroll.php';</script>";
+            } else {
+                echo "Error: " . $sql11 . "<br>" . $conn->error;
+            }
+            $conn->close();
         } else {
-            echo "Error: " . $sql11 . "<br>" . $conn->error;
+            $sql12 = "UPDATE pay_salary 
+                        SET basic = '$Basic', house_rent = '$Houserent', medical = '$Medical', transporting = '$Travel', performance_bonus = '$Performance', tax = '$ptax', provident_fund = '$Epf', tds = '$tds', bima = '$insurance', other_diduction = '$other', total_earnings = '$total_earings', total_deduction = '$total_deduction', net_pay = '$netpay'   
+                        WHERE month = '$month' AND year = '$year' AND emp_id = '$empid'";
+            if ($conn->query($sql12) === TRUE) {
+                echo "Record processed successfully for emp_id: $empid";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
-        $conn->close();
     }
+    $conn->close();
     ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -333,9 +365,11 @@
                             $('#Medical').val(parseFloat(parsedData.medical).toFixed(2));
                             $('#Travel').val(parseFloat(parsedData.travel).toFixed(2));
                             $('#Performance').val(parseFloat(parsedData.perform_bonus).toFixed(2));
+                            $('#Performance1').val(parseFloat(parsedData.perform_bonus).toFixed(2));
                             $('#Gross').val(parseFloat(parsedData.total).toFixed(2));
                             $('#Grossannual').val(parseFloat(parsedData.annual).toFixed(2));
                             $('#Epf').val(parseFloat(parsedData.epf).toFixed(2));
+                            $('#Tds').val(parseFloat(parsedData.tds).toFixed(2));
                             $('#Other').val(parseFloat(parsedData.other).toFixed(2));
                             $('#empid').val(parsedData.empidd);
                             $('#ptaxx').val(parseFloat(parsedData.ptax).toFixed(2));
@@ -346,19 +380,6 @@
                 }
             });
         });
-    </script>
-    <!-- addition all earnings -->
-    <script>
-        function calculateGrossEarnings() {
-            let basic = parseFloat(document.getElementById('Basic').value) || 0;
-            let houserent = parseFloat(document.getElementById('Houserent').value) || 0;
-            let medical = parseFloat(document.getElementById('Medical').value) || 0;
-            let travel = parseFloat(document.getElementById('Travel').value) || 0;
-            let performancebonus = parseFloat(document.getElementById('Performance').value) || 0;
-            let grossEarnings = basic + houserent + medical + travel + performancebonus;
-            document.getElementById('Gross').value = grossEarnings.toFixed(2);
-        }
-
         function calculateGrossDeduction() {
             let tax = parseFloat(document.getElementById('ptaxx').value) || 0;
             let epf = parseFloat(document.getElementById('Epf').value) || 0;
@@ -368,7 +389,28 @@
             let grossDeduction = tax + epf + tds + insurance + other;
             document.getElementById('grossdeduction').value = grossDeduction.toFixed(2);
         }
+        function validatePerformance(input) {
+            // Parse the current input value
+            const currentValue = parseFloat(input.value);
+            let previousValue = parseFloat(document.getElementById('Performance1').value);
+            if (currentValue > previousValue) {
+                input.value = previousValue;
+            }
+
+            calculateGrossEarnings();
+        }
+
+        function calculateGrossEarnings() {
+            let basic = parseFloat(document.getElementById('Basic').value) || 0;
+            let houserent = parseFloat(document.getElementById('Houserent').value) || 0;
+            let medical = parseFloat(document.getElementById('Medical').value) || 0;
+            let travel = parseFloat(document.getElementById('Travel').value) || 0;
+            let performancebonus = parseFloat(document.getElementById('Performance').value) || 0;
+            let grossEarnings = basic + houserent + medical + travel + performancebonus;
+            document.getElementById('Gross').value = grossEarnings.toFixed(2);
+        }
     </script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

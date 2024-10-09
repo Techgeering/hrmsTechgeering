@@ -17,6 +17,17 @@
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
+    <?php
+    include "common/conn.php";
+    $sql10 = "SELECT * FROM employee WHERE id=$userid";
+    $result10 = $conn->query($sql10);
+    if ($result10->num_rows > 0) {
+        $row10 = $result10->fetch_assoc();
+        $name = $row10["full_name"];
+        $dept = $row["dep_id"];
+        $em_code = $row["em_code"];
+    }
+    ?>
     <!-- end Top Navbar -->
     <div id="layoutSidenav">
         <!-- start Side Navbar -->
@@ -40,19 +51,77 @@
                                         <th>Sl</th>
                                         <th>Project Name</th>
                                         <th>Project Title</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
                                         <th>Status</th>
-                                        <th>Assign Date</th>
-                                        <th>Action</th>
+                                        <th>Desc</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM pro_task";
+                                    if ($em_role == '4') {
+                                        $sql = "SELECT pt.id AS pro_task_id, 
+                                                        (SELECT at.id FROM assign_task at WHERE at.task_id = pt.id AND at.user_type = 'Team Head') AS team_head_id,
+                                                        (SELECT at.id FROM assign_task at WHERE at.task_id = pt.id AND at.user_type = 'Collaborators' LIMIT 1) AS collaborator_id,
+                                                        pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
+                                                        GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+                                                        (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+                                                        FROM pro_task pt
+                                                        LEFT JOIN assign_task at ON pt.id = at.task_id WHERE
+                                                        FIND_IN_SET('$em_code', at.assign_user) > 0
+                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                           WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
+                                    } elseif ($em_role == '2') {
+                                        $sql = "SELECT pt.id AS pro_task_id, 
+                                                        (SELECT at.id FROM assign_task at WHERE at.task_id = pt.id AND at.user_type = 'Team Head') AS team_head_id,
+                                                        (SELECT at.id FROM assign_task at WHERE at.task_id = pt.id AND at.user_type = 'Collaborators' LIMIT 1) AS collaborator_id,
+                                                        pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
+                                                        GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+                                                        (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+                                                        FROM pro_task pt
+                                                        LEFT JOIN assign_task at ON pt.id = at.task_id
+                                                        WHERE
+                                                        (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') = '$em_code'
+                                                        GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                            WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
+                                    } else {
+                                        $sql = "SELECT pt.id AS pro_task_id, 
+                                                        (SELECT at.id FROM assign_task at WHERE at.task_id = pt.id AND at.user_type = 'Team Head') AS team_head_id,
+                                                        (SELECT at.id FROM assign_task at WHERE at.task_id = pt.id AND at.user_type = 'Collaborators' LIMIT 1) AS collaborator_id,
+                                                        pt.pro_id, pt.task_title, pt.start_date, pt.end_date, pt.status,
+                                                        GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users,
+                                                        (SELECT assign_user FROM assign_task WHERE task_id = pt.id AND user_type = 'Team Head') AS assigned_manager
+                                                    FROM pro_task pt
+                                                    LEFT JOIN assign_task at ON pt.id = at.task_id
+                                                    GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
+                                                        CASE 
+                                                             WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Started' THEN 2
+                                                            WHEN status = 'Testing' THEN 3
+                                                            WHEN status = 'Complete' THEN 4
+                                                            WHEN status = 'Cancel' THEN 5
+                                                            ELSE 6 
+                                                        END";
+                                    }
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     while ($row = $result->fetch_assoc()) {
-                                        $id = $row['id'];
+                                        $id = $row['pro_task_id'];
                                         ?>
                                         <tr>
                                             <td><?php echo $slno; ?></td>
@@ -64,8 +133,33 @@
                                             ?>
                                             <td><?php echo $row1["pro_name"]; ?></td>
                                             <td><?php echo $row["task_title"]; ?></td>
-                                            <td><?php echo $row["status"]; ?></td>
-                                            <td><?php echo $row["create_date"]; ?></td>
+                                            <td><?php echo $row["start_date"]; ?></td>
+                                            <td><?php echo $row["end_date"]; ?></td>
+                                            <td class="text-center">
+                                                <p class="form-control form-control-line edit"
+                                                    onclick="showDropdown('status-<?php echo $row['pro_task_id']; ?>-pro_task')">
+                                                    <?php echo $row["status"]; ?>
+                                                </p>
+                                                <select class='txtedit'
+                                                    id='status-<?php echo $row["pro_task_id"]; ?>-pro_task'
+                                                    style="display:none;">
+                                                    <option value="Not Started" <?php if ($row["status"] == "Not Started")
+                                                        echo 'selected="selected"'; ?>>Not Started
+                                                    </option>
+                                                    <option value="Started" <?php if ($row["status"] == "Started")
+                                                        echo 'selected="selected"'; ?>>Started
+                                                    </option>
+                                                    <option value="Testing" <?php if ($row["status"] == "Testing")
+                                                        echo 'selected="selected"'; ?>>Testing
+                                                    </option>
+                                                    <option value="Complete" <?php if ($row["status"] == "Complete")
+                                                        echo 'selected="selected"'; ?>>Complete
+                                                    </option>
+                                                    <option value="Cancel" <?php if ($row["status"] == "Cancel")
+                                                        echo 'selected="selected"'; ?>>Cancel
+                                                    </option>
+                                                </select>
+                                            </td>
                                             <td>
                                                 <a data-bs-toggle="modal"
                                                     data-bs-target="#paragraphmodal_<?php echo $id; ?>">
@@ -74,70 +168,50 @@
                                             </td>
                                         </tr>
 
+
                                         <div class="modal fade" id="paragraphmodal_<?php echo $id; ?>" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
+                                                    <div class="modal-header bg-success text-white">
                                                         <h5 class="modal-title" id="exampleModalLabel">Details</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <?php
-                                                    $id; ?>
-                                                    <?php
-                                                    include "common/conn.php";
-                                                    $sql_show = "SELECT * FROM pro_task where id = '$id'";
-                                                    $result_show = $conn->query($sql_show);
-                                                    while ($row_show = $result_show->fetch_assoc()) {
-                                                        $pro_idd = $row_show["pro_id"];
-
-                                                        $sql11 = "SELECT * FROM project where id = '$pro_idd'";
-                                                        $result11 = $conn->query($sql11);
-                                                        while ($row11 = $result11->fetch_assoc()) {
-                                                            ?>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        Project Name:-<?php echo $row11["pro_name"]; ?>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        Task Title:-<?php echo $row_show["task_title"]; ?>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        Assign Date:-<?php echo $row_show["create_date"]; ?>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        Start Date:-<?php echo $row_show["start_date"]; ?>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        End Date:-<?php echo $row_show["end_date"]; ?>
-                                                                    </div>
-                                                                    <?php
-                                                                    include "common/conn.php";
-                                                                    $sql_assign = "SELECT * FROM assign_task where id = '$id'";
-                                                                    $result_assign = $conn->query($sql_assign);
-                                                                    while ($row_assign = $result_assign->fetch_assoc()) {
-                                                                        $pro_idd = $row_assign["project_id"];
-                                                                        ?>
-                                                                        <div class="col-6">
-                                                                            Collaborators:-<?php echo $row_assign["assign_user"]; ?>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            Task Type:-<?php echo $row_assign["user_type"]; ?>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            Project Status:-<?php echo $row_show["status"]; ?>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            Project Description:-<?php echo $row_show["description"]; ?>
-                                                                        </div>
+                                                    $sql17 = "SELECT * FROM pro_task WHERE id =$id";
+                                                    $result17 = $conn->query($sql17);
+                                                    $row17 = $result17->fetch_assoc();
+                                                    ?>
+                                                    <!-- <div class="modal-body">
+                                                                <div class="row g-3">
+                                                                    <div class="col-md-12">
+                                                                        <strong>Project Description:</strong>
+                                                                        <?php echo $row17["description"]; ?>
                                                                     </div>
                                                                 </div>
-                                                                <?php
-                                                                    }
-                                                        }
-                                                    } ?>
+                                                            </div> -->
+                                                    <div class="modal-body">
+                                                        <div class="row g-3">
+                                                            <div class="col-md-12">
+                                                                <strong>Project Description:</strong>
+                                                                <?php if ($em_role == '1') { ?>
+                                                                    <textarea class="form-control form-control-line col-6 edit"
+                                                                        rows="6"
+                                                                        cols="80"><?php echo $row17["description"]; ?></textarea>
+                                                                <?php } else { ?>
+                                                                    <textarea class="form-control form-control-line" rows="6"
+                                                                        cols="80"
+                                                                        readonly>                                                                                                                                            <?php echo htmlspecialchars($row17["description"]); ?></textarea>
+                                                                <?php } ?>
+                                                                <?php if ($em_role == '1') { ?>
+                                                                    <textarea class='txtedit'
+                                                                        id='description-<?php echo $row17["id"]; ?>-pro_task'
+                                                                        style="display:none; width:100%; height:150px;"><?php echo $row17["description"]; ?></textarea>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
@@ -167,16 +241,13 @@
                     <h1 class="modal-title fs-5" id="addDeptLabel">Add Tasks</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form name="form1" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"
-                    enctype="multipart/form-data">
+                <form name="form1" id="form1" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
-                            <input type="hidden" class="form-control" value="<?php echo $proId; ?>" id="project_name"
-                                name="project_name" required>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="Project_Name" class="form-label">Project Name</label>
-                                    <select class="form-select" name="Project_Name" id="Project_Name">
+                                    <select class="form-select" name="project_name">
                                         <option value="" disabled selected>Select a project</option>
                                         <?php
                                         include "common/conn.php";
@@ -200,13 +271,6 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
-                                    <label for="assigndate" class="form-label">Assign Date</label>
-                                    <input type="date" class="form-control" id="assign_Date" name="assign_Date"
-                                        required>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-2">
                                     <label for="startDate" class="form-label">Start Date</label>
                                     <input type="date" class="form-control" id="start_Date" name="start_Date" required>
                                 </div>
@@ -220,16 +284,16 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
-                                    <label for="assigned_users" class="form-label">Assigned Users</label>
+                                    <label for="assigned_users" class="form-label">Manager</label>
                                     <select class="form-control" name="assigned_users" id="assigned_users">
                                         <option value="" disabled selected>Select a user</option>
                                         <?php
                                         include "common/conn.php";
-                                        $sql5 = "SELECT * FROM employee ";
+                                        $sql5 = "SELECT * FROM employee WHERE em_role = '2'";
                                         $result5 = $conn->query($sql5);
                                         while ($row5 = $result5->fetch_assoc()) {
                                             ?>
-                                            <option value="<?php echo $row5['full_name']; ?>">
+                                            <option value="<?php echo $row5['em_code']; ?>">
                                                 <?php echo $row5['full_name']; ?>
                                             </option>
                                         <?php } ?>
@@ -243,17 +307,22 @@
                                         <option value="" disabled>Select users</option>
                                         <?php
                                         include "common/conn.php";
-                                        $sql5 = "SELECT * FROM employee";
+                                        if ($em_role == '2') {
+                                            $sql5 = "SELECT * FROM employee WHERE em_role = '4' AND dep_id = '$dept'";
+                                        } else {
+                                            $sql5 = "SELECT * FROM employee WHERE em_role = '4'";
+                                        }
                                         $result5 = $conn->query($sql5);
                                         while ($row5 = $result5->fetch_assoc()) {
                                             ?>
-                                            <option value="<?php echo $row5['full_name']; ?>">
+                                            <option value="<?php echo $row5['em_code']; ?>">
                                                 <?php echo $row5['full_name']; ?>
                                             </option>
                                         <?php } ?>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-6">
                                 <h6>Type</h6>
                                 <label class="radio-container">Office
@@ -261,26 +330,14 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <!-- <div class="col-6">
-                                <h6>Status</h6>
-                                <label class="radio-container">
-                                    <input type="radio" name="Status" value="complete">Complete
-                                    <input type="radio" name="Status" value="running">Running
-                                    <input type="radio" name="Status" value="cancel">Cancel
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div> -->
                             <div class="col-6">
                                 <h6>Status</h6>
-                                <label class="radio-container">
-                                    <input type="radio" name="Status" value="not started">Not Started
-                                    <input type="radio" name="Status" value="running">Running
-                                    <input type="radio" name="Status" value="complete">Complete
-                                    <input type="radio" name="Status" value="testing">Testing
-                                    <input type="radio" name="Status" value="done">Done
-                                    <input type="radio" name="Status" value="cancel">Cancel
-                                    <span class="checkmark"></span>
-                                </label>
+                                <input type="radio" name="Status" value="Not Started">Not Started
+                                <input type="radio" name="Status" value="Started">Started
+                                <input type="radio" name="Status" value="Testing">Testing
+                                <input type="radio" name="Status" value="Complete">Complete
+                                <input type="radio" name="Status" value="Cancel">Cancel
+                                <span class="checkmark"></span>
                             </div>
                             <div class="mb-2">
                                 <label for="ProjectDescription" class="form-label">Project Description</label>
@@ -290,7 +347,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" name="task_list">Submit</button>
+                            <button type="submit" class="btn btn-primary" name="project_task">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -298,60 +355,96 @@
         </div>
     </div>
 
-    <?php
-    include "common/conn.php";
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['task_list'])) {
-        $project_name = $_POST['Project_Name'];
-        $Project_Title = $_POST['Project_Title'];
-        $assign_Date = $_POST['assign_Date'];
-        $start_Date = $_POST['start_Date'];
-        $Project_EndDate = $_POST['Project_EndDate'];
-        $assigned_users = $_POST['assigned_users'];
-        $office = $_POST['office'] ?? 0;
-        $assigned_users1 = $_POST['assigned_users1'];
-        $Status = $_POST['Status'];
-        $ProjectDescription = $_POST['ProjectDescription'];
-
-        $assigned_users1_list = implode(',', $assigned_users1);
-
-        if ($office == 1) {
-            $sqltask = "INSERT INTO pro_task (pro_id, task_title, create_date, start_date, end_date, description, task_type, status) VALUES ('$project_name', ' $Project_Title', '$assign_Date', '$start_Date', '$Project_EndDate', '$ProjectDescription', 'Office', '$Status')";
-        } else {
-            $sqltask = "INSERT INTO pro_task (pro_id, task_title, create_date, start_date, end_date, description, task_type, status) VALUES ('$project_name', ' $Project_Title', '$assign_Date', '$start_Date', '$Project_EndDate', '$ProjectDescription', 'Field', '$Status')";
-        }
-
-        if ($conn->query($sqltask) === true) {
-            $last_id = $conn->insert_id;
-            $sqltask1 = "INSERT INTO assign_task (task_id, project_id, assign_user, user_type) VALUES ('$last_id', '$project_name', '$assigned_users', 'Team Head')";
-
-            if ($conn->query($sqltask1) === true) {
-                $sqltask2 = "INSERT INTO assign_task (task_id, project_id, assign_user, user_type) VALUES ('$last_id', '$project_name', '$assigned_users1_list', 'Collaborators')";
-
-                if ($conn->query($sqltask2) === true) {
-                    echo "success";
-                } else {
-                    error_log("Error in SQL task 2: " . $conn->error);
-                    echo $conn->error;
-                }
-            } else {
-                error_log("Error in SQL task 1: " . $conn->error);
-                echo $conn->error;
-            }
-        } else {
-            error_log("Error in SQL task: " . $conn->error);
-            echo $conn->error;
-        }
-    }
-    $conn->close();
-    ?>
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.edit', function () {
+                var txtEdit = $(this).next('.txtedit');
+                var editText = $(this);
+
+                txtEdit.show().focus();
+                editText.hide();
+
+                txtEdit.focusout(function () {
+                    var field_name = txtEdit.attr('id').split("-")[0];
+                    var edit_id = txtEdit.attr('id').split("-")[1];
+                    var table_name = txtEdit.attr('id').split("-")[2];
+                    var value = txtEdit.val();
+
+                    console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
+                        "Value:", value);
+
+                    if (value !== null && value.trim() !== '') {
+                        var pattern = txtEdit.attr('pattern');
+                        if (pattern) {
+                            var regex = new RegExp(pattern);
+                            if (!regex.test(value)) {
+                                alert('Invalid pattern. Please enter a valid value.');
+                                return;
+                            }
+                        }
+                    }
+                    editText.show();
+                    editText.text(value);
+                    txtEdit.hide();
+                    $.ajax({
+                        url: 'insert.php',
+                        type: 'post',
+                        data: {
+                            field: field_name,
+                            value: value,
+                            id: edit_id,
+                            tbnm: table_name
+                        },
+                        success: function (response) {
+                            console.log("AJAX response:", response);
+                            if (response == 1) {
+                                console.log('Save Successfully');
+                            } else {
+                                console.log('Not Saved');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error:", status, error);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#form1').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: 'project_task.php',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                        $('#form1')[0].reset();
+                        $('#addtasklist').modal('hide');
+                        var toastEl = document.getElementById('liveToast');
+                        var toast = new bootstrap.Toast(toastEl);
+                        toast.show();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert('Error submitting the form. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
