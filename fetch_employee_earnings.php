@@ -18,6 +18,8 @@ if (isset($_POST['emp_id'])) {
             $tds = 0;
         }
 
+        $epf_company = ($total / 100) * 12;
+
 
 
         $sql_leave = "SELECT * FROM attadence_report WHERE emp_id = '$emp_id'";
@@ -44,6 +46,7 @@ if (isset($_POST['emp_id'])) {
             <td>' . $row['perform_bonus'] . '</td>
             <td>' . $total . '</td>
             <td>' . $grosstotalearning . '</td>
+            <td>' . $total . '</td>
             </tr>';
 
             $response = array(
@@ -61,7 +64,7 @@ if (isset($_POST['emp_id'])) {
                 'tds' => $tds,
                 'other' => $other,
                 'empid' => $emp_id,
-
+                'epfcompany' => $epf_company,
             );
 
             // Get the current month
@@ -69,22 +72,24 @@ if (isset($_POST['emp_id'])) {
             // Set Professional Tax value based on $grosstotalearning
             if ($grosstotalearning >= 160000 && $grosstotalearning <= 300000) {
                 $response['ptax'] = 125; // No tax
-                $response['total_deduction'] = $epf + $other + 125;
+                $response['total_deduction'] = $epf + $other + $tds + 125;
                 // $response['ptax'] = $response['total_deduction'];
 
             } elseif ($grosstotalearning > 300000) {
                 if ($currentMonth == 12) {
                     $response['ptax'] = 300; // December specific tax value
-                    $response['total_deduction'] = $epf + $other + 300;
+                    $response['total_deduction'] = $epf + $other + $tds + 300;
                 } else {
                     $response['ptax'] = 200; // Default tax value for other cases
-                    $response['total_deduction'] = $epf + $other + 200;
+                    $response['total_deduction'] = $epf + $other + $tds + 200;
                 }
             } else {
                 $response['ptax'] = 0; // Tax value
-                $response['total_deduction'] = $epf + $other;
+                $response['total_deduction'] = $epf + $other + $tds;
             }
             $response['netpay'] = $total - $response['total_deduction'];
+
+            // $response['paidcompany'] = $total + 0 + $epf_company;
 
             echo json_encode($response);
         } else {
@@ -95,20 +100,67 @@ if (isset($_POST['emp_id'])) {
 
             $response = array(
                 'tableData' => $tableData,
-                'basic' => '',
-                'house_rent' => '',
-                'medical' => '',
-                'travel' => '',
-                'perform_bonus' => '',
-                'total' => '',
-                'total_deduction' => '',
-                'annual' => '',
-                'epf' => '',
-                'other' => '',
-                'empid' => ''
+                'basic' => $row['basic'],
+                'house_rent' => $row['house_rent'],
+                'medical' => $row['medical'],
+                'travel' => $row['travel'],
+                'perform_bonus' => $row['perform_bonus'],
+                'ptax' => 0,
+                'total' => $total,
+                'total_deduction' => 0,
+                'annual' => $grosstotalearning,
+                'epf' => $epf,
+                'tds' => $tds,
+                'other' => '0',
+                'empid' => $emp_id,
+                'epfcompany' => $epf_company,
             );
+
+            // Get the current month
+            $currentMonth = date('n'); // 'n' returns the numeric representation of a month without leading zeros (1 through 12)
+            // Set Professional Tax value based on $grosstotalearning
+            if ($grosstotalearning >= 160000 && $grosstotalearning <= 300000) {
+                $response['ptax'] = 125; // No tax
+                $response['total_deduction'] = $epf + $tds + 125;
+                // $response['ptax'] = $response['total_deduction'];
+
+            } elseif ($grosstotalearning > 300000) {
+                if ($currentMonth == 12) {
+                    $response['ptax'] = 300; // December specific tax value
+                    $response['total_deduction'] = $epf + $tds + 300;
+                } else {
+                    $response['ptax'] = 200; // Default tax value for other cases
+                    $response['total_deduction'] = $epf + $tds + 200;
+                }
+            } else {
+                $response['ptax'] = 0; // Tax value
+                $response['total_deduction'] = $epf + $tds;
+            }
+            $response['netpay'] = $total - $response['total_deduction'];
             echo json_encode($response);
         }
+    } else {
+        $tableData = '<tr>
+    <td colspan="6">No earnings data found for this employee.</td>
+</tr>';
+
+        $response = array(
+            'tableData' => $tableData,
+            'basic' => '',
+            'house_rent' => '',
+            'medical' => '',
+            'travel' => '',
+            'perform_bonus' => '',
+            'ptax' => '',
+            'total' => '',
+            'total_deduction' => '',
+            'annual' => '',
+            'epf' => '',
+            'tds' => '',
+            'other' => '',
+            'empid' => '',
+            'epfcompany' => '',
+        );
     }
 }
 ?>

@@ -1565,33 +1565,29 @@
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="basic1" class="form-label">Basic</label>
-                                    <input type="text" class="form-control" id="basic1" name="basic" oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); 
-                                    this.value = this.value.replace(/[^0-9]/g, ''); 
-                                    this.setCustomValidity(''); 
-                                    this.checkValidity(); 
-                                    calculateGrossEarnings(); 
-                                    updateHouseRent()">
+                                    <input type="text" class="form-control" id="basic1" name="basic"
+                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings(); updateHouseRent()">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="houserent1" class="form-label">House Rent</label>
                                     <input type="text" class="form-control" id="houserent1" name="houserent"
-                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()">
+                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="medical1" class="form-label">Medical</label>
                                     <input type="text" class="form-control" id="medical1" name="medical"
-                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()">
+                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="travel1" class="form-label">Travel</label>
                                     <input type="text" class="form-control" id="travel1" name="travel" value="0"
-                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity(); calculateGrossEarnings()">
+                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -2087,23 +2083,29 @@
             image.src = URL.createObjectURL(event.target.files[0]);
         }
     </script>
-    <!-- for % calculation -->
+    <!-- for point calculation -->
     <script>
+        // Reusable function for input validation and limiting to numbers
+        function limitAndValidate(input, maxLength) {
+            if (input.value.length > maxLength) input.value = input.value.slice(0, maxLength);
+            input.value = input.value.replace(/[^0-9.]/g, ''); // Allow only numbers and decimal
+        }
+
+        // Update house rent and medical based on basic value
         function updateHouseRent() {
-            const basicValue = document.getElementById('basic1').value;
+            const basicValue = parseFloat(document.getElementById('basic1').value) || 0;
             if (basicValue) {
-                const houseRentValue = (parseFloat(basicValue) / 100 * 18).toFixed(2);
-                const medicalValue = (parseFloat(basicValue) / 100 * 10).toFixed(2);
+                const houseRentValue = (basicValue * 0.18).toFixed(2); // 18% of basic
+                const medicalValue = (basicValue * 0.10).toFixed(2); // 10% of basic
                 document.getElementById('houserent1').value = houseRentValue;
-                document.getElementById('medical1').value = medicalValue; medical
+                document.getElementById('medical1').value = medicalValue;
             } else {
                 document.getElementById('houserent1').value = '';
                 document.getElementById('medical1').value = '';
             }
         }
-    </script>
-    <!-- addition all values -->
-    <script>
+
+        // Calculate gross earnings by summing all the values
         function calculateGrossEarnings() {
             let basic = parseFloat(document.getElementById('basic1').value) || 0;
             let houserent = parseFloat(document.getElementById('houserent1').value) || 0;
@@ -2113,14 +2115,11 @@
             let grossEarnings = basic + houserent + medical + travel + performancebonus;
             document.getElementById('grossearnings').value = grossEarnings.toFixed(2);
         }
-    </script>
-    <script>
-        function validatePerformanceBonus(input) {
-            // Allow only numbers and limit length to 15
-            input.value = input.value.replace(/[^0-9]/g, '').slice(0, 15);
 
-            // Convert the value to a number and check if it exceeds 10,000
-            const value = Number(input.value);
+        // Validate performance bonus input and apply limits
+        function validatePerformanceBonus(input) {
+            limitAndValidate(input, 15); // Reuse the limit function
+            const value = parseFloat(input.value) || 0;
 
             if (value > 10000) {
                 input.setCustomValidity('Performance Bonus cannot exceed 10,000.');
@@ -2128,11 +2127,8 @@
                 input.setCustomValidity(''); // Clear the custom validity message
             }
 
-            // Check validity
-            input.checkValidity();
-
-            // Call the calculateGrossEarnings function
-            calculateGrossEarnings();
+            input.checkValidity(); // Check validity
+            calculateGrossEarnings(); // Update gross earnings
         }
     </script>
 </body>

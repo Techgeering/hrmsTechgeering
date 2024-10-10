@@ -95,3 +95,11 @@ function myfcn9(idx, signin1, signout1, date) {
     document.getElementById("signout1").value = signout1;
     document.getElementById("date1").value = date;
 }
+
+/* for delete row */
+function confirmDelete(id, tb, tbc, returnpage) {
+    var confirmation = confirm("Are you sure you want to delete this? You won't be able to revert this!");
+    if (confirmation) {
+        window.location.href = "delete.php?delete=" + id + "&tb=" + tb + "&tbc=" + tbc + "&returnpage=" + returnpage;
+    }
+}

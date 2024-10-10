@@ -271,15 +271,23 @@
                                                 id="grossdeduction" oninput="calculateGrossDeduction()" readonly>
                                         </div>
                                     </div>
-                                    <h5>Net Pay:-</h5>
-                                    <div class="col-12">
-                                        <div class="mb-2">
-                                            <label for="gross" class="form-label">Net Pay(Gross Total Earnings - Gross
-                                                Total Deduction)</label>
-                                            <input type="text" class="form-control" name="netpay" id="netpay"
-                                                oninput="calculateGrossDeduction()" readonly>
+                                    <div class="row">
+                                        <h5>Net Pay:-</h5>
+                                        <div class="col-6">
+                                            <div class="mb-2">
+                                                <input type="text" class="form-control" name="netpay" id="netpay"
+                                                    oninput="calculateGrossDeduction()" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-2">
+                                                <label>Insurance By Company</label>
+                                                <input type="text" class="form-control" value="0"
+                                                    name="insurance_company" id="insurance_company">
+                                            </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" class="form-control" name="epfcompany" id="epfcompany">
                                 </div>
                             </div>
                         </div>
@@ -317,6 +325,9 @@
         $total_earings = $_POST["Gross"];
         $total_deduction = $_POST["grossdeduction"];
         $netpay = $_POST["netpay"];
+        $epf_company = $_POST["epfcompany"];
+        $insurance_company = $_POST["insurance_company"];
+        $paid_company = floatval($netpay) + floatval($epf_company) + floatval($insurance_company);
 
         $sql1 = "SELECT month, emp_id, year
                      FROM pay_salary 
@@ -325,7 +336,7 @@
 
         if ($result1->num_rows === 0) {
 
-            $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay')";
+            $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay, epf_company, insurance_company, paid_company) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay','$epf_company','$insurance_company','$paid_company')";
             if ($conn->query($sql11) === true) {
                 echo "<script>window.location.href='payroll.php';</script>";
             } else {
@@ -334,7 +345,7 @@
             $conn->close();
         } else {
             $sql12 = "UPDATE pay_salary 
-                        SET basic = '$Basic', house_rent = '$Houserent', medical = '$Medical', transporting = '$Travel', performance_bonus = '$Performance', tax = '$ptax', provident_fund = '$Epf', tds = '$tds', bima = '$insurance', other_diduction = '$other', total_earnings = '$total_earings', total_deduction = '$total_deduction', net_pay = '$netpay'   
+                        SET basic = '$Basic', house_rent = '$Houserent', medical = '$Medical', transporting = '$Travel', performance_bonus = '$Performance', tax = '$ptax', provident_fund = '$Epf', tds = '$tds', bima = '$insurance', other_diduction = '$other', total_earnings = '$total_earings', total_deduction = '$total_deduction', net_pay = '$netpay', epf_company = '$epf_company',  insurance_company = '$insurance_company', paid_company = '$paid_company'   
                         WHERE month = '$month' AND year = '$year' AND emp_id = '$empid'";
             if ($conn->query($sql12) === TRUE) {
                 echo "Record processed successfully for emp_id: $empid";
@@ -356,26 +367,34 @@
                         type: "POST",
                         data: { emp_id: emp_id },
                         success: function (data) {
-                            var parsedData = JSON.parse(data);
-                            // Update table data
-                            $('#payrollTable tbody').html(parsedData.tableData);
-                            // Update input fields
-                            $('#Basic').val(parseFloat(parsedData.basic).toFixed(2));
-                            // $('#Houserent').val(parsedData.house_rent);
-                            $('#Houserent').val(parseFloat(parsedData.house_rent).toFixed(2));
-                            $('#Medical').val(parseFloat(parsedData.medical).toFixed(2));
-                            $('#Travel').val(parseFloat(parsedData.travel).toFixed(2));
-                            $('#Performance').val(parseFloat(parsedData.perform_bonus).toFixed(2));
-                            $('#Performance1').val(parseFloat(parsedData.perform_bonus).toFixed(2));
-                            $('#Gross').val(parseFloat(parsedData.total).toFixed(2));
-                            $('#Grossannual').val(parseFloat(parsedData.annual).toFixed(2));
-                            $('#Epf').val(parseFloat(parsedData.epf).toFixed(2));
-                            $('#Tds').val(parseFloat(parsedData.tds).toFixed(2));
-                            $('#Other').val(parseFloat(parsedData.other).toFixed(2));
-                            $('#empid').val(parsedData.empidd);
-                            $('#ptaxx').val(parseFloat(parsedData.ptax).toFixed(2));
-                            $('#grossdeduction').val(parseFloat(parsedData.total_deduction).toFixed(2));
-                            $('#netpay').val(parseFloat(parsedData.netpay).toFixed(2));
+                            if (data) {
+                                var parsedData = JSON.parse(data);
+                                // Update table data
+                                $('#payrollTable tbody').html(parsedData.tableData);
+                                // Update input fields
+                                $('#Basic').val(parseFloat(parsedData.basic).toFixed(2));
+                                // $('#Houserent').val(parsedData.house_rent);
+                                $('#Houserent').val(parseFloat(parsedData.house_rent).toFixed(2));
+                                $('#Medical').val(parseFloat(parsedData.medical).toFixed(2));
+                                $('#Travel').val(parseFloat(parsedData.travel).toFixed(2));
+                                $('#Performance').val(parseFloat(parsedData.perform_bonus).toFixed(2));
+                                $('#Performance1').val(parseFloat(parsedData.perform_bonus).toFixed(2));
+                                $('#Gross').val(parseFloat(parsedData.total).toFixed(2));
+                                $('#Grossannual').val(parseFloat(parsedData.annual).toFixed(2));
+                                $('#Epf').val(parseFloat(parsedData.epf).toFixed(2));
+                                $('#Tds').val(parseFloat(parsedData.tds).toFixed(2));
+                                $('#Other').val(parseFloat(parsedData.other).toFixed(2));
+                                $('#empid').val(parsedData.empidd);
+                                $('#ptaxx').val(parseFloat(parsedData.ptax).toFixed(2));
+                                $('#grossdeduction').val(parseFloat(parsedData.total_deduction).toFixed(2));
+                                $('#netpay').val(parseFloat(parsedData.netpay).toFixed(2));
+                                $('#epfcompany').val(parseFloat(parsedData.epfcompany).toFixed(2));
+                                // $('#paidcompany').val(parseFloat(parsedData.paid_company).toFixed(2));
+                            } else {
+                                // If no data, set fields to blank
+                                $('#payrollTable tbody').html('');
+                                $('#Basic, #Houserent, #Medical, #Travel, #Performance, #Performance1, #Gross, #Grossannual, #Epf, #Tds, #Other, #empid, #ptaxx, #grossdeduction, #netpay, #epfcompany').val('');
+                            }
                         }
                     });
                 }
@@ -410,6 +429,15 @@
             let grossEarnings = basic + houserent + medical + travel + performancebonus;
             document.getElementById('Gross').value = grossEarnings.toFixed(2);
         }
+
+        function calculatepaidcompany() {
+            let netpay = parseFloat(document.getElementById('netpay').value) || 0;
+            let insurancecompany = parseFloat(document.getElementById('insurance_company').value) || 0; // Corrected ID
+            let epfcompany = parseFloat(document.getElementById('epfcompany').value) || 0;
+            let grosspaidcompany = netpay + epfcompany;
+            document.getElementById('paidcompany').value = grosspaidcompany.toFixed(2);
+        }
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

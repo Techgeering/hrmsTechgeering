@@ -42,6 +42,7 @@
                                         <th>Month</th>
                                         <th>Expenditure Name</th>
                                         <th>View</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,6 +67,10 @@
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 </td>
+                                                <td><a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='expenditure_calculator', tbc='id',returnpage='expenditure_calculator.php');"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                    </a></td>
                                             </tr>
                                             <div class="modal fade" id="paragraphmodal_<?php echo $id; ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -240,10 +245,33 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- to get the month and year -->
+    <script>
+        $(document).ready(function () {
+            $('#year, #month').change(function () {
+                var year = $('#year').val();
+                var month = $('#month').val();
+
+                // Only proceed if both year and month are selected
+                if (year && month) {
+                    $.ajax({
+                        url: 'get_salary_sum.php',
+                        method: 'POST',
+                        data: { year: year, month: month },
+                        success: function (response) {
+                            // Set the total paid sum in the input field
+                            $('#Salary').val(response);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

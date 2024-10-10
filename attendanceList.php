@@ -316,18 +316,9 @@
         $conn->close();
     }
     ?>
-    <!-- attendancelist delete -->
-    <script>
-        function confirmDelete(id, tb, tbc, returnpage) {
-            var confirmation = confirm("Are you sure you want to delete this? You won't be able to revert this!");
-            if (confirmation) {
-                window.location.href = "delete.php?delete=" + id + "&tb=" + tb + "&tbc=" + tbc + "&returnpage=" + returnpage;
-            }
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js?v=1.4"></script>
+    <script src="assets/js/scripts.js?v=1.5"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
