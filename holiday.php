@@ -73,7 +73,10 @@
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
                                                             onclick="myfcn4(<?php echo $row['id']; ?>,'<?php echo $row['holiday_name']; ?>','<?php echo $row['from_date']; ?>','<?php echo $row['to_date']; ?>')"
                                                             data-bs-toggle="modal" data-bs-target="#updateholiday"></i>
-                                                        <!-- <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i> -->
+                                                        <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='holiday', tbc='id',returnpage='holiday.php');"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                        </a>
                                                     </th>
                                                 <?php } ?>
                                             </tr>

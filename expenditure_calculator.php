@@ -40,7 +40,7 @@
                                         <th>Sl No</th>
                                         <th>Year</th>
                                         <th>Month</th>
-                                        <th>Expenditure Name</th>
+                                        <th>Expenditure Total Price</th>
                                         <th>View</th>
                                         <th>Delete</th>
                                     </tr>

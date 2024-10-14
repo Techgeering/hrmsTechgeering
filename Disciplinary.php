@@ -69,6 +69,9 @@
                                                         <a href="employeeDetail.php?em_id=<?php echo $encoded_id; ?>"> <i
                                                                 class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></a>
                                                         <i class="fa-solid fa-lock text-danger"></i>
+                                                        <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='desciplinary', tbc='id',returnpage='Disciplinary.php');"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
                                                     </th>
                                                 <?php } ?>
                                             </tr>

@@ -111,7 +111,7 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-3">
                                 <label for="subcategoryDropdown">Employee Id:</label>
                                 <select class="form-control" name="value" required>
                                     <option value="">Select EmpId</option>
@@ -126,7 +126,11 @@
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
+                                <label for="subcategoryDropdown">Employee Name:</label>
+                                <input type="text" class="form-control" name="name" id="name" readonly>
+                            </div>
+                            <div class="col-3">
                                 <div class="form-group">
                                     <div class="mb-2">
                                         <label for="month" class="form-label">Month</label>
@@ -136,7 +140,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="mb-2">
                                     <label for="year" class="form-label">Year</label>
                                     <input type="text" class="form-control" name="year" id="year1"
@@ -149,28 +153,28 @@
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Basic</label>
                                         <input type="text" name="Basic" id="Basic" class="form-control"
-                                            oninput="calculateGrossEarnings()">
+                                            oninput="calculateGrossEarnings(); calculateannual();">
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">House Rent</label>
                                         <input type="text" name="Houserent" id="Houserent" class="form-control"
-                                            oninput="calculateGrossEarnings()">
+                                            oninput="calculateGrossEarnings(); calculateannual();">
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Medical</label>
                                         <input type="text" name="Medical" id="Medical" class="form-control"
-                                            oninput="calculateGrossEarnings()">
+                                            oninput="calculateGrossEarnings(); calculateannual();">
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Travel</label>
                                         <input type="text" name="Travel" id="Travel" class="form-control"
-                                            oninput="calculateGrossEarnings()">
+                                            oninput="calculateGrossEarnings(); calculateannual();">
                                     </div>
                                 </div>
                             </div>
@@ -186,14 +190,14 @@
                                     <div class="mb-2">
                                         <label for="Performance" class="form-label">Performance Bonus</label>
                                         <input type="text" name="Performance" id="Performance" class="form-control"
-                                            oninput="validatePerformance(this)">
+                                            oninput="validatePerformance(this); calculateGrossEarnings(); calculateannual();">
                                         <input type="hidden" id="Performance1">
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <label for="insurance" class="form-label">Gross Total Earnings</label>
+                                    <label for="insurance" class="form-label">Gross Total Monthly Earnings</label>
                                     <input type="text" name="Gross" id="Gross" class="form-control"
-                                        oninput="calculateGrossEarnings()">
+                                        oninput="calculateGrossEarnings(); calculateannual();">
                                 </div>
                                 <div class="col-4">
                                     <label for="insurance" class="form-label">Gross Annual Earnings</label>
@@ -372,6 +376,7 @@
                                 // Update table data
                                 $('#payrollTable tbody').html(parsedData.tableData);
                                 // Update input fields
+                                $('#name').val(parsedData.name);
                                 $('#Basic').val(parseFloat(parsedData.basic).toFixed(2));
                                 // $('#Houserent').val(parsedData.house_rent);
                                 $('#Houserent').val(parseFloat(parsedData.house_rent).toFixed(2));
@@ -430,6 +435,12 @@
             document.getElementById('Gross').value = grossEarnings.toFixed(2);
         }
 
+        function calculateannual() {
+            let Gross = parseFloat(document.getElementById('Gross').value) || 0;
+            let Earnings = Gross * 12;
+            document.getElementById('Grossannual').value = Earnings.toFixed(2);
+        }
+
         function calculatepaidcompany() {
             let netpay = parseFloat(document.getElementById('netpay').value) || 0;
             let insurancecompany = parseFloat(document.getElementById('insurance_company').value) || 0; // Corrected ID
@@ -437,7 +448,6 @@
             let grosspaidcompany = netpay + epfcompany;
             document.getElementById('paidcompany').value = grosspaidcompany.toFixed(2);
         }
-
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

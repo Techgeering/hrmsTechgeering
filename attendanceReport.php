@@ -55,6 +55,7 @@ session_start(); {
                                         <th>Leave Hour</th>
                                         <th>Adjustable Hour</th>
                                         <th>Payable Hour</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,6 +98,11 @@ session_start(); {
                                                     </h6>
                                                 </td>
                                                 <td><?php echo $row4["payable_hour"]; ?></td>
+                                                <td> <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attadence_report', tbc='id',returnpage='attendanceReport.php');"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <?php
                                             $slNo++;

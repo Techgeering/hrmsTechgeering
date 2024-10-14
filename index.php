@@ -33,7 +33,6 @@
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="my-2">Dashboard</h1>
-
                     <div class="page-wrapper mdc-toolbar-fixed-adjust">
                         <main class="content-wrapper">
                             <div class="mdc-layout-grid">
@@ -231,6 +230,107 @@
                                                 ?> GST Paid</p>
                                                 <div class="card-icon-wrapper">
                                                     <i class="material-icons"><i class="fa fa-briefcase text-white fs-2"
+                                                            aria-hidden="true"></i></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+                                        <div class="mdc-card info-card info-card--info">
+                                            <div class="card-inner">
+                                                <h5 class="card-title">All Balance</h5>
+                                                <h5 class="font-weight-light pb-2 mb-1 border-bottom">
+                                                    <?php
+                                                    include "common/conn.php";
+                                                    if ($conn) {
+                                                        // Query to get the sum of all balances
+                                                        $query = "SELECT SUM(balance) as totalBalance FROM account";
+                                                        $result = mysqli_query($conn, $query);
+
+                                                        if ($result) {
+                                                            $row = mysqli_fetch_assoc($result);
+                                                            // Display the sum of all balances
+                                                            echo isset($row['totalBalance']) ? number_format($row['totalBalance'], 2) : 0;
+                                                        } else {
+                                                            echo "Error executing query: " . mysqli_error($conn);
+                                                        }
+                                                        mysqli_close($conn);
+                                                    } else {
+                                                        echo "Error connecting to the database: " . mysqli_connect_error();
+                                                    }
+                                                    ?>
+                                                </h5>
+                                                <p class="tx-12 text-muted"><?php
+                                                include "common/conn.php";
+                                                if ($conn) {
+                                                    $query = "SELECT COUNT(*) as rowCount FROM account WHERE tex_type = 'GST'";
+                                                    $result = mysqli_query($conn, $query);
+                                                    if ($result) {
+                                                        $row = mysqli_fetch_assoc($result);
+                                                        echo isset($row['rowCount']) ? $row['rowCount'] : 0;
+                                                    } else {
+                                                        echo "Error executing query: " . mysqli_error($conn);
+                                                    }
+                                                    mysqli_close($conn);
+                                                } else {
+                                                    echo "Error connecting to the database: " . mysqli_connect_error();
+                                                }
+                                                ?> GST Paid</p>
+                                                <div class="card-icon-wrapper">
+                                                    <i class="material-icons"><i class="fa fa-briefcase text-white fs-2"
+                                                            aria-hidden="true"></i></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+                                        <div class="mdc-card info-card info-card--primary">
+                                            <div class="card-inner">
+                                                <h5 class="card-title">Expenditure Balance</h5>
+                                                <h5 class="font-weight-light pb-2 mb-1 border-bottom">
+                                                    <?php
+                                                    include "common/conn.php";
+                                                    if ($conn) {
+                                                        $query = "SELECT SUM(name) as totalBalance FROM expenditure_calculator"; // Replace 'amount' with the actual numeric column name
+                                                        $result = mysqli_query($conn, $query);
+
+                                                        if ($result) {
+                                                            $row = mysqli_fetch_assoc($result);
+                                                            // Check if totalBalance is set and is numeric
+                                                            $totalBalance = isset($row['totalBalance']) ? $row['totalBalance'] : 0;
+                                                            echo number_format($totalBalance, 2); // Format with 2 decimal places and thousands separator
+                                                        } else {
+                                                            echo "Error executing query: " . mysqli_error($conn);
+                                                        }
+                                                        mysqli_close($conn);
+                                                    } else {
+                                                        echo "Error connecting to the database: " . mysqli_connect_error();
+                                                    }
+                                                    ?>
+                                                </h5>
+
+                                                <p class="tx-12 text-muted"><?php
+                                                include "common/conn.php";
+                                                if ($conn) {
+                                                    $query = "SELECT COUNT(*) as rowCount FROM employee";
+                                                    $result = mysqli_query($conn, $query);
+
+                                                    if ($result) {
+                                                        $row = mysqli_fetch_assoc($result);
+                                                        echo isset($row['rowCount']) ? $row['rowCount'] : 0;
+                                                    } else {
+                                                        echo "Error executing query: " . mysqli_error($conn);
+                                                    }
+                                                    mysqli_close($conn);
+                                                } else {
+                                                    echo "Error connecting to the database: " . mysqli_connect_error();
+                                                }
+                                                ?> Total Employee</p>
+                                                <div class="card-icon-wrapper">
+                                                    <i class="material-icons"><i
+                                                            class="fa fa-line-chart text-white fs-2"
                                                             aria-hidden="true"></i></i>
                                                 </div>
                                             </div>

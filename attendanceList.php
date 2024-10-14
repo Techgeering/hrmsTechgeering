@@ -67,24 +67,25 @@
                                         while ($row = $result->fetch_assoc()) {
                                             $dayOfWeek = (new DateTime($row["atten_date"]))->format('l');
                                             ?>
-                                            <tr>
-                                                <td><?php echo $row["emp_id"]; ?></td>
-                                                <td><?php echo $row["full_name"]; ?></td>
-                                                <td><?php echo $dayOfWeek; ?></td>
-                                                <td><?php echo $row["atten_date"]; ?></td>
-                                                <td><?php echo $row["signin_time"]; ?></td>
-                                                <td><?php echo $row["signout_time"]; ?></td>
-                                                <td><?php echo $row["working_hour"]; ?></td>
-                                                <td>
-                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
-                                                        onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>','<?php echo $row['atten_date']; ?>')"
-                                                        data-bs-toggle="modal" data-bs-target="#updateDept">
-                                                    </i>
-                                                </td>
-                                                <td><a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attendance', tbc='id',returnpage='attendanceList.php');"
-                                                        title="Delete">
-                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
-                                                    </a></td>
+
+                                            <td><?php echo $row["emp_id"]; ?></td>
+                                            <td><?php echo $row["full_name"]; ?></td>
+                                            <td><?php echo $dayOfWeek; ?></td>
+                                            <td><?php echo $row["atten_date"]; ?></td>
+                                            <td><?php echo $row["signin_time"]; ?></td>
+                                            <td><?php echo $row["signout_time"]; ?></td>
+                                            <td><?php echo $row["working_hour"]; ?></td>
+                                            <td>
+                                                <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
+                                                    onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>','<?php echo $row['atten_date']; ?>')"
+                                                    data-bs-toggle="modal" data-bs-target="#updateDept">
+                                                </i>
+                                            </td>
+                                            <td><a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attendance', tbc='id',returnpage='attendanceList.php');"
+                                                    title="Delete">
+                                                    <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
                                             </tr>
                                             <?php
                                         }

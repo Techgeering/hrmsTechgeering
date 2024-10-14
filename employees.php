@@ -82,6 +82,9 @@
                                                     <th>
                                                         <a href="employeeDetail.php?em_id=<?php echo $encoded_id; ?>"> <i
                                                                 class="fa-solid fa-eye  text-primary"></i></a>
+                                                        <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='employee', tbc='id',returnpage='employees.php');"
+                                                            title="Delete">
+                                                            <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
                                                     </th>
                                                 <?php } ?>
                                             </tr>

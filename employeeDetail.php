@@ -1594,7 +1594,7 @@
                                 <div class="mb-2">
                                     <label for="performancebonus1" class="form-label">Performance Bonus</label>
                                     <input type="text" class="form-control" id="performancebonus1"
-                                        name="performancebonus" oninput="validatePerformanceBonus(this)">
+                                        name="performancebonus" oninput="validatePerformanceBonus(this)" required>
                                 </div>
                             </div>
                             <div class="col-12">

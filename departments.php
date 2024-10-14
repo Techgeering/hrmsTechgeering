@@ -71,6 +71,10 @@
                                                         echo "<a href='inactive.php?status0=$idm&&tb=department&&returnpage=departments.php' class='danger'><i class='fa-solid fa-lock text-danger'></i></a>";
                                                     }
                                                     ?>
+                                                    <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='department', tbc='id',returnpage='departments.php');"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                    </a>
                                                     <!-- <i class="fa-solid fa-lock text-danger"></i> -->
                                                 </td>
                                             </tr>

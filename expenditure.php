@@ -41,6 +41,7 @@
                                         <th>Expenditure Name</th>
                                         <th>Fixed Cost</th>
                                         <th>Duration</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,6 +59,14 @@
                                                 <td><?php echo $row["expenditure_name"]; ?></td>
                                                 <td><?php echo $row["fixed_cost"]; ?></td>
                                                 <td><?php echo $row["duration"]; ?></td>
+                                                <td>
+                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
+                                                        onclick="myfcn10(<?php echo $row['id']; ?>, '<?php echo addslashes($row['expenditure_name']); ?>', '<?php echo addslashes($row['fixed_cost']); ?>', '<?php echo $row['duration']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updateexp"></i>
+                                                    <a onclick="confirmDelete('<?php echo $row['id']; ?>', 'expenditure', 'id', 'expenditure.php');"
+                                                        class="fa-solid fa fa-trash text-danger"></a>
+
+                                                </td>
                                             </tr>
                                             <?php
                                             $slno++;
@@ -88,16 +97,16 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="DepartmentName">Expenditure Name</label>
-                            <input type="text" class="form-control" id="expenditurename" name="expenditurename1">
+                            <input type="text" class="form-control" name="expenditurename1">
                         </div>
                         <div class="form-group">
                             <label for="DepartmentName">Fixed Cost</label>
-                            <input type="text" class="form-control" id="fixedcost" name="fixedcost1">
+                            <input type="text" class="form-control" name="fixedcost1">
                         </div>
                         <div class="form-group">
                             <div class="mb-2">
                                 <label for="duration" class="form-label">Duration</label>
-                                <select class="form-select" name="duration1" id="duration">
+                                <select class="form-select" name="duration1">
                                     <option value="" selected>Select Month</option>
                                     <option value="1month">1 Month</option>
                                     <option value="2months">2 Months</option>
@@ -131,9 +140,74 @@
         $conn->close();
     }
     ?>
+    <!-- update modal -->
+    <div class="modal fade" id="updateexp" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <div class="modal-body">
+                        <input type="hidden" name="id10" id="id10">
+                        <div class="form-group">
+                            <label for="DepartmentName">Expenditure Name</label>
+                            <input type="text" class="form-control" name="expenditurename1" id="expenditure">
+                        </div>
+                        <div class="form-group">
+                            <label for="DepartmentName">Fixed Cost</label>
+                            <input type="text" class="form-control" name="fixedcost1" id="fixedcost">
+                        </div>
+                        <div class="form-group">
+                            <div class="mb-2">
+                                <label for="duration" class="form-label">Duration</label>
+                                <select class="form-select" name="duration1" id="duration">
+                                    <option value="" selected>Select Month</option>
+                                    <option value="1month">1 Month</option>
+                                    <option value="2months">2 Months</option>
+                                    <option value="3months">3 Months</option>
+                                    <option value="6months">6 Months</option>
+                                    <option value="12months">1 Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="updatedeexpenditure">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <?php
+    if (isset($_POST['updatedeexpenditure'])) {
+        include "common/conn.php";
+        $expenditurename1 = htmlspecialchars($_POST["expenditurename1"]);
+        $fixedcost1 = $_POST["fixedcost1"];
+        $duration1 = $_POST["duration1"];
+        $id = $_POST["id10"];
+        $sql1 = "UPDATE expenditure SET expenditure_name='$expenditurename1', fixed_cost='$fixedcost1', duration='$duration1' WHERE id='$id'";
+        if ($conn->query($sql1) === true) {
+            echo " <script>alert('success')</script>";
+        } else {
+            echo $conn->error;
+        }
+        $conn->close();
+    }
+    ?>
+    <script>
+        function myfcn10(idx, expenditure, fixedcost, duration) {
+            document.getElementById("id10").value = idx;
+            document.getElementById("expenditure").value = expenditure;
+            document.getElementById("fixedcost").value = fixedcost;
+            document.getElementById("duration").value = duration;
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.7"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>

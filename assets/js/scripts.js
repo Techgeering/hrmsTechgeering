@@ -96,6 +96,9 @@ function myfcn9(idx, signin1, signout1, date) {
     document.getElementById("date1").value = date;
 }
 
+/* for expenditure id get */
+
+
 /* for delete row */
 function confirmDelete(id, tb, tbc, returnpage) {
     var confirmation = confirm("Are you sure you want to delete this? You won't be able to revert this!");

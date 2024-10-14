@@ -63,7 +63,6 @@
                                                 <th><?php echo $row["leave_day"]; ?></th>
                                                 <?php if ($em_role == '1') { ?>
                                                     <th>
-
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
                                                             onclick="myfcn5(<?php echo $row['type_id']; ?>,'<?php echo $row['name']; ?>','<?php echo $row['leave_day']; ?>')"
                                                             data-bs-toggle="modal" data-bs-target="#updateleavetype"></i>
