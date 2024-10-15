@@ -1566,7 +1566,7 @@
                                 <div class="mb-2">
                                     <label for="basic1" class="form-label">Basic</label>
                                     <input type="text" class="form-control" id="basic1" name="basic"
-                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings(); updateHouseRent()">
+                                        oninput="limitAndValidate(this, 15); updateHouseRent(); calculateGrossEarnings();">
                                 </div>
                             </div>
                             <div class="col-6">

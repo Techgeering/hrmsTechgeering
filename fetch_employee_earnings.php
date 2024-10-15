@@ -21,7 +21,8 @@ if (isset($_POST['emp_id'])) {
         $total = $row['basic'] + $row['house_rent'] + $row['medical'] + $row['travel'] + $row['perform_bonus'];
         $total1 = $row['basic'] + $row['house_rent'] + $row['medical'] + $row['perform_bonus'];
         $epf = ($total1 / 100) * 12;
-        $grosstotalearning = $total * 12;
+        // $grosstotalearning = $total * 12;
+        $grosstotalearning = ($total - $row['travel']) * 12;
         $grosstotalearning1 = $total1 * 12;
 
 

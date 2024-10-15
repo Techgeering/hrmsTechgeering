@@ -31,25 +31,25 @@ $pdf->Cell(0, 5, 'INTERN ENROLMENT FORM', 0, 1, 'C');
 
 // Intern Details
 $pdf->SetFont('Arial', '', 9);
-$pdf->Cell(0, 7, 'Intern Name: ' . $row["intern_name"], 0, 1);
-$pdf->Cell(0, 5, 'Father Name:' . $row["father_name"], 0, 1);
-$pdf->Cell(0, 5, 'Mother Name:' . $row["mother_name"], 0, 1);
+$pdf->Cell(0, 7, 'Intern Name:    ' . $row["intern_name"], 0, 1); // Adds spaces
+$pdf->Cell(0, 5, 'Father Name:    ' . $row["father_name"], 0, 1);
+$pdf->Cell(0, 5, 'Mother Name:    ' . $row["mother_name"], 0, 1);
 // Date of Birth    
-$pdf->Cell(60, 7, 'Date of Birth:' . $row["dob"], 0, 0);
+$pdf->Cell(60, 7, 'Date of Birth:    ' . $row["dob"], 0, 0);
 // Gender
-$pdf->Cell(60, 7, 'Gender: ' . $row["gender"], 0, 0);
+$pdf->Cell(60, 7, 'Gender:    ' . $row["gender"], 0, 0);
 // Phone No
-$pdf->Cell(60, 7, 'Phone No: ' . $row["phone"], 0, 1);
+$pdf->Cell(60, 7, 'Phone No:    ' . $row["phone"], 0, 1);
 
-$pdf->Cell(0, 7, 'Email Id: ' . $row["intern_email"], 0, 1);
-$pdf->Cell(0, 7, 'Address for Communication: ' . $row["intern_add"], 0, 1);
-$pdf->Cell(0, 5, 'ID TYPE: ' . $row["id_type"] . ' (' . $row["valid_govt_no"] . ')', 0, 1);
+$pdf->Cell(0, 7, 'Email Id:    ' . $row["intern_email"], 0, 1);
+$pdf->Cell(0, 7, 'Address for Communication:   ' . $row["intern_add"], 0, 1);
+$pdf->Cell(0, 5, 'ID TYPE:    ' . $row["id_type"] . ' (' . $row["valid_govt_no"] . ')', 0, 1);
 
 
 
 // College Information
-$pdf->Cell(0, 5, 'College ID Number: ' . $row["college_id"], 0, 1);
-$pdf->Cell(0, 7, 'Current Educational Qualification: ' . $row["edu_qualification"], 0, 1);
+$pdf->Cell(0, 5, 'College ID Number:    ' . $row["college_id"], 0, 1);
+$pdf->Cell(0, 7, 'Current Educational Qualification:    ' . $row["edu_qualification"], 0, 1);
 $pdf->Cell(0, 7, 'College Name: ' . $row["clg_name"], 0, 1);
 $pdf->Cell(0, 7, 'Internship On: ' . $row["internship_on"], 0, 1);
 

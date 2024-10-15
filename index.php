@@ -239,19 +239,19 @@
                                         class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
                                         <div class="mdc-card info-card info-card--info">
                                             <div class="card-inner">
-                                                <h5 class="card-title">All Balance</h5>
+                                                <h5 class="card-title">Balance</h5>
                                                 <h5 class="font-weight-light pb-2 mb-1 border-bottom">
                                                     <?php
                                                     include "common/conn.php";
                                                     if ($conn) {
-                                                        // Query to get the sum of all balances
-                                                        $query = "SELECT SUM(balance) as totalBalance FROM account";
+                                                        // Query to get the last balance entry
+                                                        $query = "SELECT balance FROM account ORDER BY id DESC LIMIT 1";
                                                         $result = mysqli_query($conn, $query);
 
                                                         if ($result) {
                                                             $row = mysqli_fetch_assoc($result);
-                                                            // Display the sum of all balances
-                                                            echo isset($row['totalBalance']) ? number_format($row['totalBalance'], 2) : 0;
+                                                            // Display the last balance
+                                                            echo isset($row['balance']) ? number_format($row['balance'], 2) : 0;
                                                         } else {
                                                             echo "Error executing query: " . mysqli_error($conn);
                                                         }
@@ -261,22 +261,53 @@
                                                     }
                                                     ?>
                                                 </h5>
-                                                <p class="tx-12 text-muted"><?php
-                                                include "common/conn.php";
-                                                if ($conn) {
-                                                    $query = "SELECT COUNT(*) as rowCount FROM account WHERE tex_type = 'GST'";
-                                                    $result = mysqli_query($conn, $query);
-                                                    if ($result) {
-                                                        $row = mysqli_fetch_assoc($result);
-                                                        echo isset($row['rowCount']) ? $row['rowCount'] : 0;
-                                                    } else {
-                                                        echo "Error executing query: " . mysqli_error($conn);
-                                                    }
-                                                    mysqli_close($conn);
-                                                } else {
-                                                    echo "Error connecting to the database: " . mysqli_connect_error();
-                                                }
-                                                ?> GST Paid</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="tx-12 text-muted">
+                                                        <?php
+                                                        include "common/conn.php";
+                                                        if ($conn) {
+                                                            $query1 = "SELECT balance_T FROM account where balance_T != '' ORDER BY id DESC LIMIT 1";
+                                                            $result1 = mysqli_query($conn, $query1);
+                                                            if ($result1) {
+                                                                $row1 = mysqli_fetch_assoc($result1);
+                                                                if (!empty($row1['balance_T'])) {
+                                                                    echo $row1['balance_T'] . ' T Balance';
+                                                                } else {
+                                                                    echo 'Balance not available';
+                                                                }
+                                                            } else {
+                                                                echo "Error executing query: " . mysqli_error($conn);
+                                                            }
+                                                            mysqli_close($conn);
+                                                        } else {
+                                                            echo "Error connecting to the database: " . mysqli_connect_error();
+                                                        }
+                                                        ?>
+                                                    </p>
+
+                                                    <p class="tx-12 text-muted">
+                                                        <?php
+                                                        include "common/conn.php";
+                                                        if ($conn) {
+                                                            $query2 = "SELECT balance_WT FROM account where balance_WT != '' ORDER BY id DESC LIMIT 1";
+                                                            $result2 = mysqli_query($conn, $query2);
+                                                            if ($result2) {
+                                                                $row2 = mysqli_fetch_assoc($result2);
+                                                                if (!empty($row2['balance_WT'])) {
+                                                                    echo $row2['balance_WT'] . ' WT Balance';
+                                                                } else {
+                                                                    echo 'Balance not available';
+                                                                }
+                                                            } else {
+                                                                echo "Error executing query: " . mysqli_error($conn);
+                                                            }
+                                                            mysqli_close($conn);
+                                                        } else {
+                                                            echo "Error connecting to the database: " . mysqli_connect_error();
+                                                        }
+                                                        ?>
+                                                    </p>
+                                                </div>
                                                 <div class="card-icon-wrapper">
                                                     <i class="material-icons"><i class="fa fa-briefcase text-white fs-2"
                                                             aria-hidden="true"></i></i>
@@ -288,19 +319,19 @@
                                         class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
                                         <div class="mdc-card info-card info-card--primary">
                                             <div class="card-inner">
-                                                <h5 class="card-title">Expenditure Balance</h5>
+                                                <h5 class="card-title">Expenditure Balance(Monthly)</h5>
                                                 <h5 class="font-weight-light pb-2 mb-1 border-bottom">
                                                     <?php
                                                     include "common/conn.php";
                                                     if ($conn) {
-                                                        $query = "SELECT SUM(name) as totalBalance FROM expenditure_calculator"; // Replace 'amount' with the actual numeric column name
+                                                        $query = "SELECT name FROM expenditure_calculator ORDER BY id DESC LIMIT 1"; // Fetch the last balance
                                                         $result = mysqli_query($conn, $query);
 
                                                         if ($result) {
                                                             $row = mysqli_fetch_assoc($result);
-                                                            // Check if totalBalance is set and is numeric
-                                                            $totalBalance = isset($row['totalBalance']) ? $row['totalBalance'] : 0;
-                                                            echo number_format($totalBalance, 2); // Format with 2 decimal places and thousands separator
+                                                            // Check if balance is set and is numeric
+                                                            $balance = isset($row['name']) ? $row['name'] : 0;
+                                                            echo number_format($balance, 2); // Format with 2 decimal places and thousands separator
                                                         } else {
                                                             echo "Error executing query: " . mysqli_error($conn);
                                                         }
@@ -310,24 +341,51 @@
                                                     }
                                                     ?>
                                                 </h5>
+                                                <p class="tx-12 text-muted">
+                                                    <?php
+                                                    include "common/conn.php";
 
-                                                <p class="tx-12 text-muted"><?php
-                                                include "common/conn.php";
-                                                if ($conn) {
-                                                    $query = "SELECT COUNT(*) as rowCount FROM employee";
-                                                    $result = mysqli_query($conn, $query);
+                                                    if ($conn) {
+                                                        // Fetch the last balance from the account table
+                                                        $balanceQuery = "SELECT balance FROM account ORDER BY id DESC LIMIT 1";
+                                                        $balanceResult = mysqli_query($conn, $balanceQuery);
 
-                                                    if ($result) {
-                                                        $row = mysqli_fetch_assoc($result);
-                                                        echo isset($row['rowCount']) ? $row['rowCount'] : 0;
+                                                        if ($balanceResult) {
+                                                            $balanceRow = mysqli_fetch_assoc($balanceResult);
+                                                            $lastBalance = isset($balanceRow['balance']) ? $balanceRow['balance'] : 0;
+                                                        } else {
+                                                            echo "Error executing balance query: " . mysqli_error($conn);
+                                                        }
+
+                                                        // Fetch the last name from the expenditure table
+                                                        $nameQuery = "SELECT name FROM expenditure_calculator ORDER BY id DESC LIMIT 1";
+                                                        $nameResult = mysqli_query($conn, $nameQuery);
+
+                                                        if ($nameResult) {
+                                                            $nameRow = mysqli_fetch_assoc($nameResult);
+                                                            $lastName = isset($nameRow['name']) ? $nameRow['name'] : 0; // Assuming name can be treated as a numeric value
+                                                        } else {
+                                                            echo "Error executing name query: " . mysqli_error($conn);
+                                                        }
+
+                                                        // Perform division and display the result
+                                                        if (isset($lastBalance) && isset($lastName) && $lastName != 0) {
+                                                            $result = $lastBalance / $lastName;
+                                                            echo round($result) . " Runway"; // Rounding the result
+                                                    
+                                                        } else {
+                                                            echo "Cannot divide by zero or no valid data.";
+                                                        }
+
+                                                        mysqli_close($conn);
                                                     } else {
-                                                        echo "Error executing query: " . mysqli_error($conn);
+                                                        echo "Error connecting to the database: " . mysqli_connect_error();
                                                     }
-                                                    mysqli_close($conn);
-                                                } else {
-                                                    echo "Error connecting to the database: " . mysqli_connect_error();
-                                                }
-                                                ?> Total Employee</p>
+                                                    ?>
+                                                </p>
+
+
+
                                                 <div class="card-icon-wrapper">
                                                     <i class="material-icons"><i
                                                             class="fa fa-line-chart text-white fs-2"

@@ -99,7 +99,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-2">
-                                        <label for="Project_Name" class="form-label">Project Name</label>
+                                        <label for="Project_Name" class="form-label">Receiver From</label>
                                         <select class="form-select" name="Project_Name" id="Project_Name">
                                             <option value="" disabled selected>Select a project</option>
                                             <?php

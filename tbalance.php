@@ -89,7 +89,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">GST Balance</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Tax Balance</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -98,7 +98,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-2">
-                                        <label for="Project_Name" class="form-label">Project Name</label>
+                                        <label for="Project_Name" class="form-label">Receiver From</label>
                                         <select class="form-select" name="Project_Name" id="Project_Name">
                                             <option value="" disabled selected>Select a project</option>
                                             <?php

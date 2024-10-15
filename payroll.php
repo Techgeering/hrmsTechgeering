@@ -174,7 +174,7 @@
                                     <div class="mb-2">
                                         <label for="insurance" class="form-label">Travel</label>
                                         <input type="text" name="Travel" id="Travel" class="form-control"
-                                            oninput="calculateGrossEarnings(); calculateannual();">
+                                            oninput="calculateGrossEarnings();">
                                     </div>
                                 </div>
                             </div>
