@@ -87,8 +87,12 @@ if ($taxtype == 'GST') {
 } elseif ($taxtype == 'NONGST') {
     $sql = "INSERT INTO account (pro_id, assign_to, particulars, tex_type, deposite, withdraw, balance, balance_T, balance_WT, date) 
             VALUES ('$project_name','$assigned_users','$Project_Details', 'NONGST', '$deposit', '$withdraw', '$current_balance', '', '$current_balance_WT', '$Date')";
+    // } else {
+//     $sql = "INSERT INTO pro_expenses (pro_id, assign_to, details, tex_type, gst, deposite, withdraw, balance, date) 
+//             VALUES ('$project_name','$assigned_users','$Project_Details', 'WithoutAdding', '$gst', '$deposit', '$withdraw', '$current_balance', '$Date')";
+// }
 } else {
-    $sql = "INSERT INTO pro_expenses (pro_id, assign_to, details, tex_type, gst, deposite, withdraw, balance, date) 
+    $sql = "INSERT INTO pro_expenses (pro_id, assign_to, particulars, tex_type, gst, deposite, withdraw, balance, date) 
             VALUES ('$project_name','$assigned_users','$Project_Details', 'WithoutAdding', '$gst', '$deposit', '$withdraw', '$current_balance', '$Date')";
 }
 if ($conn->query($sql) === TRUE) {

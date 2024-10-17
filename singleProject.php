@@ -621,7 +621,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line"
                                                                                 rows="6" cols="80" readonly>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <?php echo htmlspecialchars($row17["description"]); ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <?php echo htmlspecialchars($row17["description"]); ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -954,7 +954,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line col-6"
                                                                                 rows="6" col="80" readonly>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <?php echo $row18["description"]; ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?php echo $row18["description"]; ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -1190,7 +1190,16 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <?php
                                     include "common/conn.php";
-                                    $sql_c = " SELECT SUM(deposite) AS total,SUM(withdraw) AS totall FROM account WHERE pro_id='$proId'";
+                                    $sql_c =
+                                        "SELECT 
+                                                    SUM(deposite) AS total, 
+                                                    SUM(withdraw) AS totall 
+                                                FROM (
+                                                    SELECT deposite, withdraw FROM account WHERE pro_id='$proId'
+                                                    UNION ALL
+                                                    SELECT deposite, withdraw FROM pro_expenses WHERE pro_id='$proId'
+                                                ) AS combined";
+
                                     $result_c = $conn->query($sql_c);
                                     if ($result_c->num_rows > 0) {
                                         $row_c = $result_c->fetch_assoc();
@@ -1199,6 +1208,7 @@
                                         $balance = $depositetotal - $withdrawtotal;
                                     }
                                     ?>
+
                                     <h6 class="">Projects Expenses:-<?php echo $balance; ?></h6>
                                     <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
                                         data-bs-target="#addExpences">
@@ -1219,8 +1229,12 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        include "common/conn.php";
-                                        $sql5 = "SELECT * FROM account WHERE pro_id='$proId' ORDER BY date DESC";
+                                        // Query to fetch data from both account and pro_expenses tables
+                                        $sql5 = "SELECT * FROM (
+                                            SELECT date, assign_to, particulars, tex_type, deposite, withdraw FROM account WHERE pro_id='$proId'
+                                            UNION ALL
+                                            SELECT date, assign_to, particulars, tex_type, deposite, withdraw FROM pro_expenses WHERE pro_id='$proId'
+                                        ) AS combined ORDER BY date DESC";
                                         $result5 = $conn->query($sql5);
                                         $slno = 1;
                                         if ($result5->num_rows > 0) {
