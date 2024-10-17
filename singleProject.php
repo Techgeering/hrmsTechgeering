@@ -621,7 +621,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line"
                                                                                 rows="6" cols="80" readonly>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <?php echo htmlspecialchars($row17["description"]); ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <?php echo htmlspecialchars($row17["description"]); ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -954,7 +954,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line col-6"
                                                                                 rows="6" col="80" readonly>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?php echo $row18["description"]; ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <?php echo $row18["description"]; ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -1228,65 +1228,22 @@
                                                 ?>
                                                 <tr>
                                                     <td class="text-center">
-                                                        <p class="edit"><?php echo $row5['date']; ?></p>
-                                                        <input type="text" class='txtedit'
-                                                            value='<?php echo $row5["details"]; ?>'
-                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
-                                                            style="display: none;">
-                                                        </input>
+                                                        <?php echo $row5['date']; ?>
                                                     </td>
                                                     <td class="text-center">
-                                                        <p class="edit"><?php echo $row5['assign_to']; ?></p>
-                                                        <select class='txtedit'
-                                                            id='assign_to-<?php echo $row5["id"]; ?>-pro_expenses'
-                                                            style="display: none;">
-                                                            <?php
-                                                            include "common/conn.php";
-                                                            $sql2ee = "SELECT * FROM employee";
-                                                            $resultee = $conn->query($sql2ee);
-                                                            while ($rowee = $resultee->fetch_assoc()) {
-                                                                // Check if this option should be selected
-                                                                $selected = ($rowee['full_name'] == $row5['assign_to']) ? 'selected' : '';
-                                                                ?>
-                                                                <option value="<?php echo $rowee['full_name']; ?>" <?php echo $selected; ?>>
-                                                                    <?php echo $rowee['full_name']; ?>
-                                                                </option>
-                                                                <?php
-                                                            }
-                                                            ?>
-                                                        </select>
+                                                        <?php echo $row5['assign_to']; ?>
                                                     </td>
                                                     <td class="text-center">
-                                                        <p class="edit"><?php echo $row5['particulars']; ?></p>
-                                                        <input type="text" class='txtedit'
-                                                            value='<?php echo $row5["details"]; ?>'
-                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
-                                                            style="display: none;">
-                                                        </input>
+                                                        <?php echo $row5['particulars']; ?>
                                                     </td>
                                                     <td class="text-center">
-                                                        <p class="edit"><?php echo $row5['tex_type']; ?></p>
-                                                        <input type="text" class='txtedit'
-                                                            value='<?php echo $row5["details"]; ?>'
-                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
-                                                            style="display: none;">
-                                                        </input>
+                                                        <?php echo $row5['tex_type']; ?>
                                                     </td>
                                                     <td class="text-center">
-                                                        <p class="edit"><?php echo $row5['deposite']; ?></p>
-                                                        <input type="text" class='txtedit'
-                                                            value='<?php echo $row5["details"]; ?>'
-                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
-                                                            style="display: none;">
-                                                        </input>
+                                                        <?php echo $row5['deposite']; ?>
                                                     </td>
                                                     <td class="text-center">
-                                                        <p class="edit"><?php echo $row5['withdraw']; ?></p>
-                                                        <input type="text" class='txtedit'
-                                                            value='<?php echo $row5["details"]; ?>'
-                                                            id='details-<?php echo $row5["id"]; ?>-pro_expenses'
-                                                            style="display: none;">
-                                                        </input>
+                                                        <?php echo $row5['withdraw']; ?>
                                                     </td>
                                                 </tr>
                                                 <?php
@@ -1655,8 +1612,9 @@
                                             <label for="exclude_gst">GST</label>
                                         </div>
                                         <div>
-                                            <input type="radio" name="taxtype" id="withoutadding" required>
-                                            <label for="without">Without Adding</label>
+                                            <input type="radio" name="taxtype" id="withoutadding" value="withoutadding"
+                                                required>
+                                            <label for="without">WithoutAdding</label>
                                         </div>
                                     </div>
                                 </div>

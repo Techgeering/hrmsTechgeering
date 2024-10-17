@@ -49,9 +49,7 @@
                                     <?php
                                     include "common/conn.php";
                                     $sql = "SELECT * FROM
-                                     account AS a
-                                    INNER JOIN project AS p
-                                    ON a.pro_id = p.id 
+                                     account 
                                     ORDER BY date_time DESC";
                                     $result = $conn->query($sql);
                                     $slno = 1;
@@ -60,7 +58,22 @@
                                             ?>
                                             <tr>
                                                 <td><?php echo $row["date"]; ?></td>
-                                                <td><?php echo $row["pro_name"]; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $pro_id = $row["pro_id"];
+                                                    $sql1 = "SELECT * FROM project WHERE id = $pro_id";
+                                                    $result1 = $conn->query($sql1);
+                                                    $row1 = $result1->fetch_assoc();
+
+                                                    if ($pro_id === '-1') {
+                                                        echo "Internship";
+                                                    } elseif ($pro_id === '0') {
+                                                        echo "Loan";
+                                                    } else {
+                                                        echo htmlspecialchars($row1["pro_name"], ENT_QUOTES, 'UTF-8');
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td><?php echo $row["assign_to"]; ?></td>
                                                 <td><?php echo $row["particulars"]; ?></td>
                                                 <td><?php echo $row["deposite"]; ?></td>
@@ -93,18 +106,21 @@
                     <h1 class="modal-title fs-5" id="addDeptLabel">All Balance</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <form method="post" id="form10" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-2">
                                         <label for="Project_Name" class="form-label">Receiver From</label>
-                                        <select class="form-select" name="Project_Name" id="Project_Name">
+                                        <select class="form-select" name="Project_Name" id="Project_Name" required
+                                            onchange="loadAssignedUsers()">
                                             <option value="" disabled selected>Select a project</option>
+                                            <option value="-1">Internship</option>
+                                            <option value="0">Loan</option>
                                             <?php
                                             include "common/conn.php";
-                                            $sql_pro = "SELECT * FROM project ";
+                                            $sql_pro = "SELECT * FROM project";
                                             $result_pro = $conn->query($sql_pro);
                                             while ($row_pro = $result_pro->fetch_assoc()) {
                                                 ?>
@@ -116,50 +132,40 @@
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="mb-2">
-                                        <label for="assigned_users" class="form-label">Assigned Users</label>
-                                        <select class="form-control" name="assigned_users" id="assigned_users">
-                                            <option value="" disabled selected>Select a user</option>
-                                            <?php
-                                            include "common/conn.php";
-                                            $sql5 = "SELECT * FROM employee ";
-                                            $result5 = $conn->query($sql5);
-                                            while ($row5 = $result5->fetch_assoc()) {
-                                                ?>
-                                                <option value="<?php echo $row5['full_name']; ?>">
-                                                    <?php echo $row5['full_name']; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
+                                    <label for="date">Date</label>
+                                    <input type="date" class="form-control" id="date" name="date" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="particulars">Particulars</label>
-                                    <input type="text" class="form-control" id="particulars" name="particular">
+                                    <input type="text" class="form-control" id="particulars" name="particular" required>
                                 </div>
                                 <div class="col-6">
                                     <label for="assigned_users" class="form-label">Tax Type</label>
-                                    <select class="form-control" name="taxtype" id="assigned_users">
+                                    <select class="form-control" name="taxtype" id="assigned_users" required>
                                         <option value="" disabled selected>Select a Type</option>
-                                        <option value="GST">GST</option>
-                                        <option value="NONGST">Non-GST</option>
+                                        <option value="GST">Tax</option>
+                                        <option value="NONGST">Without-Tax</option>
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <label for="gst">GST</label>
-                                    <input type="text" class="form-control" id="gst" name="gst">
-                                </div>
-                                <div class="col-6">
                                     <label for="deposit">Deposit</label>
-                                    <input type="text" class="form-control" id="deposit" name="ddeposite">
+                                    <input type="text" class="form-control" id="deposit" name="ddeposite"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
                                 </div>
                                 <div class="col-6">
                                     <label for="withdraw">Withdraw</label>
-                                    <input type="text" class="form-control" id="withdraw" name="withdraw">
+                                    <input type="text" class="form-control" id="withdraw" name="withdraw"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                        required>
                                 </div>
                                 <div class="col-6">
-                                    <label for="date">Date</label>
-                                    <input type="date" class="form-control" id="date" name="date">
+                                    <label for="assigned_users_container">Assigned Users</label>
+                                    <div class="mb-2" id="assigned_users_container">
+                                        <select class="form-control" name="assigned_users" id="assigned_users">
+                                            <option value="" disabled selected>Select a user</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +330,7 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
@@ -349,6 +355,50 @@
             });
         });
     </script>
+    <!-- for deposite , withdraw and assigned user -->
+    <script>
+        // Get references to deposit, withdraw inputs, assigned users container, and form
+        const depositInput = document.getElementById('deposit');
+        const withdrawInput = document.getElementById('withdraw');
+        const assignedUsersContainer = document.getElementById('assigned_users_container');
+        const assignedUsersField = document.getElementById('assigned_users');
+        const form = document.getElementById('Form10'); // Replace 'yourForm' with your actual form ID
+
+        // Add event listener to detect input changes in deposit and withdraw fields
+        depositInput.addEventListener('input', function () {
+            if (depositInput.value.trim() !== '') {
+                // Hide the assigned users field when deposit is filled
+                assignedUsersContainer.style.display = 'none';
+                assignedUsersField.required = false; // Remove required attribute
+            } else {
+                // Show the assigned users field if deposit is empty
+                assignedUsersContainer.style.display = 'block';
+            }
+        });
+
+        withdrawInput.addEventListener('input', function () {
+            if (withdrawInput.value.trim() !== '') {
+                // Show the assigned users field and make it required when withdraw is filled
+                assignedUsersContainer.style.display = 'block';
+                assignedUsersField.required = true; // Add required attribute
+            } else {
+                // Hide the assigned users field if withdraw is empty
+                assignedUsersContainer.style.display = 'none';
+                assignedUsersField.required = false; // Remove required attribute
+            }
+        });
+
+        // Add event listener for form submission
+        form.addEventListener('submit', function (event) {
+            // Prevent form submission if withdraw is filled and assigned users field is empty
+            if (withdrawInput.value.trim() !== '' && assignedUsersField.value.trim() === '') {
+                event.preventDefault();
+                alert('Assigned Users field is required when withdrawing.');
+            }
+        });
+    </script>
+
+
 </body>
 
 </html>

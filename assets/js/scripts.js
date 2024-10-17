@@ -106,3 +106,17 @@ function confirmDelete(id, tb, tbc, returnpage) {
         window.location.href = "delete.php?delete=" + id + "&tb=" + tb + "&tbc=" + tbc + "&returnpage=" + returnpage;
     }
 }
+
+/* for assigned employee change in all balance */
+function loadAssignedUsers() {
+    var projectName = document.getElementById("Project_Name").value;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "fetch_assigned_users.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById("assigned_users_container").innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send("project=" + projectName);
+}

@@ -85,7 +85,7 @@ $pdf->Ln(20);
 $pdf->SetFont('Arial', 'B', 10); // Bold font for Sl. No
 $pdf->Cell(30, 10, 'Sl. No', 1);
 
-$pdf->SetFont('Arial', '', 10); // Regular font for the rest
+$pdf->SetFont('Arial', 'B', 10); // Regular font for the rest
 $pdf->Cell(88, 10, 'Description of goods/services', 1);
 $pdf->Cell(40, 10, 'HSN/SAC', 1);
 $pdf->Cell(33, 10, 'Total Charges', 1);
@@ -104,6 +104,7 @@ while ($row2 = $result2->fetch_assoc()) {
     $totalAmount += (float) $row2['total_amount']; // Corrected to $row2['total_amount']
 
     // Dynamic serial number and cell data
+    $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(30, 10, $slNo, 1); // Sl. No
     $pdf->Cell(88, 10, $row2["description"], 1);
     $pdf->Cell(40, 10, $row2["hsn_num"], 1);
