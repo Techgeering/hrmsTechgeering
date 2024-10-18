@@ -129,6 +129,9 @@
                             <button class="tablinks" onclick="openDialog(event, 'Expenses')"> Expenses </button>
                         <?php } ?>
                         <?php if ($em_role == '1') { ?>
+                            <button class="tablinks" onclick="openDialog(event, 'Purchase')"> Purchase </button>
+                        <?php } ?>
+                        <?php if ($em_role == '1') { ?>
                             <button class="tablinks" onclick="openDialog(event, 'Users')"> Users </button>
                         <?php } ?>
                     </div>
@@ -621,7 +624,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line"
                                                                                 rows="6" cols="80" readonly>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <?php echo htmlspecialchars($row17["description"]); ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <?php echo htmlspecialchars($row17["description"]); ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -954,7 +957,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line col-6"
                                                                                 rows="6" col="80" readonly>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?php echo $row18["description"]; ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?php echo $row18["description"]; ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -1208,7 +1211,6 @@
                                         $balance = $depositetotal - $withdrawtotal;
                                     }
                                     ?>
-
                                     <h6 class="">Projects Expenses:-<?php echo $balance; ?></h6>
                                     <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
                                         data-bs-target="#addExpences">
@@ -1229,7 +1231,6 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // Query to fetch data from both account and pro_expenses tables
                                         $sql5 = "SELECT * FROM (
                                             SELECT date, assign_to, particulars, tex_type, deposite, withdraw FROM account WHERE pro_id='$proId'
                                             UNION ALL
@@ -1269,6 +1270,158 @@
                                         ?>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <div id="Purchase" class="tabcontent">
+                            <div class="card p-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                        data-bs-target="#addPurchase">
+                                        <i class="fa-solid fa-plus"></i>Purchase
+                                    </button>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Sl.No</th>
+                                            <th class="text-center">Service Name</th>
+                                            <th class="text-center">Date Of Purchase</th>
+                                            <th class="text-center">Service Start Date</th>
+                                            <th class="text-center">Service End Date</th>
+                                            <th class="text-center">Duration</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Renewal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sqlpur = "SELECT * FROM purchase WHERE pro_id='$proId'";
+                                        $resultpur = $conn->query($sqlpur);
+                                        $slno = 1;
+                                        if ($resultpur->num_rows > 0) {
+                                            while ($rowpur = $resultpur->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $slno; ?></td>
+                                                    <td class="text-center">
+                                                        <?php
+                                                        $service_id = $rowpur["service_id"];
+                                                        $stmt = $conn->prepare("SELECT service_name FROM service WHERE id = ?");
+                                                        $stmt->bind_param("i", $service_id);
+                                                        $stmt->execute();
+                                                        $result1 = $stmt->get_result();
+                                                        if ($row1 = $result1->fetch_assoc()) {
+                                                            echo htmlspecialchars($row1["service_name"], ENT_QUOTES, 'UTF-8');
+                                                        }
+                                                        $stmt->close();
+                                                        ?>
+                                                    </td>
+                                                    <td class="text-center"><?php echo $rowpur["date_of_purchase"]; ?></td>
+                                                    <td class="text-center"><?php echo $rowpur["ser_start_dt"]; ?></td>
+                                                    <td class="text-center"><?php echo $rowpur["ser_end_dt"]; ?></td>
+                                                    <td class="text-center"><?php echo $rowpur["duration"]; ?> Days</td>
+                                                    <td class="text-center">
+                                                        <?php
+                                                        $enddate = $rowpur["ser_end_dt"];
+                                                        $today = date('Y-m-d');
+                                                        if ($today > $enddate) {
+                                                            $status = 0;
+                                                        } else {
+                                                            $status = 1;
+                                                        }
+                                                        if ($status === 0) {
+                                                            echo "<span style='color: red;'>Expired</span>";
+                                                        } else {
+                                                            echo "<span style='color: green;'>Not Expired</span>";
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-refresh" aria-hidden="true" data-bs-toggle="modal"
+                                                            onclick="myfcn10(<?php echo $rowpur['id']; ?>,'<?php echo $rowpur['service_id']; ?>')"
+                                                            data-bs-target="#renewal"></i>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                                $slno++;
+                                            }
+                                        } else {
+                                            echo "0 results";
+                                        }
+                                        $conn->close();
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- purchase update modal -->
+                        <div class="modal fade" id="renewal" tabindex="-1" aria-labelledby="myModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel">Renewal</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form name="form_pur1" id="form_pur1" method="post">
+                                        <div class="modal-body">
+                                            <input type="hidden" name="id10" id="id10">
+                                            <div class="row">
+                                                <input type="hidden" class="form-control" value="<?php echo $proId; ?>"
+                                                    id="project_name" name="project_name" required>
+                                                <div class="col-12">
+                                                    <div class="mb-2">
+                                                        <label for="assigned_users" class="form-label">Service
+                                                            Name</label>
+                                                        <select class="form-control" name="service_name"
+                                                            id="service_namee1">
+                                                            <option value="" disabled selected>Select a Service</option>
+                                                            <?php
+                                                            include "common/conn.php";
+                                                            $sql_service = "SELECT * FROM service";
+                                                            $result_service = $conn->query($sql_service);
+                                                            while ($row_service = $result_service->fetch_assoc()) {
+                                                                ?>
+                                                                <option value="<?php echo $row_service['id']; ?>">
+                                                                    <?php echo $row_service['service_name']; ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="insurance_company">Date Of Purchase</label>
+                                                    <input type="date" class="form-control" name="date_of_pur"
+                                                        id="date_of_purchase" value="<?php echo date('Y-m-d'); ?>">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label>Service Start Date</label>
+                                                    <input type="date" class="form-control"
+                                                        value="<?php echo date('Y-m-d'); ?>" name="service_start_dt"
+                                                        id="service_start_date1" onchange="calculateDuration1()">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label>Service End Date</label>
+                                                    <input type="date" class="form-control" name="service_end_dt"
+                                                        id="service_end_date1" onchange="calculateDuration1()">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label>Duration</label>
+                                                    <input type="text" class="form-control" name="duration1"
+                                                        id="duration12" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    name="project_purchase">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div id="Users" class="tabcontent">
@@ -1686,6 +1839,68 @@
         </div>
     </div>
 
+    <!-- Purchase modal -->
+    <div class="modal fade" id="addPurchase" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Purchase</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form name="form_pur" id="form_pur" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="hidden" class="form-control" value="<?php echo $proId; ?>" id="project_name"
+                                name="project_name" required>
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <label for="assigned_users" class="form-label">Service Name</label>
+                                    <select class="form-control" name="service_name" id="service_namee">
+                                        <option value="" disabled selected>Select a Service</option>
+                                        <?php
+                                        include "common/conn.php";
+                                        $sql_service = "SELECT * FROM service";
+                                        $result_service = $conn->query($sql_service);
+                                        while ($row_service = $result_service->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?php echo $row_service['id']; ?>">
+                                                <?php echo $row_service['service_name']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="insurance_company">Date Of Purchase</label>
+                                <input type="date" class="form-control" name="date_of_pur" id="date_of_purchase"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                            <div class="col-6">
+                                <label>Service Start Date</label>
+                                <input type="date" class="form-control" value="<?php echo date('Y-m-d'); ?>"
+                                    name="service_start_dt" id="service_start_date" onchange="calculateDuration()">
+                            </div>
+                            <div class="col-6">
+                                <label>Service End Date</label>
+                                <input type="date" class="form-control" name="service_end_dt" id="service_end_date"
+                                    onchange="calculateDuration()">
+                            </div>
+                            <div class="col-6">
+                                <label>Duration</label>
+                                <input type="text" class="form-control" name="duration1" id="duration" readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="project_purchase">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <!-- user modal -->
     <div class="modal fade" id="addUsers" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -1828,7 +2043,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
@@ -2032,6 +2247,64 @@
                         console.log(response);
                         $('#form2')[0].reset();
                         $('#addExpences').modal('hide');
+                        var toastEl = document.getElementById('liveToast');
+                        var toast = new bootstrap.Toast(toastEl);
+                        toast.show();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert('Error submitting the form. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- for project Purchase -->
+    <script>
+        $(document).ready(function () {
+            $('#form_pur').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: 'project_purchase.php',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                        $('#form_pur')[0].reset();
+                        $('#addPurchase').modal('hide');
+                        var toastEl = document.getElementById('liveToast');
+                        var toast = new bootstrap.Toast(toastEl);
+                        toast.show();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert('Error submitting the form. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- for project Purchase renewal-->
+    <script>
+        $(document).ready(function () {
+            $('#form_pur1').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: 'project_purchase.php',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                        $('#form_pur1')[0].reset();
+                        $('#renewal').modal('hide');
                         var toastEl = document.getElementById('liveToast');
                         var toast = new bootstrap.Toast(toastEl);
                         toast.show();

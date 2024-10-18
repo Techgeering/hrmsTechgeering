@@ -111,9 +111,9 @@
                             <?php if ($em_role == '1' || $em_role == '4' || $em_role == '2' || $em_role == '3') { ?>
                                 <a class="nav-link" href="tasklist.php"> Task List </a>
                             <?php } ?>
-                            <!-- <?php if ($em_role == '1') { ?>
-                                <a class="nav-link" href="company.php"> Field Visit</a>
-                            <?php } ?> -->
+                            <?php if ($em_role == '1' || $em_role == '4' || $em_role == '2' || $em_role == '3') { ?>
+                                <a class="nav-link" href="purchase.php"> Purchase </a>
+                            <?php } ?>
                         </nav>
                     </div>
                 <?php } ?>

@@ -96,7 +96,18 @@ function myfcn9(idx, signin1, signout1, date) {
     document.getElementById("date1").value = date;
 }
 
-/* for expenditure id get */
+/* for attendancelist id get */
+function myfcn10(idx, service_namee1) {
+    document.getElementById("id10").value = idx;
+    document.getElementById("service_namee1").value = service_namee1;
+}
+
+/* for attendancelist id get */
+function myfcn11(idx, pro_namew, service_namee11) {
+    document.getElementById("id11").value = idx;
+    document.getElementById("pro_namew").value = pro_namew;
+    document.getElementById("service_namee11").value = service_namee11;
+}
 
 
 /* for delete row */
@@ -119,4 +130,30 @@ function loadAssignedUsers() {
         }
     };
     xhr.send("project=" + projectName);
+}
+
+/*calculate duration in the purchase modal */
+function calculateDuration() {
+    let startDate = new Date(document.getElementById("service_start_date").value);
+    let endDate = new Date(document.getElementById("service_end_date").value);
+    if (startDate && endDate && endDate >= startDate) {
+        let timeDiff = endDate - startDate;
+        let duration = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert to days and round up
+        document.getElementById("duration").value = duration;
+    } else {
+        document.getElementById("duration").value = "Invalid";
+    }
+}
+
+/*calculate duration in the purchase renewal modal */
+function calculateDuration1() {
+    let startDate = new Date(document.getElementById("service_start_date1").value);
+    let endDate = new Date(document.getElementById("service_end_date1").value);
+    if (startDate && endDate && endDate >= startDate) {
+        let timeDiff = endDate - startDate;
+        let duration = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert to days and round up
+        document.getElementById("duration12").value = duration;
+    } else {
+        document.getElementById("duration12").value = "Invalid";
+    }
 }
