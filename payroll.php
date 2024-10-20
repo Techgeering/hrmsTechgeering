@@ -53,6 +53,7 @@
                                         <th>Total Earnings</th>
                                         <th>Total Deduction</th>
                                         <th>Net Pay</th>
+                                        <th>Salary Slip</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,6 +83,12 @@
                                                 <td><?php echo $row44["total_earnings"]; ?></td>
                                                 <td><?php echo $row44["total_deduction"]; ?></td>
                                                 <td><?php echo $row44["net_pay"]; ?></td>
+                                                <td>
+                                                    <a href="payrollinvoice.php?id=<?php echo $row44["emp_id"]; ?>"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <?php
                                             $slno++;

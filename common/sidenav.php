@@ -155,6 +155,12 @@
                         Leads
                     </a>
                 <?php } ?>
+                <?php if ($em_role == '1' || $em_role == '4') { ?>
+                    <a class="nav-link" href="dailyreport.php">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
+                        Daily Report
+                    </a>
+                <?php } ?>
             </div>
         </div>
     </nav>

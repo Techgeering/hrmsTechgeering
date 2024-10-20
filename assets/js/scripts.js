@@ -109,6 +109,14 @@ function myfcn11(idx, pro_namew, service_namee11) {
     document.getElementById("service_namee11").value = service_namee11;
 }
 
+/* for attendancelist id get */
+function myfcn12(idx, pro_nm, workk_details, clock_duration, datet) {
+    document.getElementById("id12").value = idx;
+    document.getElementById("pro_nm").value = pro_nm;
+    document.getElementById("workk_details").value = workk_details;
+    document.getElementById("clock_duration").value = clock_duration;
+    document.getElementById("datet").value = datet;
+}
 
 /* for delete row */
 function confirmDelete(id, tb, tbc, returnpage) {
