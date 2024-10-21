@@ -74,6 +74,7 @@
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row = $result->fetch_assoc()) {
+                                            $id = $row['id'];
                                             ?>
                                             <tr>
                                                 <td><?php echo $slno; ?></td>
@@ -96,7 +97,12 @@
                                                     echo htmlspecialchars($row12["pro_name"], ENT_QUOTES, 'UTF-8');
                                                     ?>
                                                 </td>
-                                                <td><?php echo $row["work_details"]; ?></td>
+                                                <td>
+                                                    <a data-bs-toggle="modal"
+                                                        data-bs-target="#paragraphmodal_<?php echo $id; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </td>
                                                 <td><?php echo $row["duration"]; ?></td>
                                                 <td>
                                                     <?php
@@ -116,6 +122,25 @@
                                                     </a>
                                                 </td>
                                             </tr>
+                                            <div class="modal fade" id="paragraphmodal_<?php echo $id; ?>" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-success text-white">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <?php echo $row["work_details"]; ?>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <?php
                                             $slno++;
                                         }

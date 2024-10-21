@@ -119,6 +119,7 @@
                                                 <option value="2">Manager</option>
                                                 <option value="3">Hr</option>
                                                 <option value="4">Employee</option>
+                                                <option value="5">Sales</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
