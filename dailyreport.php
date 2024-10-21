@@ -44,6 +44,11 @@
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
+                            <div class="btn-group mb-3">
+                                <button type="button" class="btn btn-primary" id="weeklyBtn">Weekly</button>
+                                <button type="button" class="btn btn-secondary" id="monthlyBtn">Monthly</button>
+                                <button type="button" class="btn btn-success" id="quarterlyBtn">Quarterly</button>
+                            </div>
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
@@ -57,7 +62,7 @@
                                         <th>Pdf</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="reportTableBody">
                                     <?php
                                     include "common/conn.php";
                                     $sql = "SELECT * FROM daily_report ORDER BY date21 DESC";
@@ -299,12 +304,10 @@
         $duration = $_POST["duration"];
         $datew = $_POST["datet"];
         $id = $_POST["id12"];
-
         if ($duration < 0) {
             echo "<script>alert('Duration must be a positive number.');</script>";
             exit;
         }
-
         $sql_total_hours = "SELECT SUM(duration) AS total_hours FROM daily_report WHERE emp_id='$em_code' AND date21='$datew'";
         $result_hours = $conn->query($sql_total_hours);
 
@@ -335,8 +338,6 @@
         $conn->close();
     }
     ?>
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js?v=<?php echo time(); ?>"></script>
@@ -374,7 +375,6 @@
             const parts = duration.split(':');
             return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10); // Convert to total minutes
         }
-
         function totalDurationExceeded() {
             const durationInputs = document.querySelectorAll('.duration-input');
             let totalMinutes = 0;
@@ -386,7 +386,6 @@
             });
             return totalMinutes > 480; // 480 minutes equals 8 hours
         }
-
         document.addEventListener('input', function () {
             const errorMessage = document.querySelector('.error-message');
             if (totalDurationExceeded()) {
@@ -396,6 +395,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>
