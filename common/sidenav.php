@@ -11,7 +11,7 @@
                 <?php if ($em_role == '1') { ?>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Organization"
                         aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-poll"></i></div>
                         Organization
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -47,7 +47,7 @@
                 <?php if ($em_role == '1' || $em_role == '3' || $em_role == '4' || $em_role == '5') { ?>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Attendance"
                         aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-clock"></i></div>
                         Attendance
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -138,7 +138,7 @@
                 <?php if ($em_role == '1') { ?>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Internship"
                         aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fa fa-graduation-cap"></i></div>
                         Internship
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -157,7 +157,7 @@
                 <?php } ?>
                 <?php if ($em_role == '1' || $em_role == '4' || $em_role == '5') { ?>
                     <a class="nav-link" href="dailyreport.php">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fa fa-edit"></i></div>
                         Daily Report
                     </a>
                 <?php } ?>

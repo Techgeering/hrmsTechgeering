@@ -308,9 +308,9 @@
                                         <?php
                                         include "common/conn.php";
                                         if ($em_role == '2') {
-                                            $sql5 = "SELECT * FROM employee WHERE em_role = '4' AND dep_id = '$dept'";
+                                            $sql5 = "SELECT * FROM employee WHERE em_role IN (4, 5)' AND dep_id = '$dept'";
                                         } else {
-                                            $sql5 = "SELECT * FROM employee WHERE em_role = '4'";
+                                            $sql5 = "SELECT * FROM employee WHERE em_role IN (4, 5)";
                                         }
                                         $result5 = $conn->query($sql5);
                                         while ($row5 = $result5->fetch_assoc()) {

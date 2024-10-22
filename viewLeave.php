@@ -13,7 +13,7 @@ session_start(); {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>View Leave - Hrms Techgeering</title>
+    <title>Leave Application - Hrms Techgeering</title>
     <link rel="icon" type="image/png" href="assets/img/favicon-t.png">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="assets/css/styles.css" rel="stylesheet" />

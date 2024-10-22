@@ -62,7 +62,6 @@
                                                     <?php
                                                     $status = $row['status'];
                                                     $idm = $row['id'];
-
                                                     if ($status == 1) {
                                                         echo "<a href='active.php?status=$idm&tb=department&returnpage=departments.php' class='success'>
                                                             <i class='fa-solid fa-unlock text-success'></i>
