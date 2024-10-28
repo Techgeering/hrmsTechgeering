@@ -17,6 +17,16 @@
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
+    <?php
+    include "common/conn.php";
+    $sql13 = "SELECT * FROM employee WHERE id=$userid";
+    $result13 = $conn->query($sql13);
+    if ($result13->num_rows > 0) {
+        $row13 = $result13->fetch_assoc();
+        $emp_id = $row13["em_code"];
+        $dept = $row13["dep_id"];
+    }
+    ?>
     <!-- end Top Navbar -->
     <div id="layoutSidenav">
         <!-- start Side Navbar -->
@@ -52,7 +62,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    if ($em_role == '4' || $em_role == '2') {
+                                    if ($em_role == '4' || $em_role == '2' || $em_role == '5') {
                                         $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
                                                 FROM attendance a
                                                 JOIN employee e ON a.emp_id = e.em_code WHERE a.emp_id = '$emp_id' ORDER BY atten_date DESC";

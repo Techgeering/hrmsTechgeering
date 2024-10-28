@@ -62,7 +62,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Lead Name</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["lead_name"]); ?>
+                                                    <?php echo htmlspecialchars($row1["lead_name"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Company Name</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["companyname"]); ?>
+                                                    <?php echo htmlspecialchars($row1["companyname"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Phone</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["phone_no"]); ?>
+                                                    <?php echo htmlspecialchars($row1["phone_no"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -86,21 +86,23 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Email</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["email_id"]); ?>
+                                                    <?php echo htmlspecialchars($row1["email_id"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">City</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["city"]); ?>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["city"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">State</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["state"]); ?>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["state"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -108,21 +110,23 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Interested In</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["interested_in"]); ?>
+                                                    <?php echo htmlspecialchars($row1["interested_in"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Status</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["status"]); ?>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["status"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Source</label>
-                                                <p class="form-control"><?php echo htmlspecialchars($row1["source"]); ?>
+                                                <p class="form-control">
+                                                    <?php echo htmlspecialchars($row1["source"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -130,7 +134,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Business Type</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["business_type"]); ?>
+                                                    <?php echo htmlspecialchars($row1["business_type"] ?? 'N/A'); ?>
                                                 </p>
                                             </div>
                                         </div>

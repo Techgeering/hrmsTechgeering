@@ -72,7 +72,7 @@ session_start(); {
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    if ($em_role == '4') {
+                                    if ($em_role == '4' || $em_role == '5') {
                                         $sql = "SELECT * FROM emp_leave WHERE em_id = '$emp_id' ORDER BY apply_date DESC";
                                     } elseif ($em_role == '2') {
                                         $sql = "SELECT el.* 

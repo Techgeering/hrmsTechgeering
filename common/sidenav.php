@@ -2,7 +2,7 @@
     <nav class="sb-sidenav accordion bg-success sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4' || $em_role == '5') { ?>
+                <?php if ($em_role == '1') { ?>
                     <a class="nav-link" href="index.php">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
@@ -96,7 +96,7 @@
                         Payroll
                     </a>
                 <?php } ?>
-                <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4' || $em_role == '5') { ?>
+                <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#ProjectLayouts"
                         aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-person-walking-luggage"></i></div>
@@ -136,7 +136,7 @@
                         </nav>
                     </div>
                 <?php } ?>
-                <?php if ($em_role == '1') { ?>
+                <?php if ($em_role == '1' || $em_role == '5') { ?>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Internship"
                         aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fa fa-graduation-cap"></i></div>

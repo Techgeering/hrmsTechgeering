@@ -65,8 +65,12 @@
                                 <tbody id="reportTableBody">
                                     <?php
                                     include "common/conn.php";
-                                    // $sql = "SELECT * FROM daily_report ORDER BY date21 DESC WHERE emp_id = '$userid'";
-                                    $sql = "SELECT * FROM daily_report WHERE emp_id = '$em_code' ORDER BY date21 DESC";
+                                    if ($em_role == '4' || $em_role == '2' || $em_role == '5') {
+                                        // $sql = "SELECT * FROM daily_report ORDER BY date21 DESC WHERE emp_id = '$userid'";
+                                        $sql = "SELECT * FROM daily_report WHERE emp_id = '$em_code' ORDER BY date21 DESC";
+                                    } else {
+                                        $sql = "SELECT * FROM daily_report ORDER BY date21 DESC";
+                                    }
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     $today = date('Y-m-d');
