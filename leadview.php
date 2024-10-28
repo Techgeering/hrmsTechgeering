@@ -4,20 +4,29 @@ $em_role = isset($_SESSION["em_role"]) ? $_SESSION["em_role"] : '';
 
 include "common/conn.php";
 
-// Ensure leadId is retrieved from either POST or GET based on the context
 $leadId = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : null);
-$leadId = base64_decode($leadId);
+$leadId = trim(base64_decode($leadId));
 
-if ($leadId) {
-    // Use prepared statements to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM leads WHERE id = ?");
-    $stmt->bind_param("i", $leadId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row1 = $result->fetch_assoc();
-    $stmt->close();
+
+if ($leadId != null) {
+    $sql1 = "SELECT * FROM leads WHERE id = $leadId";
+    $result1 = $conn->query($sql1);
+    $row1 = $result1->fetch_assoc();
+    $leadname = htmlspecialchars($row1["lead_name"] ?? 'N/A');
+    $company = htmlspecialchars($row1["companyname"] ?? 'N/A');
+    $phone_no = htmlspecialchars($row1["phone_no"] ?? 'N/A');
+    $email_id = htmlspecialchars($row1["email_id"] ?? 'N/A');
+    $city = htmlspecialchars($row1["city"] ?? 'N/A');
+    $state = htmlspecialchars($row1["state"] ?? 'N/A');
+    $interested_in = htmlspecialchars($row1["interested_in"] ?? 'N/A');
+    $status = htmlspecialchars($row1["status"] ?? 'N/A');
+    $status_text = ($status == '1') ? 'ACTIVE' : 'INACTIVE';
+    echo $status_text;
+    $source = htmlspecialchars($row1["source"] ?? 'N/A');
+    $business_type = htmlspecialchars($row1["business_type"] ?? 'N/A');
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +71,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Lead Name</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["lead_name"] ?? 'N/A'); ?>
+                                                    <?php echo $leadname; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -70,7 +79,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Company Name</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["companyname"] ?? 'N/A'); ?>
+                                                    <?php echo $company; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -78,7 +87,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Phone</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["phone_no"] ?? 'N/A'); ?>
+                                                    <?php echo $phone_no; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -86,7 +95,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Email</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["email_id"] ?? 'N/A'); ?>
+                                                    <?php echo $email_id; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -94,7 +103,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">City</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["city"] ?? 'N/A'); ?>
+                                                    <?php echo $city; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -102,7 +111,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">State</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["state"] ?? 'N/A'); ?>
+                                                    <?php echo $state; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -110,7 +119,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Interested In</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["interested_in"] ?? 'N/A'); ?>
+                                                    <?php echo $interested_in; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -118,7 +127,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Status</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["status"] ?? 'N/A'); ?>
+                                                    <?php echo $status_text; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -126,7 +135,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Source</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["source"] ?? 'N/A'); ?>
+                                                    <?php echo $source; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -134,7 +143,7 @@ if ($leadId) {
                                             <div class="form-group">
                                                 <label for="name">Business Type</label>
                                                 <p class="form-control">
-                                                    <?php echo htmlspecialchars($row1["business_type"] ?? 'N/A'); ?>
+                                                    <?php echo $business_type; ?>
                                                 </p>
                                             </div>
                                         </div>

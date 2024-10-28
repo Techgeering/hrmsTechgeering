@@ -35,18 +35,18 @@
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
-                            <table id="datatablesSimple">
+                            <table id="">
                                 <thead>
                                     <tr>
-                                        <th>Sl No</th>
-                                        <th>Name</th>
-                                        <th>Closing Start Date</th>
-                                        <th>Opening Date</th>
-                                        <th>Days</th>
-                                        <th>Year</th>
-                                        <th>Hour</th>
+                                        <th class="p-4 border border-secondary">Sl No</th>
+                                        <th class="p-4 border border-secondary">Name</th>
+                                        <th class="p-4 border border-secondary">Closing Start Date</th>
+                                        <th class="p-4 border border-secondary">Opening Date</th>
+                                        <th class="p-4 border border-secondary">Days</th>
+                                        <th class="p-4 border border-secondary">Year</th>
+                                        <th class="p-4 border border-secondary">Hour</th>
                                         <?php if ($em_role == '1' || $em_role == '3') { ?>
-                                            <th>Action</th>
+                                            <th class="p-4 border border-secondary">Action</th>
                                         <?php } ?>
                                     </tr>
                                 </thead>
@@ -55,21 +55,33 @@
                                     include "common/conn.php";
                                     $sql = "SELECT * FROM holiday";
                                     $result = $conn->query($sql);
+
                                     if ($result->num_rows > 0) {
                                         $slno = 1;
-                                        // output data of each row
+                                        $currentMonth = date("m");
+                                        $currentYear = date("Y");
+
                                         while ($row = $result->fetch_assoc()) {
+                                            // Extract month and year from the 'from_date' field
+                                            $holidayMonth = date("m", strtotime($row["from_date"]));
+                                            $holidayYear = date("Y", strtotime($row["from_date"]));
+
+                                            // Check if current month and year match the holiday's from_date
+                                            $rowClass = ($currentMonth == $holidayMonth && $currentYear == $holidayYear) ? 'class="bg-success text-white"' : '';
                                             ?>
-                                            <tr>
-                                                <th><?php echo $slno; ?></th>
-                                                <th><?php echo $row["holiday_name"]; ?></th>
-                                                <th><?php echo $row["from_date"]; ?></th>
-                                                <th><?php echo $row["to_date"]; ?></th>
-                                                <th><?php echo $row["number_of_days"]; ?></th>
-                                                <th><?php echo $row["year"]; ?></th>
-                                                <th><?php echo $row["number_of_holiday_hour"]; ?></th>
+                                            <tr <?php echo $rowClass; ?>>
+                                                <td class="p-4 border border-secondary"><?php echo $slno; ?></td>
+                                                <td class="p-4 border border-secondary"><?php echo $row["holiday_name"]; ?></td>
+                                                <td class="p-4 border border-secondary"><?php echo $row["from_date"]; ?></td>
+                                                <td class="p-4 border border-secondary"><?php echo $row["to_date"]; ?></td>
+                                                <td class="p-4 border border-secondary"><?php echo $row["number_of_days"]; ?>
+                                                </td>
+                                                <td class="p-4 border border-secondary"><?php echo $row["year"]; ?></td>
+                                                <td class="p-4 border border-secondary">
+                                                    <?php echo $row["number_of_holiday_hour"]; ?>
+                                                </td>
                                                 <?php if ($em_role == '1' || $em_role == '3') { ?>
-                                                    <th>
+                                                    <td class="p-4 border border-secondary">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
                                                             onclick="myfcn4(<?php echo $row['id']; ?>,'<?php echo $row['holiday_name']; ?>','<?php echo $row['from_date']; ?>','<?php echo $row['to_date']; ?>')"
                                                             data-bs-toggle="modal" data-bs-target="#updateholiday"></i>
@@ -77,7 +89,7 @@
                                                             title="Delete">
                                                             <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
                                                         </a>
-                                                    </th>
+                                                    </td>
                                                 <?php } ?>
                                             </tr>
                                             <?php

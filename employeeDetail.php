@@ -1423,6 +1423,7 @@
                                                 <th>Leave Type</th>
                                                 <th>Total Leave </th>
                                                 <th>Taken Leave</th>
+                                                <th>Rest Leave</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1433,13 +1434,17 @@
                                                 $slNo = 1;
                                                 while ($row4 = $result4->fetch_assoc()) {
                                                     // Calculate taken leave
-                                                    $leaveType = $row4["name"];
-                                                    $sqlTakenLeave = "SELECT COUNT(*) AS taken_leave FROM emp_leave WHERE typeid = '$leaveType' AND em_id='$empId'";
+                                                    $leaveType = $row4["type_id"];
+                                                    $leave_day = $row4["leave_day"];
+
+                                                    $sqlTakenLeave = "SELECT SUM(leave_duration) AS taken_leave FROM emp_leave WHERE typeid = '$leaveType' AND em_id = '$empId' AND leave_status = 1";
                                                     $resultTakenLeave = $conn->query($sqlTakenLeave);
-                                                    $takenLeave = 0;
+                                                    // $takenLeave = 0;
                                                     if ($resultTakenLeave->num_rows > 0) {
                                                         $rowTakenLeave = $resultTakenLeave->fetch_assoc();
-                                                        $takenLeave = $rowTakenLeave["taken_leave"];
+                                                        $takenLeave = $rowTakenLeave["taken_leave"] ?? 0;
+
+                                                        $rest_leave = $leave_day - $takenLeave;
                                                     }
                                                     ?>
                                                     <tr>
@@ -1447,6 +1452,7 @@
                                                         <td><?php echo $row4["name"]; ?></td>
                                                         <td><?php echo $row4["leave_day"]; ?></td>
                                                         <td><?php echo $takenLeave; ?></td>
+                                                        <td><?php echo $rest_leave; ?></td>
                                                     </tr>
                                                     <?php
                                                     $slNo++;
