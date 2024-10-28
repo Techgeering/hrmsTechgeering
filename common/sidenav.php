@@ -19,6 +19,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="departments.php">Departments</a>
                             <a class="nav-link" href="designation.php">Designation</a>
+                            <a class="nav-link" href="services.php">Services</a>
                         </nav>
                     </div>
                 <?php } ?>
