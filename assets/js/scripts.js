@@ -118,6 +118,7 @@ function myfcn11(idx, pro_namew, service_namee11) {
 //     document.getElementById("datet").value = datet;
 // }
 
+
 function myfcn12(idx, pro_nm, workk_details, clock_duration, datet) {
     console.log("ID:", idx);
     console.log("Project ID:", pro_nm);

@@ -245,7 +245,7 @@ if (isset($_POST['submit'])) {
     $nextdate = date('Y-m-d H:i:s', strtotime($_POST["nextdate"]));
     $message = $_POST["message"];
     $leadId = $_POST["id"];
-
+    $encodedLeadId = base64_encode($leadId);
     $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
         VALUES ('$leadId', '$startdate', '$nextdate', '$message')";
 
@@ -254,7 +254,7 @@ if (isset($_POST['submit'])) {
         // header("Location: leadview.php?id=" . $leadId);
         $sql10 = "UPDATE leads SET lastfollowupdate='$startdate' , nextfollowupdate='$nextdate' WHERE id='$leadId'";
         if ($conn->query($sql10) === TRUE) {
-            echo "<script>window.location.href='leadview.php?id=$leadId';</script>";
+            echo "<script>window.location.href='leadview.php?id=$encodedLeadId';</script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

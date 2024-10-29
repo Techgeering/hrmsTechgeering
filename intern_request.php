@@ -43,6 +43,9 @@
                                         <th class="text-center">Whatsapp Number</th>
                                         <th class="text-center">College Name</th>
                                         <th class="text-center">Address</th>
+                                        <th class="text-center">Last Followup Date</th>
+                                        <th class="text-center">Next Followup Date</th>
+                                        <th class="text-center">View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,6 +56,7 @@
                                     $slno = 1;
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
+                                            $encoded_id = base64_encode($row['id']);
                                             ?>
                                             <tr>
                                                 <td class="text-center"><?php echo $slno; ?></td>
@@ -62,6 +66,12 @@
                                                 <td class="text-center"><?php echo $row["wp_num"]; ?></td>
                                                 <td class="text-center"><?php echo $row["clg_name"]; ?></td>
                                                 <td class="text-center"><?php echo $row["address"]; ?></td>
+                                                <td class="text-center"><?php echo $row["lastfollow"]; ?></td>
+                                                <td class="text-center"><?php echo $row["nextfollow"]; ?></td>
+                                                <td>
+                                                    <a href="intern_requestview.php?id=<?php echo $encoded_id; ?>"><i
+                                                            class="fa-solid fa-eye text-success"></i></a>
+                                                </td>
                                             </tr>
                                             <?php
                                             $slno++;
@@ -100,34 +110,38 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <div class="row">
-                        <div class="modal-body col-6">
-                            <div class="form-group">
-                                <label for="DepartmentName">Name</label>
-                                <input type="text" class="form-control" id="Name" name="Name"
-                                    oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Name</label>
+                                    <input type="text" class="form-control" id="Name" name="Name"
+                                        oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-body col-6">
-                            <div class="form-group">
-                                <label for="DepartmentName">Email Id</label>
-                                <input type="email" class="form-control" id="Email" name="email">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Email Id</label>
+                                    <input type="email" class="form-control" id="Email" name="email">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="modal-body col-6">
-                            <div class="form-group">
-                                <label for="DepartmentName">Mobile Number</label>
-                                <input type="text" class="form-control" id="mobile" name="mobilenum"
-                                    oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Mobile Number</label>
+                                    <input type="text" class="form-control" id="mobile" name="mobilenum"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-body col-6">
-                            <div class="form-group">
-                                <label for="DepartmentName">Whatsapp Number</label>
-                                <input type="text" class="form-control" id="wpnum" name="wpnum"
-                                    oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Whatsapp Number</label>
+                                    <input type="text" class="form-control" id="wpnum" name="wpnum"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                                </div>
                             </div>
                         </div>
                     </div>
