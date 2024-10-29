@@ -74,25 +74,62 @@ $tableData = array();
 $totalAmount = 0; // Initialize totalAmount to avoid undefined behavior
 $slNo = 1; // Initialize serial number
 
+// $sql2 = "SELECT * FROM daily_report WHERE emp_id = '$empId' AND date21 = '$datee'";
+// $result2 = $conn->query($sql2);
+// while ($row2 = $result2->fetch_assoc()) {
+
+//     $pro_id = $row2["pro_id"];
+//     $sql1 = "SELECT * FROM project where id = $pro_id";
+//     $result1 = $conn->query($sql1);
+//     $row1 = $result1->fetch_assoc();
+//     $project_name = $row1["pro_name"];
+
+//     // Dynamic serial number and cell data
+//     $pdf->SetFont('Arial', '', 10);
+//     $pdf->Cell(10, 30, $slNo, 1, 0, 'C'); // Center alignment
+//     $pdf->Cell(30, 30, $row2["date21"], 1, 0, 'C'); // Center alignment
+//     $pdf->Cell(40, 30, $project_name, 1, 0, 'C'); // Center alignment
+//     $pdf->Cell(90, 30, $row2["work_details"], 1, 0, 'C'); // Center alignment
+//     $pdf->Cell(20, 30, $row2["duration"], 1, 0, 'C'); // Center alignment
+
+
+//     $pdf->Ln();
+//     $slNo++;
+// }
 $sql2 = "SELECT * FROM daily_report WHERE emp_id = '$empId' AND date21 = '$datee'";
 $result2 = $conn->query($sql2);
+$slNo = 1; // Initialize serial number
+
 while ($row2 = $result2->fetch_assoc()) {
 
     $pro_id = $row2["pro_id"];
-    $sql1 = "SELECT * FROM project where id = $pro_id";
+    $sql1 = "SELECT * FROM project WHERE id = $pro_id";
     $result1 = $conn->query($sql1);
     $row1 = $result1->fetch_assoc();
     $project_name = $row1["pro_name"];
 
     // Dynamic serial number and cell data
     $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(10, 30, $slNo, 1, 0, 'C'); // Center alignment
-    $pdf->Cell(30, 30, $row2["date21"], 1, 0, 'C'); // Center alignment
-    $pdf->Cell(40, 30, $project_name, 1, 0, 'C'); // Center alignment
-    $pdf->Cell(90, 30, $row2["work_details"], 1, 0, 'C'); // Center alignment
-    $pdf->Cell(20, 30, $row2["duration"], 1, 0, 'C'); // Center alignment
 
+    // Serial Number, Date, and Project Name cells
+    $pdf->Cell(10, 10, $slNo, 1, 0, 'C'); // Serial Number cell with center alignment
+    $pdf->Cell(30, 10, $row2["date21"], 1, 0, 'C'); // Date cell with center alignment
+    $pdf->Cell(40, 10, $project_name, 1, 0, 'C'); // Project name cell with center alignment
 
+    // Capture the current X and Y positions
+    $currentX = $pdf->GetX();
+    $currentY = $pdf->GetY();
+
+    // Work details cell with wrapping text
+    $pdf->MultiCell(90, 10, $row2["work_details"], 1, 'C'); // Wrap text in work details cell
+
+    // Reset X and Y position for the duration cell
+    $pdf->SetXY($currentX + 90, $currentY);
+
+    // Duration cell with center alignment
+    $pdf->Cell(20, 10, $row2["duration"], 1, 0, 'C');
+
+    // Move to the next line
     $pdf->Ln();
     $slNo++;
 }
