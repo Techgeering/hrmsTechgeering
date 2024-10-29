@@ -43,7 +43,7 @@ if ($internId != null) {
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <!-- <h2 class="my-2">Single Lead View</h2> -->
+                        <h2 class="my-2">Follow-Up</h2>
                         <?php if ($em_role == '1' || $em_role == '5') { ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                                 <i class="fa-solid fa-plus"></i> Add Follow-Up

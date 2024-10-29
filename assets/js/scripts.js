@@ -141,6 +141,13 @@ function confirmDelete(id, tb, tbc, returnpage) {
     }
 }
 
+function confirmAction(id, name) {
+    var confirmation = confirm("Are you sure you want to change the status?");
+    if (confirmation) {
+        window.location.href = "leads_status.php?id=" + id + "&name=" + encodeURIComponent(name);
+    }
+}
+
 /* for assigned employee change in all balance */
 function loadAssignedUsers() {
     var projectName = document.getElementById("Project_Name").value;

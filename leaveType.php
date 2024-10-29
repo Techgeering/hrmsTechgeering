@@ -66,7 +66,7 @@
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
                                                             onclick="myfcn5(<?php echo $row['type_id']; ?>,'<?php echo $row['name']; ?>','<?php echo $row['leave_day']; ?>')"
                                                             data-bs-toggle="modal" data-bs-target="#updateleavetype"></i>
-                                                        <i class="fa-solid fa-lock text-danger"></i>
+                                                        <!-- <i class="fa-solid fa-lock text-danger"></i> -->
                                                     </th>
                                                 <?php } ?>
                                             </tr>

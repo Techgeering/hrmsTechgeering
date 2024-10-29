@@ -205,7 +205,7 @@ if ($leadId != null) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <input type="text" name="id" value="<?php echo htmlspecialchars($leadId); ?>">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($leadId); ?>">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12">

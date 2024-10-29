@@ -71,7 +71,44 @@
                                                 <td><?php echo $row["interested_in"]; ?></td>
                                                 <td><?php echo $row["lastfollowupdate"]; ?></td>
                                                 <td><?php echo $row["nextfollowupdate"]; ?></td>
-                                                <td><?php echo $row["status"]; ?></td>
+                                                <td>
+                                                    <?php if ($row['status'] != 0): ?>
+                                                        <i class="fas fa-check-circle"
+                                                            onclick="confirmAction(<?php echo $row['id']; ?>, '<?php echo $row['status']; ?>')"
+                                                            style="color: green;"></i>
+                                                        <?php
+                                                        switch ($row['status']) {
+                                                            case 1:
+                                                                echo "1st Stage";
+                                                                break;
+                                                            case 2:
+                                                                echo "Proposal Send";
+                                                                break;
+                                                            case 3:
+                                                                echo "Proposal After Discussion";
+                                                                break;
+                                                            case 4:
+                                                                echo "Price Finalization";
+                                                                break;
+                                                            case 5:
+                                                                echo "MOU Signed";
+                                                                break;
+                                                            case 6:
+                                                                echo "Customer";
+                                                                break;
+                                                            default:
+                                                                echo "Unknown status"; // Optional: handle unexpected status values
+                                                                break;
+                                                        }
+                                                        ?>
+                                                    <?php endif; ?><br>
+
+                                                    <i class="fas fa-times-circle"
+                                                        onclick="confirmAction(<?php echo $row['id']; ?>, 'inactive')"
+                                                        style="color: red;"></i>
+                                                    <span style="color: red;"> Not Convinced</span>
+                                                </td>
+
                                                 <td>
                                                     <a href="leadview.php?id=<?php echo $encoded_id; ?>"><i
                                                             class="fa-solid fa-eye text-success"></i></a>

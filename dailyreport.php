@@ -286,12 +286,18 @@
             $workk = mysqli_real_escape_string($conn, $workks[$index]);
             $duration = mysqli_real_escape_string($conn, $durations[$index]);
 
-            $sql_pur = "INSERT INTO daily_report (emp_id, date21, pro_id, work_details, duration) 
-                VALUES ('$em_code','$datee1','$project_name','$workk','$duration')";
-            if ($conn->query($sql_pur) === TRUE) {
-                header("Location: dailyreport.php");
+            $sql_daily = "SELECT * FROM daily_report WHERE pro_id = '$project_name' AND date21 = '$datee1'";
+            $result = $conn->query($sql_daily);
+            if ($result->num_rows > 0) {
+                echo "<script>alert('This project is already present on this date. Please update it instead.');</script>";
             } else {
-                echo "Error: " . $sql_pur . "<br>" . $conn->error;
+                $sql_pur = "INSERT INTO daily_report (emp_id, date21, pro_id, work_details, duration) 
+                VALUES ('$em_code','$datee1','$project_name','$workk','$duration')";
+                if ($conn->query($sql_pur) === TRUE) {
+                    header("Location: dailyreport.php");
+                } else {
+                    echo "Error: " . $sql_pur . "<br>" . $conn->error;
+                }
             }
         }
         $conn->close();
@@ -302,7 +308,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Department</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Daily Report</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">

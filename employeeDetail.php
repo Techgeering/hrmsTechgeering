@@ -114,18 +114,22 @@
                                     <div class="card-body text-center">
                                         <img src="<?php echo $row["em_image"];
                                         ?>" class="img-circle" width="150">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModalCenter">
-                                            <i class="fas fa-pencil-alt edit-icon">Edit image</i>
-                                        </button>
+                                        <?php if ($em_role == '1') { ?>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModalCenter">
+                                                <i class="fas fa-pencil-alt edit-icon">Edit image</i>
+                                            </button>
+                                        <?php } ?>
                                         <h4 class="card-title m-t-10 edit"><?php echo $row["full_name"]; ?></h4>
                                         <input type="text" class='txtedit' value='<?php echo $row["full_name"]; ?>'
                                             id='full_name-<?php echo $row["id"]; ?>-employee'
                                             style="display:none;"></input>
                                         <h6 class="card-subtitle">Employee Id: <?php echo $row["em_code"]; ?></h6>
-                                        <button data-bs-toggle="modal" data-bs-target="#exampleModalcode">
-                                            <i class="fas fa-pencil-alt edit-icon">Edit Emp Id</i>
-                                        </button>
+                                        <?php if ($em_role == '1') { ?>
+                                            <button data-bs-toggle="modal" data-bs-target="#exampleModalcode">
+                                                <i class="fas fa-pencil-alt edit-icon">Edit Emp Id</i>
+                                            </button>
+                                        <?php } ?>
                                     </div>
                                     <div>
                                         <hr>
@@ -228,7 +232,7 @@
                                         <?php } ?>
                                     </div>
                                     <div class="form-group col-md-4 m-t-10">
-                                        <label>Gender </label>
+                                        <label>Gender</label>
                                         <?php if ($em_role == '1' || $em_role == '3') { ?>
                                             <p class="form-control form-control-line edit"
                                                 onclick="showDropdown('em_gender-<?php echo $row['id']; ?>-employee')">
@@ -1470,10 +1474,12 @@
                     <div id="Earnings" class="tabcontent">
                         <div class="card p-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                                    data-bs-target="#addpayroll">
-                                    <i class="fa-solid fa-plus"></i>Earnings
-                                </button>
+                                <?php if ($em_role == '1') { ?>
+                                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                        data-bs-target="#addpayroll">
+                                        <i class="fa-solid fa-plus"></i>Earnings
+                                    </button>
+                                <?php } ?>
                             </div>
                             <table class="table table-bordered">
                                 <thead>

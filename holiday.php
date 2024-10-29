@@ -35,7 +35,7 @@
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
-                            <table id="">
+                            <table id="" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th class="p-4 border border-secondary">Sl No</th>
