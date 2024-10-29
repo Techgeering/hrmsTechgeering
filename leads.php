@@ -107,63 +107,61 @@
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="leadname" class="form-label">Lead Name</label>
-                                    <input type="text" class="form-control" id="leadname" name="leadname" required>
+                                    <input type="text" class="form-control" id="leadname" name="leadname">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="companyname" class="form-label">Company Name</label>
-                                    <input type="text" class="form-control" id="companyname" name="companyname"
-                                        required>
+                                    <input type="text" class="form-control" id="companyname" name="companyname">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="phoneno" class="form-label">Phone Number</label>
-                                    <input type="text" class="form-control" id="phoneno" name="phoneno" required>
+                                    <input type="text" class="form-control" id="phoneno" name="phoneno">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="email" class="form-label">Email Id</label>
-                                    <input type="text" class="form-control" id="email" name="email" required>
+                                    <input type="text" class="form-control" id="email" name="email">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="city" class="form-label">City</label>
-                                    <input type="text" class="form-control" id="city" name="city" required>
+                                    <input type="text" class="form-control" id="city" name="city">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="state" class="form-label">State</label>
-                                    <input type="text" class="form-control" id="state" name="state" required>
+                                    <input type="text" class="form-control" id="state" name="state">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="country" class="form-label">Country</label>
-                                    <input type="text" class="form-control" id="country" name="country" required>
+                                    <input type="text" class="form-control" id="country" name="country">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="source" class="form-label">Source</label>
-                                    <input type="text" class="form-control" id="source" name="source" required>
+                                    <input type="text" class="form-control" id="source" name="source">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="intersted" class="form-label">Intersted</label>
-                                    <input type="text" class="form-control" id="intersted" name="interested" required>
+                                    <input type="text" class="form-control" id="intersted" name="interested">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="bussinesstype" class="form-label">Bussiness Type</label>
-                                    <input type="text" class="form-control" id="bussinesstype" name="bussinesstype"
-                                        required>
+                                    <input type="text" class="form-control" id="bussinesstype" name="bussinesstype">
                                 </div>
                             </div>
                         </div>

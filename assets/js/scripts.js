@@ -110,9 +110,23 @@ function myfcn11(idx, pro_namew, service_namee11) {
 }
 
 /* for attendancelist id get */
+// function myfcn12(idx, pro_nm, workk_details, clock_duration, datet) {
+//     document.getElementById("id12").value = idx;
+//     document.getElementById("pro_nm").value = pro_nm;
+//     document.getElementById("workk_details").value = workk_details;
+//     document.getElementById("clock_duration").value = clock_duration;
+//     document.getElementById("datet").value = datet;
+// }
+
 function myfcn12(idx, pro_nm, workk_details, clock_duration, datet) {
+    console.log("ID:", idx);
+    console.log("Project ID:", pro_nm);
+    console.log("Work Details:", workk_details);
+    console.log("Duration:", clock_duration);
+    console.log("Date:", datet);
+
     document.getElementById("id12").value = idx;
-    document.getElementById("pro_nm").value = pro_nm;
+    document.getElementById("pro_nm").value = pro_nm; // Ensure this matches a <select> option
     document.getElementById("workk_details").value = workk_details;
     document.getElementById("clock_duration").value = clock_duration;
     document.getElementById("datet").value = datet;

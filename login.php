@@ -171,8 +171,11 @@
                echo "<script>sessionStorage.setItem('login_history_id', '$login_history_id');</script>";
             }
 
-            // Redirect the user to index.php
-            echo "<script>window.location.href='index.php';</script>";
+            if ($em_role == 1) {
+               echo "<script>window.location.href='index.php';</script>";
+            } else {
+               echo "<script>window.location.href='dailyreport.php';</script>";
+            }
          } else {
             echo "Invalid password. Please try again.";
          }

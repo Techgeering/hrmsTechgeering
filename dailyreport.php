@@ -110,14 +110,24 @@
                                                 </td>
                                                 <td><?php echo $row["duration"]; ?></td>
                                                 <td>
+                                                    <button type="button" class="btn btn-light" onclick='myfcn12(
+                                                            <?php echo json_encode($row["id"]); ?>,
+                                                            <?php echo json_encode($row["pro_id"]); ?>,
+                                                            <?php echo json_encode($row["work_details"]); ?>,
+                                                            <?php echo json_encode($row["duration"]); ?>,
+                                                            <?php echo json_encode($row["date21"]); ?>
+                                                        )' data-bs-toggle="modal" data-bs-target="#updateDept">
+                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    </button>
+
                                                     <?php
-                                                    if ($row["date21"] == $today || $row["date21"] == $yesterday) {
-                                                        echo '<button type="button" class="btn btn-light"
-                                                            onclick="myfcn12(' . $row['id'] . ', \'' . $row['pro_id'] . '\', \'' . $row['work_details'] . '\', \'' . $row['duration'] . '\', \'' . $row['date21'] . '\')"
-                                                            data-bs-toggle="modal" data-bs-target="#updateDept">
-                                                            <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                        </button>';
-                                                    }
+                                                    // if ($row["date21"] == $today || $row["date21"] == $yesterday) {
+                                                    //     echo '<button type="button" class="btn btn-light"
+                                                    //         onclick="myfcn12(' . $row['id'] . ', \'' . $row['pro_id'] . '\', \'' . $row['work_details'] . '\', \'' . $row['duration'] . '\', \'' . $row['date21'] . '\')"
+                                                    //         data-bs-toggle="modal" data-bs-target="#updateDept">
+                                                    //         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    //     </button>';
+                                                    // }
                                                     ?>
                                                 </td>
                                                 <td>
@@ -137,8 +147,9 @@
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <?php echo $row["work_details"]; ?>
+                                                            <?php echo nl2br($row["work_details"]); ?>
                                                         </div>
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
@@ -185,6 +196,10 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="row">
+                            <!-- <div class="col-12">
+                                <label for="datee" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="datee" name="datee1">
+                            </div> -->
                             <div class="col-12">
                                 <label for="datee" class="form-label">Date</label>
                                 <input type="date" class="form-control" id="datee" name="datee1">
@@ -400,7 +415,11 @@
             });
         });
     </script>
-
+    <!-- for date disable -->
+    <script>
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("datee").setAttribute("min", today);
+    </script>
     <script>
         function parseDuration(duration) {
             const parts = duration.split(':');
