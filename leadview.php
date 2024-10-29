@@ -176,7 +176,7 @@ if ($leadId != null) {
                                                     ?>
                                                     <tr>
                                                         <td><?php echo htmlspecialchars($row2["start_date"]); ?></td>
-                                                        <td><?php echo htmlspecialchars($row2["message"]); ?> </td>
+                                                        <td><?php echo html_entity_decode($row2["message"]); ?></td>
                                                         <td><?php echo htmlspecialchars($row2["next_date"]); ?></td>
                                                     </tr>
                                                 <?php }
@@ -243,7 +243,7 @@ include "common/conn.php";
 if (isset($_POST['submit'])) {
     $startdate = date('Y-m-d H:i:s');
     $nextdate = date('Y-m-d H:i:s', strtotime($_POST["nextdate"]));
-    $message = $_POST["message"];
+    $message = htmlspecialchars($_POST["message"]);
     $leadId = $_POST["id"];
     $encodedLeadId = base64_encode($leadId);
     $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
