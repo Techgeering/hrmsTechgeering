@@ -96,10 +96,19 @@
                                                 <td>
                                                     <?php
                                                     $pro_id = $row["pro_id"];
-                                                    $sql12 = "SELECT * FROM project WHERE id = $pro_id";
-                                                    $result12 = $conn->query($sql12);
-                                                    $row12 = $result12->fetch_assoc();
-                                                    echo htmlspecialchars($row12["pro_name"], ENT_QUOTES, 'UTF-8');
+                                                    if ($pro_id == 0) {
+                                                        echo "Other";
+                                                    } else {
+                                                        $sql12 = "SELECT * FROM project WHERE id = $pro_id";
+                                                        $result12 = $conn->query($sql12);
+
+                                                        if ($result12 && $result12->num_rows > 0) {
+                                                            $row12 = $result12->fetch_assoc();
+                                                            echo htmlspecialchars($row12["pro_name"], ENT_QUOTES, 'UTF-8');
+                                                        } else {
+                                                            echo "Project not found";
+                                                        }
+                                                    }
                                                     ?>
                                                 </td>
                                                 <td>
@@ -415,6 +424,49 @@
             });
         });
     </script>
+    <!-- Inside your existing form structure -->
+
+    <!-- JavaScript for preventing duplicate project selections -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const formContainer = document.getElementById('form-container');
+            const addButton = document.querySelector('.add-product');
+
+            // Function to update project dropdowns based on selected projects
+            const updateProjectOptions = () => {
+                const selectedProjects = new Set();
+                // Gather all selected project values
+                formContainer.querySelectorAll('select[name="project_name[]"]').forEach(select => {
+                    if (select.value) selectedProjects.add(select.value);
+                });
+
+                // Disable already selected options in each dropdown
+                formContainer.querySelectorAll('select[name="project_name[]"]').forEach(select => {
+                    Array.from(select.options).forEach(option => {
+                        option.disabled = selectedProjects.has(option.value) && option.value !== select.value;
+                    });
+                });
+            };
+
+            // Event listener for adding new project fields
+            addButton.addEventListener('click', () => {
+                const productGroup = document.querySelector('.product-group').cloneNode(true);
+                productGroup.querySelector('select').value = '';
+                productGroup.querySelector('textarea').value = '';
+                productGroup.querySelector('input[name="duration[]"]').value = '';
+                formContainer.appendChild(productGroup);
+                updateProjectOptions();
+            });
+
+            // Listen for project selection change to update options
+            formContainer.addEventListener('change', (event) => {
+                if (event.target.name === 'project_name[]') {
+                    updateProjectOptions();
+                }
+            });
+        });
+    </script>
+
     <!-- for date disable -->
     <script>
         const today = new Date().toISOString().split("T")[0];

@@ -39,6 +39,7 @@
                                 <thead>
                                     <tr>
                                         <th>Sl</th>
+                                        <th>Date</th>
                                         <th>Lead Name</th>
                                         <th>Company Name</th>
                                         <th>Phone</th>
@@ -61,7 +62,8 @@
                                             $encoded_id = base64_encode($row['id']);
                                             ?>
                                             <tr>
-                                                <th><?php echo $slno; ?></th>
+                                                <td><?php echo $slno; ?></td>
+                                                <td><?php echo $row["add_date"]; ?></td>
                                                 <td><?php echo $row["lead_name"]; ?></td>
                                                 <td><?php echo $row["companyname"]; ?></td>
                                                 <td><?php echo $row["phone_no"]; ?></td>
@@ -184,6 +186,7 @@
     <?php
     include "common/conn.php";
     if (isset($_POST['submit'])) {
+        $datee = date("Y-m-d");
         $leadname = $_POST["leadname"];
         $companyname = $_POST["companyname"];
         $phoneno = $_POST["phoneno"];
@@ -196,8 +199,8 @@
         $bussinesstype = $_POST["bussinesstype"];
         $currentDateTime = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO leads (lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status, lead_date)
-        VALUES ('$leadname', '$companyname', '$phoneno', '$email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1', '$currentDateTime')";
+        $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status, lead_date)
+        VALUES ('$datee','$leadname', '$companyname', '$phoneno', '$email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1', '$currentDateTime')";
 
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
