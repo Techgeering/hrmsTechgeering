@@ -320,6 +320,7 @@
                                 <label for="Project_Name" class="form-label">Project Name</label>
                                 <select class="form-select" name="project_name" id="pro_nm">
                                     <option value="" disabled selected>Select a Project</option>
+                                    <option value="0">Other</option>
                                     <?php
                                     include "common/conn.php";
                                     $sql_pro = "SELECT * FROM project";
