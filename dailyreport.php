@@ -211,7 +211,7 @@
                             </div> -->
                             <div class="col-12">
                                 <label for="datee" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="datee" name="datee1">
+                                <input type="date" class="form-control" id="datee" name="datee1" required>
                             </div>
                             <div id="form-container">
                                 <div class="product-group">
@@ -219,7 +219,7 @@
                                         <div class="col-12">
                                             <div class="mb-2">
                                                 <label for="Project_Name" class="form-label">Project Name</label>
-                                                <select class="form-select" name="project_name[]">
+                                                <select class="form-select" name="project_name[]" required>
                                                     <option value="" disabled selected>Select a Project</option>
                                                     <option value="0">Other</option>
                                                     <?php
@@ -237,8 +237,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="DepartmentName">Work Details</label>
-                                            <textarea class="form-control" id="workk" name="workk1[]"
-                                                rows="4"></textarea>
+                                            <textarea class="form-control" id="workk" name="workk1[]" rows="4"
+                                                required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="duration">Duration (HH:MM)</label>

@@ -4,7 +4,10 @@ session_start(); {
     $emp_id = $_SESSION["emp_id"];
 }
 ?>
-
+<?php
+$selectedMonth = $_GET['month'] ?? 0;
+$selectedYear = $_GET['year'] ?? 0;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,6 +45,39 @@ session_start(); {
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
+                            <form action="attendanceReport.php" method="GET">
+                                <div class="row mb-3">
+                                    <div class="col-2">
+                                        <label for="month" class="form-label">Select Month</label>
+                                        <select class="form-select" id="month" name="month" required>
+                                            <option value="" disabled selected>Select a month</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="year" class="form-label">Select Year</label>
+                                        <select class="form-select" id="year" name="year" required>
+                                            <option value="" disabled selected>Select a year</option>
+                                            <?php for ($i = 2020; $i <= 2030; $i++): ?>
+                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <a href="attendanceReport.php" class="btn btn-primary" id="submitLink">Refresh</a>
+                            </form>
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
@@ -55,7 +91,6 @@ session_start(); {
                                         <th>Leave Hour</th>
                                         <th>Adjustable Hour</th>
                                         <th>Payable Hour</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,9 +101,15 @@ session_start(); {
                                                 FROM attadence_report ar
                                                 JOIN employee e ON ar.emp_id = e.em_code WHERE ar.emp_id = '$emp_id' ORDER BY month DESC";
                                     } else {
-                                        $sql4 = "SELECT ar.*, e.full_name 
+                                        if ($selectedMonth == '0' && $selectedYear == '0') {
+                                            $sql4 = "SELECT ar.*, e.full_name 
                                                 FROM attadence_report ar
                                                 JOIN employee e ON ar.emp_id = e.em_code ORDER BY month DESC";
+                                        } else {
+                                            $sql4 = "SELECT ar.*, e.full_name 
+                                                FROM attadence_report ar
+                                                JOIN employee e ON ar.emp_id = e.em_code WHERE month = '$selectedMonth-$selectedYear' ORDER BY month DESC";
+                                        }
                                     }
                                     $result4 = $conn->query($sql4);
 
@@ -98,11 +139,6 @@ session_start(); {
                                                     </h6>
                                                 </td>
                                                 <td><?php echo $row4["payable_hour"]; ?></td>
-                                                <td> <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attadence_report', tbc='id',returnpage='attendanceReport.php');"
-                                                        title="Delete">
-                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
-                                                    </a>
-                                                </td>
                                             </tr>
                                             <?php
                                             $slNo++;
