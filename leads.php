@@ -48,6 +48,7 @@
                                         <th>Last Followup Date</th>
                                         <th>Next Followup Date</th>
                                         <th>Status</th>
+                                        <th>Rejected</th>
                                         <th>View</th>
                                     </tr>
                                 </thead>
@@ -72,41 +73,110 @@
                                                 <td><?php echo $row["lastfollowupdate"]; ?></td>
                                                 <td><?php echo $row["nextfollowupdate"]; ?></td>
                                                 <td>
-                                                    <?php if ($row['status'] != 0): ?>
-                                                        <i class="fas fa-check-circle"
+                                                    <?php if ($row['status'] == 6): ?>
+                                                        <span style="color: gray;">
+                                                            <?php
+                                                            switch ($row['status']) {
+                                                                case 1:
+                                                                    echo "1st Stage";
+                                                                    break;
+                                                                case 2:
+                                                                    echo "Proposal Send";
+                                                                    break;
+                                                                case 3:
+                                                                    echo "Proposal After Discussion";
+                                                                    break;
+                                                                case 4:
+                                                                    echo "Price Finalization";
+                                                                    break;
+                                                                case 5:
+                                                                    echo "MOU Signed";
+                                                                    break;
+                                                                case 6:
+                                                                    echo "Customer";
+                                                                    break;
+                                                                default:
+                                                                    echo "Unknown status";
+                                                                    break;
+                                                            }
+                                                            ?>
+                                                        </span>
+                                                    <?php elseif ($row['status1'] == 0): ?>
+                                                        <span style="color: gray;">
+                                                            <?php
+                                                            switch ($row['status']) {
+                                                                case 1:
+                                                                    echo "1st Stage";
+                                                                    break;
+                                                                case 2:
+                                                                    echo "Proposal Send";
+                                                                    break;
+                                                                case 3:
+                                                                    echo "Proposal After Discussion";
+                                                                    break;
+                                                                case 4:
+                                                                    echo "Price Finalization";
+                                                                    break;
+                                                                case 5:
+                                                                    echo "MOU Signed";
+                                                                    break;
+                                                                case 6:
+                                                                    echo "Customer";
+                                                                    break;
+                                                                default:
+                                                                    echo "Unknown status";
+                                                                    break;
+                                                            }
+                                                            ?>
+                                                        </span>
+                                                    <?php else: ?>
+                                                        <button
                                                             onclick="confirmAction(<?php echo $row['id']; ?>, '<?php echo $row['status']; ?>')"
-                                                            style="color: green;"></i>
-                                                        <?php
-                                                        switch ($row['status']) {
-                                                            case 1:
-                                                                echo "1st Stage";
-                                                                break;
-                                                            case 2:
-                                                                echo "Proposal Send";
-                                                                break;
-                                                            case 3:
-                                                                echo "Proposal After Discussion";
-                                                                break;
-                                                            case 4:
-                                                                echo "Price Finalization";
-                                                                break;
-                                                            case 5:
-                                                                echo "MOU Signed";
-                                                                break;
-                                                            case 6:
-                                                                echo "Customer";
-                                                                break;
-                                                            default:
-                                                                echo "Unknown status"; // Optional: handle unexpected status values
-                                                                break;
-                                                        }
-                                                        ?>
-                                                    <?php endif; ?><br>
-
-                                                    <i class="fas fa-times-circle"
-                                                        onclick="confirmAction(<?php echo $row['id']; ?>, 'inactive')"
-                                                        style="color: red;"></i>
-                                                    <span style="color: red;"> Not Convinced</span>
+                                                            style="background-color: green; color: white; border: none; padding: 2px 10px; border-radius: 5px;">
+                                                            <?php
+                                                            switch ($row['status']) {
+                                                                case 1:
+                                                                    echo "1st Stage";
+                                                                    break;
+                                                                case 2:
+                                                                    echo "Proposal Send";
+                                                                    break;
+                                                                case 3:
+                                                                    echo "Proposal After Discussion";
+                                                                    break;
+                                                                case 4:
+                                                                    echo "Price Finalization";
+                                                                    break;
+                                                                case 5:
+                                                                    echo "MOU Signed";
+                                                                    break;
+                                                                case 6:
+                                                                    echo "Customer";
+                                                                    break;
+                                                                default:
+                                                                    echo "Unknown status";
+                                                                    break;
+                                                            }
+                                                            ?>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <?php if ($row['status'] != 6): ?>
+                                                        <?php if ($row['status1'] == 0): ?>
+                                                            <span style="color: red;">Not Convinced</span>
+                                                        <?php elseif ($row['status1'] == 1): ?>
+                                                            <button onclick="confirmAction(<?php echo $row['id']; ?>, 'inactive')"
+                                                                style="background-color: red; color: white; border: none; padding: 2px 10px; border-radius: 5px;">
+                                                                Rejected
+                                                            </button>
+                                                        <?php else: ?>
+                                                            <button onclick="confirmAction(<?php echo $row['id']; ?>, 'inactive')"
+                                                                style="background-color: red; color: white; border: none; padding: 2px 10px; border-radius: 5px;">
+                                                                Not Convinced
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
                                                 </td>
 
                                                 <td>
@@ -158,13 +228,14 @@
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="phoneno" class="form-label">Phone Number</label>
-                                    <input type="text" class="form-control" id="phoneno" name="phoneno">
+                                    <input type="text" class="form-control" id="phoneno" name="phoneno"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
                                     <label for="email" class="form-label">Email Id</label>
-                                    <input type="text" class="form-control" id="email" name="email">
+                                    <input type="email" class="form-control" id="email" name="email">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -224,20 +295,20 @@
     include "common/conn.php";
     if (isset($_POST['submit'])) {
         $datee = date("Y-m-d");
-        $leadname = $_POST["leadname"];
-        $companyname = $_POST["companyname"];
+        $leadname = htmlspecialchars($_POST["leadname"]);
+        $companyname = htmlspecialchars($_POST["companyname"]);
         $phoneno = $_POST["phoneno"];
         $email = $_POST["email"];
-        $city = $_POST["city"];
-        $state = $_POST["state"];
-        $country = $_POST["country"];
-        $source = $_POST["source"];
-        $interested = $_POST["interested"];
-        $bussinesstype = $_POST["bussinesstype"];
+        $city = htmlspecialchars($_POST["city"]);
+        $state = htmlspecialchars($_POST["state"]);
+        $country = htmlspecialchars($_POST["country"]);
+        $source = htmlspecialchars($_POST["source"]);
+        $interested = htmlspecialchars($_POST["interested"]);
+        $bussinesstype = htmlspecialchars($_POST["bussinesstype"]);
         $currentDateTime = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status, lead_date)
-        VALUES ('$datee','$leadname', '$companyname', '$phoneno', '$email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1', '$currentDateTime')";
+        $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status, status1, lead_date)
+        VALUES ('$datee','$leadname', '$companyname', '$phoneno', '$email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1', '1', '$currentDateTime')";
 
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
