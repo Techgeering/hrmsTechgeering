@@ -244,7 +244,7 @@ if (isset($_POST['submit'])) {
     $startdate = date('Y-m-d H:i:s');
     $nextdate = date('Y-m-d H:i:s', strtotime($_POST["nextdate"]));
     $message = htmlspecialchars($_POST["message"]);
-    $leadId = $_POST["id"];
+    // $leadId = $_POST["id"];
     $encodedLeadId = base64_encode($leadId);
     echo " <script>alert('$encodedLeadId');</script>";
     // $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
