@@ -307,6 +307,15 @@
         $bussinesstype = htmlspecialchars($_POST["bussinesstype"]);
         $currentDateTime = date('Y-m-d H:i:s');
 
+        
+       // Check if the phone number already exists
+    $checkQuery = "SELECT * FROM leads WHERE phone_no = '$phoneno'";
+    $result = $conn->query($checkQuery);
+
+    if ($result->num_rows > 0) {
+        echo "This phone number is already associated with a lead.";
+    } else {
+        // Insert if no existing record is found
         $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status, status1, lead_date)
         VALUES ('$datee','$leadname', '$companyname', '$phoneno', '$email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1', '1', '$currentDateTime')";
 
@@ -315,7 +324,8 @@
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-        $conn->close();
+    }
+    $conn->close();
     }
     ?>
 </body>
