@@ -246,20 +246,21 @@ if (isset($_POST['submit'])) {
     $message = htmlspecialchars($_POST["message"]);
     $leadId = $_POST["id"];
     $encodedLeadId = base64_encode($leadId);
-    $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
-        VALUES ('$leadId', '$startdate', '$nextdate', '$message')";
+    echo " <script>alert('$encodedLeadId');</script>";
+    // $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
+    //     VALUES ('$leadId', '$startdate', '$nextdate', '$message')";
 
-    if ($conn->query($sql) === TRUE) {
-        include "common/conn.php";
-        // header("Location: leadview.php?id=" . $leadId);
-        $sql10 = "UPDATE leads SET lastfollowupdate='$startdate' , nextfollowupdate='$nextdate' WHERE id='$leadId'";
-        if ($conn->query($sql10) === TRUE) {
-            echo "<script>window.location.href='leadview.php?id=$encodedLeadId';</script>";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
-    $conn->close();
+    // if ($conn->query($sql) === TRUE) {
+    //     include "common/conn.php";
+    //     // header("Location: leadview.php?id=" . $leadId);
+    //     $sql10 = "UPDATE leads SET lastfollowupdate='$startdate' , nextfollowupdate='$nextdate' WHERE id='$leadId'";
+    //     if ($conn->query($sql10) === TRUE) {
+    //         echo "<script>window.location.href='leadview.php?id=$encodedLeadId';</script>";
+    //     } else {
+    //         echo "Error: " . $sql . "<br>" . $conn->error;
+    //     }
+    // }
+    // $conn->close();
 }
 ?>
 
