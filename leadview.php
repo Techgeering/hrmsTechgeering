@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 $em_role = isset($_SESSION["em_role"]) ? $_SESSION["em_role"] : '';
 
@@ -9,23 +14,28 @@ $leadId = trim(base64_decode($leadId));
 
 
 if ($leadId != null) {
-    $sql1 = "SELECT * FROM leads WHERE id = $leadId";
-    $result1 = $conn->query($sql1);
-    $row1 = $result1->fetch_assoc();
-    $leadname = !empty($row1["lead_name"]) ? htmlspecialchars($row1["lead_name"]) : 'N/A';
-    $company = !empty($row1["companyname"]) ? htmlspecialchars($row1["companyname"]) : 'N/A';
-    $phone_no = !empty($row1["phone_no"]) ? htmlspecialchars($row1["phone_no"]) : 'N/A';
-    $email_id = !empty($row1["email_id"]) ? htmlspecialchars($row1["email_id"]) : 'N/A';
-    $city = !empty($row1["city"]) ? htmlspecialchars($row1["city"]) : 'N/A';
-    $state = !empty($row1["state"]) ? htmlspecialchars($row1["state"]) : 'N/A';
-    $interested_in = !empty($row1["interested_in"]) ? htmlspecialchars($row1["interested_in"]) : 'N/A';
-    $status = !empty($row1["status"]) ? htmlspecialchars($row1["status"]) : 'N/A';
-    $status_text = ($status === '1') ? 'ACTIVE' : 'INACTIVE';
-    echo $status_text;
-    $source = !empty($row1["source"]) ? htmlspecialchars($row1["source"]) : 'N/A';
-    $business_type = !empty($row1["business_type"]) ? htmlspecialchars($row1["business_type"]) : 'N/A';
+    // Use a prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT * FROM leads WHERE id = ?");
+    $stmt->bind_param("i", $leadId);
+    $stmt->execute();
+    $result1 = $stmt->get_result();
 
+    if ($result1 && $row1 = $result1->fetch_assoc()) {
+        $leadname = !empty($row1["lead_name"]) ? htmlspecialchars($row1["lead_name"]) : 'N/A';
+        $company = !empty($row1["companyname"]) ? htmlspecialchars($row1["companyname"]) : 'N/A';
+        $phone_no = !empty($row1["phone_no"]) ? htmlspecialchars($row1["phone_no"]) : 'N/A';
+        $email_id = !empty($row1["email_id"]) ? htmlspecialchars($row1["email_id"]) : 'N/A';
+        $city = !empty($row1["city"]) ? htmlspecialchars($row1["city"]) : 'N/A';
+        $state = !empty($row1["state"]) ? htmlspecialchars($row1["state"]) : 'N/A';
+        $interested_in = !empty($row1["interested_in"]) ? htmlspecialchars($row1["interested_in"]) : 'N/A';
+        $status = !empty($row1["status"]) ? htmlspecialchars($row1["status"]) : 'N/A';
+        $status_text = ($status === '1') ? 'ACTIVE' : 'INACTIVE';
+        $source = !empty($row1["source"]) ? htmlspecialchars($row1["source"]) : 'N/A';
+        $business_type = !empty($row1["business_type"]) ? htmlspecialchars($row1["business_type"]) : 'N/A';
+    }
+    $stmt->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -206,7 +216,7 @@ if ($leadId != null) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($leadId); ?>">
+                    <input type="text" name="id" value="<?php echo htmlspecialchars($leadId); ?>">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12">
@@ -245,15 +255,16 @@ if (isset($_POST['submit'])) {
     $startdate = date('Y-m-d H:i:s');
     $nextdate = date('Y-m-d H:i:s', strtotime($_POST["nextdate"]));
     $message = htmlspecialchars($_POST["message"]);
-    $leadId = $_POST["id"];
-    $encodedLeadId = base64_encode($leadId);
+    $leadIdfrom = $_POST["id"];
+    $encodedLeadId = base64_encode($leadIdfrom);
+    echo "<script>alert($leadIdfrom)</script>";
     $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
-        VALUES ('$leadId', '$startdate', '$nextdate', '$message')";
+        VALUES ('$leadIdfrom', '$startdate', '$nextdate', '$message')";
 
     if ($conn->query($sql) === TRUE) {
         include "common/conn.php";
         // header("Location: leadview.php?id=" . $leadId);
-        $sql10 = "UPDATE leads SET lastfollowupdate='$startdate' , nextfollowupdate='$nextdate' WHERE id='$leadId'";
+        $sql10 = "UPDATE leads SET lastfollowupdate='$startdate' , nextfollowupdate='$nextdate' WHERE id='$leadIdfrom'";
         if ($conn->query($sql10) === TRUE) {
             echo "<script>window.location.href='leadview.php?id=$encodedLeadId';</script>";
         } else {
