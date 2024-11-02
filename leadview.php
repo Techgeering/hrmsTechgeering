@@ -21,16 +21,24 @@ if ($leadId != null) {
     $result1 = $stmt->get_result();
 
     if ($result1 && $row1 = $result1->fetch_assoc()) {
+        $id = $row1["id"];
+        $leaddate = !empty($row1["add_date"]) ? htmlspecialchars($row1["add_date"]) : 'N/A';
         $leadname = !empty($row1["lead_name"]) ? htmlspecialchars($row1["lead_name"]) : 'N/A';
         $company = !empty($row1["companyname"]) ? htmlspecialchars($row1["companyname"]) : 'N/A';
-        $phone_no = !empty($row1["phone_no"]) ? htmlspecialchars($row1["phone_no"]) : 'N/A';
-        $email_id = !empty($row1["email_id"]) ? htmlspecialchars($row1["email_id"]) : 'N/A';
+        $phone_no1 = !empty($row1["phone_no1"]) ? htmlspecialchars($row1["phone_no1"]) : 'N/A';
+        $phone_no2 = !empty($row1["phone_no2"]) ? htmlspecialchars($row1["phone_no2"]) : 'N/A';
+        $phone_no3 = !empty($row1["phone_no3"]) ? htmlspecialchars($row1["phone_no3"]) : 'N/A';
+        $email_id1 = !empty($row1["email_id1"]) ? htmlspecialchars($row1["email_id1"]) : 'N/A';
+        $email_id2 = !empty($row1["email_id2"]) ? htmlspecialchars($row1["email_id2"]) : 'N/A';
+        $email_id3 = !empty($row1["email_id3"]) ? htmlspecialchars($row1["email_id3"]) : 'N/A';
         $city = !empty($row1["city"]) ? htmlspecialchars($row1["city"]) : 'N/A';
         $state = !empty($row1["state"]) ? htmlspecialchars($row1["state"]) : 'N/A';
+        $country = !empty($row1["country"]) ? htmlspecialchars($row1["country"]) : 'N/A';
         $interested_in = !empty($row1["interested_in"]) ? htmlspecialchars($row1["interested_in"]) : 'N/A';
         $status = !empty($row1["status"]) ? htmlspecialchars($row1["status"]) : 'N/A';
         $status_text = ($status === '1') ? 'ACTIVE' : 'INACTIVE';
         $source = !empty($row1["source"]) ? htmlspecialchars($row1["source"]) : 'N/A';
+        $website = !empty($row1["websitee"]) ? htmlspecialchars($row1["websitee"]) : 'N/A';
         $business_type = !empty($row1["business_type"]) ? htmlspecialchars($row1["business_type"]) : 'N/A';
     }
     $stmt->close();
@@ -81,85 +89,172 @@ if ($leadId != null) {
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Lead Name</label>
-                                                <p class="form-control">
+                                                <p class="form-control edit">
                                                     <?php echo $leadname; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $leadname; ?>'
+                                                    id='lead_name-<?php echo $id; ?>-leads' style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">Lead Date</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $leaddate; ?>
+                                                </p>
+                                                <input type="date" class='txtedit' value='<?php echo $leaddate; ?>'
+                                                    id='add_date-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Company Name</label>
-                                                <p class="form-control">
+                                                <p class="form-control edit">
                                                     <?php echo $company; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $company; ?>'
+                                                    id='companyname-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="name">Phone</label>
-                                                <p class="form-control">
-                                                    <?php echo $phone_no; ?>
+                                                <label for="name">1st Phone Number</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $phone_no1; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $phone_no1; ?>'
+                                                    id='phone_no1-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="name">Email</label>
-                                                <p class="form-control">
-                                                    <?php echo $email_id; ?>
+                                                <label for="name">2nd Phone Number</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $phone_no2; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $phone_no2; ?>'
+                                                    id='phone_no2-<?php echo $id; ?>-leads' style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">3rd Phone Number</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $phone_no3; ?>
+                                                </p>
+                                                <input type="text" class='txtedit' value='<?php echo $phone_no3; ?>'
+                                                    id='phone_no3-<?php echo $id; ?>-leads' style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">1st Email</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $email_id1; ?>
+                                                </p>
+                                                <input type="text" class='txtedit' value='<?php echo $email_id1; ?>'
+                                                    id='email_id1-<?php echo $id; ?>-leads' style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">2nd Email</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $email_id2; ?>
+                                                </p>
+                                                <input type="text" class='txtedit' value='<?php echo $email_id2; ?>'
+                                                    id='email_id2-<?php echo $id; ?>-leads' style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">3rd Email</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $email_id3; ?>
+                                                </p>
+                                                <input type="text" class='txtedit' value='<?php echo $email_id3; ?>'
+                                                    id='email_id3-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">City</label>
-                                                <p class="form-control">
+                                                <p class="form-control edit">
                                                     <?php echo $city; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $city; ?>'
+                                                    id='city-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">State</label>
-                                                <p class="form-control">
+                                                <p class="form-control edit">
                                                     <?php echo $state; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $state; ?>'
+                                                    id='state-<?php echo $id; ?>-leads' style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">Country</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $country; ?>
+                                                </p>
+                                                <input type="text" class='txtedit' value='<?php echo $country; ?>'
+                                                    id='country-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Interested In</label>
-                                                <p class="form-control">
+                                                <p class="form-control edit">
                                                     <?php echo $interested_in; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $interested_in; ?>'
+                                                    id='interested_in-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <!-- <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Status</label>
                                                 <p class="form-control">
                                                     <?php echo $status_text; ?>
                                                 </p>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Source</label>
-                                                <p class="form-control">
+                                                <p class="form-control edit">
                                                     <?php echo $source; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $source; ?>'
+                                                    id='source-<?php echo $id; ?>-leads' style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">Website</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $website; ?>
+                                                </p>
+                                                <input type="text" class='txtedit' value='<?php echo $website; ?>'
+                                                    id='website-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Business Type</label>
-                                                <p class="form-control">
+                                                <p class="form-control edit">
                                                     <?php echo $business_type; ?>
                                                 </p>
+                                                <input type="text" class='txtedit' value='<?php echo $business_type; ?>'
+                                                    id='business_type-<?php echo $id; ?>-leads' style="display:none;">
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -216,7 +311,7 @@ if ($leadId != null) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <input type="text" name="id" value="<?php echo htmlspecialchars($leadId); ?>">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($leadId); ?>">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12">
@@ -248,6 +343,60 @@ if ($leadId != null) {
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- for edit the field -->
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.edit', function () {
+                var txtEdit = $(this).next('.txtedit');
+                var editText = $(this);
+                txtEdit.show().focus();
+                editText.hide();
+                txtEdit.focusout(function () {
+                    var field_name = txtEdit.attr('id').split("-")[0];
+                    var edit_id = txtEdit.attr('id').split("-")[1];
+                    var table_name = txtEdit.attr('id').split("-")[2];
+                    var value = txtEdit.val();
+                    console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
+                        "Value:", value);
+                    if (value !== null && value.trim() !== '') {
+                        var pattern = txtEdit.attr('pattern');
+                        if (pattern) {
+                            var regex = new RegExp(pattern);
+                            if (!regex.test(value)) {
+                                alert('Invalid pattern. Please enter a valid value.');
+                                return;
+                            }
+                        }
+                    }
+                    editText.show();
+                    editText.text(value);
+                    txtEdit.hide();
+                    $.ajax({
+                        url: 'insert.php',
+                        type: 'post',
+                        data: {
+                            field: field_name,
+                            value: value,
+                            id: edit_id,
+                            tbnm: table_name
+                        },
+                        success: function (response) {
+                            console.log("AJAX response:", response);
+                            if (response == 1) {
+                                console.log('Save Successfully');
+                            } else {
+                                console.log('Not Saved');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error:", status, error);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 <?php
 include "common/conn.php";
@@ -257,7 +406,7 @@ if (isset($_POST['submit'])) {
     $message = htmlspecialchars($_POST["message"]);
     $leadIdfrom = $_POST["id"];
     $encodedLeadId = base64_encode($leadIdfrom);
-    echo "<script>alert($leadIdfrom)</script>";
+    // echo "<script>alert($leadIdfrom)</script>";
     $sql = "INSERT INTO lead_follow (lead_id, start_date, next_date, message)
         VALUES ('$leadIdfrom', '$startdate', '$nextdate', '$message')";
 
