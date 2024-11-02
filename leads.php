@@ -42,8 +42,14 @@
                                         <th>Date</th>
                                         <th>Lead Name</th>
                                         <th>Company Name</th>
-                                        <th>Phone</th>
+                                        <th>1st Phone Number</th>
+                                        <th>2nd Phone Number</th>
+                                        <th>3rd Phone Number</th>
+                                        <th>1st Email Id</th>
+                                        <th>2nd Email Id</th>
+                                        <th>3rd Email Id</th>
                                         <th>city</th>
+                                        <th>Website</th>
                                         <th>Intersted for</th>
                                         <th>Last Followup Date</th>
                                         <th>Next Followup Date</th>
@@ -67,8 +73,14 @@
                                                 <td><?php echo $row["add_date"]; ?></td>
                                                 <td><?php echo $row["lead_name"]; ?></td>
                                                 <td><?php echo $row["companyname"]; ?></td>
-                                                <td><?php echo $row["phone_no"]; ?></td>
+                                                <td><?php echo $row["phone_no1"]; ?></td>
+                                                <td><?php echo $row["phone_no2"]; ?></td>
+                                                <td><?php echo $row["phone_no3"]; ?></td>
+                                                <td><?php echo $row["email_id1"]; ?></td>
+                                                <td><?php echo $row["email_id2"]; ?></td>
+                                                <td><?php echo $row["email_id3"]; ?></td>
                                                 <td><?php echo $row["city"]; ?></td>
+                                                <td><?php echo $row["websitee"]; ?></td>
                                                 <td><?php echo $row["interested_in"]; ?></td>
                                                 <td><?php echo $row["lastfollowupdate"]; ?></td>
                                                 <td><?php echo $row["nextfollowupdate"]; ?></td>
@@ -227,15 +239,41 @@
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
-                                    <label for="phoneno" class="form-label">Phone Number</label>
-                                    <input type="text" class="form-control" id="phoneno" name="phoneno"
+                                    <label for="phoneno" class="form-label">1st Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneno" name="phoneno1"
                                         oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="mb-2">
-                                    <label for="email" class="form-label">Email Id</label>
-                                    <input type="email" class="form-control" id="email" name="email">
+                                    <label for="phoneno" class="form-label">2nd Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneno" name="phoneno2"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="phoneno" class="form-label">3rd Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneno" name="phoneno3"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="email" class="form-label">1st Email Id</label>
+                                    <input type="email" class="form-control" id="email" name="email1">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="email" class="form-label">2nd Email Id</label>
+                                    <input type="email" class="form-control" id="email" name="email2">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="email" class="form-label">3rd Email Id</label>
+                                    <input type="email" class="form-control" id="email" name="email3">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -274,6 +312,12 @@
                                     <input type="text" class="form-control" id="bussinesstype" name="bussinesstype">
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="bussinesstype" class="form-label">Website</label>
+                                    <input type="text" class="form-control" id="website" name="website">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -297,35 +341,39 @@
         $datee = date("Y-m-d");
         $leadname = htmlspecialchars($_POST["leadname"]);
         $companyname = htmlspecialchars($_POST["companyname"]);
-        $phoneno = $_POST["phoneno"];
-        $email = $_POST["email"];
+        $phoneno1 = $_POST["phoneno1"];
+        $phoneno2 = $_POST["phoneno2"];
+        $phoneno3 = $_POST["phoneno3"];
+        $email1 = $_POST["email1"];
+        $email2 = $_POST["email2"];
+        $email3 = $_POST["email3"];
         $city = htmlspecialchars($_POST["city"]);
         $state = htmlspecialchars($_POST["state"]);
         $country = htmlspecialchars($_POST["country"]);
         $source = htmlspecialchars($_POST["source"]);
+        $website = htmlspecialchars($_POST["website"]);
         $interested = htmlspecialchars($_POST["interested"]);
         $bussinesstype = htmlspecialchars($_POST["bussinesstype"]);
         $currentDateTime = date('Y-m-d H:i:s');
 
-        
-       // Check if the phone number already exists
-    $checkQuery = "SELECT * FROM leads WHERE phone_no = '$phoneno'";
-    $result = $conn->query($checkQuery);
+        // Check if the phone number already exists
+        $checkQuery = "SELECT * FROM leads WHERE phone_no1 = '$phoneno1' OR phone_no2 = '$phoneno1' OR phone_no3 = '$phoneno1' OR phone_no1 = '$phoneno1' OR phone_no2 = '$phoneno2' OR phone_no3 = '$phoneno2' OR phone_no1 = '$phoneno3' OR phone_no2 = '$phoneno3' OR phone_no3 = '$phoneno3' OR lead_name = '$leadname'";
+        $result = $conn->query($checkQuery);
 
-    if ($result->num_rows > 0) {
-        echo "This phone number is already associated with a lead.";
-    } else {
-        // Insert if no existing record is found
-        $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no, email_id, city, state, country, source, interested_in, business_type, status, status1, lead_date)
-        VALUES ('$datee','$leadname', '$companyname', '$phoneno', '$email', '$city', '$state', '$country', '$source', '$interested', '$bussinesstype', '1', '1', '$currentDateTime')";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
+        if ($result->num_rows > 0) {
+            echo "<script>alert('Either phone number or Lead name is already associated with a lead.');</script>";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            // Insert if no existing record is found
+            $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no1, phone_no2, phone_no3, email_id1, email_id2, email_id3, city, state, country, source, websitee, interested_in, business_type, status, status1, lead_date)
+        VALUES ('$datee','$leadname', '$companyname', '$phoneno1', '$phoneno2', '$phoneno3', '$email1', '$email2', '$email3', '$city', '$state', '$country', '$source', '$website', '$interested', '$bussinesstype', '1', '1', '$currentDateTime')";
+
+            if ($conn->query($sql) === TRUE) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
-    }
-    $conn->close();
+        $conn->close();
     }
     ?>
 </body>
