@@ -93,7 +93,8 @@ if ($leadId != null) {
                                                     <?php echo $leadname; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $leadname; ?>'
-                                                    id='lead_name-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='lead_name-<?php echo $id; ?>-leads-<?php echo $leadname; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -103,7 +104,8 @@ if ($leadId != null) {
                                                     <?php echo $leaddate; ?>
                                                 </p>
                                                 <input type="date" class='txtedit' value='<?php echo $leaddate; ?>'
-                                                    id='add_date-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='add_date-<?php echo $id; ?>-leads-<?php echo $leaddate; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -113,7 +115,8 @@ if ($leadId != null) {
                                                     <?php echo $company; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $company; ?>'
-                                                    id='companyname-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='companyname-<?php echo $id; ?>-leads-<?php echo $company; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -123,7 +126,8 @@ if ($leadId != null) {
                                                     <?php echo $phone_no1; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $phone_no1; ?>'
-                                                    id='phone_no1-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='phone_no1-<?php echo $id; ?>-leads-<?php echo $phone_no1; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -133,7 +137,8 @@ if ($leadId != null) {
                                                     <?php echo $phone_no2; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $phone_no2; ?>'
-                                                    id='phone_no2-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='phone_no2-<?php echo $id; ?>-leads-<?php echo $phone_no2; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -143,7 +148,8 @@ if ($leadId != null) {
                                                     <?php echo $phone_no3; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $phone_no3; ?>'
-                                                    id='phone_no3-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='phone_no3-<?php echo $id; ?>-leads-<?php echo $phone_no3; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -153,7 +159,8 @@ if ($leadId != null) {
                                                     <?php echo $email_id1; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $email_id1; ?>'
-                                                    id='email_id1-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='email_id1-<?php echo $id; ?>-leads-<?php echo $email_id1; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -163,7 +170,8 @@ if ($leadId != null) {
                                                     <?php echo $email_id2; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $email_id2; ?>'
-                                                    id='email_id2-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='email_id2-<?php echo $id; ?>-leads-<?php echo $email_id2; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -173,7 +181,8 @@ if ($leadId != null) {
                                                     <?php echo $email_id3; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $email_id3; ?>'
-                                                    id='email_id3-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='email_id3-<?php echo $id; ?>-leads-<?php echo $email_id3; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -183,7 +192,8 @@ if ($leadId != null) {
                                                     <?php echo $city; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $city; ?>'
-                                                    id='city-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='city-<?php echo $id; ?>-leads-<?php echo $city; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -193,7 +203,8 @@ if ($leadId != null) {
                                                     <?php echo $state; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $state; ?>'
-                                                    id='state-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='state-<?php echo $id; ?>-leads-<?php echo $state; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -203,7 +214,8 @@ if ($leadId != null) {
                                                     <?php echo $country; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $country; ?>'
-                                                    id='country-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='country-<?php echo $id; ?>-leads-<?php echo $country; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -213,7 +225,8 @@ if ($leadId != null) {
                                                     <?php echo $interested_in; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $interested_in; ?>'
-                                                    id='interested_in-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='interested_in-<?php echo $id; ?>-leads-<?php echo $interested_in; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <!-- <div class="col-6">
@@ -231,7 +244,8 @@ if ($leadId != null) {
                                                     <?php echo $source; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $source; ?>'
-                                                    id='source-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='source-<?php echo $id; ?>-leads-<?php echo $source; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -241,7 +255,8 @@ if ($leadId != null) {
                                                     <?php echo $website; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $website; ?>'
-                                                    id='website-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='website-<?php echo $id; ?>-leads-<?php echo $website; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -251,7 +266,8 @@ if ($leadId != null) {
                                                     <?php echo $business_type; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $business_type; ?>'
-                                                    id='business_type-<?php echo $id; ?>-leads' style="display:none;">
+                                                    id='business_type-<?php echo $id; ?>-leads-<?php echo $business_type; ?>'
+                                                    style="display:none;">
                                             </div>
                                         </div>
                                     </div>
@@ -356,6 +372,7 @@ if ($leadId != null) {
                     var field_name = txtEdit.attr('id').split("-")[0];
                     var edit_id = txtEdit.attr('id').split("-")[1];
                     var table_name = txtEdit.attr('id').split("-")[2];
+                    var old_name = txtEdit.attr('id').split("-")[3];
                     var value = txtEdit.val();
                     console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
                         "Value:", value);
@@ -373,13 +390,14 @@ if ($leadId != null) {
                     editText.text(value);
                     txtEdit.hide();
                     $.ajax({
-                        url: 'insert.php',
+                        url: 'update_record.php',
                         type: 'post',
                         data: {
                             field: field_name,
                             value: value,
                             id: edit_id,
-                            tbnm: table_name
+                            tbnm: table_name,
+                            oldnm: old_name
                         },
                         success: function (response) {
                             console.log("AJAX response:", response);
