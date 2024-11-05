@@ -29,11 +29,16 @@ if ($userid === NULL) {
         <a class="navbar-brand ps-3 text-center" href="index.php">
             <img src="assets/img/logo.png" class="img-fluid">
         </a>
+    <?php } elseif ($em_role == '4') { ?>
+        <a class="navbar-brand ps-3 text-center" href="employee_index.php">
+            <img src="assets/img/logo.png" class="img-fluid">
+        </a>
     <?php } else { ?>
         <a class="navbar-brand ps-3 text-center" href="javascript:void(0)">
             <img src="assets/img/logo.png" class="img-fluid">
         </a>
     <?php } ?>
+
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
             class="fas fa-bars"></i></button>

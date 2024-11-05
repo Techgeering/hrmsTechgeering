@@ -1,4 +1,8 @@
 <?php
+session_start(); {
+    $em_role = $_SESSION["em_role"];
+    $emp_id = $_SESSION["emp_id"];
+}
 include 'common/conn.php';
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -17,7 +21,12 @@ if (isset($_POST['field']) && isset($_POST['value']) && isset($_POST['id'])) {
     // $value = $_POST['value'];   // The new value to set for the specified field.
     $editid = $_POST['id'];     // The unique identifier for the record to be updated.
     $tblnm = $_POST['tbnm'];
-    $oldnm = $_POST['oldnm'];    // The table name where the update will occur.
+    $oldnm = $_POST['oldnm'];
+    // Set the timezone to Indian Standard Time
+    date_default_timezone_set('Asia/Kolkata');
+
+    // Get the current date and time in the desired format
+    $date_time = date("Y-m-d H:i:s");
 
     // Handle the case where the value is null
     if ($_POST['value'] === "") {
@@ -34,7 +43,7 @@ if (isset($_POST['field']) && isset($_POST['value']) && isset($_POST['id'])) {
         if (mysqli_query($conn, $query)) {
             // If the query was successful, echo '1' to indicate success.
             echo 1;
-            $sql = "INSERT INTO update_record (column_id, column_name, old_record, new_record) VALUES ('$editid', '$field', '$oldnm', '$value')";
+            $sql = "INSERT INTO update_record (column_id, column_name, old_record, new_record, emp_id, date_time) VALUES ('$editid', '$field', '$oldnm', '$value', '$emp_id', '$date_time')";
             if ($conn->query($sql) === TRUE) {
                 echo "New record created successfully";
             } else {

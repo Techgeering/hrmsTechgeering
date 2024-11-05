@@ -76,6 +76,8 @@
    <?php
    if (isset($_POST['login'])) {
       include "common/conn.php";
+      session_start();  // Start the session at the beginning of the script
+   
       $username = $_POST["email"];
       $password = $_POST["password"];
       $client_ip = $_POST["client_ip"];
@@ -97,30 +99,9 @@
             $em_role = $row['em_role'];
 
             // Store the user ID in the session
-            session_start();
-            $_SESSION["username"] = "$emp_tbl_id";
-            $_SESSION["em_role"] = "$em_role";
-            $_SESSION["emp_id"] = "$emp_id";
-
-
-
-            // if (isset($_POST['rememberme'])) {
-            //    // Set cookie for persistent login
-            //    setcookie('remember_username', $emp_tbl_id, time() + (86400 * 30), "/"); // 30 days expiration
-            //    setcookie('em_role', $em_role, time() + (86400 * 30), "/");
-            //    setcookie('emp_id', $emp_id, time() + (86400 * 30), "/");
-   
-            //    // Set session storage for current session
-            //    echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
-            //    echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
-            //    echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
-            // } else {
-            //    // Set session storage for current session only
-            //    echo "<script>sessionStorage.setItem('remember_username', '$emp_tbl_id');</script>";
-            //    echo "<script>sessionStorage.setItem('em_role', '$em_role');</script>";
-            //    echo "<script>sessionStorage.setItem('emp_id', '$emp_id');</script>";
-            // }
-   
+            $_SESSION["username"] = $emp_tbl_id;
+            $_SESSION["em_role"] = $em_role;
+            $_SESSION["emp_id"] = $emp_id;
 
             // Fetch the IP addresses
             $ip_v6_address = $_SERVER['REMOTE_ADDR'];
@@ -139,7 +120,7 @@
 
             // Insert login details into login_history table
             $insert_history_sql = "INSERT INTO login_history (emp_id, emp_tbl_id, ip_v6_address, ip_v4_address, loggedin_device, location_details, login_time)
-                                            VALUES (?, ?, ?, ?, ?, ?, ?)";
+                                   VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($insert_history_sql);
             $stmt->bind_param("sisssss", $emp_id, $emp_tbl_id, $ip_v6_address, $ip_v4_address, $loggedin_device, $location_details, $login_time);
             $stmt->execute();
@@ -150,7 +131,7 @@
             // Store the login history ID in the session
             $_SESSION["login_history_id"] = $login_history_id;
 
-
+            // Handle remember me functionality
             if (isset($_POST['rememberme'])) {
                // Set cookie for persistent login
                setcookie('remember_username', $emp_tbl_id, time() + (86400 * 30), "/"); // 30 days expiration
@@ -171,8 +152,11 @@
                echo "<script>sessionStorage.setItem('login_history_id', '$login_history_id');</script>";
             }
 
+            // Redirect based on em_role
             if ($em_role == 1) {
                echo "<script>window.location.href='index.php';</script>";
+            } elseif ($em_role == 4) {
+               echo "<script>window.location.href='employee_index.php';</script>";
             } else {
                echo "<script>window.location.href='dailyreport.php';</script>";
             }

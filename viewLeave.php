@@ -167,7 +167,7 @@ session_start(); {
                                                                                 <?php if (($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') && ($current_date < $leave_start_date)) { ?>
                                                                                 <button class="dropdown-item" type="submit" name="status_update" value="3">Cancel</button>
                                                                             <?php } else { ?>
-                                                                                <button class="dropdown-item" type="button" disabled>Cancel</button>
+                                                                                <button class="dropdown-item" type="submit" name="status_update" value="3">Cancel</button>
                                                                             <?php } ?>
                                                                         </li>
 

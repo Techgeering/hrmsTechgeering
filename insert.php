@@ -41,7 +41,6 @@ if (isset($_POST['field']) && isset($_POST['value']) && isset($_POST['id'])) {
     // echo '0' to indicate a failure.
     echo 0;
 }
-
 // Regardless of whether the update operation succeeded or not, this line will always be executed.
 echo "success";
 ?>

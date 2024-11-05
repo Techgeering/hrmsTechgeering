@@ -1,3 +1,8 @@
+<?php
+$selectedMonth = $_GET['month'] ?? 0;
+$selectedYear = $_GET['year'] ?? 0;
+$selectedemployee = $_GET['Employee_Name'] ?? 0;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,6 +50,55 @@
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">
+                            <form action="attendanceList.php" method="GET">
+                                <div class="row mb-3">
+                                    <div class="col-3">
+                                        <label for="month" class="form-label">Select Month</label>
+                                        <select class="form-select" id="month" name="month" required>
+                                            <option value="" disabled selected>Select a month</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="year" class="form-label">Select Year</label>
+                                        <select class="form-select" id="year" name="year" required>
+                                            <option value="" disabled selected>Select a year</option>
+                                            <?php for ($i = 2020; $i <= 2030; $i++): ?>
+                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="employee" class="form-label">Select Employee</label>
+                                        <select class="form-select" id="Employee_Name" name="Employee_Name">
+                                            <option value="" disabled selected>Select a Employee</option>
+                                            <?php
+                                            include "common/conn.php";
+                                            $sql_pro = "SELECT * FROM employee ";
+                                            $result_pro = $conn->query($sql_pro);
+                                            while ($row_pro = $result_pro->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row_pro['em_code']; ?>">
+                                                    <?php echo $row_pro['full_name']; ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <a href="attendanceList.php" class="btn btn-primary" id="submitLink">Refresh</a>
+                            </form>
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
@@ -64,20 +118,32 @@
                                     include "common/conn.php";
                                     if ($em_role == '4' || $em_role == '2' || $em_role == '5') {
                                         $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
-                                                FROM attendance a
-                                                JOIN employee e ON a.emp_id = e.em_code WHERE a.emp_id = '$emp_id' ORDER BY atten_date DESC";
+                                    FROM attendance a
+                                    JOIN employee e ON a.emp_id = e.em_code WHERE a.emp_id = '$emp_id' ORDER BY atten_date DESC";
                                     } else {
-                                        $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
-                                                FROM attendance a
-                                                JOIN employee e ON a.emp_id = e.em_code ORDER BY atten_date DESC";
+                                        if ($selectedMonth == '0' && $selectedYear == '0' && $selectedemployee == '0') {
+                                            $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
+                                    FROM attendance a
+                                    JOIN employee e ON a.emp_id = e.em_code ORDER BY atten_date DESC";
+                                        } else {
+                                            $conditions = [];
+                                            if ($selectedMonth != '0' && $selectedYear != '0') {
+                                                $conditions[] = "MONTH(a.atten_date) = '$selectedMonth' AND YEAR(a.atten_date) = '$selectedYear'";
+                                            }
+                                            if ($selectedemployee != '0') {
+                                                $conditions[] = "a.emp_id = '$selectedemployee'";
+                                            }
+                                            $whereClause = implode(' AND ', $conditions);
+                                            $sql = "SELECT a.id, a.emp_id, e.full_name, a.atten_date, a.signin_time, a.signout_time, a.working_hour
+                                    FROM attendance a
+                                    JOIN employee e ON a.emp_id = e.em_code " . (!empty($whereClause) ? "WHERE $whereClause" : "") . " ORDER BY atten_date DESC";
+                                        }
                                     }
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
-                                        // output data of each row
                                         while ($row = $result->fetch_assoc()) {
                                             $dayOfWeek = (new DateTime($row["atten_date"]))->format('l');
                                             ?>
-
                                             <td><?php echo $row["emp_id"]; ?></td>
                                             <td><?php echo $row["full_name"]; ?></td>
                                             <td><?php echo $dayOfWeek; ?></td>
