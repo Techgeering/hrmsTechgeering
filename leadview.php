@@ -1,5 +1,4 @@
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -11,6 +10,8 @@ include "common/conn.php";
 
 $leadId = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : null);
 $leadId = trim(base64_decode($leadId));
+
+$encodedLeadId = base64_encode($leadId);
 
 
 if ($leadId != null) {
@@ -40,10 +41,10 @@ if ($leadId != null) {
         $source = !empty($row1["source"]) ? htmlspecialchars($row1["source"]) : 'N/A';
         $website = !empty($row1["websitee"]) ? htmlspecialchars($row1["websitee"]) : 'N/A';
         $business_type = !empty($row1["business_type"]) ? htmlspecialchars($row1["business_type"]) : 'N/A';
+        $remarks = !empty($row1["remarks"]) ? htmlspecialchars($row1["remarks"]) : 'N/A';
     }
     $stmt->close();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +75,12 @@ if ($leadId != null) {
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
+                        <?php if ($em_role == '1' || $em_role == '5') { ?>
+                            <button type="button" class="btn btn-primary"
+                                onclick="window.location.href='viewupdate_record.php?id=<?php echo $encodedLeadId; ?>'">
+                                <i class="fa-solid fa-plus"></i> View Update Record
+                            </button>
+                        <?php } ?>
                         <h2 class="my-2">Single Lead View</h2>
                         <?php if ($em_role == '1' || $em_role == '5') { ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
@@ -229,14 +236,6 @@ if ($leadId != null) {
                                                     style="display:none;">
                                             </div>
                                         </div>
-                                        <!-- <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="name">Status</label>
-                                                <p class="form-control">
-                                                    <?php echo $status_text; ?>
-                                                </p>
-                                            </div>
-                                        </div> -->
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="name">Source</label>
@@ -268,6 +267,18 @@ if ($leadId != null) {
                                                 <input type="text" class='txtedit' value='<?php echo $business_type; ?>'
                                                     id='business_type-<?php echo $id; ?>-leads-<?php echo $business_type; ?>'
                                                     style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="name">Remarks</label>
+                                                <textarea class="form-control edit">
+                                                    <?php echo $remarks; ?>
+                                                </textarea>
+                                                <textarea class='txtedit'
+                                                    id='remarks-<?php echo $id; ?>-leads-<?php echo htmlspecialchars($remarks); ?>'
+                                                    style="display:none; width:100% !important; height:150px !important;"><?php echo htmlspecialchars(trim($remarks)); ?>
+                                                </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -373,6 +384,7 @@ if ($leadId != null) {
                     var edit_id = txtEdit.attr('id').split("-")[1];
                     var table_name = txtEdit.attr('id').split("-")[2];
                     var old_name = txtEdit.attr('id').split("-")[3];
+
                     var value = txtEdit.val();
                     console.log("Field:", field_name, "ID:", edit_id, "Table:", table_name,
                         "Value:", value);

@@ -61,7 +61,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM leads";
+                                    $sql = "SELECT * FROM leads ORDER BY (status1 = 0) + (status = 6), status1";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         $slno = 1;
@@ -190,7 +190,6 @@
                                                         <?php endif; ?>
                                                     <?php endif; ?>
                                                 </td>
-
                                                 <td>
                                                     <a href="leadview.php?id=<?php echo $encoded_id; ?>"><i
                                                             class="fa-solid fa-eye text-success"></i></a>
@@ -319,6 +318,12 @@
                                     <input type="text" class="form-control" id="website" name="website">
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <label for="remarks" class="form-label">Remarks</label>
+                                    <textarea class="form-control" id="remarks" name="remarks" rows="4"></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -355,6 +360,7 @@
         $website = htmlspecialchars($_POST["website"]);
         $interested = htmlspecialchars($_POST["interested"]);
         $bussinesstype = htmlspecialchars($_POST["bussinesstype"]);
+        $remarks = htmlspecialchars($_POST["remarks"]);
         $currentDateTime = date('Y-m-d H:i:s');
 
         // Check if the phone number already exists
@@ -365,8 +371,8 @@
             echo "<script>alert('Either phone number or Lead name is already associated with a lead.');</script>";
         } else {
             // Insert if no existing record is found
-            $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no1, phone_no2, phone_no3, email_id1, email_id2, email_id3, city, state, country, source, websitee, interested_in, business_type, status, status1, lead_date)
-        VALUES ('$datee','$leadname', '$companyname', '$phoneno1', '$phoneno2', '$phoneno3', '$email1', '$email2', '$email3', '$city', '$state', '$country', '$source', '$website', '$interested', '$bussinesstype', '1', '1', '$currentDateTime')";
+            $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no1, phone_no2, phone_no3, email_id1, email_id2, email_id3, city, state, country, source, websitee, interested_in, business_type, status, status1, lead_date, remarks)
+        VALUES ('$datee','$leadname', '$companyname', '$phoneno1', '$phoneno2', '$phoneno3', '$email1', '$email2', '$email3', '$city', '$state', '$country', '$source', '$website', '$interested', '$bussinesstype', '1', '1', '$currentDateTime', '$remarks')";
 
             if ($conn->query($sql) === TRUE) {
                 echo "New record created successfully";
@@ -377,6 +383,26 @@
         $conn->close();
     }
     ?>
+
+    <script>
+        $(function () {
+            $("#datatablesSimple").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
 </body>
 
 </html>
