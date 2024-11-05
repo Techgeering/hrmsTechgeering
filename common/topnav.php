@@ -33,6 +33,10 @@ if ($userid === NULL) {
         <a class="navbar-brand ps-3 text-center" href="employee_index.php">
             <img src="assets/img/logo.png" class="img-fluid">
         </a>
+    <?php } elseif ($em_role == '5') { ?>
+        <a class="navbar-brand ps-3 text-center" href="sales_index.php">
+            <img src="assets/img/logo.png" class="img-fluid">
+        </a>
     <?php } else { ?>
         <a class="navbar-brand ps-3 text-center" href="javascript:void(0)">
             <img src="assets/img/logo.png" class="img-fluid">

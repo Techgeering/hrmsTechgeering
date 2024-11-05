@@ -153,10 +153,12 @@
             }
 
             // Redirect based on em_role
-            if ($em_role == 1) {
+            if ($em_role == 1 || $em_role == 2 || $em_role == 3) {
                echo "<script>window.location.href='index.php';</script>";
             } elseif ($em_role == 4) {
                echo "<script>window.location.href='employee_index.php';</script>";
+            } elseif ($em_role == 5) {
+               echo "<script>window.location.href='sales_index.php';</script>";
             } else {
                echo "<script>window.location.href='dailyreport.php';</script>";
             }
@@ -166,7 +168,6 @@
       } else {
          echo "User not found. Please register if you don't have an account.";
       }
-
       $stmt->close();
       $conn->close();
    }
