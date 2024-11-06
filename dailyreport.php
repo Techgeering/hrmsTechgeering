@@ -286,7 +286,7 @@
             $workk = mysqli_real_escape_string($conn, $workks[$index]);
             $duration = mysqli_real_escape_string($conn, $durations[$index]);
 
-            $sql_daily = "SELECT * FROM daily_report WHERE pro_id = '$project_name' AND date21 = '$datee1'";
+            $sql_daily = "SELECT * FROM daily_report WHERE pro_id = '$project_name' AND date21 = '$datee1' AND emp_id = '$em_code'";
             $result = $conn->query($sql_daily);
             if ($result->num_rows > 0) {
                 echo "<script>alert('This project is already present on this date. Please update it instead.');</script>";
@@ -475,10 +475,10 @@
     </script>
 
     <!-- for date disable -->
-    <script>
+    <!-- <script>
         const today = new Date().toISOString().split("T")[0];
         document.getElementById("datee").setAttribute("min", today);
-    </script>
+    </script> -->
     <script>
         function parseDuration(duration) {
             const parts = duration.split(':');
