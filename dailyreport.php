@@ -475,10 +475,10 @@
     </script>
 
     <!-- for date disable -->
-    <!-- <script>
+    <script>
         const today = new Date().toISOString().split("T")[0];
         document.getElementById("datee").setAttribute("min", today);
-    </script> -->
+    </script>
     <script>
         function parseDuration(duration) {
             const parts = duration.split(':');

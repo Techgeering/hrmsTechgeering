@@ -254,7 +254,7 @@ if ($leadId != null) {
                                                     <?php echo $website; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $website; ?>'
-                                                    id='website-<?php echo $id; ?>-leads-<?php echo $website; ?>'
+                                                    id='websitee-<?php echo $id; ?>-leads-<?php echo $website; ?>'
                                                     style="display:none;">
                                             </div>
                                         </div>
