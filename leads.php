@@ -43,13 +43,14 @@
                                         <th>Lead Name</th>
                                         <th>Company Name</th>
                                         <th>1st Phone Number</th>
-                                        <th>2nd Phone Number</th>
-                                        <th>3rd Phone Number</th>
+                                        <!-- <th>2nd Phone Number</th>
+                                        <th>3rd Phone Number</th> -->
                                         <th>1st Email Id</th>
-                                        <th>2nd Email Id</th>
-                                        <th>3rd Email Id</th>
+                                        <!-- <th>2nd Email Id</th>
+                                        <th>3rd Email Id</th> -->
                                         <th>city</th>
                                         <th>Website</th>
+                                        <th>Source</th>
                                         <th>Intersted for</th>
                                         <th>Last Followup Date</th>
                                         <th>Next Followup Date</th>
@@ -74,13 +75,14 @@
                                                 <td><?php echo $row["lead_name"]; ?></td>
                                                 <td><?php echo $row["companyname"]; ?></td>
                                                 <td><?php echo $row["phone_no1"]; ?></td>
-                                                <td><?php echo $row["phone_no2"]; ?></td>
-                                                <td><?php echo $row["phone_no3"]; ?></td>
+                                                <!-- <td><?php echo $row["phone_no2"]; ?></td>
+                                                <td><?php echo $row["phone_no3"]; ?></td> -->
                                                 <td><?php echo $row["email_id1"]; ?></td>
-                                                <td><?php echo $row["email_id2"]; ?></td>
-                                                <td><?php echo $row["email_id3"]; ?></td>
+                                                <!-- <td><?php echo $row["email_id2"]; ?></td>
+                                                <td><?php echo $row["email_id3"]; ?></td> -->
                                                 <td><?php echo $row["city"]; ?></td>
                                                 <td><?php echo $row["websitee"]; ?></td>
+                                                <td><?php echo $row["source"]; ?></td>
                                                 <td><?php echo $row["interested_in"]; ?></td>
                                                 <td><?php echo $row["lastfollowupdate"]; ?></td>
                                                 <td><?php echo $row["nextfollowupdate"]; ?></td>
