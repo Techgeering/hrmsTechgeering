@@ -343,48 +343,64 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
-    <?php
-    include "common/conn.php";
-    if (isset($_POST['submit'])) {
-        $datee = date("Y-m-d");
-        $leadname = htmlspecialchars($_POST["leadname"]);
-        $companyname = htmlspecialchars($_POST["companyname"]);
-        $phoneno1 = $_POST["phoneno1"];
-        $phoneno2 = $_POST["phoneno2"];
-        $phoneno3 = $_POST["phoneno3"];
-        $email1 = $_POST["email1"];
-        $email2 = $_POST["email2"];
-        $email3 = $_POST["email3"];
-        $city = htmlspecialchars($_POST["city"]);
-        $state = htmlspecialchars($_POST["state"]);
-        $country = htmlspecialchars($_POST["country"]);
-        $source = htmlspecialchars($_POST["source"]);
-        $website = htmlspecialchars($_POST["website"]);
-        $interested = htmlspecialchars($_POST["interested"]);
-        $bussinesstype = htmlspecialchars($_POST["bussinesstype"]);
-        $remarks = htmlspecialchars($_POST["remarks"]);
-        $currentDateTime = date('Y-m-d H:i:s');
+  <?php
+include "common/conn.php";
 
-        // Check if the phone number already exists
-        $checkQuery = "SELECT * FROM leads WHERE phone_no1 = '$phoneno1' OR phone_no2 = '$phoneno1' OR phone_no3 = '$phoneno1' OR phone_no1 = '$phoneno1' OR phone_no2 = '$phoneno2' OR phone_no3 = '$phoneno2' OR phone_no1 = '$phoneno3' OR phone_no2 = '$phoneno3' OR phone_no3 = '$phoneno3' OR lead_name = '$leadname'";
-        $result = $conn->query($checkQuery);
+if (isset($_POST['submit'])) {
+    $datee = date("Y-m-d");
 
-        if ($result->num_rows > 0) {
-            echo "<script>alert('Either phone number or Lead name is already associated with a lead.');</script>";
-        } else {
-            // Insert if no existing record is found
-            $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no1, phone_no2, phone_no3, email_id1, email_id2, email_id3, city, state, country, source, websitee, interested_in, business_type, status, status1, lead_date, remarks)
-        VALUES ('$datee','$leadname', '$companyname', '$phoneno1', '$phoneno2', '$phoneno3', '$email1', '$email2', '$email3', '$city', '$state', '$country', '$source', '$website', '$interested', '$bussinesstype', '1', '1', '$currentDateTime', '$remarks')";
-
-            if ($conn->query($sql) === TRUE) {
-                echo "New record created successfully";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
-        $conn->close();
+    // Helper function to handle null values for blank or space-only inputs
+    function sanitize_input($input) {
+        $trimmed = trim($input);
+        return empty($trimmed) ? "NULL" : "'" . htmlspecialchars($trimmed) . "'";
     }
-    ?>
+
+    $leadname = sanitize_input($_POST["leadname"]);
+    $companyname = sanitize_input($_POST["companyname"]);
+    $phoneno1 = sanitize_input($_POST["phoneno1"]);
+    $phoneno2 = sanitize_input($_POST["phoneno2"]);
+    $phoneno3 = sanitize_input($_POST["phoneno3"]);
+    $email1 = sanitize_input($_POST["email1"]);
+    $email2 = sanitize_input($_POST["email2"]);
+    $email3 = sanitize_input($_POST["email3"]);
+    $city = sanitize_input($_POST["city"]);
+    $state = sanitize_input($_POST["state"]);
+    $country = sanitize_input($_POST["country"]);
+    $source = sanitize_input($_POST["source"]);
+    $website = sanitize_input($_POST["website"]);
+    $interested = sanitize_input($_POST["interested"]);
+    $bussinesstype = sanitize_input($_POST["bussinesstype"]);
+    $remarks = sanitize_input($_POST["remarks"]);
+    $currentDateTime = date('Y-m-d H:i:s');
+
+    // Check if the phone number already exists
+    $checkQuery = "SELECT * FROM leads WHERE 
+        phone_no1 = $phoneno1 OR phone_no2 = $phoneno1 OR phone_no3 = $phoneno1 OR 
+        phone_no1 = $phoneno2 OR phone_no2 = $phoneno2 OR phone_no3 = $phoneno2 OR 
+        phone_no1 = $phoneno3 OR phone_no2 = $phoneno3 OR phone_no3 = $phoneno3 
+        AND lead_name = $leadname";
+    $result = $conn->query($checkQuery);
+
+    if ($result->num_rows > 0) {
+        echo "<script>alert('Either phone number or Lead name is already associated with a lead.');</script>";
+    } else {
+        // Insert if no existing record is found
+        $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no1, phone_no2, phone_no3, 
+        email_id1, email_id2, email_id3, city, state, country, source, websitee, interested_in, 
+        business_type, status, status1, lead_date, remarks) VALUES 
+        ('$datee', $leadname, $companyname, $phoneno1, $phoneno2, $phoneno3, 
+        $email1, $email2, $email3, $city, $state, $country, $source, $website, $interested, 
+        $bussinesstype, '1', '1', '$currentDateTime', $remarks)";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    $conn->close();
+}
+?>
 
     <script>
         $(function () {
