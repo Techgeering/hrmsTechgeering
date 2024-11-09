@@ -117,23 +117,23 @@ if ($leadId != null) {
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="name">Company Name</label>
-                                                <p class="form-control edit">
-                                                    <?php echo $company; ?>
-                                                </p>
-                                                <input type="text" class='txtedit' value='<?php echo $company; ?>'
-                                                    id='companyname-<?php echo $id; ?>-leads-<?php echo $company; ?>'
-                                                    style="display:none;">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
                                                 <label for="name">1st Phone Number</label>
                                                 <p class="form-control edit">
                                                     <?php echo $phone_no1; ?>
                                                 </p>
                                                 <input type="text" class='txtedit' value='<?php echo $phone_no1; ?>'
                                                     id='phone_no1-<?php echo $id; ?>-leads-<?php echo $phone_no1; ?>'
+                                                    style="display:none;">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">Source</label>
+                                                <p class="form-control edit">
+                                                    <?php echo $source; ?>
+                                                </p>
+                                                <input type="text" class='txtedit' value='<?php echo $source; ?>'
+                                                    id='source-<?php echo $id; ?>-leads-<?php echo $source; ?>'
                                                     style="display:none;">
                                             </div>
                                         </div>
@@ -227,23 +227,23 @@ if ($leadId != null) {
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="name">Interested In</label>
+                                                <label for="name">Company Name</label>
                                                 <p class="form-control edit">
-                                                    <?php echo $interested_in; ?>
+                                                    <?php echo $company; ?>
                                                 </p>
-                                                <input type="text" class='txtedit' value='<?php echo $interested_in; ?>'
-                                                    id='interested_in-<?php echo $id; ?>-leads-<?php echo $interested_in; ?>'
+                                                <input type="text" class='txtedit' value='<?php echo $company; ?>'
+                                                    id='companyname-<?php echo $id; ?>-leads-<?php echo $company; ?>'
                                                     style="display:none;">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="name">Source</label>
+                                                <label for="name">Business Type</label>
                                                 <p class="form-control edit">
-                                                    <?php echo $source; ?>
+                                                    <?php echo $business_type; ?>
                                                 </p>
-                                                <input type="text" class='txtedit' value='<?php echo $source; ?>'
-                                                    id='source-<?php echo $id; ?>-leads-<?php echo $source; ?>'
+                                                <input type="text" class='txtedit' value='<?php echo $business_type; ?>'
+                                                    id='business_type-<?php echo $id; ?>-leads-<?php echo $business_type; ?>'
                                                     style="display:none;">
                                             </div>
                                         </div>
@@ -260,12 +260,12 @@ if ($leadId != null) {
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="name">Business Type</label>
+                                                <label for="name">Interested In</label>
                                                 <p class="form-control edit">
-                                                    <?php echo $business_type; ?>
+                                                    <?php echo $interested_in; ?>
                                                 </p>
-                                                <input type="text" class='txtedit' value='<?php echo $business_type; ?>'
-                                                    id='business_type-<?php echo $id; ?>-leads-<?php echo $business_type; ?>'
+                                                <input type="text" class='txtedit' value='<?php echo $interested_in; ?>'
+                                                    id='interested_in-<?php echo $id; ?>-leads-<?php echo $interested_in; ?>'
                                                     style="display:none;">
                                             </div>
                                         </div>

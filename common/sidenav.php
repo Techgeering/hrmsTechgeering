@@ -151,10 +151,18 @@
                     </div>
                 <?php } ?>
                 <?php if ($em_role == '1' || $em_role == '5') { ?>
-                    <a class="nav-link" href="leads.php">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#leads" aria-expanded="false"
+                        aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
                         Leads
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+                    <div class="collapse" id="leads" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="leads.php">Leads Table</a>
+                            <a class="nav-link" href="upcoming.php">Upcoming Follow-Up</a>
+                        </nav>
+                    </div>
                 <?php } ?>
                 <?php if ($em_role == '1' || $em_role == '4' || $em_role == '5') { ?>
                     <a class="nav-link" href="dailyreport.php">

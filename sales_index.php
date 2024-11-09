@@ -375,7 +375,7 @@ session_start(); {
                         </main>
                         </footer>
                     </div>
-                    <div class="card mb-4">
+                    <!-- <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             DataTable Example
@@ -431,6 +431,97 @@ session_start(); {
                                     ?>
                                 </tbody>
                             </table>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <h3>New Leads</h3>
+                                        <div class="col-12">
+                                            <table id="example23"
+                                                class="display nowrap table table-hover table-striped table-bordered"
+                                                cellspacing="0" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Lead Name</th>
+                                                        <th class="text-center">Company Name</th>
+                                                        <th class="text-center">Country</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    include "common/conn.php";
+                                                    $sql = "SELECT * FROM leads WHERE lastfollowupdate IS NULL AND nextfollowupdate IS NULL";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            ?>
+                                                            <tr>
+                                                                <td class="text-center"><?php echo $row["lead_name"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["companyname"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["country"]; ?></td>
+                                                            </tr>
+                                                            <?php
+                                                            $slno++;
+                                                        }
+                                                    } else {
+                                                        echo "<tr><td colspan='15'>0 results</td></tr>";
+                                                    }
+                                                    $conn->close();
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h3>Follow-up Date</h3>
+                                    <table id="example23"
+                                        class="display nowrap table table-hover table-striped table-bordered"
+                                        cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Message</th>
+                                                <th class="text-center">Next Follow-up Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            include "common/conn.php";
+                                            $sql1 = "SELECT * FROM leads";
+                                            $result1 = $conn->query($sql1);
+                                            if ($result1->num_rows > 0) {
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    $id = $row1['id'];
+                                                    $sql2 = "SELECT * FROM lead_follow WHERE lead_id = $id AND next_date < CURDATE()";
+                                                    $result2 = $conn->query($sql2);
+                                                    if ($result2->num_rows > 0) {
+                                                        while ($row2 = $result2->fetch_assoc()) {
+                                                            ?>
+                                                            <tr>
+                                                                <td class="text-center"><?php echo $row2["message"]; ?></td>
+                                                                <td class="text-center"><?php echo $row1["nextfollowupdate"]; ?></td>
+                                                            </tr>
+                                                            <?php
+                                                            $slno++;
+                                                        }
+                                                    } else {
+                                                        echo "<tr><td colspan='15'>0 results</td></tr>";
+                                                    }
+                                                }
+                                            }
+                                            $conn->close();
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
