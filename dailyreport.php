@@ -119,13 +119,23 @@
                                                 </td>
                                                 <td><?php echo $row["duration"]; ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" onclick='myfcn12(
-                                                            <?php echo json_encode($row["id"]); ?>,
-                                                            <?php echo json_encode($row["pro_id"]); ?>,
-                                                            <?php echo json_encode($row["work_details"]); ?>,
-                                                            <?php echo json_encode($row["duration"]); ?>,
-                                                            <?php echo json_encode($row["date21"]); ?>
+                                                    <!-- <button type="button" class="btn btn-light" onclick='myfcn12(
+                                                            <?php //echo json_encode($row["id"]); ?>,
+                                                            <?php //echo json_encode($row["pro_id"]); ?>,
+                                                            <?php //echo json_encode($row["work_details"]); ?>,
+                                                            <?php // echo json_encode($row["duration"]); ?>,
+                                                            <?php //echo json_encode($row["date21"]); ?>
                                                         )' data-bs-toggle="modal" data-bs-target="#updateDept">
+                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    </button> -->
+
+                                                    <button type="button" class="btn btn-light" onclick="myfcn12(
+                                                    <?php echo $row['id']; ?>,
+                                                            '<?php echo addslashes($row['pro_id']); ?>',
+                                                            '<?php echo addslashes(htmlspecialchars_decode($row['work_details'])); ?>',
+                                                            '<?php echo $row['duration']; ?>',
+                                                            '<?php echo $row['date21']; ?>'
+                                                        )" data-bs-toggle="modal" data-bs-target="#updateDept">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </button>
 
@@ -178,12 +188,13 @@
                                 <tfoot>
                                     <tr>
                                         <th>Sl No</th>
-                                        <th>Emp Id</th>
+                                        <th>Emp Name</th>
                                         <th>Date</th>
                                         <th>Project Name</th>
                                         <th>Details Of Work</th>
                                         <th>Duration</th>
                                         <th>Edit</th>
+                                        <th>Pdf</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -275,7 +286,7 @@
         $employee_names = $_POST['employee_name'];
         $datee1s = $_POST["datee1"];
         $project_names = $_POST["project_name"];
-        $workks = $_POST["workk1"];
+        $workks = htmlspecialchars($_POST["workk1"]);
         $durations = $_POST["duration"];
         $em_codes = $em_code;
         foreach ($project_names as $index => $project_name) {

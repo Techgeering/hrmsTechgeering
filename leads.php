@@ -192,9 +192,14 @@
                                                         <?php endif; ?>
                                                     <?php endif; ?>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <a href="leadview.php?id=<?php echo $encoded_id; ?>"><i
                                                             class="fa-solid fa-eye text-success"></i></a>
+                                                </td> -->
+                                                <td>
+                                                    <a href="leadview.php?id=<?php echo $encoded_id; ?>" target="_blank">
+                                                        <i class="fa-solid fa-eye text-success"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php
@@ -343,65 +348,65 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
-  <?php
-include "common/conn.php";
+    <?php
+    include "common/conn.php";
 
-if (isset($_POST['submit'])) {
-    $datee = date("Y-m-d");
+    if (isset($_POST['submit'])) {
+        $datee = date("Y-m-d");
 
-    // Helper function to handle null values for blank or space-only inputs
-    function sanitize_input($input) {
-        $trimmed = trim($input);
-        return empty($trimmed) ? "NULL" : "'" . htmlspecialchars($trimmed) . "'";
-    }
+        // Helper function to handle null values for blank or space-only inputs
+        function sanitize_input($input)
+        {
+            $trimmed = trim($input);
+            return empty($trimmed) ? "NULL" : "'" . htmlspecialchars($trimmed) . "'";
+        }
 
-    $leadname = sanitize_input($_POST["leadname"]);
-    $companyname = sanitize_input($_POST["companyname"]);
-    $phoneno1 = sanitize_input($_POST["phoneno1"]);
-    $phoneno2 = sanitize_input($_POST["phoneno2"]);
-    $phoneno3 = sanitize_input($_POST["phoneno3"]);
-    $email1 = sanitize_input($_POST["email1"]);
-    $email2 = sanitize_input($_POST["email2"]);
-    $email3 = sanitize_input($_POST["email3"]);
-    $city = sanitize_input($_POST["city"]);
-    $state = sanitize_input($_POST["state"]);
-    $country = sanitize_input($_POST["country"]);
-    $source = sanitize_input($_POST["source"]);
-    $website = sanitize_input($_POST["website"]);
-    $interested = sanitize_input($_POST["interested"]);
-    $bussinesstype = sanitize_input($_POST["bussinesstype"]);
-    $remarks = sanitize_input($_POST["remarks"]);
-    $currentDateTime = date('Y-m-d H:i:s');
+        $leadname = sanitize_input($_POST["leadname"]);
+        $companyname = sanitize_input($_POST["companyname"]);
+        $phoneno1 = sanitize_input($_POST["phoneno1"]);
+        $phoneno2 = sanitize_input($_POST["phoneno2"]);
+        $phoneno3 = sanitize_input($_POST["phoneno3"]);
+        $email1 = sanitize_input($_POST["email1"]);
+        $email2 = sanitize_input($_POST["email2"]);
+        $email3 = sanitize_input($_POST["email3"]);
+        $city = sanitize_input($_POST["city"]);
+        $state = sanitize_input($_POST["state"]);
+        $country = sanitize_input($_POST["country"]);
+        $source = sanitize_input($_POST["source"]);
+        $website = sanitize_input($_POST["website"]);
+        $interested = sanitize_input($_POST["interested"]);
+        $bussinesstype = sanitize_input($_POST["bussinesstype"]);
+        $remarks = sanitize_input($_POST["remarks"]);
+        $currentDateTime = date('Y-m-d H:i:s');
 
-    // Check if the phone number already exists
-    $checkQuery = "SELECT * FROM leads WHERE 
+        // Check if the phone number already exists
+        $checkQuery = "SELECT * FROM leads WHERE 
         phone_no1 = $phoneno1 OR phone_no2 = $phoneno1 OR phone_no3 = $phoneno1 OR 
         phone_no1 = $phoneno2 OR phone_no2 = $phoneno2 OR phone_no3 = $phoneno2 OR 
         phone_no1 = $phoneno3 OR phone_no2 = $phoneno3 OR phone_no3 = $phoneno3 
         AND lead_name = $leadname";
-    $result = $conn->query($checkQuery);
+        $result = $conn->query($checkQuery);
 
-    if ($result->num_rows > 0) {
-        echo "<script>alert('Either phone number or Lead name is already associated with a lead.');</script>";
-    } else {
-        // Insert if no existing record is found
-        $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no1, phone_no2, phone_no3, 
+        if ($result->num_rows > 0) {
+            echo "<script>alert('Either phone number or Lead name is already associated with a lead.');</script>";
+        } else {
+            // Insert if no existing record is found
+            $sql = "INSERT INTO leads (add_date, lead_name, companyname, phone_no1, phone_no2, phone_no3, 
         email_id1, email_id2, email_id3, city, state, country, source, websitee, interested_in, 
         business_type, status, status1, lead_date, remarks) VALUES 
         ('$datee', $leadname, $companyname, $phoneno1, $phoneno2, $phoneno3, 
         $email1, $email2, $email3, $city, $state, $country, $source, $website, $interested, 
         $bussinesstype, '1', '1', '$currentDateTime', $remarks)";
 
-        if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            if ($conn->query($sql) === TRUE) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
+        $conn->close();
     }
-    $conn->close();
-}
-?>
-
+    ?>
     <script>
         $(function () {
             $("#datatablesSimple").DataTable({

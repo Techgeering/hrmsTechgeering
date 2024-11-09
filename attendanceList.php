@@ -51,66 +51,70 @@ $selectedemployee = $_GET['Employee_Name'] ?? 0;
                     <div class="card mb-4">
                         <div class="card-body">
                             <form action="attendanceList.php" method="GET">
-                                <div class="row mb-3">
-                                    <div class="col-3">
-                                        <label for="month" class="form-label">Select Month</label>
-                                        <select class="form-select" id="month" name="month" required>
-                                            <option value="" disabled selected>Select a month</option>
-                                            <option value="01">January</option>
-                                            <option value="02">February</option>
-                                            <option value="03">March</option>
-                                            <option value="04">April</option>
-                                            <option value="05">May</option>
-                                            <option value="06">June</option>
-                                            <option value="07">July</option>
-                                            <option value="08">August</option>
-                                            <option value="09">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
-                                        </select>
+                                <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                    <div class="row mb-3">
+                                        <div class="col-3">
+                                            <label for="month" class="form-label">Select Month</label>
+                                            <select class="form-select" id="month" name="month" required>
+                                                <option value="" disabled selected>Select a month</option>
+                                                <option value="01">January</option>
+                                                <option value="02">February</option>
+                                                <option value="03">March</option>
+                                                <option value="04">April</option>
+                                                <option value="05">May</option>
+                                                <option value="06">June</option>
+                                                <option value="07">July</option>
+                                                <option value="08">August</option>
+                                                <option value="09">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="year" class="form-label">Select Year</label>
+                                            <select class="form-select" id="year" name="year" required>
+                                                <option value="" disabled selected>Select a year</option>
+                                                <?php for ($i = 2020; $i <= 2030; $i++): ?>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="employee" class="form-label">Select Employee</label>
+                                            <select class="form-select" id="Employee_Name" name="Employee_Name">
+                                                <option value="" disabled selected>Select a Employee</option>
+                                                <?php
+                                                include "common/conn.php";
+                                                $sql_pro = "SELECT * FROM employee ";
+                                                $result_pro = $conn->query($sql_pro);
+                                                while ($row_pro = $result_pro->fetch_assoc()) {
+                                                    ?>
+                                                    <option value="<?php echo $row_pro['em_code']; ?>">
+                                                        <?php echo $row_pro['full_name']; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-3">
-                                        <label for="year" class="form-label">Select Year</label>
-                                        <select class="form-select" id="year" name="year" required>
-                                            <option value="" disabled selected>Select a year</option>
-                                            <?php for ($i = 2020; $i <= 2030; $i++): ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                            <?php endfor; ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-3">
-                                        <label for="employee" class="form-label">Select Employee</label>
-                                        <select class="form-select" id="Employee_Name" name="Employee_Name">
-                                            <option value="" disabled selected>Select a Employee</option>
-                                            <?php
-                                            include "common/conn.php";
-                                            $sql_pro = "SELECT * FROM employee ";
-                                            $result_pro = $conn->query($sql_pro);
-                                            while ($row_pro = $result_pro->fetch_assoc()) {
-                                                ?>
-                                                <option value="<?php echo $row_pro['em_code']; ?>">
-                                                    <?php echo $row_pro['full_name']; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Filter</button>
-                                <a href="attendanceList.php" class="btn btn-primary" id="submitLink">Refresh</a>
+                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                    <a href="attendanceList.php" class="btn btn-primary" id="submitLink">Refresh</a>
+                                <?php } ?>
                             </form>
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Employee id</th>
-                                        <th>Employee Name</th>
-                                        <th>Day</th>
-                                        <th>Date</th>
-                                        <th>Sign In</th>
-                                        <th>Sign Out</th>
-                                        <th>Working Hour</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th class="text-center">Employee id</th>
+                                        <th class="text-center">Employee Name</th>
+                                        <th class="text-center">Day</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Sign In</th>
+                                        <th class="text-center">Sign Out</th>
+                                        <th class="text-center">Working Hour</th>
+                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                            <th class="text-center">Edit</th>
+                                            <th class="text-center">Delete</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -151,17 +155,20 @@ $selectedemployee = $_GET['Employee_Name'] ?? 0;
                                             <td><?php echo $row["signin_time"]; ?></td>
                                             <td><?php echo $row["signout_time"]; ?></td>
                                             <td><?php echo $row["working_hour"]; ?></td>
-                                            <td>
-                                                <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
-                                                    onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>','<?php echo $row['atten_date']; ?>')"
-                                                    data-bs-toggle="modal" data-bs-target="#updateDept">
-                                                </i>
-                                            </td>
-                                            <td><a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attendance', tbc='id',returnpage='attendanceList.php');"
-                                                    title="Delete">
-                                                    <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
+                                            <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                                <td>
+                                                    <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
+                                                        onclick="myfcn9(<?php echo $row['id']; ?>,'<?php echo $row['signin_time']; ?>','<?php echo $row['signout_time']; ?>','<?php echo $row['atten_date']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updateDept">
+                                                    </i>
+                                                </td>
+                                                <td>
+                                                    <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='attendance', tbc='id',returnpage='attendanceList.php');"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                            <?php } ?>
                                             </tr>
                                             <?php
                                         }
@@ -173,15 +180,17 @@ $selectedemployee = $_GET['Employee_Name'] ?? 0;
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Employee id</th>
-                                        <th>Employee Name</th>
-                                        <th>Day</th>
-                                        <th>Date</th>
-                                        <th>Sign In</th>
-                                        <th>Sign Out</th>
-                                        <th>Working Hour</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th class="text-center">Employee id</th>
+                                        <th class="text-center">Employee Name</th>
+                                        <th class="text-center">Day</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Sign In</th>
+                                        <th class="text-center">Sign Out</th>
+                                        <th class="text-center">Working Hour</th>
+                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3') { ?>
+                                            <th class="text-center">Edit</th>
+                                            <th class="text-center">Delete</th>
+                                        <?php } ?>
                                     </tr>
                                 </tfoot>
                             </table>

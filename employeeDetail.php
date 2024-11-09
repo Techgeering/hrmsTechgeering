@@ -120,6 +120,12 @@
                                                 <i class="fas fa-pencil-alt edit-icon">Edit image</i>
                                             </button>
                                         <?php } ?>
+                                        <?php if (($em_role == '4' || $em_role == '5') && empty($row["em_image"])) { ?>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModalCenter">
+                                                <i class="fas fa-pencil-alt edit-icon"> Edit image</i>
+                                            </button>
+                                        <?php } ?>
                                         <h4 class="card-title m-t-10 edit"><?php echo $row["full_name"]; ?></h4>
                                         <input type="text" class='txtedit' value='<?php echo $row["full_name"]; ?>'
                                             id='full_name-<?php echo $row["id"]; ?>-employee'

@@ -46,37 +46,39 @@ $selectedYear = $_GET['year'] ?? 0;
                     <div class="card mb-4">
                         <div class="card-body">
                             <form action="attendanceReport.php" method="GET">
-                                <div class="row mb-3">
-                                    <div class="col-2">
-                                        <label for="month" class="form-label">Select Month</label>
-                                        <select class="form-select" id="month" name="month" required>
-                                            <option value="" disabled selected>Select a month</option>
-                                            <option value="01">January</option>
-                                            <option value="02">February</option>
-                                            <option value="03">March</option>
-                                            <option value="04">April</option>
-                                            <option value="05">May</option>
-                                            <option value="06">June</option>
-                                            <option value="07">July</option>
-                                            <option value="08">August</option>
-                                            <option value="09">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
-                                        </select>
+                                <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                    <div class="row mb-3">
+                                        <div class="col-2">
+                                            <label for="month" class="form-label">Select Month</label>
+                                            <select class="form-select" id="month" name="month" required>
+                                                <option value="" disabled selected>Select a month</option>
+                                                <option value="01">January</option>
+                                                <option value="02">February</option>
+                                                <option value="03">March</option>
+                                                <option value="04">April</option>
+                                                <option value="05">May</option>
+                                                <option value="06">June</option>
+                                                <option value="07">July</option>
+                                                <option value="08">August</option>
+                                                <option value="09">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="year" class="form-label">Select Year</label>
+                                            <select class="form-select" id="year" name="year" required>
+                                                <option value="" disabled selected>Select a year</option>
+                                                <?php for ($i = 2020; $i <= 2030; $i++): ?>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-2">
-                                        <label for="year" class="form-label">Select Year</label>
-                                        <select class="form-select" id="year" name="year" required>
-                                            <option value="" disabled selected>Select a year</option>
-                                            <?php for ($i = 2020; $i <= 2030; $i++): ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                            <?php endfor; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Filter</button>
-                                <a href="attendanceReport.php" class="btn btn-primary" id="submitLink">Refresh</a>
+                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                    <a href="attendanceReport.php" class="btn btn-primary" id="submitLink">Refresh</a>
+                                <?php } ?>
                             </form>
                             <table id="datatablesSimple">
                                 <thead>
@@ -126,7 +128,7 @@ $selectedYear = $_GET['year'] ?? 0;
                                                 <td><?php echo $row4["present_hour"]; ?></td>
                                                 <td><?php echo $row4["holiday_hour"]; ?></td>
                                                 <td><?php echo $row4["leave_hour"]; ?></td>
-                                                <td>
+                                                <!-- <td>
                                                     <?php if ($em_role == '1' || $em_role == '3') { ?>
                                                         <p class="edit"><?php echo $row4["adj_hour"]; ?></p>
                                                         <input type="text" class='txtedit' value='<?php echo $row4["adj_hour"]; ?>'
@@ -137,6 +139,26 @@ $selectedYear = $_GET['year'] ?? 0;
                                                             <?php echo !empty($row4["adj_hour"]) ? $row4["adj_hour"] : "N/A"; ?>
                                                         <?php } ?>
                                                     </h6>
+                                                </td> -->
+                                                <td>
+                                                    <?php if ($em_role == '1' || $em_role == '3') { ?>
+                                                        <?php if (!empty($row4["adj_hour"])) { ?>
+                                                            <p class="edit"><?php echo $row4["adj_hour"]; ?></p>
+                                                            <input type="text" class='txtedit' value='<?php echo $row4["adj_hour"]; ?>'
+                                                                id='adj_hour-<?php echo $row4["id"]; ?>-attadence_report'
+                                                                style="display:none;">
+                                                        <?php } else { ?>
+                                                            <p class="edit">N/A</p>
+                                                            <input type="text" class='txtedit' value='N/A'
+                                                                id='adj_hour-<?php echo $row4["id"]; ?>-attadence_report'
+                                                                style="display:none;">
+                                                        <?php } ?>
+                                                    <?php } elseif ($em_role == '4' || $em_role == '2' || $em_role == '5') { ?>
+                                                        <!-- <h6 class="form-control form-control-line"> -->
+                                                        <?php echo (!empty($row4["adj_hour"]) && $row4["adj_hour"] != "0" && $row4["adj_hour"] != "N/A") ? $row4["adj_hour"] : "0"; ?>
+                                                        <!-- </h6> -->
+                                                    <?php } ?>
+
                                                 </td>
                                                 <td><?php echo $row4["payable_hour"]; ?></td>
                                             </tr>

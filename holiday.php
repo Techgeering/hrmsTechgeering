@@ -83,8 +83,9 @@
                                                 <?php if ($em_role == '1' || $em_role == '3') { ?>
                                                     <td class="p-4 border border-secondary">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"
-                                                            onclick="myfcn4(<?php echo $row['id']; ?>,'<?php echo $row['holiday_name']; ?>','<?php echo $row['from_date']; ?>','<?php echo $row['to_date']; ?>')"
+                                                            onclick="myfcn4(<?php echo $row['id']; ?>, '<?php echo addslashes(htmlspecialchars_decode($row['holiday_name'])); ?>', '<?php echo htmlspecialchars($row['from_date']); ?>', '<?php echo htmlspecialchars($row['to_date']); ?>')"
                                                             data-bs-toggle="modal" data-bs-target="#updateholiday"></i>
+
                                                         <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='holiday', tbc='id',returnpage='holiday.php');"
                                                             title="Delete">
                                                             <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
@@ -162,7 +163,7 @@
 
     if (isset($_POST['submit'])) {
         // Retrieve form data
-        $holiday = $_POST["holiday"];
+        $holiday = htmlspecialchars($_POST["holiday"]);
         $from_date = $_POST["from_date"];
         $to_date = $_POST["to_date"];
         // $year = date('m-Y');
@@ -223,7 +224,7 @@
     if (isset($_POST['updateholiday'])) {
         include "common/conn.php";
         $id = $_POST["id4"];
-        $holiday = $_POST["holiday"];
+        $holiday = htmlspecialchars($_POST["holiday"]);
         $from_date = $_POST["from_date"];
         $to_date = $_POST["to_date"];
 
@@ -254,7 +255,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js?v=1.3"></script>
+    <script src="assets/js/scripts.js?v=1.4"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>

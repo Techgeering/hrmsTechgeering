@@ -55,16 +55,17 @@ session_start(); {
                                         <th>Sl No</th>
                                         <th>Apply Date</th>
                                         <th>Employee id</th>
+                                        <th>Employee Name</th>
                                         <th>Leave type</th>
                                         <th>Start Date</th>
                                         <th>Join Date</th>
                                         <th>Days</th>
                                         <th>Reason</th>
                                         <th>Leave Report</th>
-                                        <?php if ($em_role == '4') { ?>
+                                        <?php if ($em_role == '4' || $em_role == '5') { ?>
                                             <th>View</th>
                                         <?php } ?>
-                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                        <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4' || $em_role == '5') { ?>
                                             <th>Status</th>
                                         <?php } ?>
                                     </tr>
@@ -93,6 +94,15 @@ session_start(); {
                                                 <td><?php echo $row["em_id"]; ?></td>
                                                 <td>
                                                     <?php
+                                                    $em_code1 = $row["em_id"];
+                                                    $sql_show = "SELECT * FROM employee WHERE em_code = '$em_code1'";
+                                                    $result_show = $conn->query($sql_show);
+                                                    $row_show = $result_show->fetch_assoc();
+                                                    echo htmlspecialchars($row_show["full_name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
                                                     $typeid = $row["typeid"];
                                                     $sql2 = "SELECT * FROM leave_types WHERE type_id = $typeid and status = 1";
                                                     $result2 = $conn->query($sql2);
@@ -111,7 +121,7 @@ session_start(); {
                                                         </a>
                                                     <?php endif; ?>
                                                 </td>
-                                                <?php if ($em_role == '4') { ?>
+                                                <?php if ($em_role == '4' || $em_role == '5') { ?>
                                                     <th>
                                                         <?php
                                                         $status = $row["leave_status"];
@@ -127,7 +137,7 @@ session_start(); {
                                                         ?>
                                                     </th>
                                                 <?php } ?>
-                                                <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4') { ?>
+                                                <?php if ($em_role == '1' || $em_role == '2' || $em_role == '3' || $em_role == '4' || $em_role == '5') { ?>
                                                     <td>
                                                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                                             <div class="btn-group">
@@ -292,36 +302,47 @@ session_start(); {
 
         if (!empty($_FILES["supportingdocument"]["name"])) {
 
-
-
             // Handle file upload
             $targetDir = "assets/uploads/employee/"; // Directory to save files
             $fileName = basename($_FILES["supportingdocument"]["name"]);
             $targetFilePath = $targetDir . $fileName;
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-
-            // Allow certain file formats
     
             // Upload file to server
             if (move_uploaded_file($_FILES["supportingdocument"]["tmp_name"], $targetFilePath)) {
-                $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status, supportingdocument)
+                $checkQuery = "SELECT * FROM emp_leave WHERE em_id = '$empId' AND apply_date = '$currentDate'";
+                $result_query = $conn->query($checkQuery);
+
+                if ($result_query->num_rows > 0) {
+                echo "<script>alert('Already applied in this date');</script>";
+                } else {
+
+                
+                    $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status, supportingdocument)
                     VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0', '$targetFilePath')";
+                    if ($conn->query($sql1) === TRUE) {
+                        echo "<script>alert('Leave application submitted successfully!');</script>";
+                    } else {
+                        echo "<script>alert('Database error occurred.');</script>";
+                    }
+            }
+            } else {
+                echo "<script>alert('Error uploading file.');</script>";
+            }
+        } else {
+            $checkQuery = "SELECT * FROM emp_leave WHERE em_id = '$empId' AND apply_date = '$currentDate'";
+                $result_query = $conn->query($checkQuery);
+
+                if ($result_query->num_rows > 0) {
+                echo "<script>alert('Already applied in this date');</script>";
+            } else {
+                $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status)
+            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0')";
                 if ($conn->query($sql1) === TRUE) {
                     echo "<script>alert('Leave application submitted successfully!');</script>";
                 } else {
                     echo "<script>alert('Database error occurred.');</script>";
                 }
-            } else {
-                echo "<script>alert('Error uploading file.');</script>";
-            }
-
-        } else {
-            $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status)
-            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0')";
-            if ($conn->query($sql1) === TRUE) {
-                echo "<script>alert('Leave application submitted successfully!');</script>";
-            } else {
-                echo "<script>alert('Database error occurred.');</script>";
             }
         }
 
