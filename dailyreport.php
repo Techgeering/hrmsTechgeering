@@ -286,7 +286,7 @@
         $employee_names = $_POST['employee_name'];
         $datee1s = $_POST["datee1"];
         $project_names = $_POST["project_name"];
-        $workks = htmlspecialchars($_POST["workk1"]);
+        $workks = $_POST["workk1"];
         $durations = $_POST["duration"];
         $em_codes = $em_code;
         foreach ($project_names as $index => $project_name) {
