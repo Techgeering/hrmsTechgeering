@@ -247,7 +247,7 @@
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="Project_Name" class="form-label">Project Name</label>
-                                    <select class="form-select" name="project_name">
+                                    <select class="form-select" name="project_name" required>
                                         <option value="" disabled selected>Select a project</option>
                                         <?php
                                         include "common/conn.php";
@@ -285,7 +285,7 @@
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="assigned_users" class="form-label">Manager</label>
-                                    <select class="form-control" name="assigned_users" id="assigned_users">
+                                    <select class="form-control" name="assigned_users" id="assigned_users" required>
                                         <option value="" disabled selected>Select a user</option>
                                         <?php
                                         include "common/conn.php";
@@ -443,6 +443,14 @@
                     }
                 });
             });
+        });
+    </script>
+    <!-- disable the date of end date -->
+    <script>
+        const startDateInput = document.getElementById("start_Date");
+        const endDateInput = document.getElementById("Project_EndDate");
+        startDateInput.addEventListener("change", function () {
+            endDateInput.min = startDateInput.value;
         });
     </script>
 </body>

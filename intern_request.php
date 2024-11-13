@@ -175,11 +175,16 @@
         $clgname = htmlspecialchars($_POST["clgname"]);
         $Address = htmlspecialchars($_POST["Address"]);
 
-        $sql = "INSERT INTO intern_request (name, mob_num, wp_num, email, clg_name, address) VALUES ('$Name','$mobilenum','$wpnum','$email','$clgname','$Address')";
-        if ($conn->query($sql) === true) {
-            echo "<script>window.location.href='intern_request.php';</script>";
+        if (!empty($Name) && !empty($mobilenum) && !empty($wpnum) && !empty($email) && !empty($clgname) && !empty($Address)) {
+
+            $sql = "INSERT INTO intern_request (name, mob_num, wp_num, email, clg_name, address) VALUES ('$Name','$mobilenum','$wpnum','$email','$clgname','$Address')";
+            if ($conn->query($sql) === true) {
+                echo "<script>window.location.href='intern_request.php';</script>";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
         }
         $conn->close();
     }

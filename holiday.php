@@ -122,15 +122,17 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="holiday">Holiday Name</label>
-                            <input type="text" class="form-control" id="holiday" name="holiday">
+                            <input type="text" class="form-control" id="holiday" name="holiday"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="from_date">Closing Start Date</label>
-                            <input type="date" class="form-control" id="from_date" name="from_date">
+                            <input type="date" class="form-control" id="from_date" name="from_date" required>
                         </div>
                         <div class="form-group">
                             <label for="to_date">Opening Date</label>
-                            <input type="date" class="form-control" id="to_date" name="to_date">
+                            <input type="date" class="form-control" id="to_date" name="to_date" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -176,13 +178,19 @@
         $totalHours = calculateHours(clone $date1, $date2);
         $interval = $date1->diff($date2);
         $days = $interval->days;
-        $sql = $conn->prepare("INSERT INTO holiday (holiday_name, from_date, to_date, number_of_days, year, number_of_holiday_hour) VALUES (?, ?, ?, ?, ?, ?)");
-        $sql->bind_param('sssssi', $holiday, $from_date, $to_date, $days, $year, $totalHours);
 
-        if ($sql->execute()) {
-            echo "<script>alert('success');</script>";
+        if (!empty($holiday) && !empty($from_date) && !empty($to_date)) {
+
+            $sql = $conn->prepare("INSERT INTO holiday (holiday_name, from_date, to_date, number_of_days, year, number_of_holiday_hour) VALUES (?, ?, ?, ?, ?, ?)");
+            $sql->bind_param('sssssi', $holiday, $from_date, $to_date, $days, $year, $totalHours);
+
+            if ($sql->execute()) {
+                echo "<script>alert('success');</script>";
+            } else {
+                echo "<script>alert('error');</script>";
+            }
         } else {
-            echo "<script>alert('error');</script>";
+            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
         }
         $sql->close();
     }
@@ -201,15 +209,17 @@
                         <input type="hidden" name="id4" id="id4">
                         <div class="form-group">
                             <label for="DepartmentName">Holiday Name</label>
-                            <input type="text" class="form-control" id="holiday1" name="holiday">
+                            <input type="text" class="form-control" id="holiday1" name="holiday"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="from_date">Closing Start Date</label>
-                            <input type="date" class="form-control" id="from_date1" name="from_date">
+                            <input type="date" class="form-control" id="from_date1" name="from_date" required>
                         </div>
                         <div class="form-group">
                             <label for="to_date">Opening Date</label>
-                            <input type="date" class="form-control" id="to_date1" name="to_date">
+                            <input type="date" class="form-control" id="to_date1" name="to_date" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -236,11 +246,16 @@
         $interval = $date1->diff($date2);
         $days = $interval->days;
 
-        $sql1 = "UPDATE holiday SET year='$year' , holiday_name='$holiday', from_date='$from_date', to_date=' $to_date', number_of_days = '$days',number_of_holiday_hour = '$totalHours' WHERE id='$id'";
-        if ($conn->query($sql1) === true) {
-            echo " <script>alert('success')</script>";
+        if (!empty($holiday) && !empty($from_date) && !empty($to_date)) {
+
+            $sql1 = "UPDATE holiday SET year='$year' , holiday_name='$holiday', from_date='$from_date', to_date=' $to_date', number_of_days = '$days',number_of_holiday_hour = '$totalHours' WHERE id='$id'";
+            if ($conn->query($sql1) === true) {
+                echo " <script>alert('success')</script>";
+            } else {
+                echo $conn->error;
+            }
         } else {
-            echo $conn->error;
+            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
         }
         $conn->close();
     }
@@ -259,6 +274,18 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+    <!-- for date of closing and opening update-->
+    <script>
+        document.getElementById("from_date1").addEventListener("change", function () {
+            document.getElementById("to_date1").min = this.value;
+        });
+    </script>
+    <!-- for date of closing and opening insert-->
+    <script>
+        document.getElementById("from_date").addEventListener("change", function () {
+            document.getElementById("to_date").min = this.value;
+        });
+    </script>
 </body>
 
 </html>

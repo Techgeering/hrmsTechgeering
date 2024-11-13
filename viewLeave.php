@@ -225,7 +225,7 @@ session_start(); {
                         </div>
                         <div class="form-group">
                             <label for="Leavetype">Leave type</label>
-                            <select name="Leavetype" id="Leavetype" class="form-control">
+                            <select name="Leavetype" id="Leavetype" class="form-control" required>
                                 <option value="">Leave type</option>
                                 <?php
                                 include "common/conn.php";
@@ -242,15 +242,15 @@ session_start(); {
                         </div>
                         <div class="form-group">
                             <label for="StartDate">Start Date</label>
-                            <input type="date" class="form-control" id="StartDate" name="StartDate">
+                            <input type="date" class="form-control" id="StartDate" name="StartDate" required>
                         </div>
                         <div class="form-group">
                             <label for="EndDate">Join Date</label>
-                            <input type="date" class="form-control" id="EndDate" name="EndDate">
+                            <input type="date" class="form-control" id="EndDate" name="EndDate" required>
                         </div>
                         <div class="form-group">
                             <label for="Reason">Reason</label>
-                            <input type="text" class="form-control" id="Reason" name="Reason">
+                            <input type="text" class="form-control" id="Reason" name="Reason" required>
                         </div>
                         <div class="form-group">
                             <label for="supportingdocument">Supporting Document</label>
@@ -291,6 +291,9 @@ session_start(); {
         $Leavetype = $_POST["Leavetype"];
         $StartDate = $_POST["StartDate"];
         $EndDate = $_POST["EndDate"];
+        $previousDate = date('Y-m-d', strtotime($EndDate . ' -1 day'));
+
+        $EndDate = $_POST["EndDate"];
         $Reason = htmlspecialchars($_POST["Reason"]);
         $currentDate = date('d-m-Y');
 
@@ -302,7 +305,7 @@ session_start(); {
 
         if (!empty($_FILES["supportingdocument"]["name"])) {
 
-            // Handle file upload
+            //Handle file upload
             $targetDir = "assets/uploads/employee/"; // Directory to save files
             $fileName = basename($_FILES["supportingdocument"]["name"]);
             $targetFilePath = $targetDir . $fileName;
@@ -310,42 +313,50 @@ session_start(); {
     
             // Upload file to server
             if (move_uploaded_file($_FILES["supportingdocument"]["tmp_name"], $targetFilePath)) {
-                $checkQuery = "SELECT * FROM emp_leave WHERE em_id = '$empId' AND apply_date = '$currentDate'";
+                // $checkQuery = "SELECT * FROM emp_leave WHERE em_id = '$empId' AND $StartDate BETWEEN start_date AND end_date";
+                $checkQuery = "SELECT COUNT(*) AS count FROM emp_leave WHERE  em_id = '$empId' AND '$StartDate' BETWEEN start_date AND end_date";
                 $result_query = $conn->query($checkQuery);
 
+                 $rowvfvf = $result_query->num_rows;
+                echo '<script>alert('.$rowvfvf.');</script>';
                 if ($result_query->num_rows > 0) {
                 echo "<script>alert('Already applied in this date');</script>";
                 } else {
 
-                
                     $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status, supportingdocument)
                     VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0', '$targetFilePath')";
                     if ($conn->query($sql1) === TRUE) {
                         echo "<script>alert('Leave application submitted successfully!');</script>";
                     } else {
-                        echo "<script>alert('Database error occurred.');</script>";
                     }
             }
             } else {
                 echo "<script>alert('Error uploading file.');</script>";
             }
         } else {
-            $checkQuery = "SELECT * FROM emp_leave WHERE em_id = '$empId' AND apply_date = '$currentDate'";
-                $result_query = $conn->query($checkQuery);
-
-                if ($result_query->num_rows > 0) {
+            $checkQuery1 = "SELECT COUNT(*) AS count FROM emp_leave WHERE em_id = '$empId' AND '$StartDate' BETWEEN start_date AND end_date";
+            $result_query1 = $conn->query($checkQuery1);
+            $row = $result_query1->fetch_assoc();
+            $count = $row['count'];
+            // echo '<script>alert("' . $count . '");</script>';
+           
+            if ($count > 0) {
                 echo "<script>alert('Already applied in this date');</script>";
             } else {
+                 if (!empty($Leavetype) && !empty($StartDate) && !empty($EndDate) && !empty($Reason)) {
+
                 $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status)
-            VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0')";
+                VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0')";
                 if ($conn->query($sql1) === TRUE) {
                     echo "<script>alert('Leave application submitted successfully!');</script>";
                 } else {
                     echo "<script>alert('Database error occurred.');</script>";
                 }
+                } else {
+                    echo "<script>alert('Form Should Not Be Submit Blank')</script>";
+                }
             }
         }
-
         $conn->close();
     }
     include "common/conn.php";

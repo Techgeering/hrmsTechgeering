@@ -91,11 +91,15 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="DepartmentName">Service Name</label>
-                            <input type="text" class="form-control" name="servicenmae">
+                            <input type="text" class="form-control" name="servicenmae"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="DepartmentName">HSN Number</label>
-                            <input type="text" class="form-control" name="hsnnm">
+                            <input type="text" class="form-control" name="hsnnm"
+                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -109,13 +113,17 @@
     <?php
     include "common/conn.php";
     if (isset($_POST['submit'])) {
-        $servicenmae = htmlspecialchars($_POST['servicenmae']);
+        $servicenmae = $_POST['servicenmae'];
         $hsnnm = $_POST['hsnnm'];
-        $sql = "INSERT INTO service (service_name,hsn_num) VALUES ('$servicenmae','$hsnnm')";
-        if (mysqli_query($conn, $sql)) {
-            echo " <script>alert('success')</script>";
+        if (!empty($servicenmae) && !empty($hsnnm)) {
+            $sql = "INSERT INTO service (service_name,hsn_num) VALUES ('$servicenmae','$hsnnm')";
+            if (mysqli_query($conn, $sql)) {
+                echo " <script>alert('success')</script>";
+            } else {
+                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+            }
         } else {
-            echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+            echo "<script>alert('Service name and HSN number cannot be blank.')</script>";
         }
         mysqli_close($conn);
     }

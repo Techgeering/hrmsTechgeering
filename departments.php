@@ -101,19 +101,20 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
-    <!-- Modal -->
+    <!--Add Modal -->
     <div class="modal fade" id="addDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Department</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="DepartmentName">Department Name</label>
-                            <input type="text" class="form-control" id="DepartmentName" name="DepartmentName">
+                            <input type="text" class="form-control" id="DepartmentName" name="DepartmentName"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -127,23 +128,24 @@
     <?php
     include "common/conn.php";
     if (isset($_POST['submit'])) {
-        // Retrieve form data
-        $departmentName = $_POST["DepartmentName"];
-        // Prepare and bind SQL statement
-        $stmt = $conn->prepare("INSERT INTO department (dep_name) VALUES (?)");
-        $stmt->bind_param("s", $departmentName);
-        // Execute SQL statement
-        if ($stmt->execute() === TRUE) {
-            echo " <script>alert('success')</script>";
+        $departmentName = trim($_POST["DepartmentName"]);
+        if (!empty($departmentName)) {
+            $stmt = $conn->prepare("INSERT INTO department (dep_name, status) VALUES (?, '1')");
+            $stmt->bind_param("s", $departmentName);
+            if ($stmt->execute() === TRUE) {
+                echo "<script>alert('Success')</script>";
+            } else {
+                echo "<script>alert('Error: " . $stmt->error . "')</script>";
+            }
+            $stmt->close();
         } else {
-            echo " <script>alert('$stmt->error')</script>";
+            echo "<script>alert('Department name cannot be blank.')</script>";
         }
-        // Close connection
-        $stmt->close();
     }
     $conn->close();
+
     ?>
-    <!-- update modal -->
+    <!--Update modal -->
     <div class="modal fade" id="updateDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -156,7 +158,8 @@
                         <input type="hidden" name="id1" id="id1">
                         <div class="form-group">
                             <label for="DepartmentName">Department Name</label>
-                            <input type="text" class="form-control" id="DepartmentNamee" name="DepartmentNamee">
+                            <input type="text" class="form-control" id="DepartmentNamee" name="DepartmentNamee"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -170,17 +173,22 @@
     <?php
     if (isset($_POST['updatedepartment'])) {
         include "common/conn.php";
-        $departmentname = htmlspecialchars($_POST["DepartmentNamee"]);
-        $id = $_POST["id1"];
-        $sql1 = "UPDATE department SET dep_name='$departmentname' WHERE id='$id'";
-        if ($conn->query($sql1) === true) {
-            echo " <script>alert('success')</script>";
+        $departmentname = trim($_POST["DepartmentNamee"]);
+        $id = trim($_POST["id1"]);
+        if (!empty($departmentname) && !empty($id)) {
+            $sql1 = "UPDATE department SET dep_name='$departmentname' WHERE id='$id'";
+            if ($conn->query($sql1) === TRUE) {
+                echo "<script>alert('Success')</script>";
+            } else {
+                echo "<script>alert('Error: " . $conn->error . "')</script>";
+            }
         } else {
-            echo $conn->error;
+            echo "<script>alert('Department name and ID cannot be blank.')</script>";
         }
         $conn->close();
     }
     ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="assets/js/scripts.js"></script>

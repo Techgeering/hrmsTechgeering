@@ -50,7 +50,7 @@ $selectedYear = $_GET['year'] ?? 0;
                                     <div class="row mb-3">
                                         <div class="col-2">
                                             <label for="month" class="form-label">Select Month</label>
-                                            <select class="form-select" id="month" name="month" required>
+                                            <select class="form-select" id="month" name="month123" required>
                                                 <option value="" disabled selected>Select a month</option>
                                                 <option value="01">January</option>
                                                 <option value="02">February</option>
@@ -68,7 +68,7 @@ $selectedYear = $_GET['year'] ?? 0;
                                         </div>
                                         <div class="col-2">
                                             <label for="year" class="form-label">Select Year</label>
-                                            <select class="form-select" id="year" name="year" required>
+                                            <select class="form-select" id="year" name="year123" required>
                                                 <option value="" disabled selected>Select a year</option>
                                                 <?php for ($i = 2020; $i <= 2030; $i++): ?>
                                                     <option value="<?php echo $i; ?>"><?php echo $i; ?></option>

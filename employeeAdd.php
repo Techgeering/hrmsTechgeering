@@ -122,9 +122,16 @@
                                                 <option value="5">Sales</option>
                                             </select>
                                         </div>
+                                        <!-- <div class="form-group">
+                                            <label for="doj">DOB</label>
+                                            <input type="date" class="form-control" id="doj" name="doj">
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="doj">DOB</label>
-                                            <input type="date" class="form-control" id="doj" name="doj" required>
+                                            <input type="date" class="form-control" id="doj" name="doj"
+                                                onchange="validateDOB()" required>
+                                            <small id="dobError" style="color: red; display: none;">Age must be 18 or
+                                                above.</small>
                                         </div>
                                         <div class="form-group">
                                             <label for="personalEmail">Email (Personal)</label>
@@ -142,8 +149,8 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="image">Image</label>
-                                            <input type="file" class="form-control" id="image" name="image">
-                                            <img src="user.jpg" alt="" class="img-fluid mt-2" required>
+                                            <input type="file" class="form-control" id="image" name="image" required>
+                                            <img src="user.jpg" alt="" class="img-fluid mt-2">
                                         </div>
                                     </div>
                                     <div class="col-3">
@@ -167,7 +174,7 @@
                                         <div class="form-group">
                                             <label for="professionalEmail">Email (Professional)</label>
                                             <input type="email" class="form-control" id="professionalEmail"
-                                                name="professionalEmail">
+                                                name="professionalEmail" required>
                                         </div>
                                     </div>
                                     <div class="col-3">
@@ -218,7 +225,8 @@
                                         <div class="form-group">
                                             <label for="LeavingDate">Leaving Date <small>(Privious
                                                     Company)</small></label>
-                                            <input type="date" class="form-control" id="LeavingDate" name="LeavingDate">
+                                            <input type="date" class="form-control" id="LeavingDate" name="LeavingDate"
+                                                required>
                                         </div>
                                     </div>
                                     <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
@@ -285,32 +293,71 @@
         } else {
             echo "Error: " . $_FILES["image"]["error"];
         }
-        $sql = "INSERT INTO employee (des_id, dep_id, full_name, em_email, prof_email, em_password, em_code, em_role, em_gender, em_phone, em_wahtsapp, em_birthday, em_blood_group, em_joining_date, last_company_date, em_aadher, em_pan, em_image,father_name,mother_name,marital_status,emergency_contact) 
+
+        $check_query = "SELECT * FROM employee WHERE em_email = '$personalEmail' AND prof_email = '$professionalEmail' AND em_phone = '$contactNumber' AND em_aadher = '$aadharNumber' AND em_pan = '$panNumber'";
+        $result34 = $conn->query($check_query);
+        if ($result34->num_rows > 0) {
+            echo "<script>alert('Email, Phone Number, Aadhar And Pan Number Not Be Same! Check It')</script>";
+        } else {
+
+            if (!empty($name) && !empty($department) && !empty($desig) && !empty($gender) && !empty($contactNumber) && !empty($bloodGroup) && !empty($employeeId) && !empty($role) && !empty($doj) && !empty($personalEmail) && !empty($whatsappNumber) && !empty($professionalEmail) && !empty($aadharNumber) && !empty($panNumber) && !empty($JoiningDate) && !empty($LeavingDate) && !empty($password) && !empty($fathername) && !empty($mothername) && !empty($maritalstatus) && !empty($emergencycontact) && !empty($hashedPassword) && !empty($upload_file)) {
+
+                $sql = "INSERT INTO employee (des_id, dep_id, full_name, em_email, prof_email, em_password, em_code, em_role, em_gender, em_phone, em_wahtsapp, em_birthday, em_blood_group, em_joining_date, last_company_date, em_aadher, em_pan, em_image,father_name,mother_name,marital_status,emergency_contact) 
             VALUES ('$desig', '$department', '$name', '$personalEmail', '$professionalEmail', '$hashedPassword', '$employeeId', '$role', '$gender', '$contactNumber', '$whatsappNumber', '$doj', '$bloodGroup', '$JoiningDate', '$LeavingDate', '$aadharNumber', '$panNumber', '$upload_file','$fathername','$mothername','$maritalstatus','$emergencycontact')";
-        if (mysqli_query($conn, $sql)) {
-            $sql1 = "INSERT INTO address (emp_id, type) VALUES ('$employeeId', 'Permanent')";
-            if (mysqli_query($conn, $sql1)) {
-                $sql2 = "INSERT INTO address (emp_id, type) VALUES ('$employeeId', 'Present')";
-                if (mysqli_query($conn, $sql2)) {
-                    $sql3 = "INSERT INTO bank_info (em_id) VALUES ('$employeeId')";
-                    if (mysqli_query($conn, $sql3)) {
-                        echo "<script>window.location.href='employees.php';</script>";
+                if (mysqli_query($conn, $sql)) {
+                    $sql1 = "INSERT INTO address (emp_id, type) VALUES ('$employeeId', 'Permanent')";
+                    if (mysqli_query($conn, $sql1)) {
+                        $sql2 = "INSERT INTO address (emp_id, type) VALUES ('$employeeId', 'Present')";
+                        if (mysqli_query($conn, $sql2)) {
+                            $sql3 = "INSERT INTO bank_info (em_id) VALUES ('$employeeId')";
+                            if (mysqli_query($conn, $sql3)) {
+                                echo "<script>window.location.href='employees.php';</script>";
+                            } else {
+                                echo "Error: " . $sql3 . "<br>" . mysqli_error($conn);
+                            }
+                            echo "<script>alert('Sign up successful!');</script>";
+                        } else {
+                            echo "Error: " . $sql2 . "<br>" . mysqli_error($conn);
+                        }
                     } else {
-                        echo "Error: " . $sql3 . "<br>" . mysqli_error($conn);
+                        echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
                     }
-                    echo "<script>alert('Sign up successful!');</script>";
                 } else {
-                    echo "Error: " . $sql2 . "<br>" . mysqli_error($conn);
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                 }
             } else {
-                echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+                echo "<script>alert('All Fields Are Required')</script>";
             }
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
+    // } else {
+    //     echo "<script>alert('All Fields Are Required')</script>";
+    // }
     $conn->close();
     ?>
+    <!-- for dob validation -->
+    <script>
+        function validateDOB() {
+            const dobInput = document.getElementById("doj");
+            const dobError = document.getElementById("dobError");
+            const dob = new Date(dobInput.value);
+            const today = new Date();
+
+            const age = today.getFullYear() - dob.getFullYear();
+            const monthDifference = today.getMonth() - dob.getMonth();
+            const dayDifference = today.getDate() - dob.getDate();
+
+            if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+                age--;
+            }
+            if (age < 18) {
+                dobError.style.display = "block";
+                dobInput.value = "";
+            } else {
+                dobError.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

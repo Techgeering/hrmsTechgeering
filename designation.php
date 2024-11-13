@@ -105,14 +105,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Add Designation</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="DesignationName">Designation Name</label>
-                            <input type="text" class="form-control" id="DesignationName" name="DesignationName">
+                            <input type="text" class="form-control" id="DesignationName" name="DesignationName"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -128,14 +130,18 @@
     if (isset($_POST['submit'])) {
         // Retrieve form data
         $DesignationName = $_POST["DesignationName"];
-        $sql = "INSERT INTO designation (des_name)
-        VALUES ('$DesignationName')";
-        if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
+        if (!empty($DesignationName)) {
+            $sql = "INSERT INTO designation (des_name, status)
+        VALUES ('$DesignationName','1')";
+            if ($conn->query($sql) === TRUE) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+            $conn->close();
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "<script>alert('Designation name cannot be blank.')</script>";
         }
-        $conn->close();
     }
     ?>
     <!-- update modal -->
@@ -143,7 +149,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Designation</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -151,7 +157,9 @@
                         <input type="hidden" name="id2" id="id2">
                         <div class="form-group">
                             <label for="DesignationName">Designation Name</label>
-                            <input type="text" class="form-control" id="DesignationNamee" name="DesignationNamee">
+                            <input type="text" class="form-control" id="DesignationNamee" name="DesignationNamee"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -165,13 +173,17 @@
     <?php
     if (isset($_POST['updatedesignation'])) {
         include "common/conn.php";
-        $designation = htmlspecialchars($_POST["DesignationNamee"]);
+        $designation = $_POST["DesignationNamee"];
         $id = $_POST["id2"];
-        $sql1 = "UPDATE designation SET des_name='$designation' WHERE id='$id'";
-        if ($conn->query($sql1) === true) {
-            echo " <script>alert('success')</script>";
+        if (!empty($designation) && !empty($id)) {
+            $sql1 = "UPDATE designation SET des_name='$designation' WHERE id='$id'";
+            if ($conn->query($sql1) === true) {
+                echo " <script>alert('success')</script>";
+            } else {
+                echo $conn->error;
+            }
         } else {
-            echo $conn->error;
+            echo "<script>alert('Designation name and ID cannot be blank.')</script>";
         }
         $conn->close();
     }

@@ -187,3 +187,5 @@ function calculateDuration1() {
         document.getElementById("duration12").value = "Invalid";
     }
 }
+
+

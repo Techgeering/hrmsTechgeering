@@ -147,7 +147,7 @@
                             <div class="col-12">
                                 <div class="mb-2">
                                     <label for="Project_Name" class="form-label">Project Name</label>
-                                    <select class="form-select" name="project_name">
+                                    <select class="form-select" name="project_name" required>
                                         <option value="" disabled selected>Select a project</option>
                                         <?php
                                         include "common/conn.php";
@@ -183,21 +183,23 @@
                             <div class="col-6">
                                 <label for="insurance_company">Date Of Purchase</label>
                                 <input type="date" class="form-control" name="date_of_pur" id="date_of_purchase"
-                                    value="<?php echo date('Y-m-d'); ?>">
+                                    value="<?php echo date('Y-m-d'); ?>" required>
                             </div>
                             <div class="col-6">
                                 <label>Service Start Date</label>
                                 <input type="date" class="form-control" value="<?php echo date('Y-m-d'); ?>"
-                                    name="service_start_dt" id="service_start_date" onchange="calculateDuration()">
+                                    name="service_start_dt" id="service_start_date" onchange="calculateDuration()"
+                                    required>
                             </div>
                             <div class="col-6">
                                 <label>Service End Date</label>
                                 <input type="date" class="form-control" name="service_end_dt" id="service_end_date"
-                                    onchange="calculateDuration()">
+                                    onchange="calculateDuration()" required>
                             </div>
                             <div class="col-6">
                                 <label>Duration</label>
-                                <input type="text" class="form-control" name="duration1" id="duration" readonly>
+                                <input type="text" class="form-control" name="duration1" id="duration" readonly
+                                    required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -219,12 +221,18 @@
         $service_start_dt = $_POST["service_start_dt"];
         $service_end_dt = $_POST["service_end_dt"];
         $duration1 = $_POST["duration1"];
-        $sql_pur = "INSERT INTO purchase (pro_id, service_id, date_of_purchase, ser_start_dt, ser_end_dt, duration, status) 
+
+        if (!empty($project_name) && !empty($service_name) && !empty($date_of_pur) && !empty($service_start_dt) && !empty($service_end_dt) && !empty($duration1)) {
+
+            $sql_pur = "INSERT INTO purchase (pro_id, service_id, date_of_purchase, ser_start_dt, ser_end_dt, duration, status) 
                 VALUES ('$project_name','$service_name','$date_of_pur','$service_start_dt','$service_end_dt','$duration1','1')";
-        if ($conn->query($sql_pur) === TRUE) {
-            echo "Successfully submitted!";
+            if ($conn->query($sql_pur) === TRUE) {
+                echo "Successfully submitted!";
+            } else {
+                echo "Error: " . $sql_pur . "<br>" . $conn->error;
+            }
         } else {
-            echo "Error: " . $sql_pur . "<br>" . $conn->error;
+            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
         }
         $conn->close();
     }

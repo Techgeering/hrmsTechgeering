@@ -128,8 +128,8 @@
                                         <?php } ?>
                                         <h4 class="card-title m-t-10 edit"><?php echo $row["full_name"]; ?></h4>
                                         <input type="text" class='txtedit' value='<?php echo $row["full_name"]; ?>'
-                                            id='full_name-<?php echo $row["id"]; ?>-employee'
-                                            style="display:none;"></input>
+                                            id='full_name-<?php echo $row["id"]; ?>-employee' style="display:none;"
+                                            oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <h6 class="card-subtitle">Employee Id: <?php echo $row["em_code"]; ?></h6>
                                         <?php if ($em_role == '1') { ?>
                                             <button data-bs-toggle="modal" data-bs-target="#exampleModalcode">
@@ -186,7 +186,8 @@
                                                 <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row["father_name"]; ?>'
-                                                id='father_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                                id='father_name-<?php echo $row["id"]; ?>-employee' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row["father_name"]) ? $row["father_name"] : "N/A"; ?>
@@ -200,7 +201,8 @@
                                                 <?php echo !empty($row["mother_name"]) ? $row["mother_name"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row["mother_name"]; ?>'
-                                                id='mother_name-<?php echo $row["id"]; ?>-employee' style="display:none;">
+                                                id='mother_name-<?php echo $row["id"]; ?>-employee' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row["mother_name"]) ? $row["mother_name"] : "N/A"; ?>
@@ -538,8 +540,8 @@
                                                 <?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row1["address1"]; ?>'
-                                                id='address1-<?php echo $row1["id"]; ?>-address'
-                                                style="display:none;"></input>
+                                                id='address1-<?php echo $row1["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row1["address1"]) ? $row1["address1"] : "N/A"; ?>
@@ -553,7 +555,8 @@
                                                 <?php echo !empty($row1["post"]) ? $row1["post"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row1["post"]; ?>'
-                                                id='post-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                                id='post-<?php echo $row1["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row1["post"]) ? $row1["post"] : "N/A"; ?>
@@ -567,8 +570,8 @@
                                                 <?php echo !empty($row1["polic_station"]) ? $row1["polic_station"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row1["polic_station"]; ?>'
-                                                id='polic_station-<?php echo $row1["id"]; ?>-address'
-                                                style="display:none;"></input>
+                                                id='polic_station-<?php echo $row1["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row1["polic_station"]) ? $row1["polic_station"] : "N/A"; ?>
@@ -582,7 +585,8 @@
                                                 <?php echo !empty($row1["city"]) ? $row1["city"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row1["city"]; ?>'
-                                                id='city-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                                id='city-<?php echo $row1["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row1["city"]) ? $row1["city"] : "N/A"; ?>
@@ -596,7 +600,8 @@
                                                 <?php echo !empty($row1["dist"]) ? $row1["dist"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row1["dist"]; ?>'
-                                                id='dist-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                                id='dist-<?php echo $row1["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row1["dist"]) ? $row1["dist"] : "N/A"; ?>
@@ -610,7 +615,8 @@
                                                 <?php echo !empty($row1["state"]) ? $row1["state"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row1["state"]; ?>'
-                                                id='state-<?php echo $row1["id"]; ?>-address' style="display:none;"></input>
+                                                id='state-<?php echo $row1["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row1["state"]) ? $row1["state"] : "N/A"; ?>
@@ -624,8 +630,8 @@
                                                 <?php echo !empty($row1["country"]) ? $row1["country"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row1["country"]; ?>'
-                                                id='country-<?php echo $row1["id"]; ?>-address'
-                                                style="display:none;"></input>
+                                                id='country-<?php echo $row1["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row1["country"]) ? $row1["country"] : "N/A"; ?>
@@ -639,8 +645,8 @@
                                                 <?php echo !empty($row1["pincode"]) ? $row1["pincode"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row1["pincode"]; ?>'
-                                                id='pincode-<?php echo $row1["id"]; ?>-address'
-                                                style="display:none;"></input>
+                                                id='pincode-<?php echo $row1["id"]; ?>-address' style="display:none;"
+                                                oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row1["pincode"]) ? $row1["pincode"] : "N/A"; ?>
@@ -659,8 +665,8 @@
                                                 <?php echo !empty($row2["address1"]) ? $row2["address1"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row2["address1"]; ?>'
-                                                id='address1-<?php echo $row2["id"]; ?>-address'
-                                                style="display:none;"></input>
+                                                id='address1-<?php echo $row2["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row2["address1"]) ? $row2["address1"] : "N/A"; ?>
@@ -674,7 +680,8 @@
                                                 <?php echo !empty($row2["post"]) ? $row2["post"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row2["post"]; ?>'
-                                                id='post-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                                id='post-<?php echo $row2["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row2["post"]) ? $row2["post"] : "N/A"; ?>
@@ -688,8 +695,8 @@
                                                 <?php echo !empty($row2["polic_station"]) ? $row2["polic_station"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row2["polic_station"]; ?>'
-                                                id='polic_station-<?php echo $row2["id"]; ?>-address'
-                                                style="display:none;"></input>
+                                                id='polic_station-<?php echo $row2["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row2["polic_station"]) ? $row2["polic_station"] : "N/A"; ?>
@@ -703,7 +710,8 @@
                                                 <?php echo !empty($row2["city"]) ? $row2["city"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row2["city"]; ?>'
-                                                id='city-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                                id='city-<?php echo $row2["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row2["city"]) ? $row2["city"] : "N/A"; ?>
@@ -717,7 +725,8 @@
                                                 <?php echo !empty($row2["dist"]) ? $row2["dist"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row2["dist"]; ?>'
-                                                id='dist-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                                id='dist-<?php echo $row2["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row2["dist"]) ? $row2["dist"] : "N/A"; ?>
@@ -731,7 +740,8 @@
                                                 <?php echo !empty($row2["state"]) ? $row2["state"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row2["state"]; ?>'
-                                                id='state-<?php echo $row2["id"]; ?>-address' style="display:none;"></input>
+                                                id='state-<?php echo $row2["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row2["state"]) ? $row2["state"] : "N/A"; ?>
@@ -745,8 +755,8 @@
                                                 <?php echo !empty($row2["country"]) ? $row2["country"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row2["country"]; ?>'
-                                                id='country-<?php echo $row2["id"]; ?>-address'
-                                                style="display:none;"></input>
+                                                id='country-<?php echo $row2["id"]; ?>-address' style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row2["country"]) ? $row2["country"] : "N/A"; ?>
@@ -760,8 +770,8 @@
                                                 <?php echo !empty($row2["pincode"]) ? $row2["pincode"] : "N/A"; ?>
                                             </p>
                                             <input type="text" class='txtedit' value='<?php echo $row2["pincode"]; ?>'
-                                                id='pincode-<?php echo $row2["id"]; ?>-address'
-                                                style="display:none;"></input>
+                                                id='pincode-<?php echo $row2["id"]; ?>-address' style="display:none;"
+                                                oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"></input>
                                         <?php } else { ?>
                                             <p class="form-control form-control-line">
                                                 <?php echo !empty($row2["pincode"]) ? $row2["pincode"] : "N/A"; ?>
@@ -842,13 +852,17 @@
                                             </div>
                                             <div class="m-2">
                                                 <input type="text" class="form-control form-control-line" name="university"
-                                                    placeholder="University Name" required>
+                                                    placeholder="University Name"
+                                                    oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="m-2">
                                                 <input type="text" class="form-control form-control-line" name="institute"
-                                                    placeholder="Institute Name" required>
+                                                    placeholder="Institute Name"
+                                                    oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                                    required>
                                             </div>
                                             <div class="row m-2">
                                                 <div class="col-6">
@@ -892,11 +906,17 @@
                         $institute = $_POST["institute"];
                         $university = $_POST["university"];
                         $passingyear = $_POST["passingyear"];
-                        $sqleducation = "INSERT INTO education (edu_type, institute, university, result, year, emp_id) VALUES ('$degreetitle', '$institute', '$university', '$result', '$passingyear', '$empId')";
-                        if ($conn->query($sqleducation) === true) {
-                            echo "<script>alert('Form submitted successfully');</script>";
+
+                        if (!empty($degreetitle) && !empty($result) && !empty($institute) && !empty($university) && !empty($passingyear)) {
+
+                            $sqleducation = "INSERT INTO education (edu_type, institute, university, result, year, emp_id) VALUES ('$degreetitle', '$institute', '$university', '$result', '$passingyear', '$empId')";
+                            if ($conn->query($sqleducation) === true) {
+                                echo "<script>alert('Form submitted successfully');</script>";
+                            } else {
+                                $conn->error;
+                            }
                         } else {
-                            $conn->error;
+                            echo "<script>alert('All Fields Are Required')</script>";
                         }
                         $conn->close();
                     }
@@ -913,16 +933,12 @@
                                 </div>
                                 <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
                                     <div class="modal-body">
-                                        <input type="text" name="id6" id="id6">
-                                        <!-- <div class="form-group">
-                                            <label for="empid">Emp Id</label>
-                                            <input type="text" class="form-control" id="empid22" name="empid">
-                                        </div> -->
+                                        <input type="hidden" name="id6" id="id6">
                                         <div class="form-group">
                                             <label for="degreetitle">Degree Title</label>
                                             <select class="form-control form-control-line p-2"
                                                 value="<?php echo $row3['edu_type']; ?>" name="degreetitle"
-                                                id="degreetitle22">
+                                                id="degreetitle22" required>
                                                 <option value="">Select Degree Title</option>
                                                 <option value="10th">10th</option>
                                                 <option value="+2">+2</option>
@@ -941,12 +957,16 @@
                                         <div class="form-group">
                                             <label for="institutename">Institute Name</label>
                                             <input type="text" class="form-control" id="institutename22"
-                                                name="institutename">
+                                                name="institutename"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label for="universityname">University Name</label>
                                             <input type="text" class="form-control" id="universityname22"
-                                                name="universityname">
+                                                name="universityname"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label for="result">Result</label>
@@ -986,11 +1006,17 @@
                         $result = $_POST["result"];
                         $passingyear = $_POST["passingyear"];
                         $id = $_POST["id6"];
-                        $sql10 = "UPDATE education SET edu_type='$degreetitle', institute='$institutename', university='$universityname', result='$result', year='$passingyear' WHERE id='$id'";
-                        if ($conn->query($sql10) === true) {
-                            echo " <script>alert('success')</script>";
+
+                        if (!empty($degreetitle) && !empty($institutename) && !empty($universityname) && !empty($result) && !empty($passingyear)) {
+
+                            $sql10 = "UPDATE education SET edu_type='$degreetitle', institute='$institutename', university='$universityname', result='$result', year='$passingyear' WHERE id='$id'";
+                            if ($conn->query($sql10) === true) {
+                                echo " <script>alert('success')</script>";
+                            } else {
+                                echo $conn->error;
+                            }
                         } else {
-                            echo $conn->error;
+                            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
                         }
                         $conn->close();
                     }
@@ -1055,38 +1081,39 @@
                                             <label> Company Name</label>
                                             <input type="text" name="company_name" id="companyname"
                                                 class="form-control form-control-line company_name"
-                                                placeholder="Company Name" minlength="2" required>
+                                                placeholder="Company Name" minlength="2">
                                         </div>
                                         <div class="form-group col-md-6 m-t-5">
                                             <label>Position</label>
                                             <input type="text" name="position_name" id="positionname"
                                                 class="form-control form-control-line position_name"
                                                 oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
-                                                placeholder="Position" minlength="3" required>
+                                                placeholder="Position" minlength="3">
                                         </div>
                                         <div class="form-group col-md-6 m-t-5">
                                             <label>Address</label>
                                             <input type="text" name="address" id="addressa"
                                                 class="form-control form-control-line duty" placeholder="Address"
-                                                minlength="7" required>
+                                                minlength="7">
                                         </div>
                                         <div class="form-group col-md-6 m-t-5">
                                             <label>Joining Date</label>
                                             <input type="date" name="joiningdate" id="joiningdate1"
                                                 class="form-control form-control-line duty" placeholder="Address"
-                                                minlength="7" required>
+                                                minlength="7">
                                         </div>
                                         <div class="form-group col-md-6 m-t-5">
                                             <label>Leaving Date</label>
                                             <input type="date" name="leavingdate" id="leavingdate1"
                                                 class="form-control form-control-line duty" placeholder="Address"
-                                                minlength="7" required>
+                                                minlength="7">
                                         </div>
                                         <div class="form-group col-md-6 m-t-5">
                                             <label>Last Salary Received</label>
                                             <input type="text" name="lastsalary" id="lastsalary1"
                                                 class="form-control form-control-line duty"
-                                                placeholder="Last Salary Received" minlength="7" required>
+                                                placeholder="Last Salary Received" minlength="7"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                         </div>
                                         <div class="form-actions col-md-12">
                                             <input type="hidden" name="emid" value="Soy1332">
@@ -1106,15 +1133,20 @@
                         $companyname = $_POST["company_name"];
                         $positionname = $_POST["position_name"];
                         $address = $_POST["address"];
-                        // $workduration = $_POST["work_duration"];
                         $joining = $_POST["joiningdate"];
                         $leaving = $_POST["leavingdate"];
                         $salaryreceived = $_POST["lastsalary"];
-                        $sqlexperience = "INSERT INTO emp_experience (exp_company, exp_com_position, exp_com_address, exp_joining, exp_leaving, salary_received, emp_id) VALUES ('$companyname','$positionname','$address', '$joining', '$leaving', '$salaryreceived', '$empId')";
-                        if ($conn->query($sqlexperience) === true) {
-                            echo "<script>alert('Form submitted successfully');</script>";
+
+                        if (!empty($companyname) && !empty($positionname) && !empty($address) && !empty($joining) && !empty($leaving) && !empty($salaryreceived)) {
+
+                            $sqlexperience = "INSERT INTO emp_experience (exp_company, exp_com_position, exp_com_address, exp_joining, exp_leaving, salary_received, emp_id) VALUES ('$companyname','$positionname','$address', '$joining', '$leaving', '$salaryreceived', '$empId')";
+                            if ($conn->query($sqlexperience) === true) {
+                                echo "<script>alert('Form submitted successfully');</script>";
+                            } else {
+                                $conn->error;
+                            }
                         } else {
-                            $conn->error;
+                            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
                         }
                         $conn->close();
                     }
@@ -1133,7 +1165,8 @@
                                             </p>
                                             <input type="text" class="txtedit"
                                                 value="<?php echo !empty($row5["bank_name"]) ? $row5["bank_name"] : ""; ?>"
-                                                id="bank_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                                id="bank_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
                                         <?php } else { ?>
                                             <p class="form-control form-control-line"
                                                 onclick="editField('bank_name-<?php echo $row5['id']; ?>-bank_info')">
@@ -1150,7 +1183,8 @@
                                             </p>
                                             <input type="text" class="txtedit"
                                                 value="<?php echo !empty($row5["holder_name"]) ? $row5["holder_name"] : ""; ?>"
-                                                id="holder_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                                id="holder_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
                                         <?php } else { ?>
                                             <p class="form-control form-control-line"
                                                 onclick="editField('holder_name-<?php echo $row5['id']; ?>-bank_info')">
@@ -1167,7 +1201,8 @@
                                             </p>
                                             <input type="text" class="txtedit"
                                                 value="<?php echo !empty($row5["branch_name"]) ? $row5["branch_name"] : ""; ?>"
-                                                id="branch_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                                id="branch_name-<?php echo $row5["id"]; ?>-bank_info" style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
                                         <?php } else { ?>
                                             <p class="form-control form-control-line"
                                                 onclick="editField('branch_name-<?php echo $row5['id']; ?>-bank_info')">
@@ -1185,7 +1220,8 @@
                                             <input type="text" class="txtedit"
                                                 value="<?php echo !empty($row5["account_number"]) ? $row5["account_number"] : ""; ?>"
                                                 id="account_number-<?php echo $row5["id"]; ?>-bank_info"
-                                                style="display:none;">
+                                                style="display:none;"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                         <?php } else { ?>
                                             <p class="form-control form-control-line"
                                                 onclick="editField('account_number-<?php echo $row5['id']; ?>-bank_info')">
@@ -1202,7 +1238,8 @@
                                             </p>
                                             <input type="text" class="txtedit"
                                                 value="<?php echo !empty($row5["ifsc_code"]) ? $row5["ifsc_code"] : ""; ?>"
-                                                id="ifsc_code-<?php echo $row5["id"]; ?>-bank_info" style="display:none;">
+                                                id="ifsc_code-<?php echo $row5["id"]; ?>-bank_info" style="display:none;"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                         <?php } else { ?>
                                             <p class="form-control form-control-line"
                                                 onclick="editField('ifsc_code-<?php echo $row5['id']; ?>-bank_info')">
@@ -1219,8 +1256,8 @@
                                             </p>
                                             <input type="text" class="txtedit"
                                                 value="<?php echo !empty($row5["account_type"]) ? $row5["account_type"] : ""; ?>"
-                                                id="account_type-<?php echo $row5["id"]; ?>-bank_info"
-                                                style="display:none;">
+                                                id="account_type-<?php echo $row5["id"]; ?>-bank_info" style="display:none;"
+                                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();">
                                         <?php } else { ?>
                                             <p class="form-control form-control-line"
                                                 onclick="editField('account_type-<?php echo $row5['id']; ?>-bank_info')">
@@ -1303,7 +1340,8 @@
                                             <input type="hidden" name="emid" value="Soy1332">
                                             <button type="submit" name="add_file" class="btn btn-success"><i
                                                     class="fa fa-check"></i>
-                                                Save</button>
+                                                Save
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -1343,12 +1381,17 @@
                         }
                         // Get form data
                         $filename = $_POST["file_name"];
-                        // Insert data into database
-                        $sqldocument = "INSERT INTO employee_file (file_url, file_title, em_id) VALUES ('$new_file_name', '$filename', '$empId')";
-                        if ($conn->query($sqldocument) === true) {
-                            echo "<script>alert('Form submitted successfully');</script>";
+
+                        if (!empty($new_file_name) && !empty($filename)) {
+                            // Insert data into database
+                            $sqldocument = "INSERT INTO employee_file (file_url, file_title, em_id) VALUES ('$new_file_name', '$filename', '$empId')";
+                            if ($conn->query($sqldocument) === true) {
+                                echo "<script>alert('Form submitted successfully');</script>";
+                            } else {
+                                $conn->error;
+                            }
                         } else {
-                            $conn->error;
+                            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
                         }
                         $conn->close();
                     }
@@ -1584,28 +1627,29 @@
                                 <div class="mb-2">
                                     <label for="basic1" class="form-label">Basic</label>
                                     <input type="text" class="form-control" id="basic1" name="basic"
-                                        oninput="limitAndValidate(this, 15); updateHouseRent(); calculateGrossEarnings();">
+                                        oninput="limitAndValidate(this, 15); updateHouseRent(); calculateGrossEarnings();"
+                                        required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="houserent1" class="form-label">House Rent</label>
                                     <input type="text" class="form-control" id="houserent1" name="houserent"
-                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()">
+                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="medical1" class="form-label">Medical</label>
                                     <input type="text" class="form-control" id="medical1" name="medical"
-                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()">
+                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="travel1" class="form-label">Travel</label>
                                     <input type="text" class="form-control" id="travel1" name="travel" value="0"
-                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()">
+                                        oninput="limitAndValidate(this, 15); calculateGrossEarnings()" required>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -1619,7 +1663,7 @@
                                 <div class="mb-2">
                                     <label for="grossearnings" class="form-label">Gross Earnings</label>
                                     <input type="text" class="form-control" id="grossearnings" name="grossearnings"
-                                        readonly>
+                                        readonly required>
                                 </div>
                             </div>
                         </div>
@@ -1641,25 +1685,30 @@
         $medical = $_POST["medical"];
         $travel = $_POST["travel"];
         $performancebonus = $_POST["performancebonus"];
-        $sqlearn = "INSERT INTO earnings (emp_id, basic, house_rent, medical, travel, perform_bonus) VALUES ('$empId','$basic','$houserent','$medical', '$travel','$performancebonus')";
-        if ($conn->query($sqlearn) === true) {
-            $last_id = $conn->insert_id;
 
-            $sqlearn1 = "UPDATE earnings SET status='0' WHERE emp_id = '$empId'";
-            if ($conn->query($sqlearn1) === true) {
+        if (!empty($basic) && !empty($houserent) && !empty($medical) && !empty($travel) && !empty($performancebonus)) {
 
-                $sqlearn2 = "UPDATE earnings SET status='1' WHERE id = '$last_id'";
-                if ($conn->query($sqlearn2) === true) {
-                    echo "<script>alert('Form submitted successfully');</script>";
+            $sqlearn = "INSERT INTO earnings (emp_id, basic, house_rent, medical, travel, perform_bonus) VALUES ('$empId','$basic','$houserent','$medical', '$travel','$performancebonus')";
+            if ($conn->query($sqlearn) === true) {
+                $last_id = $conn->insert_id;
+
+                $sqlearn1 = "UPDATE earnings SET status='0' WHERE emp_id = '$empId'";
+                if ($conn->query($sqlearn1) === true) {
+
+                    $sqlearn2 = "UPDATE earnings SET status='1' WHERE id = '$last_id'";
+                    if ($conn->query($sqlearn2) === true) {
+                        echo "<script>alert('Form submitted successfully');</script>";
+                    } else {
+                        $conn->error;
+                    }
                 } else {
                     $conn->error;
                 }
-
             } else {
                 $conn->error;
             }
         } else {
-            $conn->error;
+            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
         }
         $conn->close();
     }
@@ -1686,7 +1735,8 @@
                                 <div class="form-group">
                                     <label for="filename">Emp Id</label>
                                     <input type="text" value="<?php echo $row["em_code"]; ?>" class="form-control"
-                                        id="empidd" name="empid">
+                                        id="empidd" name="empid"
+                                        oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')">
                                 </div>
                             </div>
                         </div>
@@ -1849,7 +1899,7 @@
         $conn->close();
     }
     ?>
-    <!-- update pdf -->
+    <!-- update document -->
     <div class="modal fade" id="updatedocument" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -2148,6 +2198,12 @@
             input.checkValidity(); // Check validity
             calculateGrossEarnings(); // Update gross earnings
         }
+    </script>
+    <!-- for experience joining and leaving date -->
+    <script>
+        document.getElementById("joiningdate1").addEventListener("change", function () {
+            document.getElementById("leavingdate1").min = this.value;
+        });
     </script>
 </body>
 
