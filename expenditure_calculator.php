@@ -137,7 +137,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Expenditure</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -146,7 +146,7 @@
                             <div class="form-group col-4">
                                 <div class="mb-2">
                                     <label for="year" class="form-label">Year</label>
-                                    <select class="form-select" name="year" id="year">
+                                    <select class="form-select" name="year" id="year" required>
                                         <option value="" selected>Select Year</option>
                                         <?php
                                         $currentYear = date("Y");
@@ -160,7 +160,7 @@
                             <div class="form-group col-4">
                                 <div class="mb-2">
                                     <label for="month" class="form-label">Month</label>
-                                    <select class="form-select" name="month" id="month">
+                                    <select class="form-select" name="month" id="month" required>
                                         <option value="" selected>Select Month</option>
                                         <option value="January">January</option>
                                         <option value="February">February</option>

@@ -38,10 +38,12 @@
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="my-2">Purchase</h2>
-                        <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
-                            data-bs-target="#addPurchase">
-                            <i class="fa-solid fa-plus"></i>Purchase
-                        </button>
+                        <?php if ($em_role == '1' || $em_role == '3') { ?>
+                            <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                                data-bs-target="#addPurchase">
+                                <i class="fa-solid fa-plus"></i>Purchase
+                            </button>
+                        <?php } ?>
                     </div>
                     <div class="card mb-4">
                         <div class="card-body">

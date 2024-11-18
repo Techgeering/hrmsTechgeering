@@ -85,7 +85,7 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
-    <!-- Modal -->
+    <!--Add Modal -->
     <div class="modal fade" id="addexpenditure" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -97,16 +97,19 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="DepartmentName">Expenditure Name</label>
-                            <input type="text" class="form-control" name="expenditurename1">
+                            <input type="text" class="form-control" name="expenditurename1"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="DepartmentName">Fixed Cost</label>
-                            <input type="text" class="form-control" name="fixedcost1">
+                            <input type="text" class="form-control" name="fixedcost1"
+                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                         </div>
                         <div class="form-group">
                             <div class="mb-2">
                                 <label for="duration" class="form-label">Duration</label>
-                                <select class="form-select" name="duration1">
+                                <select class="form-select" name="duration1" required>
                                     <option value="" selected>Select Month</option>
                                     <option value="1month">1 Month</option>
                                     <option value="2months">2 Months</option>
@@ -131,11 +134,17 @@
         $expenditurename = $_POST["expenditurename1"];
         $fixedcost = $_POST["fixedcost1"];
         $duration = $_POST["duration1"];
-        $sql = "INSERT INTO expenditure(expenditure_name, fixed_cost, duration) VALUES('$expenditurename','$fixedcost',' $duration')";
-        if ($conn->query($sql) == true) {
-            echo "<script>alert('success')</script>";
+
+        if (!empty($expenditurename) && !empty($duration)) {
+
+            $sql = "INSERT INTO expenditure(expenditure_name, fixed_cost, duration) VALUES('$expenditurename','$fixedcost',' $duration')";
+            if ($conn->query($sql) == true) {
+                echo "<script>alert('success')</script>";
+            } else {
+                $conn->error;
+            }
         } else {
-            $conn->error;
+            echo "<script>alert('Form Should Not Be Submit Blank')</script>";
         }
         $conn->close();
     }
@@ -145,7 +154,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addDeptLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="addDeptLabel">Update Expenditure</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -153,16 +162,19 @@
                         <input type="hidden" name="id10" id="id10">
                         <div class="form-group">
                             <label for="DepartmentName">Expenditure Name</label>
-                            <input type="text" class="form-control" name="expenditurename1" id="expenditure">
+                            <input type="text" class="form-control" name="expenditurename1" id="expenditure"
+                                oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="DepartmentName">Fixed Cost</label>
-                            <input type="text" class="form-control" name="fixedcost1" id="fixedcost">
+                            <input type="text" class="form-control" name="fixedcost1" id="fixedcost"
+                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                         </div>
                         <div class="form-group">
                             <div class="mb-2">
                                 <label for="duration" class="form-label">Duration</label>
-                                <select class="form-select" name="duration1" id="duration">
+                                <select class="form-select" name="duration1" id="duration" required>
                                     <option value="" selected>Select Month</option>
                                     <option value="1month">1 Month</option>
                                     <option value="2months">2 Months</option>
@@ -207,7 +219,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js?v=1.7"></script>
+    <script src="assets/js/scripts.js?v=1.8"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>

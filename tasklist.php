@@ -110,7 +110,7 @@
                                                     LEFT JOIN assign_task at ON pt.id = at.task_id
                                                     GROUP BY pt.id, pt.pro_id, pt.task_title, pt.start_date, pt.end_date ORDER BY 
                                                         CASE 
-                                                             WHEN status = 'Not Started' THEN 1
+                                                            WHEN status = 'Not Started' THEN 1
                                                             WHEN status = 'Started' THEN 2
                                                             WHEN status = 'Testing' THEN 3
                                                             WHEN status = 'Complete' THEN 4
@@ -122,15 +122,13 @@
                                     $slno = 1;
                                     while ($row = $result->fetch_assoc()) {
                                         $id = $row['pro_task_id'];
+                                        $pro_id = $row["pro_id"];
+                                        $sql1 = "SELECT * FROM project WHERE id = $pro_id";
+                                        $result1 = $conn->query($sql1);
+                                        $row1 = $result1->fetch_assoc();
                                         ?>
                                         <tr>
                                             <td><?php echo $slno; ?></td>
-                                            <?php
-                                            $pro_id = $row["pro_id"];
-                                            $sql1 = "SELECT * FROM project WHERE id = $pro_id";
-                                            $result1 = $conn->query($sql1);
-                                            $row1 = $result1->fetch_assoc();
-                                            ?>
                                             <td><?php echo $row1["pro_name"]; ?></td>
                                             <td><?php echo $row["task_title"]; ?></td>
                                             <td><?php echo $row["start_date"]; ?></td>
@@ -167,8 +165,6 @@
                                                 </a>
                                             </td>
                                         </tr>
-
-
                                         <div class="modal fade" id="paragraphmodal_<?php echo $id; ?>" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
@@ -183,14 +179,6 @@
                                                     $result17 = $conn->query($sql17);
                                                     $row17 = $result17->fetch_assoc();
                                                     ?>
-                                                    <!-- <div class="modal-body">
-                                                                <div class="row g-3">
-                                                                    <div class="col-md-12">
-                                                                        <strong>Project Description:</strong>
-                                                                        <?php echo $row17["description"]; ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
                                                     <div class="modal-body">
                                                         <div class="row g-3">
                                                             <div class="col-md-12">
@@ -202,7 +190,7 @@
                                                                 <?php } else { ?>
                                                                     <textarea class="form-control form-control-line" rows="6"
                                                                         cols="80"
-                                                                        readonly>                                                                                                                                            <?php echo htmlspecialchars($row17["description"]); ?></textarea>
+                                                                        readonly><?php echo htmlspecialchars($row17["description"]); ?></textarea>
                                                                 <?php } ?>
                                                                 <?php if ($em_role == '1') { ?>
                                                                     <textarea class='txtedit'
@@ -247,7 +235,7 @@
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="Project_Name" class="form-label">Project Name</label>
-                                    <select class="form-select" name="project_name" required>
+                                    <select class="form-select" name="project_name">
                                         <option value="" disabled selected>Select a project</option>
                                         <?php
                                         include "common/conn.php";
@@ -265,27 +253,25 @@
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="ProjectTitle" class="form-label">Task Title</label>
-                                    <input type="text" class="form-control" id="Project_Title" name="Project_Title"
-                                        required>
+                                    <input type="text" class="form-control" id="Project_Title" name="Project_Title">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="startDate" class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="start_Date" name="start_Date" required>
+                                    <input type="date" class="form-control" id="start_Date" name="start_Date">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="ProjectEndDate" class="form-label">End Date</label>
-                                    <input type="date" class="form-control" name="Project_EndDate" id="Project_EndDate"
-                                        required>
+                                    <input type="date" class="form-control" name="Project_EndDate" id="Project_EndDate">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-2">
                                     <label for="assigned_users" class="form-label">Manager</label>
-                                    <select class="form-control" name="assigned_users" id="assigned_users" required>
+                                    <select class="form-control" name="assigned_users" id="assigned_users">
                                         <option value="" disabled selected>Select a user</option>
                                         <?php
                                         include "common/conn.php";
@@ -342,7 +328,8 @@
                             <div class="mb-2">
                                 <label for="ProjectDescription" class="form-label">Project Description</label>
                                 <textarea class="form-control" id="ProjectDescription" name="ProjectDescription"
-                                    rows="4" required></textarea>
+                                    rows="4">
+                                </textarea>
                             </div>
                         </div>
                         <div class="modal-footer">

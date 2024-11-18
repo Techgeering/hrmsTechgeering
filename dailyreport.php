@@ -216,16 +216,12 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="row">
-                            <!-- <div class="col-12">
-                                <label for="datee" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="datee" name="datee1">
-                            </div> -->
                             <div class="col-12">
                                 <label for="datee" class="form-label">Date</label>
                                 <input type="date" class="form-control" id="datee" name="datee1" required>
                             </div>
                             <div id="form-container">
-                                <div class="product-group">
+                                <div class="product-group11">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-2">
@@ -256,11 +252,11 @@
                                             <input type="text" class="form-control duration-input" name="duration[]"
                                                 pattern="^([0-9]|[01][0-9]|2[0-3]):([0-5][0-9])$" required>
                                             <small class="form-text text-muted">Format: HH:MM (e.g., 02:30 for 2 hours
-                                                and
-                                                30 minutes)</small>
+                                                and 30
+                                                minutes)</small>
                                             <div class="error-message" style="color: red; display: none;">The total
-                                                duration
-                                                cannot exceed 8 hours (480 minutes).</div>
+                                                duration cannot
+                                                exceed 8 hours (480 minutes).</div>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center">
@@ -270,13 +266,13 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -419,25 +415,36 @@
     <script src="assets/js/datatables-simple-demo.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function () {
-            // Clone product form group
-            $(document).on('click', '.add-product', function () {
-                console.log('Add button clicked'); // Debugging message
-                var productGroup = $('.product-group').first().clone(); // Clone the first group
-                productGroup.find('input').val(''); // Clear input values in the cloned group
-                productGroup.find('textarea').val(''); // Clear textarea values in the cloned group
-                productGroup.find('select').prop('selectedIndex', 0); // Reset dropdowns
-                $('#form-container').append(productGroup); // Append cloned group to the form container
-                console.log('Product group added'); // Debugging message
+        document.addEventListener('DOMContentLoaded', function () {
+            const formContainer = document.getElementById('form-container');
+
+            // Event listener for adding new project field
+            formContainer.addEventListener('click', function (event) {
+                if (event.target.classList.contains('add-product')) {
+                    event.preventDefault();
+
+                    // Clone the .product-group11 element
+                    const newProductGroup = formContainer.querySelector('.product-group11').cloneNode(true);
+
+                    // Clear the input fields in the new clone
+                    newProductGroup.querySelector('select').value = '';
+                    newProductGroup.querySelector('textarea').value = '';
+                    newProductGroup.querySelector('.duration-input').value = '';
+
+                    // Append the new clone to the form container
+                    formContainer.appendChild(newProductGroup);
+                }
             });
 
-            // Remove product form group
-            $(document).on('click', '.remove-product', function () {
-                if ($('.product-group').length > 1) {
-                    $(this).closest('.product-group').remove(); // Remove the closest product group
-                    console.log('Product group removed'); // Debugging message
-                } else {
-                    alert('At least one data must remain.');
+            // Event listener for removing project fields
+            formContainer.addEventListener('click', function (event) {
+                if (event.target.classList.contains('remove-product')) {
+                    event.preventDefault();
+
+                    // Only remove if there is more than one product group
+                    if (formContainer.querySelectorAll('.product-group11').length > 1) {
+                        event.target.closest('.product-group11').remove();
+                    }
                 }
             });
         });
@@ -484,7 +491,6 @@
             });
         });
     </script>
-
     <!-- for date disable -->
     <script>
         const today = new Date().toISOString().split("T")[0];
@@ -515,7 +521,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>

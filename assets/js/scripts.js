@@ -51,6 +51,12 @@ function myfcn1(idx, DepartmentName) {
     document.getElementById("id1").value = idx;
     document.getElementById("DepartmentNamee").value = DepartmentName;
 }
+/* for service id get */
+function myfcn13(idx, servicenm, hsn_nm) {
+    document.getElementById("id13").value = idx;
+    document.getElementById("servicenm").value = servicenm;
+    document.getElementById("hsn_nm").value = hsn_nm;
+}
 /* for department id get */
 function myfcn2(idx, DesignationNamee) {
     document.getElementById("id2").value = idx;

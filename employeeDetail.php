@@ -1610,7 +1610,6 @@
             <?php include 'common/copyrightfooter.php' ?>
         </div>
     </div>
-
     <!-- payroll modal -->
     <div class="modal fade" id="addpayroll" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -1686,7 +1685,7 @@
         $travel = $_POST["travel"];
         $performancebonus = $_POST["performancebonus"];
 
-        if (!empty($basic) && !empty($houserent) && !empty($medical) && !empty($travel) && !empty($performancebonus)) {
+        if (!empty($basic) && !empty($houserent) && !empty($medical)) {
 
             $sqlearn = "INSERT INTO earnings (emp_id, basic, house_rent, medical, travel, perform_bonus) VALUES ('$empId','$basic','$houserent','$medical', '$travel','$performancebonus')";
             if ($conn->query($sqlearn) === true) {

@@ -249,14 +249,16 @@
                                         <div class="mb-2">
                                             <label for="year" class="form-label">EPF</label>
                                             <input type="text" class="form-control" name="Epf" id="Epf"
-                                                oninput="calculateGrossDeduction()">
+                                                oninput="calculateGrossDeduction()"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mb-2">
                                             <label for="year" class="form-label">TDS</label>
                                             <input type="text" class="form-control" name="tds" id="Tds"
-                                                oninput="calculateGrossDeduction()">
+                                                oninput="calculateGrossDeduction()"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                         </div>
                                     </div>
                                 </div>
@@ -265,14 +267,16 @@
                                         <div class="mb-2">
                                             <label for="insurance" class="form-label">Insurance</label>
                                             <input type="text" class="form-control" name="insurance" id="Insurance"
-                                                value="0" oninput="calculateGrossDeduction()">
+                                                value="0" oninput="calculateGrossDeduction()"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mb-2">
                                             <label for="other" class="form-label">Other Deduction</label>
                                             <input type="text" class="form-control" name="other" id="Other"
-                                                oninput="calculateGrossDeduction()">
+                                                oninput="calculateGrossDeduction()"
+                                                oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                         </div>
                                     </div>
                                     <div class="col-4">
