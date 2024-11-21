@@ -5,13 +5,61 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Daily Report - Hrms Techgeering</title>
+    <title>Employee Details - Hrms Techgeering</title>
     <link rel="icon" type="image/png" href="assets/img/favicon-t.png">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link href="assets/css/styles.css?v=<?php echo time(); ?>" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 12px;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+            animation: fadeEffect 1s;
+        }
+
+        /* Go from zero to full opacity */
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body class="sb-nav-fixed">
@@ -37,18 +85,19 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="my-2">Daily Report</h2>
+                        <h3 class="my-2">Daily Report</h3>
+                    </div>
+                    <div class="tab profile ">
+                        <button class="tablinks" onclick="openDilog(event, 'Daily')" id="defaultOpen"> Daily</button>
+                        <button class="tablinks" onclick="openDilog(event, 'Weekly')" id="defaultOpen"> Weekly</button>
+                        <button class="tablinks" onclick="openDilog(event, 'Monthly')"> Monthly </button>
+                        <button class="tablinks" onclick="openDilog(event, 'Quarterly')"> Quarterly </button>
+                    </div>
+                    <div id="Daily" class="tabcontent">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i> Daily Report
                         </button>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="btn-group mb-3">
-                                <button type="button" class="btn btn-primary" id="weeklyBtn">Weekly</button>
-                                <button type="button" class="btn btn-secondary" id="monthlyBtn">Monthly</button>
-                                <button type="button" class="btn btn-success" id="quarterlyBtn">Quarterly</button>
-                            </div>
+                        <div class="card p-2 m-2">
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
@@ -66,7 +115,6 @@
                                     <?php
                                     include "common/conn.php";
                                     if ($em_role == '4' || $em_role == '2' || $em_role == '5') {
-                                        // $sql = "SELECT * FROM daily_report ORDER BY date21 DESC WHERE emp_id = '$userid'";
                                         $sql = "SELECT * FROM daily_report WHERE emp_id = '$em_code' ORDER BY date21 DESC";
                                     } else {
                                         $sql = "SELECT * FROM daily_report ORDER BY date21 DESC";
@@ -119,16 +167,6 @@
                                                 </td>
                                                 <td><?php echo $row["duration"]; ?></td>
                                                 <td>
-                                                    <!-- <button type="button" class="btn btn-light" onclick='myfcn12(
-                                                            <?php //echo json_encode($row["id"]); ?>,
-                                                            <?php //echo json_encode($row["pro_id"]); ?>,
-                                                            <?php //echo json_encode($row["work_details"]); ?>,
-                                                            <?php // echo json_encode($row["duration"]); ?>,
-                                                            <?php //echo json_encode($row["date21"]); ?>
-                                                        )' data-bs-toggle="modal" data-bs-target="#updateDept">
-                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                    </button> -->
-
                                                     <button type="button" class="btn btn-light" onclick="myfcn12(
                                                     <?php echo $row['id']; ?>,
                                                             '<?php echo addslashes($row['pro_id']); ?>',
@@ -138,16 +176,6 @@
                                                         )" data-bs-toggle="modal" data-bs-target="#updateDept">
                                                         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
                                                     </button>
-
-                                                    <?php
-                                                    // if ($row["date21"] == $today || $row["date21"] == $yesterday) {
-                                                    //     echo '<button type="button" class="btn btn-light"
-                                                    //         onclick="myfcn12(' . $row['id'] . ', \'' . $row['pro_id'] . '\', \'' . $row['work_details'] . '\', \'' . $row['duration'] . '\', \'' . $row['date21'] . '\')"
-                                                    //         data-bs-toggle="modal" data-bs-target="#updateDept">
-                                                    //         <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                    //     </button>';
-                                                    // }
-                                                    ?>
                                                 </td>
                                                 <td>
                                                     <a href="dayinvoice.php?id=<?php echo $row["emp_id"]; ?>&&date=<?php echo $row["date21"]; ?>"
@@ -195,6 +223,301 @@
                                         <th>Duration</th>
                                         <th>Edit</th>
                                         <th>Pdf</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="Weekly" class="tabcontent">
+                        <div class="card p-2 m-2">
+                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered"
+                                cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Sl No</th>
+                                        <th class="text-center">Employee Id</th>
+                                        <th class="text-center">Employee Name</th>
+                                        <th class="text-center">Project Name</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Pdf</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include "common/conn.php";
+                                    // Get the start (Monday) and end (Saturday) of the previous week
+                                    $lastWeekStart = (new DateTime('last week'))->modify('monday')->format('Y-m-d');
+                                    $lastWeekEnd = (new DateTime('last week'))->modify('saturday')->format('Y-m-d');
+
+                                    if ($em_role == '4' || $em_role == '2' || $em_role == '5') {
+                                        $sql3 = "SELECT * FROM daily_report 
+                                                WHERE emp_id = '$em_code' 
+                                                AND DATE(date21) BETWEEN '$lastWeekStart' AND '$lastWeekEnd' GROUP BY emp_id";
+
+                                    } else {
+                                        $sql3 = "SELECT * FROM daily_report 
+                                            WHERE DATE(date21) BETWEEN '$lastWeekStart' AND '$lastWeekEnd' GROUP BY emp_id";
+                                    }
+
+                                    $result3 = $conn->query($sql3);
+                                    $slno = 1;
+
+                                    if ($result3 && $result3->num_rows > 0) {
+                                        while ($row3 = $result3->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <td class="text-center">
+                                                    <?php echo $row3["emp_id"]; ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $emp_id = $row3["emp_id"];
+                                                    $sql1 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
+                                                    $result1 = $conn->query($sql1);
+                                                    $row1 = $result1->fetch_assoc();
+                                                    echo htmlspecialchars($row1["full_name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $pro_id = $row3["pro_id"];
+                                                    if ($pro_id == 0) {
+                                                        echo "Other";
+                                                    } else {
+                                                        $sql12 = "SELECT * FROM project WHERE id = $pro_id";
+                                                        $result12 = $conn->query($sql12);
+
+                                                        if ($result12 && $result12->num_rows > 0) {
+                                                            $row12 = $result12->fetch_assoc();
+                                                            echo htmlspecialchars($row12["pro_name"], ENT_QUOTES, 'UTF-8');
+                                                        } else {
+                                                            echo "Project not found";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo $row3["date21"]; ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="weeklyinvoice.php?id=<?php echo $row3["emp_id"]; ?>&&startday=<?php echo $lastWeekStart; ?>&&endday=<?php echo $lastWeekEnd; ?>"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $slno++;
+                                        }
+                                    } else {
+                                        echo "No records found.";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="Monthly" class="tabcontent">
+                        <div class="card p-2 m-2">
+                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered"
+                                cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Sl No</th>
+                                        <th class="text-center">Emp Id</th>
+                                        <th class="text-center">Emp Name</th>
+                                        <th class="text-center">Month/Year</th>
+                                        <th class="text-center">Pdf</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportTableBody">
+                                    <?php
+                                    include "common/conn.php";
+                                    $previousMonthStart = (new DateTime('first day of last month'))->format('Y-m-d');
+                                    $previousMonthEnd = (new DateTime('last day of last month'))->format('Y-m-d');
+
+                                    if ($em_role == '4' || $em_role == '2' || $em_role == '5') {
+                                        $sql31 = "SELECT * FROM daily_report 
+                                                WHERE emp_id = '$em_code' 
+                                                AND DATE(date21) BETWEEN '$previousMonthStart' AND '$previousMonthEnd' 
+                                                GROUP BY emp_id";
+                                    } else {
+                                        $sql31 = "SELECT * FROM daily_report 
+                                            WHERE DATE(date21) BETWEEN '$previousMonthStart' AND '$previousMonthEnd' GROUP BY emp_id";
+                                    }
+
+                                    $result31 = $conn->query($sql31);
+                                    $slno = 1;
+
+                                    if ($result31 && $result31->num_rows > 0) {
+                                        while ($row31 = $result31->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <td class="text-center">
+                                                    <?php echo $row31["emp_id"]; ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $emp_id = $row31["emp_id"];
+                                                    $sql1 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
+                                                    $result1 = $conn->query($sql1);
+                                                    $row1 = $result1->fetch_assoc();
+                                                    echo htmlspecialchars($row1["full_name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php echo date("F Y", strtotime($row31["date21"])); ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="monthlyinvoice.php?id=<?php echo $row31["emp_id"]; ?>&&startdate=<?php echo $previousMonthStart; ?>&&enddate=<?php echo $previousMonthEnd; ?>"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $slno++;
+                                        }
+                                    } else {
+                                        echo "No records found.";
+                                    }
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th class="text-center">Sl No</th>
+                                        <th class="text-center">Emp Id</th>
+                                        <th class="text-center">Emp Name</th>
+                                        <th class="text-center">Month/Year</th>
+                                        <th class="text-center">Pdf</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="Quarterly" class="tabcontent">
+                        <div class="card p-2 m-2">
+                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered"
+                                cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Sl No</th>
+                                        <th class="text-center">Emp Id</th>
+                                        <th class="text-center">Emp Name</th>
+                                        <th class="text-center">Month/Year</th>
+                                        <th class="text-center">Pdf</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportTableBody">
+                                    <?php
+                                    // Get the current date
+                                    $currentDate = new DateTime();
+
+                                    // Extract the current year and month
+                                    $currentYear = (int) $currentDate->format('Y');
+                                    $currentMonth = (int) $currentDate->format('m');
+
+                                    // Determine the quarter based on the current month
+                                    if ($currentMonth >= 1 && $currentMonth <= 3) {
+                                        // Current quarter: Q1 (Jan-Mar), so previous quarter is Q4 of the previous year
+                                        $startDate = new DateTime(($currentYear - 1) . '-10-01');
+                                        $endDate = new DateTime(($currentYear - 1) . '-12-31');
+                                    } elseif ($currentMonth >= 4 && $currentMonth <= 6) {
+                                        // Current quarter: Q2 (Apr-Jun), so previous quarter is Q1
+                                        $startDate = new DateTime($currentYear . '-01-01');
+                                        $endDate = new DateTime($currentYear . '-03-31');
+                                    } elseif ($currentMonth >= 7 && $currentMonth <= 9) {
+                                        // Current quarter: Q3 (Jul-Sep), so previous quarter is Q2
+                                        $startDate = new DateTime($currentYear . '-04-01');
+                                        $endDate = new DateTime($currentYear . '-06-30');
+                                    } else {
+                                        // Current quarter: Q4 (Oct-Dec), so previous quarter is Q3
+                                        $startDate = new DateTime($currentYear . '-07-01');
+                                        $endDate = new DateTime($currentYear . '-09-30');
+                                    }
+                                    $startDate = $startDate->format('Y-m-d');
+                                    $endDate = $endDate->format('Y-m-d');
+
+                                    include "common/conn.php";
+                                    $previousMonthStart = (new DateTime('first day of last month'))->format('Y-m-d');
+                                    $previousMonthEnd = (new DateTime('last day of last month'))->format('Y-m-d');
+
+                                    if ($em_role == '4' || $em_role == '2' || $em_role == '5') {
+                                        $sql33 = "
+                                                SELECT * 
+                                                FROM daily_report 
+                                                WHERE emp_id = '$em_code' 
+                                                AND date21 BETWEEN '$startDate' AND '$endDate' 
+                                                GROUP BY emp_id";
+
+                                    } else {
+                                        $sql33 = "SELECT * FROM daily_report 
+                                            WHERE DATE(date21) BETWEEN '$startDate' AND '$endDate' GROUP BY emp_id";
+                                    }
+
+                                    $result33 = $conn->query($sql33);
+                                    $slno = 1;
+
+                                    if ($result33 && $result33->num_rows > 0) {
+                                        while ($row33 = $result33->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <td class="text-center">
+                                                    <?php echo $row33["emp_id"]; ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $emp_id = $row33["emp_id"];
+                                                    $sql1 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
+                                                    $result1 = $conn->query($sql1);
+                                                    $row1 = $result1->fetch_assoc();
+                                                    echo htmlspecialchars($row1["full_name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $date = strtotime($row33["date21"]);
+                                                    $month = date("n", $date); // Get the numeric month (1-12)
+                                                    $year = date("Y", $date); // Get the year
+                                            
+                                                    // Determine the quarter based on the month
+                                                    if ($month >= 1 && $month <= 3) {
+                                                        $quarterText = "4th Qtr(Jan-Mar)";
+                                                    } elseif ($month >= 4 && $month <= 6) {
+                                                        $quarterText = "1st Qtr(Apr-Jun)";
+                                                    } elseif ($month >= 7 && $month <= 9) {
+                                                        $quarterText = "2nd Qtr(Jul-Sep)";
+                                                    } else {
+                                                        $quarterText = "3rd Qtr(Oct-Dec)";
+                                                    }
+                                                    echo $quarterText . " " . $year;
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="quarterlyinvoice.php?id=<?php echo $row33["emp_id"]; ?>&&startdt=<?php echo $startDate; ?>&&enddt=<?php echo $endDate; ?>"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $slno++;
+                                        }
+                                    } else {
+                                        echo "No records found.";
+                                    }
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th class="text-center">Sl No</th>
+                                        <th class="text-center">Emp Id</th>
+                                        <th class="text-center">Emp Name</th>
+                                        <th class="text-center">Month/Year</th>
+                                        <th class="text-center">Pdf</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -413,7 +736,24 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function openDilog(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        document.getElementById("defaultOpen").click();
+    </script>
+    <!-- all for daily report -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const formContainer = document.getElementById('form-container');

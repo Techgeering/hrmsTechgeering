@@ -81,7 +81,8 @@
                                             </div>
                                             <div class="col-3">
                                                 <label>Total Amount</label>
-                                                <input type="text" class="form-control" name="totalamount1[]">
+                                                <input type="text" class="form-control" name="totalamount1[]"
+                                                    oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
                                             </div>
                                             <div class="col-3 mt-4">
                                                 <button type="button" class="btn btn-danger remove-product">-</button>
@@ -121,12 +122,16 @@
             $sql2 = "UPDATE project_invoice SET invoice_number='$invoicccc'  WHERE id = '$last_id'";
             if ($conn->query($sql2) === true) {
 
+                // if (!empty($date1) && !empty($gst1) && !empty($pro_value) && !empty($descriptions) && !empty($services) && !empty($hsns) && !empty($totalamounts)) {
+    
                 foreach ($descriptions as $index => $description) {
                     $invoice = $invoicccc;
                     $service = mysqli_real_escape_string($conn, $services[$index]);
                     $hsn = mysqli_real_escape_string($conn, $hsns[$index]);
                     $totalamount = mysqli_real_escape_string($conn, $totalamounts[$index]);
+
                     // Insert product data into the database
+    
                     $sql1 = "INSERT INTO invoice_details 
                 (invoice_number, description, service, hsn_num, total_amount) VALUES ('$invoice', '$description', '$service', '$hsn', '$totalamount')";
 
@@ -134,15 +139,18 @@
                         echo "Error: " . $sql1 . "<br>" . $conn->error;
                     }
                 }
+                // } else {
+                //     echo "<script>alert('Form Not Be Submit Blank.')</script>";
+                // }
                 echo "<script>window.location.href='billing.php';</script>";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
             }
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-        $conn->close();
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
     }
+    $conn->close();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

@@ -1,6 +1,5 @@
 <?php
 include "common/conn.php";
-
 $project_name = $_POST['project_name'];
 $projecttitle = $_POST['Project_Title'];
 $startdate = $_POST['start_Date'];

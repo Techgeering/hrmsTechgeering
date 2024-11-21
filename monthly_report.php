@@ -44,10 +44,12 @@
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Sl No</th>
-                                        <th>Date</th>
-                                        <th>Project Name</th>
-                                        <th>Duration</th>
+                                        <th class="text-center">Sl No</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Employee Id</th>
+                                        <th class="text-center">Employee Name</th>
+                                        <th class="text-center">Project Name</th>
+                                        <th class="text-center">Duration</th>
                                     </tr>
                                 </thead>
                                 <tbody id="reportTableBody">
@@ -59,12 +61,21 @@
                                     $lastDayOfPreviousMonth = (new DateTime($firstDayOfPreviousMonth))->modify('last day of this month')->format('Y-m-d');
 
                                     // Modified SQL query to get the total duration per project
-                                    $sql = "SELECT pro_id, DATE_FORMAT(date21, '%M %Y') AS month_year, 
-                                            DATE_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(duration))), '%H:%i') AS total_duration
-                                            FROM daily_report
-                                            WHERE date21 >= '$firstDayOfPreviousMonth' AND date21 <= '$lastDayOfPreviousMonth'
-                                            GROUP BY pro_id
-                                            ORDER BY pro_id DESC";
+                                    // $sql = "SELECT pro_id, DATE_FORMAT(date21, '%M %Y') AS month_year, 
+                                    //         DATE_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(duration))), '%H:%i') AS total_duration AND emp_id
+                                    //         FROM daily_report
+                                    //         WHERE date21 >= '$firstDayOfPreviousMonth' AND date21 <= '$lastDayOfPreviousMonth'
+                                    //         GROUP BY pro_id
+                                    //         ORDER BY pro_id DESC";
+                                    $sql = "SELECT pro_id, 
+                                            DATE_FORMAT(date21, '%M %Y') AS month_year, 
+                                            DATE_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(duration))), '%H:%i') AS total_duration, 
+                                            emp_id
+                                        FROM daily_report
+                                        WHERE date21 >= '$firstDayOfPreviousMonth' AND date21 <= '$lastDayOfPreviousMonth'
+                                        GROUP BY pro_id, emp_id
+                                        ORDER BY pro_id DESC";
+
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     if ($result->num_rows > 0) {
@@ -72,9 +83,19 @@
                                             $monthYear = $row["month_year"];
                                             ?>
                                             <tr>
-                                                <td><?php echo $slno; ?></td>
-                                                <td><?php echo $monthYear; ?></td>
-                                                <td>
+                                                <td class="text-center"><?php echo $slno; ?></td>
+                                                <td class="text-center"><?php echo $monthYear; ?></td>
+                                                <td class="text-center"><?php echo $row["emp_id"]; ?></td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $emp_id = $row["emp_id"];
+                                                    $sql1 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
+                                                    $result1 = $conn->query($sql1);
+                                                    $row1 = $result1->fetch_assoc();
+                                                    echo htmlspecialchars($row1["full_name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
                                                     <?php
                                                     $pro_id = $row["pro_id"];
                                                     if ($pro_id == 0) {
@@ -92,7 +113,7 @@
                                                     }
                                                     ?>
                                                 </td>
-                                                <td><?php echo $row["total_duration"]; ?></td>
+                                                <td class="text-center"><?php echo $row["total_duration"]; ?></td>
                                                 <!-- Display total duration per project -->
                                             </tr>
                                             <?php
@@ -106,10 +127,12 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Sl No</th>
-                                        <th>Date</th>
-                                        <th>Project Name</th>
-                                        <th>Duration</th>
+                                        <th class="text-center">Sl No</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Employee Id</th>
+                                        <th class="text-center">Employee Name</th>
+                                        <th class="text-center">Project Name</th>
+                                        <th class="text-center">Duration</th>
                                     </tr>
                                 </tfoot>
                             </table>
