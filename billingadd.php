@@ -37,11 +37,11 @@
                                 <div class="row">
                                     <div class="col-3">
                                         <label>Date</label>
-                                        <input type="date" class="form-control" id="datee" name="date1">
+                                        <input type="date" class="form-control" id="datee" name="date1" required>
                                     </div>
                                     <div class="col-3">
                                         <label for="gst">GST(%)</label>
-                                        <select class="form-control" id="gst" name="gst1">
+                                        <select class="form-control" id="gst" name="gst1" required>
                                             <option value="5">5%</option>
                                             <option value="12">12%</option>
                                             <option value="18" selected>18%</option>
@@ -51,7 +51,7 @@
                                     <div class="col-3">
                                         <label for="projectInput">Project Name:</label>
                                         <input type="text" id="projectInput" class="form-control"
-                                            placeholder="Enter project name" autocomplete="off">
+                                            placeholder="Enter project name" autocomplete="off" required>
 
                                         <div id="projectSuggestions" class="dropdown-menu"
                                             style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; position: absolute; z-index: 1000;">
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="col-3">
                                         <label>Description</label>
-                                        <input type="text" class="form-control" id="dess" name="des1[]">
+                                        <input type="text" class="form-control" id="dess" name="des1[]" required>
                                     </div>
                                 </div>
 
@@ -77,12 +77,13 @@
                                             </div>
                                             <div class="col-3">
                                                 <label>HSN</label>
-                                                <input type="text" class="form-control" name="hsn1[]" readonly>
+                                                <input type="text" class="form-control" name="hsn1[]" readonly required>
                                             </div>
                                             <div class="col-3">
                                                 <label>Total Amount</label>
                                                 <input type="text" class="form-control" name="totalamount1[]"
-                                                    oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                                                    oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();"
+                                                    required>
                                             </div>
                                             <div class="col-3 mt-4">
                                                 <button type="button" class="btn btn-danger remove-product">-</button>
@@ -112,38 +113,43 @@
         $hsns = $_POST["hsn1"];
         $totalamounts = $_POST["totalamount1"];
 
-        $sql = "INSERT INTO project_invoice (date, pro_gst, project_id) VALUES ('$date1','$gst1','$pro_value')";
-        if ($conn->query($sql) === true) {
-            $last_id = $conn->insert_id;
-            $monthNumber = date('m');
-            $year = date('Y');
-            $invoicccc = $year . $monthNumber . $last_id;
+        if (!empty($date1) && !empty($gst1) && !empty($pro_value) && !empty($descriptions) && !empty($services) && !empty($hsns) && !empty($totalamounts)) {
 
-            $sql2 = "UPDATE project_invoice SET invoice_number='$invoicccc'  WHERE id = '$last_id'";
-            if ($conn->query($sql2) === true) {
+            $sql = "INSERT INTO project_invoice (date, pro_gst, project_id) VALUES ('$date1','$gst1','$pro_value')";
+            if ($conn->query($sql) === true) {
+                $last_id = $conn->insert_id;
+                $monthNumber = date('m');
+                $year = date('Y');
+                $invoicccc = $year . $monthNumber . $last_id;
 
-                // if (!empty($date1) && !empty($gst1) && !empty($pro_value) && !empty($descriptions) && !empty($services) && !empty($hsns) && !empty($totalamounts)) {
+                $sql2 = "UPDATE project_invoice SET invoice_number='$invoicccc'  WHERE id = '$last_id'";
+                if ($conn->query($sql2) === true) {
+
+                    // if (!empty($date1) && !empty($gst1) && !empty($pro_value) && !empty($descriptions) && !empty($services) && !empty($hsns) && !empty($totalamounts)) {
     
-                foreach ($descriptions as $index => $description) {
-                    $invoice = $invoicccc;
-                    $service = mysqli_real_escape_string($conn, $services[$index]);
-                    $hsn = mysqli_real_escape_string($conn, $hsns[$index]);
-                    $totalamount = mysqli_real_escape_string($conn, $totalamounts[$index]);
+                    foreach ($descriptions as $index => $description) {
+                        $invoice = $invoicccc;
+                        $service = mysqli_real_escape_string($conn, $services[$index]);
+                        $hsn = mysqli_real_escape_string($conn, $hsns[$index]);
+                        $totalamount = mysqli_real_escape_string($conn, $totalamounts[$index]);
 
-                    // Insert product data into the database
+                        // Insert product data into the database
     
-                    $sql1 = "INSERT INTO invoice_details 
+                        $sql1 = "INSERT INTO invoice_details 
                 (invoice_number, description, service, hsn_num, total_amount) VALUES ('$invoice', '$description', '$service', '$hsn', '$totalamount')";
 
-                    if ($conn->query($sql1) !== true) {
-                        echo "Error: " . $sql1 . "<br>" . $conn->error;
+                        if ($conn->query($sql1) !== true) {
+                            echo "Error: " . $sql1 . "<br>" . $conn->error;
+                        }
                     }
+                } else {
+                    echo "<script>alert('Form Not Be Submit Blank.')</script>";
                 }
-                // } else {
-                //     echo "<script>alert('Form Not Be Submit Blank.')</script>";
-                // }
                 echo "<script>window.location.href='billing.php';</script>";
             }
+            // } else {
+            //     echo "<script>alert('Billing form cannot be blank.')</script>";
+            // }
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

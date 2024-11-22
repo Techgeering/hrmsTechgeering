@@ -449,12 +449,18 @@
                                                                 $sql34 = "SELECT * FROM employee WHERE em_code = '$asign_manager' AND em_role = '2'";
                                                                 $result34 = $conn->query($sql34);
                                                                 $row34 = $result34->fetch_assoc();
-                                                                echo $row34["full_name"];
+
+                                                                if (isset($row34["full_name"]) && $row34["full_name"] !== NULL && $row34["full_name"] !== "") {
+                                                                    echo $row34["full_name"];
+                                                                } else {
+                                                                    echo "No manager";
+                                                                }
                                                                 ?>
                                                             </p>
                                                             <select class='txtedit' value='<?php echo $row1['assign_user']; ?>'
                                                                 id='assign_user-<?php echo $row1["team_head_id"]; ?>-assign_task'
                                                                 style="display: none;">
+                                                                <option value="">Select Manager</option>
                                                                 <?php
                                                                 include "common/conn.php";
                                                                 $sqlproject = "SELECT * FROM employee WHERE em_role = '2'";
@@ -466,13 +472,20 @@
                                                                 <?php } ?>
                                                             </select>
                                                         <?php } else { ?>
-                                                            <p><?php
-                                                            $asign_manager = $row1['assigned_manager'];
-                                                            $sql34 = "SELECT * FROM employee WHERE em_code = '$asign_manager' AND em_role = '2'";
-                                                            $result34 = $conn->query($sql34);
-                                                            $row34 = $result34->fetch_assoc();
-                                                            echo $row34["full_name"];
-                                                            ?></p>
+                                                            <p>
+                                                                <?php
+                                                                $asign_manager = $row1['assigned_manager'];
+                                                                $sql34 = "SELECT * FROM employee WHERE em_code = '$asign_manager' AND em_role = '2'";
+                                                                $result34 = $conn->query($sql34);
+                                                                $row34 = $result34->fetch_assoc();
+
+                                                                if (isset($row34["full_name"]) && $row34["full_name"] !== NULL && $row34["full_name"] !== "") {
+                                                                    echo $row34["full_name"];
+                                                                } else {
+                                                                    echo "No manager";
+                                                                }
+                                                                ?>
+                                                            </p>
                                                         <?php } ?>
                                                     </td>
                                                     <td class="text-center">
@@ -614,7 +627,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line"
                                                                                 rows="6" cols="80" readonly>
-                                                                                                                                                                                                                                                                                                                                                          <?php echo htmlspecialchars($row17["description"]); ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <?php echo htmlspecialchars($row17["description"]); ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -947,7 +960,7 @@
                                                                         <?php } else { ?>
                                                                             <textarea class="form-control form-control-line col-6"
                                                                                 rows="6" col="80" readonly>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <?php echo $row18["description"]; ?></textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <?php echo $row18["description"]; ?></textarea>
                                                                         <?php } ?>
                                                                         <?php if ($em_role == '1') { ?>
                                                                             <textarea class='txtedit'
@@ -1570,9 +1583,9 @@
                                         <?php
                                         include "common/conn.php";
                                         if ($em_role == '2') {
-                                            $sql5 = "SELECT * FROM employee WHERE em_role = '4' AND dep_id = '$dept'";
+                                            $sql5 = "SELECT * FROM employee WHERE em_role IN ('4', '5') AND dep_id = '$dept'";
                                         } else {
-                                            $sql5 = "SELECT * FROM employee WHERE em_role = '4'";
+                                            $sql5 = "SELECT * FROM employee WHERE em_role IN ('4', '5')";
                                         }
                                         $result5 = $conn->query($sql5);
                                         while ($row5 = $result5->fetch_assoc()) {

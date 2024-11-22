@@ -111,7 +111,6 @@
                                                         echo "Error connecting to the database: " . mysqli_connect_error();
                                                     }
                                                     ?>
-
                                                 </h5>
                                                 <p class="tx-12 text-muted">
                                                     <?php

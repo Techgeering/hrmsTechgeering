@@ -64,7 +64,17 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM purchase";
+                                    // $sql = "SELECT * FROM purchase";
+                                    if ($em_role == '1' || $em_role == '3') {
+                                        $sql = "SELECT * FROM purchase";
+                                    } else {
+                                        $sql = "SELECT p.*, 
+                                                GROUP_CONCAT(CASE WHEN at.user_type = 'Collaborators' THEN at.assign_user END SEPARATOR ',') AS assign_users
+                                                FROM purchase p
+                                                LEFT JOIN assign_task at ON p.pro_id = at.project_id
+                                                WHERE FIND_IN_SET('$em_code', at.assign_user) > 0
+                                                GROUP BY p.pro_id";
+                                    }
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     if ($result->num_rows > 0) {

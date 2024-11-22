@@ -60,8 +60,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php"; // Make sure this file exists and contains database connection code
-                                    if ($em_role == '1' || $em_role == '2' || $em_role == '3') {
-                                        // $sql = "SELECT * FROM project";
+                                    if ($em_role == '1' || $em_role == '3') {
                                         $sql = "SELECT * FROM project 
                                                     ORDER BY 
                                                         CASE 

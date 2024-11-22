@@ -4,7 +4,10 @@ $project_name = $_POST['project_name'];
 $projecttitle = $_POST['Project_Title'];
 $startdate = $_POST['start_Date'];
 $enddate = $_POST['Project_EndDate'];
-$assigned_users = $_POST['assigned_users'];
+// $assigned_users = $_POST['assigned_users'];
+$assigned_users = isset($_POST['assigned_users']) && !empty($_POST['assigned_users'])
+    ? $_POST['assigned_users']
+    : "NULL";
 $assigned_users1 = $_POST['assigned_users1']; // This will be an array
 $office = $_POST['office'];
 $Status = $_POST['Status'];
