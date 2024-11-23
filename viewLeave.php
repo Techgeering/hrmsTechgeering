@@ -314,7 +314,8 @@ session_start(); {
             // Upload file to server
             if (move_uploaded_file($_FILES["supportingdocument"]["tmp_name"], $targetFilePath)) {
                 // $checkQuery = "SELECT * FROM emp_leave WHERE em_id = '$empId' AND $StartDate BETWEEN start_date AND end_date";
-                $checkQuery = "SELECT COUNT(*) AS count FROM emp_leave WHERE  em_id = '$empId' AND '$StartDate' BETWEEN start_date AND end_date";
+                $checkQuery = "SELECT COUNT(*) AS count FROM emp_leave WHERE  em_id = '$empId' AND leave_status IN (0, 1, 2)  AND '$StartDate' BETWEEN start_date AND end_date";
+           
                 $result_query = $conn->query($checkQuery);
 
                  $rowvfvf = $result_query->num_rows;
@@ -334,7 +335,7 @@ session_start(); {
                 echo "<script>alert('Error uploading file.');</script>";
             }
         } else {
-            $checkQuery1 = "SELECT COUNT(*) AS count FROM emp_leave WHERE em_id = '$empId' AND '$StartDate' BETWEEN start_date AND end_date";
+            $checkQuery1 = "SELECT COUNT(*) AS count FROM emp_leave WHERE em_id = '$empId' AND leave_status IN (0, 1, 2)  AND '$StartDate' BETWEEN start_date AND end_date";
             $result_query1 = $conn->query($checkQuery1);
             $row = $result_query1->fetch_assoc();
             $count = $row['count'];
