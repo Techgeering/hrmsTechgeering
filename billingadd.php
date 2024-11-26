@@ -51,7 +51,7 @@
                                     <div class="col-3">
                                         <label for="projectInput">Project Name:</label>
                                         <input type="text" id="projectInput" class="form-control"
-                                            placeholder="Enter project name" autocomplete="off" required>
+                                            placeholder="Enter project name...." autocomplete="off" required>
 
                                         <div id="projectSuggestions" class="dropdown-menu"
                                             style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; position: absolute; z-index: 1000;">
@@ -71,8 +71,9 @@
                                         <div class="row">
                                             <div class="col-3">
                                                 <label>Service</label>
-                                                <input type="text" class="form-control" placeholder="Enter service name"
-                                                    name="service[]" oninput="showSuggestions(this.value, this)">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Enter service name...." name="service[]"
+                                                    oninput="showSuggestions(this.value, this)">
                                                 <div class="suggestion-dropdown" style="display:none;"></div>
                                             </div>
                                             <div class="col-3">

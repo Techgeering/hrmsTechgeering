@@ -224,22 +224,44 @@ session_start(); {
                                 value="<?php echo $emp_id; ?>" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="Leavetype">Leave type</label>
-                            <select name="Leavetype" id="Leavetype" class="form-control" required>
-                                <option value="">Leave type</option>
-                                <?php
-                                include "common/conn.php";
-                                $result = mysqli_query($conn, "SELECT * FROM  leave_types where status = 1");
-                                while ($row = mysqli_fetch_array($result)) {
-                                    ?>
-                                    <option value="<?php echo $row['type_id']; ?>">
-                                        <?php echo $row["name"]; ?>
-                                    </option>
-                                    <?php
+                        <label for="Leavetype">Leave type</label>
+                        <select name="Leavetype" id="Leavetype" class="form-control" required>
+                            <option value="">Leave type</option>
+                            <?php
+                            include "common/conn.php";
+                                $sql4 = "SELECT * FROM leave_types";
+                                $result4 = $conn->query($sql4);
+
+                                if ($result4->num_rows > 0) {
+                                    while ($row4 = $result4->fetch_assoc()) {
+                                        $leaveType = $row4["type_id"];
+                                        $leave_day = $row4["leave_day"];
+
+                                        $sqlTakenLeave = "SELECT SUM(leave_duration) AS taken_leave 
+                                        FROM emp_leave 
+                                        WHERE typeid = '$leaveType' 
+                                        AND em_id = '$emp_id' 
+                                        AND leave_status = 1";
+                                        $resultTakenLeave = $conn->query($sqlTakenLeave);
+                                        $takenLeave = 0;
+                                
+                                        if ($resultTakenLeave->num_rows > 0) {
+                                            $rowTakenLeave = $resultTakenLeave->fetch_assoc();
+                                            $takenLeave = $rowTakenLeave["taken_leave"] ?? 0;
+                                        }
+                                        $rest_leave = $leave_day - $takenLeave;
+                                        ?>
+                                        <option value="<?php echo $row4['type_id']; ?>" <?php echo ($rest_leave <= 0) ? 'disabled' : ''; ?>>
+                                            <?php echo $row4["name"]; ?>
+                                        </option>
+                                        <?php
+                                    }
                                 }
                                 ?>
                             </select>
                         </div>
+
+
                         <div class="form-group">
                             <label for="StartDate">Start Date</label>
                             <input type="date" class="form-control" id="StartDate" name="StartDate" required>

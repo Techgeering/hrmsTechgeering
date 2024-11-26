@@ -73,9 +73,22 @@
                                                         echo htmlspecialchars($row1["pro_name"], ENT_QUOTES, 'UTF-8');
                                                     }
                                                     ?>
-
                                                 </td>
-                                                <td><?php echo $row["assign_to"]; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $em_id = $row["assign_to"];
+                                                    $sql11 = "SELECT * FROM employee WHERE em_code = '$em_id'";
+                                                    $result11 = $conn->query($sql11);
+
+                                                    // Fetch the result and check if it's NULL
+                                                    if ($result11 && $result11->num_rows > 0) {
+                                                        $row11 = $result11->fetch_assoc();
+                                                        echo htmlspecialchars($row11["full_name"], ENT_QUOTES, 'UTF-8');
+                                                    } else {
+                                                        echo "NULL"; // Display "NULL" if no record is found
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td><?php echo $row["particulars"]; ?></td>
                                                 <td><?php echo $row["deposite"]; ?></td>
                                                 <td><?php echo $row["withdraw"]; ?></td>
@@ -110,7 +123,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-6">
+                                <!-- <div class="col-6">
                                     <div class="mb-2">
                                         <label for="Project_Name" class="form-label">Receiver From</label>
                                         <select class="form-select" name="Project_Name" id="Project_Name" required
@@ -129,6 +142,18 @@
                                                 </option>
                                             <?php } ?>
                                         </select>
+                                    </div>
+                                </div> -->
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="projectInput">Project Name:</label>
+                                        <input type="text" id="projectInput" class="form-control"
+                                            placeholder="Enter project name...." autocomplete="off" required>
+                                        <div id="projectSuggestions" class="dropdown-menu"
+                                            style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; position: absolute; z-index: 1000;">
+                                        </div>
+                                        <!-- Hidden input to store project ID -->
+                                        <input type="hidden" id="projectId" name="pro_value">
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -156,6 +181,16 @@
                                     <div class="mb-2" id="assigned_users_container">
                                         <select class="form-control" name="assigned_users" id="assigned_users">
                                             <option value="" disabled selected>Select a user</option>
+                                            <?php
+                                            include "common/conn.php";
+                                            $sql_emp = "SELECT * FROM employee ";
+                                            $result_emp = $conn->query($sql_emp);
+                                            while ($row_emp = $result_emp->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row_emp['em_code']; ?>">
+                                                    <?php echo $row_emp['full_name']; ?>
+                                                </option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -173,7 +208,7 @@
     <?php
     include "common/conn.php";
     if (isset($_POST['submit'])) {
-        $Project_Name = htmlspecialchars($_POST["Project_Name"]);
+        $Project_Name = htmlspecialchars($_POST["pro_value"]);
         $assigned_users = $_POST["assigned_users"];
         $particulars = $_POST["particular"];
         $taxtype = $_POST["taxtype"];
@@ -221,7 +256,7 @@
 
         // Insert the new transaction along with the updated balance
         $sql = "INSERT INTO account (pro_id, assign_to, particulars, tex_type, gst, deposite, withdraw, balance, balance_T, date, date_time) 
-            VALUES ('$Project_Name',' $assigned_users','$particulars', 'GST', '$gst', '$deposit', '$withdraw', '$current_balance', '$current_balance_T', '$date', '$datetime')";
+            VALUES ('$Project_Name','$assigned_users','$particulars', 'GST', '$gst', '$deposit', '$withdraw', '$current_balance', '$current_balance_T', '$date', '$datetime')";
         if ($conn->query($sql) === TRUE) {
 
             if (!empty($deposit)) {
@@ -327,6 +362,56 @@
             if (withdrawInput.value.trim() !== '' && assignedUsersField.value.trim() === '') {
                 event.preventDefault();
                 alert('Assigned Users field is required when withdrawing.');
+            }
+        });
+    </script>
+    <!-- for project name suggetions -->
+    <script>
+        document.getElementById('projectInput').addEventListener('input', function () {
+            const selectedProject = this.value;
+            const suggestionsContainer = document.getElementById('projectSuggestions');
+            if (selectedProject) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'get_projects.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onload = function () {
+                    if (this.status === 200) {
+                        const projects = JSON.parse(this.responseText);
+                        suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+
+                        if (projects.length > 0) {
+                            projects.forEach(project => {
+                                // Create a suggestion item
+                                const suggestionItem = document.createElement('div');
+                                suggestionItem.textContent = project.pro_name; // Adjust this according to your data
+                                suggestionItem.className = 'dropdown-item';
+                                suggestionItem.style.cursor = 'pointer';
+
+                                // When a suggestion is clicked
+                                suggestionItem.addEventListener('click', function () {
+                                    document.getElementById('projectInput').value = project.pro_name;
+                                    document.getElementById('projectId').value = project.id; // Store the project ID
+                                    suggestionsContainer.style.display = 'none'; // Hide suggestions
+                                });
+
+                                suggestionsContainer.appendChild(suggestionItem);
+                            });
+                            suggestionsContainer.style.display = 'block'; // Show suggestions
+                        } else {
+                            suggestionsContainer.style.display = 'none'; // Hide if no suggestions
+                        }
+                    }
+                };
+                xhr.send('pro_name=' + encodeURIComponent(selectedProject));
+            } else {
+                suggestionsContainer.style.display = 'none'; // Hide if input is empty
+            }
+        });
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!document.getElementById('projectInput').contains(e.target)) {
+                document.getElementById('projectSuggestions').style.display = 'none';
             }
         });
     </script>

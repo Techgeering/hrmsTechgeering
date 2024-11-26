@@ -549,20 +549,28 @@
                                         <div class="col-12">
                                             <div class="mb-2">
                                                 <label for="Project_Name" class="form-label">Project Name</label>
-                                                <select class="form-select" name="project_name[]" required>
+                                                <!-- <select class="form-select" name="project_name[]" required>
                                                     <option value="" disabled selected>Select a Project</option>
                                                     <option value="0">Other</option>
                                                     <?php
-                                                    include "common/conn.php";
-                                                    $sql_pro = "SELECT * FROM project";
-                                                    $result_pro = $conn->query($sql_pro);
-                                                    while ($row_pro = $result_pro->fetch_assoc()) {
-                                                        ?>
-                                                        <option value="<?php echo $row_pro['id']; ?>">
-                                                            <?php echo $row_pro['pro_name']; ?>
+                                                    // include "common/conn.php";
+                                                    // $sql_pro = "SELECT * FROM project";
+                                                    // $result_pro = $conn->query($sql_pro);
+                                                    // while ($row_pro = $result_pro->fetch_assoc()) {
+                                                    ?>
+                                                        <option value="<?php //echo $row_pro['id']; ?>">
+                                                            <?php //echo $row_pro['pro_name']; ?>
                                                         </option>
-                                                    <?php } ?>
-                                                </select>
+                                                    <?php //} ?>
+                                                </select> -->
+
+                                                <input type="text" id="projectInput" class="form-control"
+                                                    placeholder="Enter project name...." autocomplete="off" required>
+                                                <div id="projectSuggestions" class="dropdown-menu"
+                                                    style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; position: absolute; z-index: 1000;">
+                                                </div>
+                                                <!-- Hidden input to store project ID -->
+                                                <input type="hidden" id="projectId" name="project_name[]">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -758,75 +766,94 @@
         document.addEventListener('DOMContentLoaded', function () {
             const formContainer = document.getElementById('form-container');
 
-            // Event listener for adding new project field
+            // Function to attach suggestion functionality
+            function attachProjectInputEvents(inputField) {
+                const suggestionsContainer = inputField.parentElement.querySelector('#projectSuggestions');
+
+                inputField.addEventListener('input', function () {
+                    const selectedProject = this.value;
+                    if (selectedProject) {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'get_projects.php', true);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                        xhr.onload = function () {
+                            if (xhr.status === 200) {
+                                const projects = JSON.parse(xhr.responseText);
+                                suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+
+                                if (projects.length > 0) {
+                                    projects.forEach(project => {
+                                        // Create a suggestion item
+                                        const suggestionItem = document.createElement('div');
+                                        suggestionItem.textContent = project.pro_name; // Adjust according to your data
+                                        suggestionItem.className = 'dropdown-item';
+                                        suggestionItem.style.cursor = 'pointer';
+
+                                        // When a suggestion is clicked
+                                        suggestionItem.addEventListener('click', function () {
+                                            inputField.value = project.pro_name;
+                                            inputField.parentElement.querySelector('#projectId').value = project.id; // Store project ID
+                                            suggestionsContainer.style.display = 'none'; // Hide suggestions
+                                        });
+
+                                        suggestionsContainer.appendChild(suggestionItem);
+                                    });
+                                    suggestionsContainer.style.display = 'block'; // Show suggestions
+                                } else {
+                                    suggestionsContainer.style.display = 'none'; // Hide if no suggestions
+                                }
+                            }
+                        };
+                        xhr.send('pro_name=' + encodeURIComponent(selectedProject));
+                    } else {
+                        suggestionsContainer.style.display = 'none'; // Hide if input is empty
+                    }
+                });
+
+                // Hide suggestions when clicking outside
+                document.addEventListener('click', function (e) {
+                    if (!inputField.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                        suggestionsContainer.style.display = 'none';
+                    }
+                });
+            }
+
+            // Attach event listeners to existing project input fields
+            formContainer.querySelectorAll('#projectInput').forEach(attachProjectInputEvents);
+
+            // Add new project field
             formContainer.addEventListener('click', function (event) {
                 if (event.target.classList.contains('add-product')) {
                     event.preventDefault();
 
-                    // Clone the .product-group11 element
+                    // Clone the product group
                     const newProductGroup = formContainer.querySelector('.product-group11').cloneNode(true);
 
                     // Clear the input fields in the new clone
-                    newProductGroup.querySelector('select').value = '';
-                    newProductGroup.querySelector('textarea').value = '';
+                    newProductGroup.querySelector('#projectInput').value = '';
+                    newProductGroup.querySelector('#projectId').value = '';
+                    newProductGroup.querySelector('#workk').value = '';
                     newProductGroup.querySelector('.duration-input').value = '';
 
                     // Append the new clone to the form container
                     formContainer.appendChild(newProductGroup);
+
+                    // Attach event listeners to the new input field
+                    attachProjectInputEvents(newProductGroup.querySelector('#projectInput'));
                 }
             });
 
-            // Event listener for removing project fields
+            // Remove project field
             formContainer.addEventListener('click', function (event) {
                 if (event.target.classList.contains('remove-product')) {
                     event.preventDefault();
 
                     // Only remove if there is more than one product group
-                    if (formContainer.querySelectorAll('.product-group11').length > 1) {
+                    const productGroups = formContainer.querySelectorAll('.product-group11');
+                    if (productGroups.length > 1) {
                         event.target.closest('.product-group11').remove();
                     }
-                }
-            });
-        });
-    </script>
-    <!-- Inside your existing form structure -->
-
-    <!-- JavaScript for preventing duplicate project selections -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const formContainer = document.getElementById('form-container');
-            const addButton = document.querySelector('.add-product');
-
-            // Function to update project dropdowns based on selected projects
-            const updateProjectOptions = () => {
-                const selectedProjects = new Set();
-                // Gather all selected project values
-                formContainer.querySelectorAll('select[name="project_name[]"]').forEach(select => {
-                    if (select.value) selectedProjects.add(select.value);
-                });
-
-                // Disable already selected options in each dropdown
-                formContainer.querySelectorAll('select[name="project_name[]"]').forEach(select => {
-                    Array.from(select.options).forEach(option => {
-                        option.disabled = selectedProjects.has(option.value) && option.value !== select.value;
-                    });
-                });
-            };
-
-            // Event listener for adding new project fields
-            addButton.addEventListener('click', () => {
-                const productGroup = document.querySelector('.product-group').cloneNode(true);
-                productGroup.querySelector('select').value = '';
-                productGroup.querySelector('textarea').value = '';
-                productGroup.querySelector('input[name="duration[]"]').value = '';
-                formContainer.appendChild(productGroup);
-                updateProjectOptions();
-            });
-
-            // Listen for project selection change to update options
-            formContainer.addEventListener('change', (event) => {
-                if (event.target.name === 'project_name[]') {
-                    updateProjectOptions();
                 }
             });
         });
@@ -858,6 +885,56 @@
                 errorMessage.style.display = 'block'; // Show error message
             } else {
                 errorMessage.style.display = 'none'; // Hide error message
+            }
+        });
+    </script>
+    <!-- for project suggestions -->
+    <script>
+        document.getElementById('projectInput').addEventListener('input', function () {
+            const selectedProject = this.value;
+            const suggestionsContainer = document.getElementById('projectSuggestions');
+            if (selectedProject) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'get_projects.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onload = function () {
+                    if (this.status === 200) {
+                        const projects = JSON.parse(this.responseText);
+                        suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+
+                        if (projects.length > 0) {
+                            projects.forEach(project => {
+                                // Create a suggestion item
+                                const suggestionItem = document.createElement('div');
+                                suggestionItem.textContent = project.pro_name; // Adjust this according to your data
+                                suggestionItem.className = 'dropdown-item';
+                                suggestionItem.style.cursor = 'pointer';
+
+                                // When a suggestion is clicked
+                                suggestionItem.addEventListener('click', function () {
+                                    document.getElementById('projectInput').value = project.pro_name;
+                                    document.getElementById('projectId').value = project.id; // Store the project ID
+                                    suggestionsContainer.style.display = 'none'; // Hide suggestions
+                                });
+
+                                suggestionsContainer.appendChild(suggestionItem);
+                            });
+                            suggestionsContainer.style.display = 'block'; // Show suggestions
+                        } else {
+                            suggestionsContainer.style.display = 'none'; // Hide if no suggestions
+                        }
+                    }
+                };
+                xhr.send('pro_name=' + encodeURIComponent(selectedProject));
+            } else {
+                suggestionsContainer.style.display = 'none'; // Hide if input is empty
+            }
+        });
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!document.getElementById('projectInput').contains(e.target)) {
+                document.getElementById('projectSuggestions').style.display = 'none';
             }
         });
     </script>

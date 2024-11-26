@@ -48,9 +48,26 @@
                                                 oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
                                                 required>
                                         </div>
+                                        <!-- <div class="form-group">
+                                            <label for="department">Department</label>
+                                            <select name="department" id="dept-dropdown" class="form-control" required>
+                                                <option value="">Select Department</option>
+                                                <?php
+                                                include "common/conn.php";
+                                                $result = mysqli_query($conn, "SELECT * FROM department");
+                                                while ($row = mysqli_fetch_array($result)) {
+                                                    ?>
+                                                    <option value="<?php echo $row['id']; ?>">
+                                                        <?php echo $row["dep_name"]; ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="department">Department</label>
-                                            <select name="department" id="department" class="form-control" required>
+                                            <select name="department" id="dept-dropdown" class="form-control" required>
                                                 <option value="">Select Department</option>
                                                 <?php
                                                 include "common/conn.php";
@@ -65,21 +82,16 @@
                                                 ?>
                                             </select>
                                         </div>
+                                        <!-- <div class="form-group">
+                                            <label for="department">Designation</label>
+                                            <select name="desig" id="desig" class="form-control" required>
+                                                <option value="">Select Designation</option>
+                                            </select>
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="department">Designation</label>
                                             <select name="desig" id="desig" class="form-control" required>
                                                 <option value="">Select Designation</option>
-                                                <?php
-                                                include "common/conn.php";
-                                                $result = mysqli_query($conn, "SELECT * FROM designation");
-                                                while ($row = mysqli_fetch_array($result)) {
-                                                    ?>
-                                                    <option value="<?php echo $row['id']; ?>">
-                                                        <?php echo $row["des_name"]; ?>
-                                                    </option>
-                                                    <?php
-                                                }
-                                                ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -240,7 +252,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.4"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
@@ -357,6 +369,24 @@
                 dobError.style.display = "none";
             }
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#dept-dropdown').on('change', function () {
+                var dept_id = this.value; // Use 'dept_id' instead of 'category_id'
+                $.ajax({
+                    url: "get_dept_insert.php",
+                    type: "POST",
+                    data: {
+                        dept_id: dept_id // Use 'dept_id' here
+                    },
+                    cache: false,
+                    success: function (result) {
+                        $("#desig").html(result);
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

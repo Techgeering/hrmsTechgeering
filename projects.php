@@ -93,7 +93,8 @@
                                                 <td><?php echo $row["pro_end_date"]; ?></td>
                                                 <td>
                                                     <a href="singleProject.php?id=<?php echo $encoded_id; ?>"><i
-                                                            class="fa-solid fa-eye text-success"></i></a>
+                                                            class="fa-solid fa-eye text-success"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php
@@ -256,7 +257,6 @@
                 return null; // Return null if upload fails
             }
         }
-
         // File upload directory for images
         $upload_dir = "assets/uploads/project/";
 
@@ -286,15 +286,15 @@
         mysqli_close($conn);
     }
     ?>
+    <!-- disable the previous date -->
+    <script>
+        document.getElementById('startDate').addEventListener('change', function () {
+            var startDate = this.value;
+            var endDateField = document.getElementById('ProjectEndDate');
+            endDateField.value = ''; // Clear the end date field if it was previously filled
+            endDateField.setAttribute('min', startDate); // Set the minimum allowed date for ProjectEndDate
+        });
+    </script>
 </body>
 
 </html>
-<!-- disable the previous date -->
-<script>
-    document.getElementById('startDate').addEventListener('change', function () {
-        var startDate = this.value;
-        var endDateField = document.getElementById('ProjectEndDate');
-        endDateField.value = ''; // Clear the end date field if it was previously filled
-        endDateField.setAttribute('min', startDate); // Set the minimum allowed date for ProjectEndDate
-    });
-</script>

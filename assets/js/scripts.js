@@ -58,8 +58,9 @@ function myfcn13(idx, servicenm, hsn_nm) {
     document.getElementById("hsn_nm").value = hsn_nm;
 }
 /* for department id get */
-function myfcn2(idx, DesignationNamee) {
+function myfcn2(idx, department_name2, DesignationNamee) {
     document.getElementById("id2").value = idx;
+    document.getElementById("department_name2").value = department_name2;
     document.getElementById("DesignationNamee").value = DesignationNamee;
 }
 
@@ -193,5 +194,25 @@ function calculateDuration1() {
         document.getElementById("duration12").value = "Invalid";
     }
 }
+
+
+// $(document).ready(function () {
+//     $('#dept-dropdown').on('change', function () {
+//         var category_id = this.value;
+//         $.ajax({
+//             url: "get_dept_insert.php",
+//             type: "POST",
+//             data: {
+//                 category_id: category_id
+//             },
+//             cache: false,
+//             success: function (result) {
+//                 $("#desig").html(result);
+//             }
+//         });
+//     });
+// });
+
+
 
 

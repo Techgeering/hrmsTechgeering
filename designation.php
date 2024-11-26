@@ -37,6 +37,7 @@
                                 <thead>
                                     <tr>
                                         <th>Sl No</th>
+                                        <th>Department</th>
                                         <th>Designation</th>
                                         <th>Action</th>
                                     </tr>
@@ -52,12 +53,22 @@
                                             ?>
                                             <tr>
                                                 <td><?php echo $slno; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $dept_id = $row["dept_id"];
+                                                    $sql10 = "SELECT * FROM department WHERE id = $dept_id";
+                                                    $result10 = $conn->query($sql10);
+                                                    $row10 = $result10->fetch_assoc();
+                                                    echo htmlspecialchars($row10["dep_name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </td>
                                                 <td><?php echo $row["des_name"]; ?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-light"
-                                                        onclick="myfcn2(<?php echo $row['id']; ?>,'<?php echo $row['des_name']; ?>')"
+                                                        onclick="myfcn2(<?php echo $row['id']; ?>,<?php echo $row['dept_id']; ?>,'<?php echo $row['des_name']; ?>')"
                                                         data-bs-toggle="modal" data-bs-target="#updateDes"><i
-                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
+                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    </button>
                                                     <?php
                                                     $status = $row['status'];
                                                     $idm = $row['id'];
@@ -88,6 +99,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Sl No</th>
+                                        <th>Department</th>
                                         <th>Designation</th>
                                         <th>Action</th>
                                     </tr>
@@ -111,8 +123,23 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="form-group">
+                            <select class="form-control" name="deptnm" required>
+                                <option value="">Select Department</option>
+                                <?php
+                                include "common/conn.php";
+                                $sql2 = "SELECT * FROM department";
+                                $result2 = $conn->query($sql2);
+                                while ($row2 = $result2->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?php echo $row2["id"]; ?>">
+                                        <?php echo $row2["dep_name"]; ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="DesignationName">Designation Name</label>
-                            <input type="text" class="form-control" id="DesignationName" name="DesignationName"
+                            <input type="text" class="form-control" name="DesignationName"
                                 oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, ''); this.value = this.value.split(' ').map(function(word) {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(' ');this.setCustomValidity(''); this.checkValidity();"
                                 required>
                         </div>
@@ -129,10 +156,11 @@
     include "common/conn.php";
     if (isset($_POST['submit'])) {
         // Retrieve form data
+        $DepartmentName = $_POST["deptnm"];
         $DesignationName = $_POST["DesignationName"];
-        if (!empty($DesignationName)) {
-            $sql = "INSERT INTO designation (des_name, status)
-        VALUES ('$DesignationName','1')";
+        if (!empty($DepartmentName) && !empty($DesignationName)) {
+            $sql = "INSERT INTO designation (dept_id, des_name, status)
+        VALUES ('$DepartmentName','$DesignationName','1')";
             if ($conn->query($sql) === TRUE) {
                 echo "New record created successfully";
             } else {
@@ -140,7 +168,7 @@
             }
             $conn->close();
         } else {
-            echo "<script>alert('Designation name cannot be blank.')</script>";
+            echo "<script>alert('Form cannot be blank.')</script>";
         }
     }
     ?>
@@ -155,6 +183,21 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <input type="hidden" name="id2" id="id2">
+                        <div class="form-group">
+                            <label for="category">Department</label>
+                            <select class="form-control" id="department_name2" name="department_name">
+                                <option value="">Select Department</option>
+                                <?php
+                                $sql8 = "SELECT * FROM department";
+                                $result8 = $conn->query($sql8);
+                                while ($row8 = $result8->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?php echo $row8["id"]; ?>">
+                                        <?php echo htmlspecialchars($row8["dep_name"], ENT_QUOTES, 'UTF-8'); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="DesignationName">Designation Name</label>
                             <input type="text" class="form-control" id="DesignationNamee" name="DesignationNamee"
@@ -173,10 +216,11 @@
     <?php
     if (isset($_POST['updatedesignation'])) {
         include "common/conn.php";
+        $department_name = $_POST["department_name"];
         $designation = $_POST["DesignationNamee"];
         $id = $_POST["id2"];
-        if (!empty($designation) && !empty($id)) {
-            $sql1 = "UPDATE designation SET des_name='$designation' WHERE id='$id'";
+        if (!empty($designation) && !empty($designation) && !empty($id)) {
+            $sql1 = "UPDATE designation SET dept_id='$department_name', des_name='$designation' WHERE id='$id'";
             if ($conn->query($sql1) === true) {
                 echo " <script>alert('success')</script>";
             } else {
@@ -190,7 +234,7 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>

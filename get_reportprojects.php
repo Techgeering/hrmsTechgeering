@@ -10,10 +10,8 @@ if (isset($_POST['pro_name'])) {
     $projects = [];
 
     // Custom logic for "Internship" and "Loan"
-    if (strcasecmp($pro_name, 'Internship') === 0) {
-        $projects[] = ['id' => '-1', 'pro_name' => 'Internship'];
-    } elseif (strcasecmp($pro_name, 'Loan') === 0) {
-        $projects[] = ['id' => '0', 'pro_name' => 'Loan'];
+    if (strcasecmp($pro_name, 'Other') === 0) {
+        $projects[] = ['id' => '-0', 'pro_name' => 'Other'];
     } else {
         // Query to fetch project details using LIKE for partial matches
         $sql = "SELECT id, pro_name FROM project WHERE pro_name LIKE '%$pro_name%'";
