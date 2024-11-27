@@ -133,17 +133,20 @@
             $stmt = $conn->prepare("INSERT INTO department (dep_name, status) VALUES (?, '1')");
             $stmt->bind_param("s", $departmentName);
             if ($stmt->execute() === TRUE) {
-                echo "<script>alert('Success')</script>";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'departments.php';
+                      </script>";
             } else {
                 echo "<script>alert('Error: " . $stmt->error . "')</script>";
             }
             $stmt->close();
+
         } else {
             echo "<script>alert('Department name cannot be blank.')</script>";
         }
     }
     $conn->close();
-
     ?>
     <!--Update modal -->
     <div class="modal fade" id="updateDept" tabindex="-1" aria-labelledby="addDeptLabel" aria-hidden="true">
@@ -178,7 +181,10 @@
         if (!empty($departmentname) && !empty($id)) {
             $sql1 = "UPDATE department SET dep_name='$departmentname' WHERE id='$id'";
             if ($conn->query($sql1) === TRUE) {
-                echo "<script>alert('Success')</script>";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'departments.php';
+                      </script>";
             } else {
                 echo "<script>alert('Error: " . $conn->error . "')</script>";
             }

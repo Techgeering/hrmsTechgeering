@@ -123,7 +123,10 @@
             VALUES ('$leaveType', '$days', '1')";
 
         if ($conn->query($sql) === TRUE) {
-            echo " <script>alert('success')</script>";
+            echo "<script>
+                        alert('Success');
+                        window.location.href = 'leaveType.php';
+                </script>";
         } else {
             echo " <script>alert('error')</script>";
         }
@@ -168,7 +171,10 @@
         $dayss = $_POST["days"];
         $sql1 = "UPDATE leave_types SET name='$leaveTypee', leave_day='$dayss' WHERE type_id='$id'";
         if ($conn->query($sql1) === true) {
-            echo " <script>alert('success')</script>";
+            echo "<script>
+                        alert('Success');
+                        window.location.href = 'leaveType.php';
+                </script>";
         } else {
             echo $conn->error;
         }

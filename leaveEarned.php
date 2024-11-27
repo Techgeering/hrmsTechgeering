@@ -111,7 +111,11 @@
         $stmt->bind_param("s", $departmentName);
         // Execute SQL statement
         if ($stmt->execute() === TRUE) {
-            echo " <script>alert('success')</script>";
+            // echo " <script>alert('success')</script>";
+            echo "<script>
+                        alert('Success');
+                        window.location.href = 'leaveEarned.php';
+                </script>";
         } else {
             echo " <script>alert('$stmt->error')</script>";
         }

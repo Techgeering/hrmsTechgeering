@@ -267,7 +267,10 @@
 
                     $sql16 = "UPDATE account SET balance_T = balance_T + $deposit , balance = balance + $deposit WHERE id = '$balancetid'";
                     if ($conn->query($sql16) === TRUE) {
-                        echo '<script>alert("Data Updated successfully")</script>';
+                        echo "<script>
+                                alert('Success');
+                                window.location.href = 'tbalance.php';
+                            </script>";
                     } else {
                         echo '<script>alert("Error")</script>';
                     }
@@ -280,7 +283,10 @@
 
                     $sqlw16 = "UPDATE account SET balance_T = balance_T - $withdraw , balance = balance - $withdraw WHERE id = '$balancetwid'";
                     if ($conn->query($sqlw16) === TRUE) {
-                        echo '<script>alert("Data Updated successfully")</script>';
+                        echo "<script>
+                                alert('Success');
+                                window.location.href = 'tbalance.php';
+                            </script>";
 
                     } else {
                         echo '<script>alert("Error while updating")</script>';
@@ -292,7 +298,6 @@
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-
         $conn->close();
     }
     ?>

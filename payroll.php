@@ -353,7 +353,10 @@
 
             $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay, epf_company, insurance_company, paid_company) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay','$epf_company','$insurance_company','$paid_company')";
             if ($conn->query($sql11) === true) {
-                echo "<script>window.location.href='payroll.php';</script>";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'payroll.php';
+                </script>";
             } else {
                 echo "Error: " . $sql11 . "<br>" . $conn->error;
             }

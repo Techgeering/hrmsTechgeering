@@ -242,7 +242,10 @@
 
                     $sql16 = "UPDATE account SET balance_WT = balance_WT + $deposit , balance = balance + $deposit WHERE id = '$balancetid'";
                     if ($conn->query($sql16) === TRUE) {
-                        echo '<script>alert("Data Updated successfully")</script>';
+                        echo "<script>
+                                alert('Success');
+                                window.location.href = 'wtbalance.php';
+                            </script>";
                     } else {
                         echo '<script>alert("Error")</script>';
                     }
@@ -255,8 +258,10 @@
 
                     $sqlw16 = "UPDATE account SET balance_WT = balance_WT - $withdraw , balance = balance - $withdraw WHERE id = '$balancetwid'";
                     if ($conn->query($sqlw16) === TRUE) {
-                        echo '<script>alert("Data Updated successfully")</script>';
-
+                        echo "<script>
+                                alert('Success');
+                                window.location.href = 'wtbalance.php';
+                            </script>";
                     } else {
                         echo '<script>alert("Error while updating")</script>';
                     }

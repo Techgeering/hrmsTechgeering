@@ -279,7 +279,10 @@
                 VALUES ('$ProjectTitle', '$startDate', '$ProjectEndDate', '$Details', '$Summary', '$Status', '$email', '$mob', '$new_file_name1','$add','$gst','$state')";
 
         if (mysqli_query($conn, $sql)) {
-            echo " <script>alert('success')</script>";
+            echo "<script>
+                        alert('Success');
+                        window.location.href = 'projects.php';
+                </script>";
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }

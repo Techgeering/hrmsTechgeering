@@ -349,7 +349,11 @@ session_start(); {
                     $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status, supportingdocument)
                     VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0', '$targetFilePath')";
                     if ($conn->query($sql1) === TRUE) {
-                        echo "<script>alert('Leave application submitted successfully!');</script>";
+                        // echo "<script>alert('Leave application submitted successfully!');</script>";
+                        echo "<script>
+                                alert('Leave application submitted successfully!');
+                                window.location.href = 'viewLeave.php';
+                            </script>";
                     } else {
                     }
             }
@@ -371,7 +375,10 @@ session_start(); {
                 $sql1 = "INSERT INTO emp_leave (em_id, typeid, start_date, end_date, leave_duration, duration_hour, apply_date, reason, leave_status)
                 VALUES ('$empId', '$Leavetype', '$StartDate', '$EndDate', '$days', '$totalHours', '$currentDate', '$Reason', '0')";
                 if ($conn->query($sql1) === TRUE) {
-                    echo "<script>alert('Leave application submitted successfully!');</script>";
+                        echo "<script>
+                                alert('Leave application submitted successfully!');
+                                window.location.href = 'viewLeave.php';
+                            </script>";
                 } else {
                     echo "<script>alert('Database error occurred.');</script>";
                 }
@@ -394,7 +401,10 @@ session_start(); {
             $sql11 = "INSERT INTO leave_apply_approve (leaveapp_id, approved_by, datetime)
             VALUES ('$id', '$em_role', '$currentDate')";
             if ($conn->query($sql11) === TRUE) {
-                echo "<script>alert('success')</script>";
+                echo "<script>
+                            alert('Leave application submitted successfully!');
+                            window.location.href = 'viewLeave.php';
+                    </script>";
             } else {
                 echo $conn->error;
             }

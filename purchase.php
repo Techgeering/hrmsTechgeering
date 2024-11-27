@@ -233,7 +233,10 @@
             $sql_pur = "INSERT INTO purchase (pro_id, service_id, date_of_purchase, ser_start_dt, ser_end_dt, duration, status) 
                 VALUES ('$project_name','$service_name','$date_of_pur','$service_start_dt','$service_end_dt','$duration1','1')";
             if ($conn->query($sql_pur) === TRUE) {
-                echo "Successfully submitted!";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'purchase.php';
+                </script>";
             } else {
                 echo "Error: " . $sql_pur . "<br>" . $conn->error;
             }

@@ -162,7 +162,10 @@
             $sql = "INSERT INTO designation (dept_id, des_name, status)
         VALUES ('$DepartmentName','$DesignationName','1')";
             if ($conn->query($sql) === TRUE) {
-                echo "New record created successfully";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'designation.php';
+                      </script>";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
@@ -222,7 +225,10 @@
         if (!empty($designation) && !empty($designation) && !empty($id)) {
             $sql1 = "UPDATE designation SET dept_id='$department_name', des_name='$designation' WHERE id='$id'";
             if ($conn->query($sql1) === true) {
-                echo " <script>alert('success')</script>";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'designation.php';
+                      </script>";
             } else {
                 echo $conn->error;
             }

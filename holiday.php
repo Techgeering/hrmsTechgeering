@@ -185,7 +185,10 @@
             $sql->bind_param('sssssi', $holiday, $from_date, $to_date, $days, $year, $totalHours);
 
             if ($sql->execute()) {
-                echo "<script>alert('success');</script>";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'holiday.php';
+                      </script>";
             } else {
                 echo "<script>alert('error');</script>";
             }
@@ -250,7 +253,10 @@
 
             $sql1 = "UPDATE holiday SET year='$year' , holiday_name='$holiday', from_date='$from_date', to_date=' $to_date', number_of_days = '$days',number_of_holiday_hour = '$totalHours' WHERE id='$id'";
             if ($conn->query($sql1) === true) {
-                echo " <script>alert('success')</script>";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'holiday.php';
+                      </script>";
             } else {
                 echo $conn->error;
             }

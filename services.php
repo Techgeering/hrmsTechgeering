@@ -39,8 +39,8 @@
                                         <th class="text-center">Sl No</th>
                                         <th class="text-center">Service Name</th>
                                         <th class="text-center">HSN Number</th>
-                                        <th class="text-center">Delete</th>
                                         <th class="text-center">Edit</th>
+                                        <th class="text-center">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,16 +57,16 @@
                                                 <td class="text-center"><?php echo $row["service_name"]; ?></td>
                                                 <td class="text-center"><?php echo $row["hsn_num"]; ?></td>
                                                 <td class="text-center">
-                                                    <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='service', tbc='id',returnpage='services.php');"
-                                                        title="Delete">
-                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="text-center">
                                                     <button type="button" class="btn btn-light"
                                                         onclick="myfcn13(<?php echo $row['id']; ?>,'<?php echo $row['service_name']; ?>','<?php echo $row['hsn_num']; ?>')"
                                                         data-bs-toggle="modal" data-bs-target="#updateDept"><i
                                                             class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='service', tbc='id',returnpage='services.php');"
+                                                        title="Delete">
+                                                        <i class="fa-solid fa fa-trash text-danger" aria-hidden="true"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php
@@ -134,7 +134,10 @@
         if (!empty($servicenmae) && !empty($hsnnm)) {
             $sql = "INSERT INTO service (service_name,hsn_num) VALUES ('$servicenmae','$hsnnm')";
             if (mysqli_query($conn, $sql)) {
-                echo " <script>alert('success')</script>";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'services.php';
+                      </script>";
             } else {
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             }
@@ -183,7 +186,10 @@
         $id = trim($_POST["id13"]);
         $sql1 = "UPDATE service SET service_name='$servicename', hsn_num='$hsnnumber' WHERE id='$id'";
         if ($conn->query($sql1) === TRUE) {
-            echo "<script>alert('Success')</script>";
+            echo "<script>
+                        alert('Success');
+                        window.location.href = 'services.php';
+                      </script>";
         } else {
             echo "<script>alert('Error: " . $conn->error . "')</script>";
         }
