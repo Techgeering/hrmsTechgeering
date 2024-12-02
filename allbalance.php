@@ -279,7 +279,11 @@
 
                         $sql16 = "UPDATE account SET balance_T = balance_T + $deposit , balance = balance + $deposit WHERE id = '$balancetid'";
                         if ($conn->query($sql16) === TRUE) {
-                            echo '<script>alert("Data Updated successfully")</script>';
+                            // echo '<script>alert("Data Updated successfully")</script>';
+                            echo "<script>
+                                    alert('Success');
+                                    window.location.href = 'allbalance.php';
+                                </script>";
                         } else {
                             echo '<script>alert("Error")</script>';
                         }
@@ -292,7 +296,11 @@
 
                         $sqlw16 = "UPDATE account SET balance_T = balance_T - $withdraw , balance = balance - $withdraw WHERE id = '$balancetwid'";
                         if ($conn->query($sqlw16) === TRUE) {
-                            echo '<script>alert("Data Updated successfully")</script>';
+                            // echo '<script>alert("Data Updated successfully")</script>';
+                            echo "<script>
+                                    alert('Success');
+                                    window.location.href = 'allbalance.php';
+                                </script>";
 
                         } else {
                             echo '<script>alert("Error while updating")</script>';
@@ -301,9 +309,7 @@
                 } else {
                     echo '<script>alert("New record created successfully")</script>';
                 }
-
             } else {
-
                 if (!empty($deposit)) {
                     $sql15 = "SELECT * FROM account WHERE balance_WT IS NOT NULL AND date_time > '$datetime'";
                     $result15 = $conn->query($sql15);
@@ -312,7 +318,11 @@
 
                         $sql16 = "UPDATE account SET balance_WT = balance_WT + $deposit , balance = balance + $deposit WHERE id = '$balancetid'";
                         if ($conn->query($sql16) === TRUE) {
-                            echo '<script>alert("Data Updated successfully")</script>';
+                            // echo '<script>alert("Data Updated successfully")</script>';
+                            echo "<script>
+                                    alert('Success');
+                                    window.location.href = 'allbalance.php';
+                                </script>";
                         } else {
                             echo '<script>alert("Error")</script>';
                         }
@@ -325,7 +335,11 @@
 
                         $sqlw16 = "UPDATE account SET balance_WT = balance_WT - $withdraw , balance = balance - $withdraw WHERE id = '$balancetwid'";
                         if ($conn->query($sqlw16) === TRUE) {
-                            echo '<script>alert("Data Updated successfully")</script>';
+                            // echo '<script>alert("Data Updated successfully")</script>';
+                            echo "<script>
+                                    alert('Success');
+                                    window.location.href = 'allbalance.php';
+                                </script>";
 
                         } else {
                             echo '<script>alert("Error while updating")</script>';
@@ -334,9 +348,11 @@
                 } else {
                     echo '<script>alert("New record created successfully")</script>';
                 }
-
             }
-            echo "New record created successfully";
+            echo "<script>
+                        alert('Success');
+                        window.location.href = 'allbalance.php';
+                </script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

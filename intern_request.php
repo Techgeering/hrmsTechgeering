@@ -70,7 +70,8 @@
                                                 <td class="text-center"><?php echo $row["nextfollow"]; ?></td>
                                                 <td>
                                                     <a href="intern_requestview.php?id=<?php echo $encoded_id; ?>"><i
-                                                            class="fa-solid fa-eye text-success"></i></a>
+                                                            class="fa-solid fa-eye text-success"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php
@@ -129,7 +130,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-6">
+                            <!-- <div class="col-6">
                                 <div class="form-group">
                                     <label for="DepartmentName">Mobile Number</label>
                                     <input type="text" class="form-control" id="mobile" name="mobilenum"
@@ -141,6 +142,25 @@
                                     <label for="DepartmentName">Whatsapp Number</label>
                                     <input type="text" class="form-control" id="wpnum" name="wpnum"
                                         oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                                </div>
+                            </div> -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">Mobile Number</label>
+                                    <input type="text" class="form-control" id="mobile" name="mobilenum"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="DepartmentName">WhatsApp Number</label>
+                                    <input type="text" class="form-control" id="wpnum" name="wpnum"
+                                        oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15); this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity(''); this.checkValidity();">
+                                </div>
+                                <div class="form-group form-check mt-2">
+                                    <input type="checkbox" class="form-check-input" id="sameAsMobile"
+                                        onclick="copyMobileToWhatsApp()">
+                                    <label class="form-check-label" for="sameAsMobile">Same as Mobile Number</label>
                                 </div>
                             </div>
                         </div>
@@ -191,10 +211,26 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="assets/js/datatables-simple-demo.js"></script>
+    <!-- for same number of mobile and whatsapp -->
+    <script>
+        function copyMobileToWhatsApp() {
+            const mobileField = document.getElementById('mobile');
+            const wpField = document.getElementById('wpnum');
+            const checkbox = document.getElementById('sameAsMobile');
+
+            if (checkbox.checked) {
+                wpField.value = mobileField.value;
+                wpField.setAttribute('readonly', true); // Make the WhatsApp field read-only
+            } else {
+                wpField.value = ''; // Clear the field if unchecked
+                wpField.removeAttribute('readonly'); // Make the WhatsApp field editable
+            }
+        }
+    </script>
 </body>
 
 </html>

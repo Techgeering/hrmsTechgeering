@@ -72,8 +72,8 @@
         <?php include 'common/sidenav.php' ?>
         <?php
         include 'common/conn.php';
-        $empId = isset($_GET['em_id']) ? $_GET['em_id'] : NULL;
-        $empId = base64_decode($empId);
+        $empIdd = isset($_GET['em_id']) ? $_GET['em_id'] : NULL;
+        $empId = base64_decode($empIdd);
         $sql = "SELECT * FROM employee WHERE em_code='$empId'";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
@@ -912,6 +912,7 @@
                             $sqleducation = "INSERT INTO education (edu_type, institute, university, result, year, emp_id) VALUES ('$degreetitle', '$institute', '$university', '$result', '$passingyear', '$empId')";
                             if ($conn->query($sqleducation) === true) {
                                 echo "<script>alert('Form submitted successfully');</script>";
+                                // echo "<script>window.location.href='employeeDetail.php?em_id=$empId#Education';</script>";
                             } else {
                                 $conn->error;
                             }

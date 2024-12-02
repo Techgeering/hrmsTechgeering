@@ -64,15 +64,19 @@
                                                 </td>
                                                 <td><?php echo $row["des_name"]; ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light"
+                                                    <!-- <button type="button" class="btn btn-light"
                                                         onclick="myfcn2(<?php echo $row['id']; ?>,<?php echo $row['dept_id']; ?>,'<?php echo $row['des_name']; ?>')"
                                                         data-bs-toggle="modal" data-bs-target="#updateDes"><i
                                                             class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                    </button>
+                                                    </button> -->
+                                                    <i class="fa-solid fa-pen-to-square text-primary me-2 ms-2"
+                                                        onclick="myfcn2(<?php echo $row['id']; ?>, <?php echo $row['dept_id']; ?>, '<?php echo $row['des_name']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updateDes"
+                                                        style="cursor: pointer;">
+                                                    </i>
                                                     <?php
                                                     $status = $row['status'];
                                                     $idm = $row['id'];
-
                                                     if ($status == 1) {
                                                         echo "<a href='active.php?status=$idm&tb=designation&returnpage=designation.php' class='success'>
                                                             <i class='fa-solid fa-unlock text-success'></i>

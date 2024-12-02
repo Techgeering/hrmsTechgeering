@@ -73,8 +73,10 @@
                                                         echo "Manager";
                                                     } elseif ($row["em_role"] == 3) {
                                                         echo "HR";
-                                                    } else {
+                                                    } elseif ($row["em_role"] == 4) {
                                                         echo "Employee";
+                                                    } else {
+                                                        echo "Sales";
                                                     }
                                                     ?>
                                                 </th>

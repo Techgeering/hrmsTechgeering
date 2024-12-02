@@ -12,6 +12,9 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+
+
 </head>
 
 <body class="sb-nav-fixed">
@@ -34,6 +37,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <table id="datatablesSimple">
+                                <!-- <table id="add-row" class="display table table-bordered border-dark"> -->
                                 <thead>
                                     <tr>
                                         <th class="text-center">Sl No</th>
@@ -46,7 +50,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM service";
+                                    $sql = "SELECT * FROM service ORDER BY id DESC";
                                     $result = $conn->query($sql);
                                     $slno = 1;
                                     if ($result->num_rows > 0) {
@@ -57,10 +61,16 @@
                                                 <td class="text-center"><?php echo $row["service_name"]; ?></td>
                                                 <td class="text-center"><?php echo $row["hsn_num"]; ?></td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn btn-light"
+                                                    <!-- <button type="button" class="btn btn-light"
                                                         onclick="myfcn13(<?php echo $row['id']; ?>,'<?php echo $row['service_name']; ?>','<?php echo $row['hsn_num']; ?>')"
                                                         data-bs-toggle="modal" data-bs-target="#updateDept"><i
-                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
+                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    </button> -->
+                                                    <i class="fa-solid fa-pen-to-square text-primary me-2 ms-2"
+                                                        onclick="myfcn13(<?php echo $row['id']; ?>, '<?php echo $row['service_name']; ?>', '<?php echo $row['hsn_num']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updateDept"
+                                                        style="cursor: pointer;">
+                                                    </i>
                                                 </td>
                                                 <td class="text-center">
                                                     <a onclick="confirmDelete(<?php echo $row['id']; ?>, tb='service', tbc='id',returnpage='services.php');"

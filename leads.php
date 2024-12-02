@@ -399,7 +399,10 @@
         $bussinesstype, '1', '1', '$currentDateTime', $remarks)";
 
             if ($conn->query($sql) === TRUE) {
-                echo "New record created successfully";
+                echo "<script>
+                        alert('Success');
+                        window.location.href = 'leads.php';
+                      </script>";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }

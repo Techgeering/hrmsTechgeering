@@ -55,10 +55,16 @@
                                                 <td><?php echo $slno; ?></td>
                                                 <td><?php echo $row["dep_name"]; ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light"
+                                                    <!-- <button type="button" class="btn btn-light"
                                                         onclick="myfcn1(<?php echo $row['id']; ?>,'<?php echo $row['dep_name']; ?>')"
                                                         data-bs-toggle="modal" data-bs-target="#updateDept"><i
-                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i></button>
+                                                            class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                    </button> -->
+                                                    <i class="fa-solid fa-pen-to-square text-primary"
+                                                        onclick="myfcn1(<?php echo $row['id']; ?>,'<?php echo $row['dep_name']; ?>')"
+                                                        data-bs-toggle="modal" data-bs-target="#updateDept"
+                                                        style="cursor: pointer;">
+                                                    </i>
                                                     <?php
                                                     $status = $row['status'];
                                                     $idm = $row['id'];

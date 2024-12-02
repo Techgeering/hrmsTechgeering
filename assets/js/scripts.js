@@ -194,8 +194,6 @@ function calculateDuration1() {
         document.getElementById("duration12").value = "Invalid";
     }
 }
-
-
 // $(document).ready(function () {
 //     $('#dept-dropdown').on('change', function () {
 //         var category_id = this.value;
