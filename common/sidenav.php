@@ -161,6 +161,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="leads.php">Leads Table</a>
                             <a class="nav-link" href="upcoming.php">Upcoming Follow-Up</a>
+                            <a class="nav-link" href="pendingleads.php">Pending Follow-Up</a>
                         </nav>
                     </div>
                 <?php } ?>
