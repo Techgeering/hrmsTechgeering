@@ -547,29 +547,23 @@
                                 <div class="product-group11">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="mb-2">
+                                            <!-- <div class="mb-2">
                                                 <label for="Project_Name" class="form-label">Project Name</label>
-                                                <!-- <select class="form-select" name="project_name[]" required>
-                                                    <option value="" disabled selected>Select a Project</option>
-                                                    <option value="0">Other</option>
-                                                    <?php
-                                                    // include "common/conn.php";
-                                                    // $sql_pro = "SELECT * FROM project";
-                                                    // $result_pro = $conn->query($sql_pro);
-                                                    // while ($row_pro = $result_pro->fetch_assoc()) {
-                                                    ?>
-                                                        <option value="<?php //echo $row_pro['id']; ?>">
-                                                            <?php //echo $row_pro['pro_name']; ?>
-                                                        </option>
-                                                    <?php //} ?>
-                                                </select> -->
-
                                                 <input type="text" id="projectInput" class="form-control"
                                                     placeholder="Enter project name...." autocomplete="off" required>
                                                 <div id="projectSuggestions" class="dropdown-menu"
                                                     style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; position: absolute; z-index: 1000;">
                                                 </div>
-                                                <!-- Hidden input to store project ID -->
+                                               
+                                                <input type="hidden" id="projectId" name="project_name[]">
+                                            </div> -->
+                                            <div class="mb-2">
+                                                <label for="Project_Name" class="form-label">Project Name</label>
+                                                <input type="text" id="projectInput" class="form-control"
+                                                    placeholder="Enter project name...." autocomplete="off" required>
+                                                <div id="projectSuggestions" class="dropdown-menu"
+                                                    style="display: none; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; position: absolute; z-index: 1000;">
+                                                </div>
                                                 <input type="hidden" id="projectId" name="project_name[]">
                                             </div>
                                         </div>
@@ -786,9 +780,24 @@
                                 const projects = JSON.parse(xhr.responseText);
                                 suggestionsContainer.innerHTML = ''; // Clear previous suggestions
 
+                                // Add "Other" as a static option
+                                const otherItem = document.createElement('div');
+                                otherItem.textContent = 'Other';
+                                otherItem.className = 'dropdown-item';
+                                otherItem.style.cursor = 'pointer';
+
+                                // Set project ID to 0 when "Other" is selected
+                                otherItem.addEventListener('click', function () {
+                                    inputField.value = 'Other';
+                                    inputField.parentElement.querySelector('#projectId').value = 0; // Static ID for "Other"
+                                    suggestionsContainer.style.display = 'none'; // Hide suggestions
+                                });
+
+                                suggestionsContainer.appendChild(otherItem);
+
+                                // Append dynamic suggestions
                                 if (projects.length > 0) {
                                     projects.forEach(project => {
-                                        // Create a suggestion item
                                         const suggestionItem = document.createElement('div');
                                         suggestionItem.textContent = project.pro_name; // Adjust according to your data
                                         suggestionItem.className = 'dropdown-item';
@@ -803,10 +812,9 @@
 
                                         suggestionsContainer.appendChild(suggestionItem);
                                     });
-                                    suggestionsContainer.style.display = 'block'; // Show suggestions
-                                } else {
-                                    suggestionsContainer.style.display = 'none'; // Hide if no suggestions
                                 }
+
+                                suggestionsContainer.style.display = 'block'; // Show suggestions
                             }
                         };
                         xhr.send('pro_name=' + encodeURIComponent(selectedProject));
@@ -892,56 +900,7 @@
             }
         });
     </script>
-    <!-- for project suggestions -->
-    <script>
-        document.getElementById('projectInput').addEventListener('input', function () {
-            const selectedProject = this.value;
-            const suggestionsContainer = document.getElementById('projectSuggestions');
-            if (selectedProject) {
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'get_projects.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-                xhr.onload = function () {
-                    if (this.status === 200) {
-                        const projects = JSON.parse(this.responseText);
-                        suggestionsContainer.innerHTML = ''; // Clear previous suggestions
-
-                        if (projects.length > 0) {
-                            projects.forEach(project => {
-                                // Create a suggestion item
-                                const suggestionItem = document.createElement('div');
-                                suggestionItem.textContent = project.pro_name; // Adjust this according to your data
-                                suggestionItem.className = 'dropdown-item';
-                                suggestionItem.style.cursor = 'pointer';
-
-                                // When a suggestion is clicked
-                                suggestionItem.addEventListener('click', function () {
-                                    document.getElementById('projectInput').value = project.pro_name;
-                                    document.getElementById('projectId').value = project.id; // Store the project ID
-                                    suggestionsContainer.style.display = 'none'; // Hide suggestions
-                                });
-
-                                suggestionsContainer.appendChild(suggestionItem);
-                            });
-                            suggestionsContainer.style.display = 'block'; // Show suggestions
-                        } else {
-                            suggestionsContainer.style.display = 'none'; // Hide if no suggestions
-                        }
-                    }
-                };
-                xhr.send('pro_name=' + encodeURIComponent(selectedProject));
-            } else {
-                suggestionsContainer.style.display = 'none'; // Hide if input is empty
-            }
-        });
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function (e) {
-            if (!document.getElementById('projectInput').contains(e.target)) {
-                document.getElementById('projectSuggestions').style.display = 'none';
-            }
-        });
-    </script>
 </body>
 
 </html>
