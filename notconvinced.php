@@ -54,7 +54,7 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
-                                    $sql = "SELECT * FROM leads WHERE status1 = '0' AND renew_status = '1'";
+                                    $sql = "SELECT * FROM leads WHERE status1 = '0'";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         $slno = 1;
@@ -181,7 +181,7 @@
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
-                                                    <?php if ($row['renew_status'] == 1): ?>
+                                                    <?php if ($row['status1'] == 0): ?>
                                                         <button onclick="confirmAction1(<?php echo $row['id']; ?>, '0')"
                                                             style="background-color: green; color: white; border: none; padding: 2px 10px; border-radius: 5px;">
                                                             Renew

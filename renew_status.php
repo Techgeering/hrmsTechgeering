@@ -14,7 +14,7 @@ if ($current_status == '0') {
 }
 
 // Update the database with the new status
-$sql = "UPDATE leads SET renew_status='1', status1='1' WHERE id='$id'";
+$sql = "UPDATE leads SET status1='1' WHERE id='$id'";
 if ($conn->query($sql) === true) {
     echo "<script>alert('Status updated successfully'); window.location.href='notconvinced.php';</script>";
 } else {
