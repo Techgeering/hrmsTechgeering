@@ -37,7 +37,9 @@
                                         <th class="text-center">Lead Name</th>
                                         <th class="text-center">Company Name</th>
                                         <th class="text-center">Country</th>
+                                        <th class="text-center">Mobile Number</th>
                                         <th class="text-center">Pending Followup Date</th>
+                                        <th class="text-center">View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,7 +54,7 @@
 
                                         while ($row = $result->fetch_assoc()) {
                                             $id = $row['id'];
-
+                                            $encoded_id = base64_encode($row['id']);
                                             // Query to get follow-up records with next_date greater than today
                                             $sql2 = "SELECT * FROM lead_follow WHERE lead_id = $id AND next_date < CURDATE() ORDER BY next_date DESC";
                                             $result2 = $conn->query($sql2);
@@ -66,14 +68,19 @@
                                                         <td class="text-center"><?php echo htmlspecialchars($row["companyname"]); ?>
                                                         </td>
                                                         <td class="text-center"><?php echo htmlspecialchars($row["country"]); ?></td>
+                                                        <td class="text-center"><?php echo htmlspecialchars($row["phone_no1"]); ?></td>
                                                         <td class="text-center"><?php echo htmlspecialchars($row2["next_date"]); ?></td>
+                                                        <td>
+                                                            <a href="leadview.php?id=<?php echo $encoded_id; ?>" target="_blank">
+                                                                <i class="fa-solid fa-eye text-success"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                     <?php
                                                     $slno++;
                                                 }
                                             }
                                         }
-
                                         // If no follow-up records found in total, display "No follow-up records" row
                                         if ($slno === 1) {
                                             echo "<tr><td colspan='5' class='text-center'>No follow-up records found</td></tr>";
