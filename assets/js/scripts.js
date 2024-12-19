@@ -148,12 +148,22 @@ function confirmDelete(id, tb, tbc, returnpage) {
     }
 }
 
+/* leads status */
 function confirmAction(id, name) {
     var confirmation = confirm("Are you sure you want to change the status?");
     if (confirmation) {
         window.location.href = "leads_status.php?id=" + id + "&name=" + encodeURIComponent(name);
     }
 }
+
+/* renew status */
+function confirmAction1(id, renew_status) {
+    var confirmation = confirm("Are you sure you want to change the status?");
+    if (confirmation) {
+        window.location.href = "renew_status.php?id=" + id + "&status=" + renew_status;
+    }
+}
+
 
 /* for assigned employee change in all balance */
 function loadAssignedUsers() {

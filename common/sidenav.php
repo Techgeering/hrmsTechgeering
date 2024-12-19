@@ -159,7 +159,8 @@
                     </a>
                     <div class="collapse" id="leads" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="leads.php">Leads Table</a>
+                            <a class="nav-link" href="leads.php">Convinced List</a>
+                            <a class="nav-link" href="notconvinced.php">Not Convinced List</a>
                             <a class="nav-link" href="upcoming.php">Upcoming Follow-Up</a>
                             <a class="nav-link" href="pendingleads.php">Pending Follow-Up</a>
                         </nav>
