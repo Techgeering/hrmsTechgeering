@@ -1,13 +1,3 @@
-<?php
-session_start(); {
-    $em_role = $_SESSION["em_role"];
-    $emp_id = $_SESSION["emp_id"];
-}
-?>
-<?php
-$selectedMonth = $_GET['month'] ?? 0;
-$selectedYear = $_GET['year'] ?? 0;
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +17,14 @@ $selectedYear = $_GET['year'] ?? 0;
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
     <?php include 'common/topnav.php' ?>
+    <?php
+    $em_role = $_SESSION["em_role"];
+    $emp_id = $_SESSION["emp_id"];
+    ?>
+    <?php
+    $selectedMonth = $_GET['month123'] ?? 0;
+    $selectedYear = $_GET['year123'] ?? 0;
+    ?>
     <!-- end Top Navbar -->
     <div id="layoutSidenav">
         <!-- start Side Navbar -->
@@ -50,7 +48,7 @@ $selectedYear = $_GET['year'] ?? 0;
                                     <div class="row mb-3">
                                         <div class="col-2">
                                             <label for="month" class="form-label">Select Month</label>
-                                            <select class="form-select" id="month" name="month123" required>
+                                            <select class="form-select" id="month1" name="month123" required>
                                                 <option value="" disabled selected>Select a month</option>
                                                 <option value="01">January</option>
                                                 <option value="02">February</option>
@@ -68,7 +66,7 @@ $selectedYear = $_GET['year'] ?? 0;
                                         </div>
                                         <div class="col-2">
                                             <label for="year" class="form-label">Select Year</label>
-                                            <select class="form-select" id="year" name="year123" required>
+                                            <select class="form-select" id="year1" name="year123" required>
                                                 <option value="" disabled selected>Select a year</option>
                                                 <?php for ($i = 2020; $i <= 2030; $i++): ?>
                                                     <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
@@ -158,7 +156,6 @@ $selectedYear = $_GET['year'] ?? 0;
                                                         <?php echo (!empty($row4["adj_hour"]) && $row4["adj_hour"] != "0" && $row4["adj_hour"] != "N/A") ? $row4["adj_hour"] : "0"; ?>
                                                         <!-- </h6> -->
                                                     <?php } ?>
-
                                                 </td>
                                                 <td><?php echo $row4["payable_hour"]; ?></td>
                                             </tr>
@@ -241,7 +238,6 @@ $selectedYear = $_GET['year'] ?? 0;
                         }
                     }
                 </script>
-
             </div>
         </div>
     </div>
@@ -341,7 +337,6 @@ $selectedYear = $_GET['year'] ?? 0;
         $conn->close();
     }
     ?>
-
 
     <!-- <p><?php //echo $row5["emp_id"] . " " . $row5["total_working_hours"]; ?></p> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
