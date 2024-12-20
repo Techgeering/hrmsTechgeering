@@ -85,10 +85,10 @@
                                                             <?php
                                                             switch ($row['status']) {
                                                                 case 1:
-                                                                    echo "1st Stage";
+                                                                    echo "Requirement Understanding";
                                                                     break;
                                                                 case 2:
-                                                                    echo "Proposal Send";
+                                                                    echo "Proposal Sent";
                                                                     break;
                                                                 // case 3:
                                                                 //     echo "Proposal After Discussion";
@@ -113,10 +113,10 @@
                                                             <?php
                                                             switch ($row['status']) {
                                                                 case 1:
-                                                                    echo "1st Stage";
+                                                                    echo "Requirement Understanding";
                                                                     break;
                                                                 case 2:
-                                                                    echo "Proposal Send";
+                                                                    echo "Proposal Sent";
                                                                     break;
                                                                 case 3:
                                                                     echo "MOU Signed";
@@ -131,8 +131,9 @@
                                                             ?>
                                                         </span>
                                                     <?php else: ?>
-                                                        <button
-                                                            onclick="confirmAction(<?php echo $row['id']; ?>, '<?php echo $row['status']; ?>')"
+                                                        <button <?php if ($row['status'] != 4): ?>
+                                                                onclick="confirmAction(<?php echo $row['id']; ?>, '<?php echo $row['status']; ?>')"
+                                                            <?php endif; ?>
                                                             style="background-color: green; color: white; border: none; padding: 2px 10px; border-radius: 5px;">
                                                             <?php
                                                             switch ($row['status']) {

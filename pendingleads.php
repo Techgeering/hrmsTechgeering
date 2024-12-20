@@ -45,22 +45,21 @@
                                 <tbody>
                                     <?php
                                     include "common/conn.php";
+                                    // Query to get follow-up records with next_date greater than today
+                                    $sql2 = "SELECT * FROM lead_follow WHERE next_date < CURDATE() ORDER BY next_date ASC";
+                                    $result2 = $conn->query($sql2);
 
-                                    $sql = "SELECT * FROM leads";
-                                    $result = $conn->query($sql);
+                                    if ($result2->num_rows > 0) {
+                                        while ($row2 = $result2->fetch_assoc()) {
+                                            $id = $row2['lead_id'];
+                                            $encoded_id = base64_encode($row2['lead_id']);
+                                            $sql = "SELECT * FROM leads WHERE id='$id'";
+                                            $result = $conn->query($sql);
 
-                                    if ($result->num_rows > 0) {
-                                        $slno = 1;
+                                            if ($result->num_rows > 0) {
+                                                $slno = 1;
 
-                                        while ($row = $result->fetch_assoc()) {
-                                            $id = $row['id'];
-                                            $encoded_id = base64_encode($row['id']);
-                                            // Query to get follow-up records with next_date greater than today
-                                            $sql2 = "SELECT * FROM lead_follow WHERE lead_id = $id AND next_date < CURDATE() ORDER BY next_date DESC";
-                                            $result2 = $conn->query($sql2);
-
-                                            if ($result2->num_rows > 0) {
-                                                while ($row2 = $result2->fetch_assoc()) {
+                                                while ($row = $result->fetch_assoc()) {
                                                     ?>
                                                     <tr>
                                                         <td class="text-center"><?php echo $slno; ?></td>
