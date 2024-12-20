@@ -166,6 +166,12 @@
                         </nav>
                     </div>
                 <?php } ?>
+                <?php if ($em_role == '1' || $em_role == '3') { ?>
+                    <a class="nav-link" href="customer.php">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Customer
+                    </a>
+                <?php } ?>
                 <?php if ($em_role == '1' || $em_role == '4' || $em_role == '5') { ?>
                     <a class="nav-link" href="dailyreport.php">
                         <div class="sb-nav-link-icon"><i class="fa fa-edit"></i></div>
