@@ -154,7 +154,7 @@
                                                                     echo "Requirement Understanding";
                                                                     break;
                                                                 case 2:
-                                                                    echo "Proposal Send";
+                                                                    echo "Proposal Sent";
                                                                     break;
                                                                 case 3:
                                                                     echo "Proposal After Discussion";
