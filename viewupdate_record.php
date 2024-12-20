@@ -44,12 +44,12 @@ $leadId = trim(base64_decode($leadId));
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Sl No</th>
-                                        <th>Column id</th>
-                                        <th>Column Name</th>
-                                        <th>old_record</th>
-                                        <th>new_record</th>
-                                        <th>date_time</th>
+                                        <th>Sl.No</th>
+                                        <th>Field id</th>
+                                        <th>Field Name</th>
+                                        <th>Old_record</th>
+                                        <th>New_record</th>
+                                        <th>Date_time</th>
                                         <th>Employee Id</th>
                                         <th>Employee Name</th>
                                     </tr>
