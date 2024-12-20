@@ -16,12 +16,6 @@ if ($name == 'inactive') {
 } elseif ($name == '3') {
     $status = '4';
     $column = 'status';
-} elseif ($name == '4') {
-    $status = '5';
-    $column = 'status';
-} elseif ($name == '5') {
-    $status = '6';
-    $column = 'status';
 } else {
     echo "<script>alert('Invalid status')</script>";
     exit();

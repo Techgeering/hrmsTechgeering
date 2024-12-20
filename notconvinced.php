@@ -33,13 +33,13 @@
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Sl</th>
+                                        <th>Sl.No</th>
                                         <th>Date</th>
                                         <th>Lead Name</th>
                                         <th>Company Name</th>
-                                        <th>1st Phone Number</th>
-                                        <th>1st Email Id</th>
-                                        <th>city</th>
+                                        <th>Mobile Number</th>
+                                        <th>Email Id</th>
+                                        <th>City</th>
                                         <th>Website</th>
                                         <th>Source</th>
                                         <th>Intersted for</th>
@@ -48,7 +48,7 @@
                                         <th>Status</th>
                                         <th>Not Convinced</th>
                                         <th>Renew</th>
-                                        <!-- <th>View</th> -->
+                                        <th>View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,21 +80,15 @@
                                                             <?php
                                                             switch ($row['status']) {
                                                                 case 1:
-                                                                    echo "1st Stage";
+                                                                    echo "Requirement Understanding";
                                                                     break;
                                                                 case 2:
-                                                                    echo "Proposal Send";
+                                                                    echo "Proposal Sent";
                                                                     break;
                                                                 case 3:
-                                                                    echo "Proposal After Discussion";
-                                                                    break;
-                                                                case 4:
-                                                                    echo "Price Finalization";
-                                                                    break;
-                                                                case 5:
                                                                     echo "MOU Signed";
                                                                     break;
-                                                                case 6:
+                                                                case 4:
                                                                     echo "Customer";
                                                                     break;
                                                                 default:
@@ -108,21 +102,15 @@
                                                             <?php
                                                             switch ($row['status']) {
                                                                 case 1:
-                                                                    echo "1st Stage";
+                                                                    echo "Requirement Understanding";
                                                                     break;
                                                                 case 2:
-                                                                    echo "Proposal Send";
+                                                                    echo "Proposal Sent";
                                                                     break;
                                                                 case 3:
-                                                                    echo "Proposal After Discussion";
-                                                                    break;
-                                                                case 4:
-                                                                    echo "Price Finalization";
-                                                                    break;
-                                                                case 5:
                                                                     echo "MOU Signed";
                                                                     break;
-                                                                case 6:
+                                                                case 4:
                                                                     echo "Customer";
                                                                     break;
                                                                 default:
@@ -144,15 +132,9 @@
                                                                     echo "Proposal Send";
                                                                     break;
                                                                 case 3:
-                                                                    echo "Proposal After Discussion";
-                                                                    break;
-                                                                case 4:
-                                                                    echo "Price Finalization";
-                                                                    break;
-                                                                case 5:
                                                                     echo "MOU Signed";
                                                                     break;
-                                                                case 6:
+                                                                case 4:
                                                                     echo "Customer";
                                                                     break;
                                                                 default:
@@ -188,12 +170,11 @@
                                                         </button>
                                                     <?php endif; ?>
                                                 </td>
-
-                                                <!-- <td>
+                                                <td>
                                                     <a href="leadview.php?id=<?php echo $encoded_id; ?>" target="_blank">
                                                         <i class="fa-solid fa-eye text-success"></i>
                                                     </a>
-                                                </td> -->
+                                                </td>
                                             </tr>
                                             <?php
                                             $slno++;
