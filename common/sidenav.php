@@ -163,14 +163,9 @@
                             <a class="nav-link" href="notconvinced.php">Not Convinced List</a>
                             <a class="nav-link" href="upcoming.php">Upcoming Follow-Up</a>
                             <a class="nav-link" href="pendingleads.php">Pending Follow-Up</a>
+                            <a class="nav-link" href="customer.php">Customer</a>
                         </nav>
                     </div>
-                <?php } ?>
-                <?php if ($em_role == '1' || $em_role == '3') { ?>
-                    <a class="nav-link" href="customer.php">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Customer
-                    </a>
                 <?php } ?>
                 <?php if ($em_role == '1' || $em_role == '4' || $em_role == '5') { ?>
                     <a class="nav-link" href="dailyreport.php">
