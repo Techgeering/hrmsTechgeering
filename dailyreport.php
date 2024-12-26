@@ -85,7 +85,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="my-2">Daily Report</h3>
+                        <h2 class="my-2">Daily Report</h2>
                     </div>
                     <div class="tab profile ">
                         <button class="tablinks" onclick="openDilog(event, 'Daily')" id="defaultOpen"> Daily</button>
