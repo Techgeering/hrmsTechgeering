@@ -2,6 +2,7 @@
 include "common/conn.php";
 if (isset($_POST['emp_id'])) {
     $emp_id = $_POST['emp_id'];
+    $previous_month = date('m-Y', strtotime('-1 month'));
 
     $sql1 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
     $result1 = $conn->query($sql1);
@@ -36,7 +37,7 @@ if (isset($_POST['emp_id'])) {
 
 
 
-        $sql_leave = "SELECT * FROM attadence_report WHERE emp_id = '$emp_id'";
+        $sql_leave = "SELECT * FROM attadence_report WHERE emp_id = '$emp_id' AND month = '$previous_month'";
         $result_leave = $conn->query($sql_leave);
 
         if ($result_leave->num_rows > 0) {
