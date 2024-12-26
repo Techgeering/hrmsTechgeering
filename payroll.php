@@ -435,8 +435,11 @@
             let tds = parseFloat(document.getElementById('Tds').value) || 0;
             let insurance = parseFloat(document.getElementById('Insurance').value) || 0;
             let other = parseFloat(document.getElementById('Other').value) || 0;
+            let Gross = parseFloat(document.getElementById('Gross').value) || 0;
             let grossDeduction = tax + epf + tds + insurance + other;
+            let netpay = Gross - grossDeduction;
             document.getElementById('grossdeduction').value = grossDeduction.toFixed(2);
+            document.getElementById('netpay').value = netpay.toFixed(2);
         }
         function validatePerformance(input) {
             // Parse the current input value
@@ -445,7 +448,6 @@
             if (currentValue > previousValue) {
                 input.value = previousValue;
             }
-
             calculateGrossEarnings();
         }
 
