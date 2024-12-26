@@ -2,6 +2,7 @@
 require('fpdf/fpdf.php');
 include "common/conn.php";
 $empId = $_GET["id"];
+
 $sql = "SELECT * FROM employee where em_code = '$empId'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
@@ -16,8 +17,10 @@ $sql2 = "SELECT * FROM designation WHERE id = $des_id";
 $result2 = $conn->query($sql2);
 $row2 = $result2->fetch_assoc();
 
+$month1 = $_GET["month"];
+$year1 = $_GET["year"];
 $empId = $_GET["id"];
-$sql3 = "SELECT * FROM pay_salary WHERE emp_id = '$empId'";
+$sql3 = "SELECT * FROM pay_salary WHERE emp_id = '$empId' AND month = '$month1' AND year = '$year1'";
 $result3 = $conn->query($sql3);
 $row3 = $result3->fetch_assoc();
 
@@ -77,12 +80,12 @@ $pdf->Ln(10); // Add some space after bank details
 
 // Add Total Working Days
 $pdf->SetFont('Arial', 'B', 9);
-$pdf->Cell(40, 4, 'Total Working Days:' . $row6["working_hour"], 0, 0);
+$pdf->Cell(40, 4, 'Total Working Hour:' . $row3["total_hour"], 0, 0);
 
 
 // Add Total Paid Days
 $pdf->SetFont('Arial', 'B', 9);
-$pdf->Cell(40, 4, 'Total Paid Days:' . $row6["payable_hour"], 0, 0);
+$pdf->Cell(40, 4, 'Total Paid Hour:' . $row3["paid_hour"], 0, 0);
 $pdf->Ln(10);
 // Earnings Section
 $pdf->SetFont('Arial', 'B', 9);

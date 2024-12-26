@@ -84,7 +84,7 @@
                                                 <td><?php echo $row44["total_deduction"]; ?></td>
                                                 <td><?php echo $row44["net_pay"]; ?></td>
                                                 <td>
-                                                    <a href="payrollinvoice.php?id=<?php echo $row44["emp_id"]; ?>"
+                                                    <a href="payrollinvoice.php?id=<?php echo $row44["emp_id"]; ?>&month=<?php echo $row44["month"]; ?>&year=<?php echo $row44["year"]; ?>"
                                                         target="_blank">
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
@@ -143,7 +143,7 @@
                                         <label for="month" class="form-label">Month</label>
                                         <input type="text" class="form-control" name="month" id="month1"
                                             value="<?php echo date('F', strtotime('first day of last month')); ?>"
-                                            required readonly>
+                                            required>
                                     </div>
                                 </div>
                             </div>
@@ -342,7 +342,17 @@
         $netpay = $_POST["netpay"];
         $epf_company = $_POST["epfcompany"];
         $insurance_company = $_POST["insurance_company"];
+
         $paid_company = floatval($netpay) + floatval($epf_company) + floatval($insurance_company);
+        $month_number = date('m', strtotime($month));
+
+        $sql21 = "SELECT * FROM attadence_report
+                     WHERE month = '$month_number-$year' AND emp_id = '$empid'";
+        $result21 = $conn->query($sql21);
+
+        $row21 = $result21->fetch_assoc();
+        $working_hour = $row21["working_hour"];
+        $payable_hour = $row21["payable_hour"];
 
         $sql1 = "SELECT month, emp_id, year
                      FROM pay_salary 
@@ -351,7 +361,7 @@
 
         if ($result1->num_rows === 0) {
 
-            $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay, epf_company, insurance_company, paid_company) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay','$epf_company','$insurance_company','$paid_company')";
+            $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay, epf_company, insurance_company, paid_company, total_hour, paid_hour) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay','$epf_company','$insurance_company','$paid_company','$working_hour','$payable_hour')";
             if ($conn->query($sql11) === true) {
                 echo "<script>
                         alert('Success');
