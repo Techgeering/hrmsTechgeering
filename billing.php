@@ -10,7 +10,7 @@
     <title>Billing - Hrms Techgeering</title>
     <link rel="icon" type="image/png" href="assets/img/favicon-t.png">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link href="assets/css/styles.css?v=1.2" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 

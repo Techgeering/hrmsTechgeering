@@ -10,7 +10,7 @@
     <title>Balance Sheet - Hrms Techgeering</title>
     <link rel="icon" type="image/png" href="assets/img/favicon-t.png">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link href="assets/css/styles.css?v=1.2" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -26,7 +26,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="my-2">All Balance</h3>
+                        <h2 class="my-2">All Balance</h2>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
                             <i class="fa-solid fa-plus"></i>All Balance
                         </button>
