@@ -173,12 +173,6 @@
                         Daily Report
                     </a>
                 <?php } ?>
-                <?php if ($em_role == '1' || $em_role == '3') { ?>
-                    <a class="nav-link" href="monthly_report.php">
-                        <div class="sb-nav-link-icon"><i class="fa fa-edit"></i></div>
-                        Monthly Report
-                    </a>
-                <?php } ?>
             </div>
         </div>
     </nav>

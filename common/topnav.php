@@ -1,3 +1,19 @@
+<style>
+    .rounded-image {
+        width: 37px;
+        /* Adjust the size as needed */
+        height: 37px;
+        /* Adjust the size as needed */
+        border-radius: 50%;
+        /* Makes the image circular */
+        object-fit: cover;
+        /* Ensures the image fits within the dimensions */
+        border: 2px solid #ccc;
+        /* Optional: Adds a border around the image */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Optional: Adds a shadow */
+    }
+</style>
 <?php
 session_start();
 include "common/conn.php";
@@ -66,7 +82,12 @@ if ($userid === NULL) {
             }
             ?>
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false"><i class="fas fa-user fa-fw"></i><?php echo $row["full_name"]; ?></a>
+                aria-expanded="false">
+                <!-- <i class="fas fa-user fa-fw"></i> -->
+                <img src="<?php echo $row['em_image']; ?>" alt="Profile Photo" class="rounded-image">
+
+                <?php echo $row["full_name"]; ?>
+            </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <?php
                 include "common/conn.php";
