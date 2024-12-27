@@ -39,6 +39,7 @@
                                     <tr>
                                         <th>Sl No</th>
                                         <th>Employee Id</th>
+                                        <th>Employee Name</th>
                                         <th>Month-Year</th>
                                         <th>Basic</th>
                                         <th>House Rent</th>
@@ -69,6 +70,15 @@
                                             <tr>
                                                 <td><?php echo $slno; ?></td>
                                                 <td><?php echo $row44["emp_id"]; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $emp_id = $row44["emp_id"];
+                                                    $sql1 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
+                                                    $result1 = $conn->query($sql1);
+                                                    $row1 = $result1->fetch_assoc();
+                                                    echo htmlspecialchars($row1["full_name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </td>
                                                 <td><?php echo $row44["month"] . '/' . $row44["year"]; ?></td>
                                                 <td><?php echo $row44["basic"]; ?></td>
                                                 <td><?php echo $row44["house_rent"]; ?></td>

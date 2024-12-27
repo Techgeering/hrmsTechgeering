@@ -1406,9 +1406,9 @@
                                         cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <td class="fw-bold">Sl. no</td>
-                                                <td class="fw-bold">Month-Year</td>
-                                                <td class="text-success fw-bold">Basic</td>
+                                                <td class="fw-bold text-center">Sl. no</td>
+                                                <td class="fw-bold text-center">Month-Year</td>
+                                                <!-- <td class="text-success fw-bold">Basic</td>
                                                 <td class="text-success fw-bold">House Rent</td>
                                                 <td class="text-success fw-bold">Medical</td>
                                                 <td class="text-success fw-bold">Conveyance</td>
@@ -1418,12 +1418,13 @@
                                                 <td class="text-danger fw-bold">Tax</td>
                                                 <td class="text-danger fw-bold">Loans</td>
                                                 <td class="text-danger fw-bold">Others</td>
-                                                <td class="text-primary fw-bold">Salary Paid</td>
+                                                <td class="text-primary fw-bold">Salary Paid</td> -->
+                                                <td class="fw-bold text-center">Salary Slip</td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $sql11 = "SELECT * FROM pay_salary ";
+                                            $sql11 = "SELECT * FROM pay_salary WHERE emp_id='$empId'";
                                             // $sql11 = "SELECT * FROM pay_salary WHERE em_id='$empId'";
                                             $result11 = $conn->query($sql11);
                                             $slno = 1;
@@ -1431,9 +1432,11 @@
                                                 // output data of each row
                                                 while ($row11 = $result11->fetch_assoc()) { ?>
                                                     <tr>
-                                                        <td><?php echo $slno; ?></td>
-                                                        <td><?php echo $row11["month"] . '/' . $row11["year"]; ?></td>
-                                                        <td><?php echo $row11["basic"]; ?></td>
+                                                        <td class="text-center"><?php echo $slno; ?></td>
+                                                        <td class="text-center">
+                                                            <?php echo $row11["month"] . '/' . $row11["year"]; ?>
+                                                        </td>
+                                                        <!-- <td><?php echo $row11["basic"]; ?></td>
                                                         <td><?php echo $row11["house_rent"]; ?></td>
                                                         <td><?php echo $row11["medical"]; ?></td>
                                                         <td><?php echo $row11["transporting"]; ?></td>
@@ -1446,9 +1449,14 @@
                                                         <td><?php
                                                         $earn = $row11["basic"] + $row11["house_rent"] + $row11["medical"] + $row11["transporting"] + $row11["bonus"];
                                                         $dedect = $earn - $row11["bima"] - $row11["provident_fund"] - $row11["tax"] - $row11["loan"] - $row11["other_diduction"];
-
                                                         echo $dedect;
-                                                        ?></td>
+                                                        ?></td> -->
+                                                        <td class="text-center">
+                                                            <a href="payrollinvoice.php?id=<?php echo $row11["emp_id"]; ?>&month=<?php echo $row11["month"]; ?>&year=<?php echo $row11["year"]; ?>"
+                                                                target="_blank">
+                                                                <i class="fas fa-file-pdf"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                     <?php
                                                     $slno++;
@@ -1534,7 +1542,8 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Sl</th>
+                                        <th class="text-center">Sl.No</th>
+                                        <th class="text-center">Date</th>
                                         <th class="text-center">Basic</th>
                                         <th class="text-center">House Rent</th>
                                         <th class="text-center">Medical</th>
@@ -1553,6 +1562,7 @@
                                             ?>
                                             <tr>
                                                 <td class="text-center"><?php echo $slno; ?></th>
+                                                <td class="text-center"><?php echo $row["date_of_earnings"]; ?></td>
                                                 <td class="text-center"><?php echo $row["basic"]; ?></td>
                                                 <td class="text-center"><?php echo $row["house_rent"]; ?></td>
                                                 <td class="text-center"><?php echo $row["medical"]; ?></td>
@@ -1623,7 +1633,33 @@
                     <input type="hidden" class="form-control" name="project_name" value="<?php echo $proId; ?>">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-6">
+                            <?php
+                            include "common/conn.php";
+                            $sql_date = "SELECT * FROM earnings WHERE emp_id='$empId' ORDER BY id DESC";
+                            $result_date = $conn->query($sql_date);
+
+                            if ($result_date->num_rows > 0) {
+                                $row_date = $result_date->fetch_assoc();
+                                $last_date = $row_date['date_of_earnings'];
+                            } else {
+                                $last_date = null;
+                            }
+
+                            if (!empty($last_date)) {
+                                $min_date = date('Y-m-d', strtotime($last_date . ' +1 day'));
+                            } else {
+                                $min_date = date('Y-m-d');
+                            }
+                            ?>
+                            <div class="col-4">
+                                <div class="mb-2">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="date1" name="date12" <?php if (!empty($min_date)) {
+                                        echo 'min="' . $min_date . '"';
+                                    } ?> required>
+                                </div>
+                            </div>
+                            <div class="col-4">
                                 <div class="mb-2">
                                     <label for="basic1" class="form-label">Basic</label>
                                     <input type="text" class="form-control" id="basic1" name="basic"
@@ -1631,7 +1667,7 @@
                                         required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="mb-2">
                                     <label for="houserent1" class="form-label">House Rent</label>
                                     <input type="text" class="form-control" id="houserent1" name="houserent"
@@ -1680,6 +1716,7 @@
     <?php
     if (isset($_POST['add_earn'])) {
         include "common/conn.php";
+        $date12 = $_POST["date12"];
         $basic = $_POST["basic"];
         $houserent = $_POST["houserent"];
         $medical = $_POST["medical"];
@@ -1688,7 +1725,7 @@
 
         if (!empty($basic) && !empty($houserent) && !empty($medical)) {
 
-            $sqlearn = "INSERT INTO earnings (emp_id, basic, house_rent, medical, travel, perform_bonus) VALUES ('$empId','$basic','$houserent','$medical', '$travel','$performancebonus')";
+            $sqlearn = "INSERT INTO earnings (emp_id, date_of_earnings, basic, house_rent, medical, travel, perform_bonus) VALUES ('$empId','$date12','$basic','$houserent','$medical', '$travel','$performancebonus')";
             if ($conn->query($sqlearn) === true) {
                 $last_id = $conn->insert_id;
 
