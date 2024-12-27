@@ -1,6 +1,7 @@
 <?php
 require('fpdf/fpdf.php');
 include "common/conn.php";
+
 $empId = $_GET["id"];
 $startday = $_GET["startday"];
 $endday = $_GET["endday"];
@@ -12,7 +13,6 @@ $image = $row["em_image"];
 // Create PDF instance
 $pdf = new FPDF();
 $pdf->AddPage();
-
 
 // Specify the path to your image file
 $imagePath = 'assets/img/head1.jpg';
@@ -44,7 +44,6 @@ $pdf->Image($imagePath, $imageX, $imageY, $imageWidth, $imageHeight);
 // Move Y position down for text
 $pdf->Ln(-4); // Adjust this value to move down from the top (20 units in this case)
 
-
 // Add text information
 $pdf->Cell(0, 5, 'Date: ' . date('Y-m-d'), 0, 1);
 $pdf->Cell(0, 5, 'Employee Name: ' . $row["full_name"], 0, 1);
@@ -53,15 +52,14 @@ $pdf->Cell(0, 5, 'Mobile No: ' . $row["em_phone"], 0, 1);
 $pdf->Cell(0, 5, 'Email Id: ' . $row["em_email"], 0, 1);
 $pdf->Ln(7);
 
-// Assuming you have already created a PDF object $pdf
-$pdf->SetFont('Arial', 'B', 9);
-
 // Table headers
+$pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(10, 10, 'Sl. No', 1, 0, 'C');
 $pdf->Cell(30, 10, 'Date', 1, 0, 'C');
 $pdf->Cell(40, 10, 'Project Name', 1, 0, 'C');
-$pdf->Cell(90, 10, 'Work Details', 1, 0, 'C');
 $pdf->Cell(20, 10, 'Duration', 1, 0, 'C');
+$pdf->Cell(90, 10, 'Work Details', 1, 0, 'C');
+
 $pdf->Ln();
 
 // Set font for data
@@ -72,12 +70,8 @@ $tableData = array();
 $totalAmount = 0; // Initialize totalAmount to avoid undefined behavior
 $slNo = 1; // Initialize serial number
 
-$lastWeekStart = (new DateTime('last week'))->modify('monday')->format('Y-m-d');
-$lastWeekEnd = (new DateTime('last week'))->modify('saturday')->format('Y-m-d');
-
-$sql2 = "SELECT * FROM daily_report WHERE emp_id = '$empId' AND DATE(date21) BETWEEN '$startday' AND '$endday' ";
+$sql2 = "SELECT * FROM daily_report WHERE emp_id = '$empId' AND DATE(date21) BETWEEN '$startday' AND '$endday'";
 $result2 = $conn->query($sql2);
-$slNo = 1; // Initialize serial number
 
 while ($row2 = $result2->fetch_assoc()) {
 
@@ -91,34 +85,24 @@ while ($row2 = $result2->fetch_assoc()) {
         $project_name = $row1["pro_name"];
     }
 
+    // Output the Sl. No, Duration, Date, and Project Name in the table row
+    $pdf->Cell(10, 10, $slNo, 1, 0, 'C');
 
-    // Dynamic serial number and cell data
-    $pdf->SetFont('Arial', '', 10);
+    // Now output Date and Project Name
+    $pdf->Cell(30, 10, $row2["date21"], 1, 0, 'C');
+    $pdf->Cell(40, 10, $project_name, 1, 0, 'C');
 
-    // Serial Number, Date, and Project Name cells
-    $pdf->Cell(10, 10, $slNo, 1, 0, 'C'); // Serial Number cell with center alignment
-    $pdf->Cell(30, 10, $row2["date21"], 1, 0, 'C'); // Date cell with center alignment
-    $pdf->Cell(40, 10, $project_name, 1, 0, 'C'); // Project name cell with center alignment
 
-    // Capture the current X and Y positions
-    $currentX = $pdf->GetX();
-    $currentY = $pdf->GetY();
-
-    // Work details cell with wrapping text
-    $pdf->MultiCell(90, 10, $row2["work_details"], 1, 'C'); // Wrap text in work details cell
-
-    // Reset X and Y position for the duration cell
-    $pdf->SetXY($currentX + 90, $currentY);
-
-    // Duration cell with center alignment
     $pdf->Cell(20, 10, $row2["duration"], 1, 0, 'C');
 
-    // Move to the next line
+    // Use MultiCell for work details and automatically adjust row height based on content
+    $pdf->MultiCell(90, 10, $row2["work_details"], 1, 'L');
+
+    // Move to the next row
     $pdf->Ln();
     $slNo++;
 }
 // Output the PDF
 $pdf->Output();
-// Output the PDF
 $pdf->Output('I', 'Daily_Work_Report.pdf');
 ?>
