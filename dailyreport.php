@@ -108,6 +108,7 @@
                                         <th>Details Of Work</th>
                                         <th>Duration</th>
                                         <th>Edit</th>
+                                        <th>Work Details</th>
                                         <th>Pdf</th>
                                     </tr>
                                 </thead>
@@ -183,6 +184,12 @@
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
                                                 </td>
+                                                <td>
+                                                    <a href="dayinvoice.php?id=<?php echo $row["emp_id"]; ?>&&date=<?php echo $row["date21"]; ?>&&status=1"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <div class="modal fade" id="paragraphmodal_<?php echo $id; ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -222,6 +229,7 @@
                                         <th>Details Of Work</th>
                                         <th>Duration</th>
                                         <th>Edit</th>
+                                        <th>Work Details</th>
                                         <th>Pdf</th>
                                     </tr>
                                 </tfoot>
