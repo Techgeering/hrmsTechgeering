@@ -54,6 +54,7 @@
                                         <th>Status</th>
                                         <th>Start date</th>
                                         <th>End Date</th>
+                                        <th>Project Duration</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -91,6 +92,34 @@
                                                 <td><?php echo $row["pro_status"]; ?></td>
                                                 <td><?php echo $row["pro_start_date"]; ?></td>
                                                 <td><?php echo $row["pro_end_date"]; ?></td>
+                                                <td>
+                                                    <?php
+                                                    include "common/conn.php";
+
+                                                    // Query to fetch durations for the given project ID
+                                                    $sql2 = "SELECT duration FROM daily_report WHERE pro_id = " . $row['id'];
+                                                    $result2 = $conn->query($sql2);
+
+                                                    if ($result2) {
+                                                        $totalMinutes = 0;
+                                                        // Loop through the results and calculate the total minutes
+                                                        while ($row2 = $result2->fetch_assoc()) {
+                                                            $duration = $row2['duration'];
+                                                            if (!empty($duration)) {
+                                                                list($hours, $minutes) = explode(':', $duration); // Split duration into hours and minutes
+                                                                $totalMinutes += $hours * 60 + $minutes; // Convert to minutes and add to total
+                                                            }
+                                                        }
+                                                        // Convert total minutes back to hours and minutes
+                                                        $totalHours = floor($totalMinutes / 60);
+                                                        $remainingMinutes = $totalMinutes % 60;
+
+                                                        echo "{$totalHours} hours and {$remainingMinutes} minutes";
+                                                    } else {
+                                                        echo "Error calculating duration.";
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td>
                                                     <a href="singleProject.php?id=<?php echo $encoded_id; ?>"><i
                                                             class="fa-solid fa-eye text-success"></i>

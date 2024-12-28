@@ -109,7 +109,7 @@
                                         <th>Duration</th>
                                         <th>Edit</th>
                                         <th>Work Details</th>
-                                        <th>Pdf</th>
+                                        <th>Duration Pdf</th>
                                     </tr>
                                 </thead>
                                 <tbody id="reportTableBody">
@@ -230,7 +230,7 @@
                                         <th>Duration</th>
                                         <th>Edit</th>
                                         <th>Work Details</th>
-                                        <th>Pdf</th>
+                                        <th>Duration Pdf</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -247,7 +247,8 @@
                                         <th class="text-center">Employee Name</th>
                                         <th class="text-center">Project Name</th>
                                         <th class="text-center">Date</th>
-                                        <th class="text-center">Pdf</th>
+                                        <th class="text-center">Work Details</th>
+                                        <th class="text-center">Duration Pdf</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -314,6 +315,12 @@
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
                                                 </td>
+                                                <td class="text-center">
+                                                    <a href="weeklyinvoice.php?id=<?php echo $row3["emp_id"]; ?>&&startday=<?php echo $lastWeekStart; ?>&&endday=<?php echo $lastWeekEnd; ?>&&status=1"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <?php
                                             $slno++;
@@ -336,7 +343,8 @@
                                         <th class="text-center">Emp Id</th>
                                         <th class="text-center">Emp Name</th>
                                         <th class="text-center">Month/Year</th>
-                                        <th class="text-center">Pdf</th>
+                                        <th class="text-center">Work Details</th>
+                                        <th class="text-center">Duration Pdf</th>
                                     </tr>
                                 </thead>
                                 <tbody id="reportTableBody">
@@ -384,6 +392,12 @@
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
                                                 </td>
+                                                <td class="text-center">
+                                                    <a href="monthlyinvoice.php?id=<?php echo $row31["emp_id"]; ?>&&startdate=<?php echo $previousMonthStart; ?>&&enddate=<?php echo $previousMonthEnd; ?>&&status=1"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <?php
                                             $slno++;
@@ -399,7 +413,8 @@
                                         <th class="text-center">Emp Id</th>
                                         <th class="text-center">Emp Name</th>
                                         <th class="text-center">Month/Year</th>
-                                        <th class="text-center">Pdf</th>
+                                        <th class="text-center">Work Details</th>
+                                        <th class="text-center">Duration Pdf</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -415,7 +430,8 @@
                                         <th class="text-center">Emp Id</th>
                                         <th class="text-center">Emp Name</th>
                                         <th class="text-center">Month/Year</th>
-                                        <th class="text-center">Pdf</th>
+                                        <th class="text-center">Work Details</th>
+                                        <th class="text-center">Duration Pdf</th>
                                     </tr>
                                 </thead>
                                 <tbody id="reportTableBody">
@@ -510,6 +526,12 @@
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
                                                 </td>
+                                                <td class="text-center">
+                                                    <a href="quarterlyinvoice.php?id=<?php echo $row33["emp_id"]; ?>&&startdt=<?php echo $startDate; ?>&&enddt=<?php echo $endDate; ?>&&status=1"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <?php
                                             $slno++;
@@ -525,7 +547,8 @@
                                         <th class="text-center">Emp Id</th>
                                         <th class="text-center">Emp Name</th>
                                         <th class="text-center">Month/Year</th>
-                                        <th class="text-center">Pdf</th>
+                                        <th class="text-center">Work Details</th>
+                                        <th class="text-center">Duration Pdf</th>
                                     </tr>
                                 </tfoot>
                             </table>

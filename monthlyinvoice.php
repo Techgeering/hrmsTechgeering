@@ -4,6 +4,7 @@ include "common/conn.php";
 $empId = $_GET["id"];
 $startdatee = $_GET["startdate"];
 $enddatee = $_GET["enddate"];
+$status = isset($_GET["status"]) ? $_GET["status"] : 0;
 $sql = "SELECT * FROM employee where em_code = '$empId'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
@@ -53,11 +54,18 @@ $pdf->Ln(7);
 
 // Table headers
 $pdf->SetFont('Arial', 'B', 9);
-$pdf->Cell(10, 10, 'Sl. No', 1, 0, 'C');
-$pdf->Cell(30, 10, 'Date', 1, 0, 'C');
-$pdf->Cell(40, 10, 'Project Name', 1, 0, 'C');
-$pdf->Cell(20, 10, 'Duration', 1, 0, 'C');
-$pdf->Cell(90, 10, 'Work Details', 1, 0, 'C');
+if ($status == 0) {
+    $pdf->Cell(10, 10, 'Sl. No', 1, 0, 'C');
+    $pdf->Cell(30, 10, 'Date', 1, 0, 'C');
+    $pdf->Cell(40, 10, 'Project Name', 1, 0, 'C');
+    $pdf->Cell(20, 10, 'Duration', 1, 0, 'C');
+    $pdf->Cell(90, 10, 'Work Details', 1, 0, 'C');
+} else {
+    $pdf->Cell(40, 10, 'Sl. No', 1, 0, 'C');
+    $pdf->Cell(50, 10, 'Date', 1, 0, 'C');
+    $pdf->Cell(50, 10, 'Project Name', 1, 0, 'C');
+    $pdf->Cell(50, 10, 'Duration', 1, 0, 'C');
+}
 
 $pdf->Ln();
 
@@ -88,18 +96,20 @@ while ($row2 = $result2->fetch_assoc()) {
         $project_name = $row1["pro_name"];
     }
 
-    // Output the Sl. No, Duration, Date, and Project Name in the table row
-    $pdf->Cell(10, 10, $slNo, 1, 0, 'C');
-
-    // Now output Date and Project Name
-    $pdf->Cell(30, 10, $row2["date21"], 1, 0, 'C');
-    $pdf->Cell(40, 10, $project_name, 1, 0, 'C');
-
-
-    $pdf->Cell(20, 10, $row2["duration"], 1, 0, 'C');
-
-    // Use MultiCell for work details and automatically adjust row height based on content
-    $pdf->MultiCell(90, 10, $row2["work_details"], 1, 'L');
+    if ($status == 0) {
+        $pdf->Cell(10, 10, $slNo, 1, 0, 'C');
+        $pdf->Cell(30, 10, $row2["date21"], 1, 0, 'C');
+        $pdf->Cell(40, 10, $project_name, 1, 0, 'C');
+        $pdf->Cell(20, 10, $row2["duration"], 1, 0, 'C');
+    } else {
+        $pdf->Cell(40, 10, $slNo, 1, 0, 'C');
+        $pdf->Cell(50, 10, $row2["date21"], 1, 0, 'C');
+        $pdf->Cell(50, 10, $project_name, 1, 0, 'C');
+        $pdf->Cell(50, 10, $row2["duration"], 1, 0, 'C');
+    }
+    if ($status == 0) {
+        $pdf->MultiCell(90, 10, $row2["work_details"], 1, 'L');
+    }
 
     // Move to the next row
     $pdf->Ln();
