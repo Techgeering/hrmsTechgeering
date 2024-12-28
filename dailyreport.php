@@ -168,16 +168,21 @@
                                                 </td>
                                                 <td><?php echo $row["duration"]; ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-light" onclick="myfcn12(
-                                                    <?php echo $row['id']; ?>,
+                                                    <?php if (date('Y-m-d') === $row['date21']): ?>
+                                                        <button type="button" class="btn btn-light" onclick="myfcn12(
+                                                            <?php echo $row['id']; ?>,
                                                             '<?php echo addslashes($row['pro_id']); ?>',
                                                             '<?php echo addslashes(htmlspecialchars_decode($row['work_details'])); ?>',
                                                             '<?php echo $row['duration']; ?>',
                                                             '<?php echo $row['date21']; ?>'
                                                         )" data-bs-toggle="modal" data-bs-target="#updateDept">
-                                                        <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
-                                                    </button>
+                                                            <i class="fa-solid fa-pen-to-square me-2 ms-2 text-primary"></i>
+                                                        </button>
+                                                    <?php else: ?>
+                                                        Edit Option Is Not Available
+                                                    <?php endif; ?>
                                                 </td>
+
                                                 <td>
                                                     <a href="dayinvoice.php?id=<?php echo $row["emp_id"]; ?>&&date=<?php echo $row["date21"]; ?>"
                                                         target="_blank">
