@@ -245,8 +245,6 @@
                                         <th class="text-center">Sl No</th>
                                         <th class="text-center">Employee Id</th>
                                         <th class="text-center">Employee Name</th>
-                                        <th class="text-center">Project Name</th>
-                                        <th class="text-center">Date</th>
                                         <th class="text-center">Work Details</th>
                                         <th class="text-center">Duration Pdf</th>
                                     </tr>
@@ -287,27 +285,6 @@
                                                     $row1 = $result1->fetch_assoc();
                                                     echo htmlspecialchars($row1["full_name"], ENT_QUOTES, 'UTF-8');
                                                     ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php
-                                                    $pro_id = $row3["pro_id"];
-                                                    if ($pro_id == 0) {
-                                                        echo "Other";
-                                                    } else {
-                                                        $sql12 = "SELECT * FROM project WHERE id = $pro_id";
-                                                        $result12 = $conn->query($sql12);
-
-                                                        if ($result12 && $result12->num_rows > 0) {
-                                                            $row12 = $result12->fetch_assoc();
-                                                            echo htmlspecialchars($row12["pro_name"], ENT_QUOTES, 'UTF-8');
-                                                        } else {
-                                                            echo "Project not found";
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php echo $row3["date21"]; ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="weeklyinvoice.php?id=<?php echo $row3["emp_id"]; ?>&&startday=<?php echo $lastWeekStart; ?>&&endday=<?php echo $lastWeekEnd; ?>"
