@@ -92,6 +92,7 @@
                         <button class="tablinks" onclick="openDilog(event, 'Weekly')" id="defaultOpen"> Weekly</button>
                         <button class="tablinks" onclick="openDilog(event, 'Monthly')"> Monthly </button>
                         <button class="tablinks" onclick="openDilog(event, 'Quarterly')"> Quarterly </button>
+                        <button class="tablinks" onclick="openDilog(event, 'Range')"> Range </button>
                     </div>
                     <div id="Daily" class="tabcontent">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDept">
@@ -531,6 +532,153 @@
                                         <th class="text-center">Month/Year</th>
                                         <th class="text-center">Work Details</th>
                                         <th class="text-center">Duration Pdf</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="Range" class="tabcontent">
+                        <form action="dailyreport.php" method="GET">
+                            <div class="row mb-3">
+                                <div class="col-3">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate22" name="start_date1"
+                                        required>
+                                </div>
+                                <div class="col-3">
+                                    <label for="endDate" class="form-label">End Date</label>
+                                    <input type="date" class="form-control" id="endDate22" name="end_date1" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <a href="dailyreport.php" class="btn btn-primary" id="submitLink">Refresh</a>
+                        </form>
+                        <div class="card p-2 m-2">
+                            <table id="datatablesSimple" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Sl No</th>
+                                        <th>Emp Id</th>
+                                        <th>Emp Name</th>
+                                        <th>Project Name</th>
+                                        <th>Details Of Work</th>
+                                        <th>Duration</th>
+                                        <th>Work Details</th>
+                                        <th>Duration Pdf</th>
+                                    </tr>
+                                </thead>
+                                <?php
+                                $start_date = $_GET['start_date1'] ?? 0;
+                                $end_date = $_GET['end_date1'] ?? 0;
+                                ?>
+                                <tbody id="reportTableBody">
+                                    <?php
+                                    include "common/conn.php";
+                                    if ($em_role == '4' || $em_role == '2' || $em_role == '5') {
+                                        $sql = "SELECT * FROM daily_report WHERE emp_id = '$em_code' AND date21 BETWEEN '$start_date' AND '$end_date' ORDER BY date21 DESC";
+                                    } else {
+                                        $sql = "SELECT * FROM daily_report WHERE date21 BETWEEN '$start_date' AND '$end_date' ORDER BY date21 DESC";
+                                    }
+                                    $result = $conn->query($sql);
+                                    $slno = 1;
+                                    $today = date('Y-m-d');
+                                    $yesterday = date('Y-m-d', strtotime('-1 day'));
+
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        while ($row = $result->fetch_assoc()) {
+                                            $id = $row['id'];
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $slno; ?></td>
+                                                <td><?php echo $row["emp_id"]; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $emp_id = $row["emp_id"];
+                                                    $sql1 = "SELECT * FROM employee WHERE em_code = '$emp_id'";
+                                                    $result1 = $conn->query($sql1);
+                                                    $row1 = $result1->fetch_assoc();
+                                                    echo htmlspecialchars($row1["full_name"], ENT_QUOTES, 'UTF-8');
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    $pro_id = $row["pro_id"];
+                                                    if ($pro_id == 0) {
+                                                        echo "Other";
+                                                    } else {
+                                                        $sql12 = "SELECT * FROM project WHERE id = $pro_id";
+                                                        $result12 = $conn->query($sql12);
+
+                                                        if ($result12 && $result12->num_rows > 0) {
+                                                            $row12 = $result12->fetch_assoc();
+                                                            echo htmlspecialchars($row12["pro_name"], ENT_QUOTES, 'UTF-8');
+                                                        } else {
+                                                            echo "Project not found";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <a data-bs-toggle="modal"
+                                                        data-bs-target="#paragraphmodal11_<?php echo $id; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </td>
+                                                <td><?php echo $row["duration"]; ?></td>
+                                                <td>
+                                                    <a href="dayinvoice.php?id=<?php echo $row["emp_id"]; ?>&&date=<?php echo $row["date21"]; ?>"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="dayinvoice.php?id=<?php echo $row["emp_id"]; ?>&&date=<?php echo $row["date21"]; ?>&&status=1"
+                                                        target="_blank">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <div class="modal fade" id="paragraphmodal11_<?php echo $id; ?>" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-success text-white">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close">
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <?php echo nl2br($row["work_details"]); ?>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            $slno++;
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    $conn->close();
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Sl No</th>
+                                        <th>Emp Id</th>
+                                        <th>Emp Name</th>
+                                        <th>Project Name</th>
+                                        <th>Details Of Work</th>
+                                        <th>Duration</th>
+                                        <th>Work Details</th>
+                                        <th>Duration Pdf</th>
                                     </tr>
                                 </tfoot>
                             </table>
