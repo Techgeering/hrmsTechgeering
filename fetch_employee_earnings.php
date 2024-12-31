@@ -35,7 +35,9 @@ if (isset($_POST['emp_id'])) {
         $epf_company = ($total / 100) * 12;
 
 
-        $previous_month = date('m-Y', strtotime('-1 month'));
+        // $previous_month = date('m-Y', strtotime('-1 month'));
+
+        $previous_month = date('m-Y', strtotime('first day of previous month'));
 
         $sql_leave = "SELECT * FROM attadence_report WHERE emp_id = '$emp_id' AND month = '$previous_month'";
         $result_leave = $conn->query($sql_leave);

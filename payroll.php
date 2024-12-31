@@ -146,7 +146,7 @@
                     <h1 class="modal-title fs-5" id="addDeptLabel">Payroll</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <form method="post" action="mm1.php">
                     <div class="modal-body">
                         <div class="row">
                             <!-- <div class="col-4">
@@ -373,7 +373,9 @@
         $insurance_company = $_POST["insurance_company"];
 
         $paid_company = floatval($netpay) + floatval($epf_company) + floatval($insurance_company);
-        $month_number = date('m', strtotime($month));
+        // $month_number = date('m', strtotime($month));
+        $month_number = date('m', strtotime('first day of previous month'));
+
 
         $sql21 = "SELECT * FROM attadence_report
                      WHERE month = '$month_number-$year' AND emp_id = '$empid'";
@@ -392,10 +394,10 @@
 
             $sql11 = "INSERT INTO pay_salary (emp_id, month, year, basic, house_rent, medical, transporting, performance_bonus, tax, provident_fund, tds, bima, other_diduction, total_earnings, total_deduction, net_pay, epf_company, insurance_company, paid_company, total_hour, paid_hour) VALUES ('$empid','$month','$year','$Basic','$Houserent','$Medical','$Travel','$Performance','$ptax','$Epf','$tds','$insurance','$other',' $total_earings','$total_deduction','$netpay','$epf_company','$insurance_company','$paid_company','$working_hour','$payable_hour')";
             if ($conn->query($sql11) === true) {
-                echo "<script>
-                        alert('Success');
-                        window.location.href = 'payroll.php';
-                </script>";
+                // echo "<script>
+                //         alert('Success');
+                //         window.location.href = 'payroll.php';
+                // </script>";
             } else {
                 echo "Error: " . $sql11 . "<br>" . $conn->error;
             }
