@@ -13,6 +13,27 @@
     <link href="assets/css/styles.css?v=1.2" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+<!-- show the design of suggestions -->
+<style>
+    .suggestions {
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+        position: absolute;
+        background: #fff;
+        z-index: 1000;
+        display: none;
+    }
+
+    .suggestions div {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .suggestions div:hover {
+        background-color: #f1f1f1;
+    }
+</style>
 
 <body class="sb-nav-fixed">
     <!-- start Top Navbar -->
@@ -128,26 +149,14 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-3">
-                                <label for="subcategoryDropdown">Employee Id:</label>
-                                <select class="form-control" name="value" required>
-                                    <option value="">Select EmpId</option>
-                                    <?php
-                                    $sql2 = "SELECT * FROM employee";
-                                    $result2 = $conn->query($sql2);
-                                    while ($row2 = $result2->fetch_assoc()) {
-                                        ?>
-                                        <option value="<?php echo $row2["em_code"]; ?>">
-                                            <?php echo $row2["em_code"]; ?>
-                                        </option>
-                                    <?php } ?>
-                                </select>
+                            <div class="col-4">
+                                <label for="employeeId1">Employee Id:</label>
+                                <input type="text" id="empid" class="form-control" placeholder="Enter Employee Code">
+                                <div id="suggestions" class="suggestions"></div>
+                                <input type="text" class="form-control" id="selectedEmpCode" name="value"
+                                    style="display: none;">
                             </div>
-                            <div class="col-3">
-                                <label for="subcategoryDropdown">Employee Name:</label>
-                                <input type="text" class="form-control" name="name" id="name" readonly>
-                            </div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <div class="mb-2">
                                         <label for="month" class="form-label">Month</label>
@@ -157,7 +166,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <div class="mb-2">
                                     <label for="year" class="form-label">Year</label>
                                     <input type="text" class="form-control" name="year" id="year1"
@@ -397,48 +406,83 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('select[name="value"]').on('change', function () {
-                var emp_id = $(this).val();
-                if (emp_id) {
+            // Handle employee ID input
+            $('#empid').on('input', function () {
+                let query = $(this).val();
+                if (query.length > 1) {
                     $.ajax({
-                        url: "fetch_employee_earnings.php",
-                        type: "POST",
-                        data: { emp_id: emp_id },
-                        success: function (data) {
-                            if (data) {
-                                var parsedData = JSON.parse(data);
-                                // Update table data
-                                $('#payrollTable tbody').html(parsedData.tableData);
-                                // Update input fields
-                                $('#name').val(parsedData.name);
-                                $('#Basic').val(parseFloat(parsedData.basic).toFixed(2));
-                                // $('#Houserent').val(parsedData.house_rent);
-                                $('#Houserent').val(parseFloat(parsedData.house_rent).toFixed(2));
-                                $('#Medical').val(parseFloat(parsedData.medical).toFixed(2));
-                                $('#Travel').val(parseFloat(parsedData.travel).toFixed(2));
-                                $('#Performance').val(parseFloat(parsedData.perform_bonus).toFixed(2));
-                                $('#Performance1').val(parseFloat(parsedData.perform_bonus).toFixed(2));
-                                $('#Gross').val(parseFloat(parsedData.total).toFixed(2));
-                                $('#Grossannual').val(parseFloat(parsedData.annual).toFixed(2));
-                                $('#Epf').val(parseFloat(parsedData.epf).toFixed(2));
-                                $('#Tds').val(parseFloat(parsedData.tds).toFixed(2));
-                                $('#Other').val(parseFloat(parsedData.other).toFixed(2));
-                                $('#empid').val(parsedData.empidd);
-                                $('#ptaxx').val(parseFloat(parsedData.ptax).toFixed(2));
-                                $('#grossdeduction').val(parseFloat(parsedData.total_deduction).toFixed(2));
-                                $('#netpay').val(parseFloat(parsedData.netpay).toFixed(2));
-                                $('#epfcompany').val(parseFloat(parsedData.epfcompany).toFixed(2));
-                                // $('#paidcompany').val(parseFloat(parsedData.paid_company).toFixed(2));
-                            } else {
-                                // If no data, set fields to blank
-                                $('#payrollTable tbody').html('');
-                                $('#Basic, #Houserent, #Medical, #Travel, #Performance, #Performance1, #Gross, #Grossannual, #Epf, #Tds, #Other, #empid, #ptaxx, #grossdeduction, #netpay, #epfcompany').val('');
-                            }
+                        url: 'get_payrollemployee_name.php',
+                        method: 'GET',
+                        data: { emp_code: query },
+                        success: function (response) {
+                            $('#suggestions').html(response).show();  // Show suggestions
                         }
                     });
+                } else {
+                    $('#suggestions').hide(); // Hide suggestions if query length is 1 or less
+                }
+            });
+
+            // Handle selection from suggestions list
+            $(document).on('click', '.suggestion-item', function () {
+                let empCode = $(this).data('em_code'); // Get employee code
+                $('#empid').val(empCode); // Set employee code in input
+                $('#selectedEmpCode').val(empCode); // Set employee code in hidden field
+                $('#suggestions').hide(); // Hide suggestions immediately after selection
+                $('#empid').hide();
+                $('#selectedEmpCode').show();
+
+                // Trigger data fetch for the selected employee
+                fetchEmployeeData(empCode);
+            });
+
+            // Hide suggestions if click is outside
+            $(document).click(function (e) {
+                if (!$(e.target).closest('#empid, #suggestions').length) {
+                    $('#suggestions').hide(); // Hide suggestions if click outside the input or suggestions
                 }
             });
         });
+
+        function fetchEmployeeData(empCode) {
+            $.ajax({
+                url: "fetch_employee_earnings.php",
+                type: "POST",
+                data: { emp_id: empCode },
+                success: function (data) {
+                    if (data) {
+                        var parsedData = JSON.parse(data);
+                        $('#payrollTable tbody').html(parsedData.tableData);
+                        $('#name').val(parsedData.name);
+                        $('#Basic').val(parseFloat(parsedData.basic).toFixed(2));
+                        $('#Houserent').val(parseFloat(parsedData.house_rent).toFixed(2));
+                        $('#Medical').val(parseFloat(parsedData.medical).toFixed(2));
+                        $('#Travel').val(parseFloat(parsedData.travel).toFixed(2));
+                        $('#Performance').val(parseFloat(parsedData.perform_bonus).toFixed(2));
+                        $('#Performance1').val(parseFloat(parsedData.perform_bonus).toFixed(2));
+                        $('#Gross').val(parseFloat(parsedData.total).toFixed(2));
+                        $('#Grossannual').val(parseFloat(parsedData.annual).toFixed(2));
+                        $('#Epf').val(parseFloat(parsedData.epf).toFixed(2));
+                        $('#Tds').val(parseFloat(parsedData.tds).toFixed(2));
+                        $('#Other').val(parseFloat(parsedData.other).toFixed(2));
+                        $('#empid').val(parsedData.empidd);
+                        $('#ptaxx').val(parseFloat(parsedData.ptax).toFixed(2));
+                        $('#grossdeduction').val(parseFloat(parsedData.total_deduction).toFixed(2));
+                        $('#netpay').val(parseFloat(parsedData.netpay).toFixed(2));
+                        $('#epfcompany').val(parseFloat(parsedData.epfcompany).toFixed(2));
+                    } else {
+                        // Reset fields if no data
+                        resetFields();
+                    }
+                }
+            });
+        }
+
+        function resetFields() {
+            $('#payrollTable tbody').html('');
+            $('#Basic, #Houserent, #Medical, #Travel, #Performance, #Performance1, #Gross, #Grossannual, #Epf, #Tds, #Other, #empid, #ptaxx, #grossdeduction, #netpay, #epfcompany').val('');
+        }
+
         function calculateGrossDeduction() {
             let tax = parseFloat(document.getElementById('ptaxx').value) || 0;
             let epf = parseFloat(document.getElementById('Epf').value) || 0;
