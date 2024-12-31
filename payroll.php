@@ -149,13 +149,23 @@
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-4">
-                                <label for="employeeId1">Employee Id:</label>
+                            <!-- <div class="col-4">
+                                <label for="employeeId1">Employee Name/Id:</label>
                                 <input type="text" id="empid" class="form-control" placeholder="Enter Employee Code">
                                 <div id="suggestions" class="suggestions"></div>
                                 <input type="text" class="form-control" id="selectedEmpCode" name="value"
                                     style="display: none;">
+                            </div> -->
+                            <div class="col-4">
+                                <label for="employeeId1">Employee Name/Id:</label>
+                                <input type="text" id="empid" class="form-control"
+                                    placeholder="Enter Employee Code or Name">
+                                <div id="suggestions" class="suggestions"></div>
+                                <input type="text" class="form-control" id="selectedEmpCode" name="value"
+                                    style="display: none;">
+                                <input type="text" class="form-control" id="selectedEmpCode1" style="display: none;">
                             </div>
+
                             <div class="col-4">
                                 <div class="form-group">
                                     <div class="mb-2">
@@ -405,6 +415,46 @@
     ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+        // $(document).ready(function () {
+        //     // Handle employee ID input
+        //     $('#empid').on('input', function () {
+        //         let query = $(this).val();
+        //         if (query.length > 1) {
+        //             $.ajax({
+        //                 url: 'get_payrollemployee_name.php',
+        //                 method: 'GET',
+        //                 data: { emp_code: query },
+        //                 success: function (response) {
+        //                     $('#suggestions').html(response).show();  // Show suggestions
+        //                 }
+        //             });
+        //         } else {
+        //             $('#suggestions').hide(); // Hide suggestions if query length is 1 or less
+        //         }
+        //     });
+
+        //     // Handle selection from suggestions list
+        //     $(document).on('click', '.suggestion-item', function () {
+        //         let empCode = $(this).data('em_code'); // Get employee code
+        //         $('#empid').val(empCode); // Set employee code in input
+        //         $('#selectedEmpCode').val(empCode); // Set employee code in hidden field
+        //         $('#suggestions').hide(); // Hide suggestions immediately after selection
+        //         $('#empid').hide();
+        //         $('#selectedEmpCode').show();
+
+
+        //         // Trigger data fetch for the selected employee
+        //         fetchEmployeeData(empCode);
+        //     });
+
+        //     // Hide suggestions if click is outside
+        //     $(document).click(function (e) {
+        //         if (!$(e.target).closest('#empid, #suggestions').length) {
+        //             $('#suggestions').hide(); // Hide suggestions if click outside the input or suggestions
+        //         }
+        //     });
+        // });
+
         $(document).ready(function () {
             // Handle employee ID input
             $('#empid').on('input', function () {
@@ -415,7 +465,7 @@
                         method: 'GET',
                         data: { emp_code: query },
                         success: function (response) {
-                            $('#suggestions').html(response).show();  // Show suggestions
+                            $('#suggestions').html(response).show(); // Show suggestions
                         }
                     });
                 } else {
@@ -426,13 +476,15 @@
             // Handle selection from suggestions list
             $(document).on('click', '.suggestion-item', function () {
                 let empCode = $(this).data('em_code'); // Get employee code
-                $('#empid').val(empCode); // Set employee code in input
-                $('#selectedEmpCode').val(empCode); // Set employee code in hidden field
-                $('#suggestions').hide(); // Hide suggestions immediately after selection
-                $('#empid').hide();
-                $('#selectedEmpCode').show();
+                let empName = $(this).text(); // Get full text (code - name)
 
-                // Trigger data fetch for the selected employee
+                // Update input fields
+                $('#empid').val(empName); // Set the combined value (code - name) in the input
+                $('#selectedEmpCode').val(empCode); // Set the employee code in the hidden field
+                $('#selectedEmpCode1').val(empName);
+                $('#suggestions').hide(); // Hide suggestions
+                $('#empid').hide();
+                $('#selectedEmpCode1').show();
                 fetchEmployeeData(empCode);
             });
 
@@ -443,6 +495,7 @@
                 }
             });
         });
+
 
         function fetchEmployeeData(empCode) {
             $.ajax({
