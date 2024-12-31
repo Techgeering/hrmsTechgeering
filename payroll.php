@@ -146,7 +146,7 @@
                     <h1 class="modal-title fs-5" id="addDeptLabel">Payroll</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" action="mm1.php">
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="modal-body">
                         <div class="row">
                             <!-- <div class="col-4">
